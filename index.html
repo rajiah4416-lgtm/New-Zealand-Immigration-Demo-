@@ -3,31 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Immigration New Zealand</title>
+    <title>RealMe - Login | Immigration New Zealand</title>
     <style>
-        :root { --nz-blue: #002f6c; --nz-silver: #f8f9fa; }
-        body { font-family: Arial, sans-serif; background-color: var(--nz-silver); margin: 0; display: flex; flex-direction: column; align-items: center; height: 100vh; }
-        .header { width: 100%; background: white; border-bottom: 4px solid var(--nz-blue); padding: 20px 0; text-align: center; }
-        .login-box { background: white; padding: 40px; margin-top: 50px; border: 1px solid #ddd; width: 320px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .login-box h2 { color: var(--nz-blue); border-left: 5px solid var(--nz-blue); padding-left: 10px; font-size: 20px; }
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .input-group input { width: 100%; padding: 10px; border: 1px solid #ccc; box-sizing: border-box; }
-        .login-btn { width: 100%; background: var(--nz-blue); color: white; padding: 12px; border: none; font-weight: bold; cursor: pointer; }
+        :root {
+            --realme-red: #c63320; /* The exact orange-red from your image */
+            --bg-gray: #f2f2f2;
+            --text-gray: #333;
+        }
+        body { font-family: Arial, sans-serif; background-color: white; margin: 0; color: var(--text-gray); }
+        .top-banner { background: black; padding: 15px 10%; display: flex; justify-content: space-between; align-items: center; }
+        .top-banner img { height: 40px; } /* RealMe & NZ Logo area */
+        .sub-header { background: #eee; padding: 10px 10%; font-size: 13px; border-bottom: 1px solid #ddd; }
+        .main-content { display: flex; padding: 50px 10%; gap: 50px; }
+        .login-section { flex: 1; border-right: 1px solid #ddd; padding-right: 50px; }
+        .create-section { flex: 1; }
+        h1 { font-size: 28px; color: var(--realme-red); margin-bottom: 10px; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: normal; }
+        .input-group input { width: 100%; padding: 12px; border: 1px solid #ccc; background: #f9f9f9; border-radius: 4px; box-sizing: border-box; }
+        .btn-login { background: var(--realme-red); color: white; border: none; padding: 12px 40px; font-size: 16px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .btn-create { background: var(--realme-red); color: white; border: none; padding: 12px 25px; font-size: 14px; border-radius: 20px; text-decoration: none; display: inline-block; }
+        .footer-red { background: var(--realme-red); height: 150px; margin-top: 50px; padding: 20px 10%; color: white; font-size: 12px; }
     </style>
 </head>
 <body>
-    <div class="header"><h1>IMMIGRATION NEW ZEALAND</h1></div>
-    <div class="login-box">
-        <h2>Secure Login</h2>
-        <form id="loginForm">
-            <div class="input-group"><label>Username</label><input type="text" required></div>
-            <div class="input-group"><label>Password</label><input type="password" required></div>
-            <button type="submit" class="login-btn">LOG IN</button>
-        </form>
+
+    <div class="top-banner">
+        <h2 style="color:white; margin:0;">RealMe®</h2>
+        <h2 style="color:white; margin:0; font-size:14px;">NEW ZEALAND IMMIGRATION</h2>
     </div>
+
+    <div class="sub-header">
+        ← Go back to the Ministry of Business, Innovation and Employment
+    </div>
+
+    <div class="main-content">
+        <div class="login-section">
+            <h1>Log in with RealMe</h1>
+            <p>You've been redirected here so you can log in with RealMe</p>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" id="user" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="pass" required>
+                </div>
+                <button type="submit" class="btn-login">Log in</button>
+            </form>
+            <p style="color: var(--realme-red); font-size: 13px; margin-top: 20px;">Forgot Username or Forgot Password?</p>
+        </div>
+
+        <div class="create-section">
+            <h1 style="color: var(--realme-red);">Create a RealMe login</h1>
+            <p>To access this service you need a RealMe login.</p>
+            <p style="font-size: 13px;">You'll be able to access a range of services with a single username and password. RealMe is designed to protect your privacy and security.</p>
+            <a href="#" class="btn-create">Create a RealMe login</a>
+        </div>
+    </div>
+
+    <div class="footer-red">
+        <p>Help & contact us &nbsp; | &nbsp; Terms of use &nbsp; | &nbsp; Privacy &nbsp; | &nbsp; About this site</p>
+        <hr style="border: 0.5px solid rgba(255,255,255,0.3);">
+        <p>© New Zealand Government</p>
+    </div>
+
     <script>
-        // یہ حصہ لاگ ان بٹن کو ڈیش بورڈ سے جوڑ دے گا
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             window.location.href = 'dashboard.html';
@@ -35,14 +77,20 @@
     </script>
 </body>
 </html>
-اسے محفوظ کیسے کریں؟
-کوڈ پیسٹ کرنے کے بعد صفحہ کے نیچے جائیں اور "Commit changes..." کا بٹن دبا دیں۔
+2. How to clean the Urdu text
+To ensure no Urdu text appears:
 
-ٹیسٹ کریں:
-اب اپنی لائیو ویب سائٹ کا لنک کھولیں: https://rajah4416-lgtm.github.io/New-Zealand-Immigration-Demo-/
+Open index.html on GitHub.
 
-آپ کو نیا پروفیشنل لاگ ان پیج نظر آئے گا۔
+Press Ctrl+A (Select All) and delete everything currently in the file.
 
-یوزر نیم اور پاس ورڈ میں کچھ بھی لکھ کر LOG IN دبائیں، آپ براہِ راست اپنے نئے ڈیش بورڈ پر پہنچ جائیں گے۔
+Paste the new English code provided above.
 
-کیا آپ کا لاگ ان بٹن اب ڈیش بورڈ کی طرف لے جا رہا ہے؟
+Scroll down to the bottom and click the green Commit changes button.
+
+3. Verification
+Once saved, refresh your website link: https://rajah4416-lgtm.github.io/New-Zealand-Immigration-Demo-/
+
+It should now look exactly like the RealMe login page in your screenshot.
+
+Would you like me to now provide the matching professional code for your upload.html page using the same colors?
