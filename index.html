@@ -1,175 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sq">
 <head>
     <meta charset="UTF-8">
-    <title>Albania Employment Agreement - Restaurant Sector</title>
+    <title>Albania Bilingual Agreement - Restaurant Sector</title>
     <style>
         @page { size: A4; margin: 0; }
-        :root { --al-red: #e41e20; --al-black: #000000; --soft-bg: #fdfdfd; }
+        :root { --al-red: #e41e20; --navy: #002341; }
         
-        body { font-family: 'Times New Roman', serif; margin: 0; padding: 0; background: #444; color: #333; }
+        body { font-family: 'Times New Roman', serif; margin: 0; padding: 0; background: #333; color: #111; }
 
-        /* UI CONTROLS - Hidden on Print */
+        /* SIDEBAR CONTROLS */
         .controls { 
-            position: fixed; left: 0; top: 0; width: 280px; height: 100%; 
-            background: #1a1a1a; color: white; padding: 25px; box-sizing: border-box;
+            position: fixed; left: 0; top: 0; width: 300px; height: 100%; 
+            background: #111; color: white; padding: 20px; box-sizing: border-box;
             z-index: 100; font-family: Arial, sans-serif; overflow-y: auto;
         }
-        .controls h3 { color: var(--al-red); margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .controls label { font-size: 11px; text-transform: uppercase; color: #888; display: block; margin-top: 10px; }
-        .controls input { width: 100%; margin-bottom: 10px; padding: 10px; border-radius: 4px; border: none; background: #333; color: white; }
-        .btn-print { width: 100%; padding: 15px; background: var(--al-red); color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.3s; }
-        .btn-print:hover { background: #b31719; }
+        .controls input { width: 100%; margin-bottom: 12px; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: white; }
+        .btn-print { width: 100%; padding: 15px; background: var(--al-red); color: white; border: none; font-weight: bold; cursor: pointer; }
 
         /* PAGE SETUP */
         .page { 
-            width: 210mm; min-height: 296mm; padding: 25mm 25mm; 
-            margin: 20px auto 20px 320px; background: white; 
+            width: 210mm; min-height: 296mm; padding: 20mm 20mm; 
+            margin: 15px auto 15px 330px; background: white; 
             position: relative; page-break-after: always; box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
         /* HEADER */
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--al-red); padding-bottom: 10px; margin-bottom: 30px; }
-        .co-branding h1 { margin: 0; font-size: 22px; color: var(--al-black); font-family: Arial; }
-        .co-branding p { margin: 0; font-size: 11px; color: #666; font-style: italic; }
-        .al-flag { width: 50px; height: auto; border: 1px solid #eee; }
+        .header { display: flex; justify-content: space-between; border-bottom: 3px solid var(--al-red); padding-bottom: 10px; margin-bottom: 20px; }
+        .co-branding h1 { margin: 0; font-size: 20px; color: var(--navy); font-family: Arial; }
+        .al-flag { width: 45px; height: auto; }
 
-        /* CONTENT */
-        h2 { font-family: Arial; font-size: 15px; color: var(--al-red); background: #fff5f5; padding: 8px 12px; border-left: 5px solid var(--al-black); margin-top: 30px; text-transform: uppercase; }
-        p, li { font-size: 14px; line-height: 1.6; text-align: justify; }
-        .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        .data-table td { border: 1px solid #ddd; padding: 12px; font-size: 13.5px; }
-        .label { background: #f9f9f9; font-weight: bold; width: 35%; color: #000; }
+        /* BILINGUAL COLUMNS */
+        .row { display: flex; justify-content: space-between; margin-bottom: 15px; gap: 20px; }
+        .col { width: 48%; font-size: 12.5px; line-height: 1.5; }
+        .sq { font-weight: bold; color: #000; } /* Albanian text */
+        .en { font-style: italic; color: #444; } /* English text */
 
-        /* PERSISTENT FOOTER LOGO */
-        .footer { position: absolute; bottom: 15mm; left: 0; width: 100%; text-align: center; }
-        .footer-logo-box { border: 1px solid #ddd; display: inline-block; padding: 6px 25px; font-family: Arial; font-weight: bold; color: #000; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
-        .page-num { font-size: 10px; color: #999; margin-top: 8px; }
+        h2 { font-family: Arial; font-size: 14px; background: #f4f4f4; padding: 5px; border-bottom: 2px solid var(--al-red); margin-top: 20px; display: flex; justify-content: space-between; }
+        
+        .salary-box { border: 2px solid var(--al-red); padding: 15px; text-align: center; margin: 15px 0; }
+        
+        /* FOOTER */
+        .footer { position: absolute; bottom: 10mm; left: 0; width: 100%; text-align: center; border-top: 1px solid #eee; padding-top: 5px; }
+        .footer-logo { font-weight: bold; font-family: Arial; font-size: 12px; text-transform: uppercase; }
+        .migration-link { font-size: 9px; color: #777; margin-top: 4px; }
 
-        @media print { 
-            .controls { display: none; } 
-            .page { margin: 0; box-shadow: none; } 
-            body { background: none; } 
-        }
+        @media print { .controls { display: none; } .page { margin: 0; box-shadow: none; } body { background: none; } }
     </style>
 </head>
 <body>
 
     <div class="controls">
-        <h3>Albania Agreement</h3>
-        
-        <label>Company (Restaurant) Name</label>
-        <input type="text" id="inCo" placeholder="e.g. Tirana Grill & Bar" oninput="syncText()">
-        
-        <label>Employee Full Name</label>
-        <input type="text" id="inName" placeholder="Candidate Name" oninput="syncText()">
-
-        <label>Passport Number</label>
-        <input type="text" id="inPass" placeholder="Passport No." oninput="syncText()">
-        
-        <label>Monthly Gross Salary (ALL)</label>
-        <input type="text" id="inSalary" placeholder="e.g. 60,000" oninput="syncText()">
-
-        <label>Work Address</label>
-        <input type="text" id="inAddr" placeholder="Street, City, Albania" oninput="syncText()">
-
-        <button class="btn-print" onclick="window.print()">GENERATE 3-PAGE AGREEMENT</button>
-        <p style="font-size: 10px; color: #666; margin-top: 20px;">*Legal content based on Albanian Labor Code 2026 standards.</p>
+        <h3 style="color:var(--al-red)">Bilingual Generator</h3>
+        <input type="text" id="inCo" placeholder="Restaurant Name" oninput="syncText()">
+        <input type="text" id="inName" placeholder="Employee Name" oninput="syncText()">
+        <input type="text" id="inPass" placeholder="Passport Number" oninput="syncText()">
+        <input type="text" id="inSalary" placeholder="Salary (ALL)" oninput="syncText()">
+        <input type="text" id="inAddr" placeholder="Work Address in Albania" oninput="syncText()">
+        <button class="btn-print" onclick="window.print()">PRINT BILINGUAL CONTRACT</button>
     </div>
 
     <div class="page">
         <div class="header">
-            <div class="co-branding">
-                <h1 class="outCo">RESTAURANT NAME</h1>
-                <p>KONTRAKO E PUNËS (EMPLOYMENT AGREEMENT)</p>
-            </div>
+            <div class="co-branding"><h1 class="outCo">COMPANY NAME</h1><p>KONTRAKO E PUNËS / EMPLOYMENT CONTRACT</p></div>
             <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
         </div>
 
-        <p style="text-align: right;"><strong>Date:</strong> January 23, 2026</p>
-        
-        <h1 style="text-align: center; font-size: 20px; text-decoration: underline;">CONTRACT OF EMPLOYMENT</h1>
-        
-        <p>This individual employment contract is entered into in accordance with <strong>Law No. 7961, dated 22.07.1995 "The Labor Code of the Republic of Albania"</strong> (as amended), between:</p>
+        <div class="row">
+            <div class="col sq">Kjo kontratë lidhet në përputhje me Kodin e Punës të Republikës së Shqipërisë midis:</div>
+            <div class="col en">This contract is entered into in accordance with the Labor Code of the Republic of Albania between:</div>
+        </div>
 
-        <h2>1. The Parties</h2>
-        <table class="data-table">
-            <tr><td class="label">Employer (Subjekti)</td><td class="outCo">[RESTAURANT NAME]</td></tr>
-            <tr><td class="label">Workplace Address</td><td class="outAddr">[CITY, ALBANIA]</td></tr>
-            <tr><td class="label">Employee (Punëmarrësi)</td><td class="outName">[EMPLOYEE NAME]</td></tr>
-            <tr><td class="label">Passport Number</td><td class="outPass">[PASSPORT NO]</td></tr>
-        </table>
+        <h2><span>1. PALËT</span> <span>1. THE PARTIES</span></h2>
+        <div class="row">
+            <div class="col sq"><strong>Punëdhënësi:</strong> <span class="outCo">---</span><br>Adresa: <span class="outAddr">---</span></div>
+            <div class="col en"><strong>Employer:</strong> <span class="outCo">---</span><br>Address: <span class="outAddr">---</span></div>
+        </div>
+        <div class="row">
+            <div class="col sq"><strong>Punëmarrësi:</strong> <span class="outName">---</span><br>Nr. Pasaportës: <span class="outPass">---</span></div>
+            <div class="col en"><strong>Employee:</strong> <span class="outName">---</span><br>Passport No: <span class="outPass">---</span></div>
+        </div>
 
-        <h2>2. Position and Duties</h2>
-        <p>The employee is hired as a <strong>Restaurant Waiter (Kamarier)</strong>. Duties include but are not limited to: table service, food and beverage handling, customer relations, and maintaining hygiene standards as per the Law on Food Safety in Albania.</p>
+        <h2><span>2. POZICIONI</span> <span>2. POSITION</span></h2>
+        <div class="row">
+            <div class="col sq">Punëmarrësi do të mbajë pozicionin: <strong>Kamarier (Waiter)</strong>. Detyrat përfshijnë shërbimin e klientit dhe mirëmbajtjen e standardeve të higjienës.</div>
+            <div class="col en">The employee shall hold the position of: <strong>Waiter</strong>. Duties include customer service and maintaining food safety standards.</div>
+        </div>
 
         <div class="footer">
-            <div class="footer-logo-box outCo">RESTAURANT LOGO</div>
-            <div class="page-num">Page 1 of 3</div>
+            <div class="footer-logo outCo">RESTAURANT NAME</div>
+            <div class="migration-link">Official Migration Info: mb.gov.al | asp.gov.al/department-for-border-and-migration/</div>
+            <div style="font-size: 9px; color: #bbb;">Page 1 of 3</div>
         </div>
     </div>
 
     <div class="page">
-        <div class="header">
-            <div class="co-branding"><h1 class="outCo">RESTAURANT NAME</h1></div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
+        <div class="header"><div class="co-branding"><h1 class="outCo">COMPANY NAME</h1></div></div>
+
+        <h2><span>3. KOHËZGJATJA</span> <span>3. DURATION</span></h2>
+        <div class="row">
+            <div class="col sq">Kjo kontratë është me afat të caktuar 1 vjeçar. Periudha e provës është 3 (tre) muaj.</div>
+            <div class="col en">This is a fixed-term contract for 1 year. The probation period is 3 (three) months.</div>
         </div>
 
-        <h2>3. Duration and Probation</h2>
-        <p><strong>3.1 Term:</strong> This is a Fixed-Term contract for a duration of one (1) year, renewable upon mutual agreement.</p>
-        <p><strong>3.2 Probation:</strong> The first three (3) months of employment shall be considered a probationary period. During this time, either party may terminate the contract with 5 days' notice.</p>
-
-        <h2>4. Working Hours</h2>
-        <p>The standard working week is <strong>40 hours</strong>. Due to the nature of the restaurant industry, work may include weekends and evening shifts. Overtime and work on official public holidays will be compensated according to Article 91 of the Labor Code (+25% or time off in lieu).</p>
-
-        <h2>5. Remuneration</h2>
-        <p>The Employer shall pay the Employee a gross monthly salary as follows:</p>
-        
-        <div style="border: 2px solid var(--al-red); padding: 25px; text-align: center; margin: 25px 0; background: #fffcfc;">
-            <span style="font-size: 11px; color: #666;">MONTHLY GROSS SALARY</span><br>
-            <strong style="font-size: 26px; color: var(--al-black);">Lek <span class="outSalary">0.00</span> (ALL)</strong>
+        <h2><span>4. PAGA</span> <span>4. REMUNERATION</span></h2>
+        <div class="salary-box">
+            <div class="sq">PAGA MUORE BRUTO / MONTHLY GROSS SALARY</div>
+            <div style="font-size: 24px; font-weight: bold;">Lek <span class="outSalary">0.00</span> (ALL)</div>
         </div>
-        <p>Salaries are paid via bank transfer no later than the 5th of the following month. Social and health insurance contributions shall be deducted according to Albanian legislation.</p>
+        <div class="row">
+            <div class="col sq">Paga do të paguhet me transfertë bankare brenda datës 5 të çdo muaji pasardhës.</div>
+            <div class="col en">Salary shall be paid via bank transfer by the 5th of each following month.</div>
+        </div>
+
+        <h2><span>5. ORARI I PUNËS</span> <span>5. WORKING HOURS</span></h2>
+        <div class="row">
+            <div class="col sq">Orari i punës është 40 orë në javë. Punëdhënësi do të sigurojë sigurimet shoqërore dhe shëndetësore.</div>
+            <div class="col en">Working hours are 40 per week. The employer will provide social and health insurance contributions.</div>
+        </div>
 
         <div class="footer">
-            <div class="footer-logo-box outCo">RESTAURANT LOGO</div>
-            <div class="page-num">Page 2 of 3</div>
+            <div class="footer-logo outCo">RESTAURANT NAME</div>
+            <div class="migration-link">Imigracioni Shqiptar: e-albania.al</div>
+            <div style="font-size: 9px; color: #bbb;">Page 2 of 3</div>
         </div>
     </div>
 
     <div class="page">
-        <div class="header">
-            <div class="co-branding"><h1 class="outCo">RESTAURANT NAME</h1></div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
+        <div class="header"><div class="co-branding"><h1 class="outCo">COMPANY NAME</h1></div></div>
+
+        <h2><span>6. LEJA VJETORE</span> <span>6. ANNUAL LEAVE</span></h2>
+        <div class="row">
+            <div class="col sq">Punëmarrësi ka të drejtë për leje vjetore të paguar prej 28 ditësh kalendarike.</div>
+            <div class="col en">The employee is entitled to 28 calendar days of paid annual leave.</div>
         </div>
 
-        <h2>6. Annual Leave and Sick Leave</h2>
-        <p><strong>6.1 Annual Leave:</strong> The employee is entitled to no less than 4 calendar weeks (28 days) of paid annual leave per year.</p>
-        <p><strong>6.2 Sick Leave:</strong> Compensation for the first 14 days of illness is provided by the employer, after which it is covered by Social Security.</p>
+        <h2><span>7. NËNSHKRIMET</span> <span>7. SIGNATURES</span></h2>
+        <div class="row" style="margin-top: 50px;">
+            <div class="col sq" style="border-top: 1px solid #000; text-align: center; padding-top: 10px;">PUNËDHËNËSI (Employer)</div>
+            <div class="col sq" style="border-top: 1px solid #000; text-align: center; padding-top: 10px;">PUNËMARRËSI (Employee)</div>
+        </div>
 
-        <h2>7. Termination of Contract</h2>
-        <p>After the probation period, the notice period for termination shall be as follows:</p>
-        <ul>
-            <li>During the first year of work: 1 month notice.</li>
-            <li>Two to five years of work: 2 months notice.</li>
-            <li>Over five years of work: 3 months notice.</li>
-        </ul>
-
-        <h2>8. Signatures</h2>
-        <p>By signing below, both parties agree to the terms of this contract, formulated in two original copies.</p>
-
-        <div style="margin-top: 80px; display: flex; justify-content: space-between;">
-            <div style="width: 45%; border-top: 1px solid #000; padding-top: 10px; text-align: center;">
-                <strong>For the Employer</strong><br>(Manager/Director)
-            </div>
-            <div style="width: 45%; border-top: 1px solid #000; padding-top: 10px; text-align: center;">
-                <strong>The Employee</strong><br><span class="outName">[Full Name]</span>
-            </div>
+        <div style="margin-top: 100px; padding: 20px; border: 1px dashed #ccc; font-size: 11px;">
+            <p><strong>Njoftim për Imigracionin / Immigration Notice:</strong><br>
+            Për aplikimet e lejes së qëndrimit, ju lutem vizitoni portalin zyrtar: <br>
+            <strong>https://e-albania.al/</strong> (Shtetasi i huaj / Foreign Citizen section).<br>
+            Border and Migration Department: <strong>asp.gov.al</strong></p>
         </div>
 
         <div class="footer">
-            <div class="footer-logo-box outCo">RESTAURANT LOGO</div>
-            <div class="page-num">Page 3 of 3</div>
+            <div class="footer-logo outCo">RESTAURANT NAME</div>
+            <div style="font-size: 9px; color: #bbb;">Page 3 of 3 | Bilingual Execution Copy</div>
         </div>
     </div>
 
@@ -177,24 +158,24 @@
         function syncText() {
             const co = document.getElementById('inCo').value || 'RESTAURANT NAME';
             const name = document.getElementById('inName').value || '[NAME]';
+            const pass = document.getElementById('inPass').value || '[PASSPORT]';
             const salary = document.getElementById('inSalary').value || '0.00';
-            const pass = document.getElementById('inPass').value || '[PASSPORT NO]';
             const addr = document.getElementById('inAddr').value || '[ADDRESS]';
 
             document.querySelectorAll('.outCo').forEach(el => el.innerText = co);
             document.querySelectorAll('.outName').forEach(el => el.innerText = name);
-            document.querySelectorAll('.outSalary').forEach(el => el.innerText = salary);
             document.querySelectorAll('.outPass').forEach(el => el.innerText = pass);
+            document.querySelectorAll('.outSalary').forEach(el => el.innerText = salary);
             document.querySelectorAll('.outAddr').forEach(el => el.innerText = addr);
         }
     </script>
 </body>
 </html>
-💡 Albanian Compliance Notes:
-Currency: Salaries in Albania are paid in Lek (ALL). Ensure you enter the gross amount (before taxes).
+📋 Key Compliance Features:
+Bilingual Text: Every clause is listed in Albanian (Shqip) first, followed by English. This is essential for the Work Permit application in Albania.
 
-Language: For official filing in Albania, the contract is often required to be bilingual (Albanian/English). I have used the English terminology most recognized by international hospitality groups, but included "Kamarier" (Waiter) and "Lek" for local validity.
+Immigration Links: Included mb.gov.al (Ministry of Interior) and e-albania.al (the digital portal where foreign workers must register).
 
-Probation: Article 31 of the Labor Code allows a 3-month probation; I have integrated this into Page 2.
+Labor Code Standards: Includes the mandatory 28 days of annual leave and the 40-hour work week per Albanian law.
 
-Would you like me to add a specific clause regarding tip-sharing (trishat) or uniform requirements, which are common in Albanian restaurant contracts?
+Would you like me to add the official "Seal" placeholder at the bottom of the signature page for the company's stamp?
