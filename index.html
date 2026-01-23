@@ -1,31 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Private Demo Login</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Immigration New Zealand</title>
+    <style>
+        :root { --nz-blue: #002f6c; --nz-silver: #f8f9fa; }
+        body { font-family: Arial, sans-serif; background-color: var(--nz-silver); margin: 0; display: flex; flex-direction: column; align-items: center; height: 100vh; }
+        .header { width: 100%; background: white; border-bottom: 4px solid var(--nz-blue); padding: 20px 0; text-align: center; }
+        .login-box { background: white; padding: 40px; margin-top: 50px; border: 1px solid #ddd; width: 320px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .login-box h2 { color: var(--nz-blue); border-left: 5px solid var(--nz-blue); padding-left: 10px; font-size: 20px; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .input-group input { width: 100%; padding: 10px; border: 1px solid #ccc; box-sizing: border-box; }
+        .login-btn { width: 100%; background: var(--nz-blue); color: white; padding: 12px; border: none; font-weight: bold; cursor: pointer; }
+    </style>
 </head>
-<body class="login-body">
-<div class="login-box">
-<h2>Demo Secure Login</h2>
-<input type="text" id="username" placeholder="Username">
-<input type="password" id="password" placeholder="Password">
-<button onclick="login()">Log in</button>
-</div>
-<script src="script.js"></script>
-</body>
-</html><!DOCTYPE html>
-<html>
-<head>
-<title>Private Demo Login</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body class="login-body">
-<div class="login-box">
-<h2>Demo Secure Login</h2>
-<input type="text" id="username" placeholder="Username">
-<input type="password" id="password" placeholder="Password">
-<button onclick="login()">Log in</button>
-</div>
-<script src="script.js"></script>
+<body>
+    <div class="header"><h1>IMMIGRATION NEW ZEALAND</h1></div>
+    <div class="login-box">
+        <h2>Secure Login</h2>
+        <form id="loginForm">
+            <div class="input-group"><label>Username</label><input type="text" required></div>
+            <div class="input-group"><label>Password</label><input type="password" required></div>
+            <button type="submit" class="login-btn">LOG IN</button>
+        </form>
+    </div>
+    <script>
+        // یہ حصہ لاگ ان بٹن کو ڈیش بورڈ سے جوڑ دے گا
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            window.location.href = 'dashboard.html';
+        });
+    </script>
 </body>
 </html>
+اسے محفوظ کیسے کریں؟
+کوڈ پیسٹ کرنے کے بعد صفحہ کے نیچے جائیں اور "Commit changes..." کا بٹن دبا دیں۔
+
+ٹیسٹ کریں:
+اب اپنی لائیو ویب سائٹ کا لنک کھولیں: https://rajah4416-lgtm.github.io/New-Zealand-Immigration-Demo-/
+
+آپ کو نیا پروفیشنل لاگ ان پیج نظر آئے گا۔
+
+یوزر نیم اور پاس ورڈ میں کچھ بھی لکھ کر LOG IN دبائیں، آپ براہِ راست اپنے نئے ڈیش بورڈ پر پہنچ جائیں گے۔
+
+کیا آپ کا لاگ ان بٹن اب ڈیش بورڈ کی طرف لے جا رہا ہے؟
