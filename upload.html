@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html>
-<head><title>Upload PDF</title></head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NZ Document Upload | HR Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .upload-area {
+            border: 2px dashed var(--nz-blue);
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+            background: #f9f9f9;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .upload-area:hover { background: #f0f7ff; }
+        .file-list { margin-top: 20px; text-align: left; }
+        .file-item { 
+            background: #fff; border: 1px solid #ddd; 
+            padding: 10px; margin-bottom: 5px; border-radius: 4px;
+            display: flex; justify-content: space-between;
+        }
+        .status-tag { color: green; font-weight: bold; font-size: 0.8rem; }
+    </style>
+</head>
 <body>
-<h2>Upload Client PDF</h2>
-<input type="file" accept="application/pdf">
-<button>Upload</button>
-<p>Demo upload (static)</p>
+
+<div class="container">
+    <h2>Step 2: Document Verification</h2>
+    <div class="info-box">
+        <strong>Mandatory for 3-Year Permit:</strong> Please upload the candidate's Passport copy and the AEWV Job Check approval. This ensures the <strong>one-way ticket</strong> and <strong>accommodation</strong> clauses match the visa requirements.
+    </div>
+
+    <div class="section">
+        <h3>Required Documentation</h3>
+        <p>Accepted formats: PDF, JPG, PNG (Max 5MB)</p>
+        
+        <div class="upload-area" id="dropZone" onclick="document.getElementById('fileInput').click()">
+            <p>Drag & Drop files here or <strong>Click to Browse</strong></p>
+            <input type="file" id="fileInput" style="display:none" multiple onchange="handleFiles(this.files)">
+        </div>
+
+        <div id="fileList" class="file-list">
+            </div>
+    </div>
+
+    <div class="grid">
+        <button class="btn" style="background: #666;" onclick="window.location.href='index.html'">Back</button>
+        <button class="btn" onclick="window.location.href='dashboard.html'">Continue to Generator &rarr;</button>
+    </div>
+</div>
+
+<script>
+    function handleFiles(files) {
+        const list = document.getElementById('fileList');
+        for (let i = 0; i < files.length; i++) {
+            const item = document.createElement('div');
+            item.className = 'file-item';
+            item.innerHTML = `
+                <span>📄 ${files[i].name}</span>
+                <span class="status-tag">Ready to Process ✓</span>
+            `;
+            list.appendChild(item);
+        }
+    }
+</script>
+
 </body>
-</html>
+</html
