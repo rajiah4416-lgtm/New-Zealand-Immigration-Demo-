@@ -1,21 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Verification Enquiry</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview Offer Letter | NZ Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .paper-preview {
+            background: #666;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        .page {
+            background: white;
+            width: 210mm; /* A4 Width */
+            min-height: 297mm; /* A4 Height */
+            padding: 25mm;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            box-sizing: border-box;
+            color: #333;
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.5;
+        }
+        .letterhead { text-align: center; border-bottom: 2px solid #333; margin-bottom: 20px; padding-bottom: 10px; }
+        .clause-title { font-weight: bold; text-decoration: underline; margin-top: 15px; display: block; }
+        .signature-box { margin-top: 50px; border-top: 1px solid #000; width: 250px; }
+    </style>
 </head>
 <body>
-<h2>Visa / Document Verification</h2>
-<form>
-<label>Full Name</label>
-<input type="text">
-<label>Passport Number</label>
-<input type="text">
-<label>Date of Birth</label>
-<input type="date">
-<label>Visa Start Date</label>
-<input type="date">
-<button type="submit">Check Record</button>
-</form>
+
+<div class="container" style="max-width: 1100px;">
+    <h2>Step 4: Document Preview</h2>
+    <p>Review the generated text below. Ensure the 3-year permit and one-way ticket clauses are accurate.</p>
+</div>
+
+<div class="paper-preview">
+    <div class="page">
+        <div class="letterhead">
+            <h1 style="margin:0;">EMPLOYMENT AGREEMENT</h1>
+            <p>New Zealand Accredited Employer Framework</p>
+        </div>
+        <p><strong>Date:</strong> <span id="currentDate"></span></p>
+        <p><strong>To:</strong> <span id="prevName">Candidate Name</span></p>
+        <p><strong>RE: Offer of Employment - 3 Year Fixed Term</strong></p>
+        
+        <p>We are pleased to offer you the position of Specialist within our New Zealand operations. This offer is made under the <strong>Accredited Employer Work Visa (AEWV)</strong> scheme.</p>
+        
+        <span class="clause-title">1. Term of Agreement</span>
+        <p>Your employment will commence on <span id="prevStart">TBC</span> and is scheduled to end on <span id="prevEnd">TBC</span>, coinciding with your 3-year work permit duration.</p>
+        
+        <span class="clause-title">2. Remuneration</span>
+        <p>Your salary will be <span id="prevRate">$0.00</span> per hour. You are guaranteed a minimum of 30 hours of work per week as per NZ Immigration requirements.</p>
+    </div>
+
+    <div class="page">
+        <span class="clause-title">3. Relocation & Transportation</span>
+        <p>The Company will provide a <strong>one-way airfare</strong> from your country of origin to New Zealand. This cost is borne by the employer and is not recoverable from your wages.</p>
+        
+        <span class="clause-title">4. Accommodation & Food</span>
+        <p><strong>Accommodation:</strong> <span id="prevAccom">Included/Not Included</span></p>
+        <p><strong>Meal Allowance:</strong> <span id="prevFood">Included/Not Included</span></p>
+        
+        <span class="clause-title">5. Medical & Health</span>
+        <p>You will be covered by the New Zealand Accident Compensation Corporation (ACC) for work-related injuries. Private medical insurance options are as follows: <span id="prevMedical">Standard</span>.</p>
+    </div>
+
+    <div class="page">
+        <span class="clause-title">6. NZ Employment Law Protections</span>
+        <p>This agreement is governed by the Employment Relations Act 2000, the Holidays Act 2003, and the Minimum Wage Act 1983. You have the right to seek independent legal advice before signing this document.</p>
+        
+        <div style="margin-top: 100px;">
+            <p>Accepted by:</p>
+            <div class="signature-box">Signature of Candidate</div>
+            <p style="margin-top:10px;">Date: ____ / ____ / 2026</p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="grid">
+        <button class="btn" style="background: #666;" onclick="window.history.back()">Back to Verify</button>
+        <button class="btn" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+</div>
+
+<script>
+    // Pulling preview data
+    document.getElementById('currentDate').innerText = new Date().toLocaleDateString();
+    document.getElementById('prevName').innerText = localStorage.getItem('nz_name') || "[Name]";
+    document.getElementById('prevRate').innerText = `$${localStorage.getItem('nz_rate') || '29.66'}`;
+    // Add other fields as necessary...
+</script>
+
 </body>
 </html>
+Components Summary for your Folder:
+index.html: The Portal Login.
+
+upload.html: Verify the 3-year permit and Passport.
+
+dashboard.html: Select Salary, Food, and Medical options.
+
+verify.html: The final legal confirmation checkbox.
+
+view.html: (This file) The 3-page A4 preview for the user to read.
+
+style.css: Controls the professional look across all 5 files.
+
+Critical New Zealand Detail:
+On Page 2 of the preview, I have included a clause stating that the one-way flight cost is not recoverable. This is a vital "Migrant Worker Protection" rule in New Zealand. If an employer tries to "bond" a worker to the cost of their recruitment or travel, they can lose their Accredited Employer status.
+
+Would you like me to add a "Company Stamp" or "Digital Watermark" feature to the final page for extra security?
