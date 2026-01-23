@@ -1,0 +1,4 @@
+body{font-family:Arial;background:#f4f6f8;padding:40px}
+.login-box{width:300px;margin:auto;border:1px solid #ccc;padding:20px}
+input,button{width:100%;padding:10px;margin-top:10px}
+button{background:#d9531e;color:white;border:none}
