@@ -2,23 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NZ Assessment Report - Mansoor Ahmed</title>
+    <title>Official NZ Employment Offer - Mansoor Ahmed</title>
     <style>
-        /* Official NZ Government Web Palette */
         :root {
-            --govt-blue: #336699;      /* Official subtle highlight blue */
-            --govt-blue-dark: #1A4D80; /* Hover/Header blue */
-            --govt-green: #088A20;     /* Official Success/Approval Green */
-            --govt-slate: #363636;     /* Primary text slate */
-            --govt-grey-light: #F4F4F4; /* Background/Breadcrumb grey */
-            --govt-border: #ABABAB;    /* Table/Divider grey */
+            --nz-navy: #002d5d;
+            --nz-blue: #004a99;
+            --nz-green: #088A20;
+            --light-grey: #f4f4f4;
         }
 
-        body { 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-            margin: 0; padding: 0; background-color: #525659; 
-            color: var(--govt-slate);
-        }
+        body { font-family: 'Helvetica', Arial, sans-serif; margin: 0; padding: 0; background: #525659; }
 
         @media print {
             body { background: none; }
@@ -35,124 +28,130 @@
             background: white;
             width: 210mm;
             min-height: 297mm;
-            margin: 40px auto;
-            padding: 25mm;
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
-            position: relative;
+            margin: 30px auto;
+            padding: 20mm;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
             box-sizing: border-box;
+            position: relative;
         }
 
-        /* Official Header Style */
+        /* Official Header Branding */
         .govt-header {
-            border-bottom: 2px solid var(--govt-blue);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+            border-bottom: 3px solid var(--nz-navy);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .govt-logo { font-weight: bold; font-size: 1.1rem; color: var(--nz-navy); text-transform: uppercase; }
+        .assessment-tag { 
+            background: var(--nz-green); color: white; padding: 5px 15px; 
+            border-radius: 4px; font-weight: bold; font-size: 0.9rem;
         }
 
-        .govt-logo-text {
-            color: var(--govt-blue-dark);
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .status-badge {
-            background-color: var(--govt-green);
-            color: white;
-            padding: 8px 16px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            border-radius: 2px;
-            text-transform: uppercase;
-        }
-
-        /* Profile & Assessment Sections */
-        .section-box {
-            background-color: var(--govt-grey-light);
-            border-top: 4px solid var(--govt-blue);
+        /* Applicant Profile Box [cite: 4, 5, 14] */
+        .profile-box {
+            background: var(--light-grey);
+            border-left: 5px solid var(--nz-blue);
             padding: 20px;
+            margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        .profile-box div { margin: 5px 0; font-size: 1rem; }
+        .profile-box strong { color: var(--nz-navy); }
+
+        /* Section Bars [cite: 14] */
+        .section-bar {
+            background: var(--nz-navy);
+            color: white;
+            padding: 10px 15px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
             margin: 20px 0;
         }
 
-        h1 { color: var(--govt-blue-dark); font-size: 1.7rem; margin-top: 0; }
-        
-        .field-row { display: flex; margin-bottom: 8px; border-bottom: 1px solid var(--govt-border); padding-bottom: 4px; }
-        .field-label { width: 180px; font-weight: bold; color: var(--govt-blue-dark); }
-
-        .footer-note {
-            position: absolute; bottom: 20mm; left: 25mm; right: 25mm;
-            text-align: center; font-size: 0.8rem; color: #666;
-            border-top: 1px solid var(--govt-border); padding-top: 10px;
+        .footer-info {
+            position: absolute; bottom: 20mm; width: calc(100% - 40mm);
+            text-align: center; border-top: 1px solid #ccc; padding-top: 10px;
+            font-size: 0.8rem; color: #666;
         }
 
         .btn-panel { text-align: center; padding: 20px; }
-        .download-btn {
-            background-color: var(--govt-blue); color: white; border: none;
-            padding: 15px 40px; font-size: 1.1rem; font-weight: bold;
-            cursor: pointer; border-radius: 4px; transition: 0.3s;
+        .print-btn {
+            background: var(--nz-blue); color: white; padding: 15px 30px;
+            border: none; border-radius: 5px; font-size: 1.2rem; cursor: pointer;
         }
-        .download-btn:hover { background-color: var(--govt-blue-dark); }
     </style>
 </head>
 <body>
 
     <div class="btn-panel no-print">
-        <button class="download-btn" onclick="window.print()">Print Official Color PDF</button>
+        <button class="print-btn" onclick="window.print()">Download Official Color Offer PDF</button>
     </div>
 
     <div class="page">
         <div class="govt-header">
-            <div class="govt-logo-text">Te Kawanatanga o Aotearoa<br>New Zealand Government</div>
-            <div class="status-badge">AEWV Approved</div>
+            <div class="govt-logo">Te Kawanatanga o Aotearoa<br>New Zealand Government</div>
+            <div class="assessment-tag">AEWV PROGRAM</div>
         </div>
 
-        <h1>Immigration Assessment Approval</h1>
-        <p><strong>Application:</strong> 141826719087 | <strong>Date:</strong> January 23, 2026</p>
+        <h1 style="color: var(--nz-navy); margin-top: 0;">Assessment Approval Report</h1>
+        <p><strong>Application Number:</strong> 141826719087 [cite: 3]</p>
 
-        <div class="section-box">
-            <div class="field-row"><div class="field-label">Applicant:</div><div>Mansoor Ahmed</div></div>
-            <div class="field-row"><div class="field-label">Nationality:</div><div>Pakistani</div></div>
-            <div class="field-row"><div class="field-label">Visa Stream:</div><div>Accredited Employer (3-Year)</div></div>
+        <div class="profile-box">
+            <div><strong>Applicant:</strong> Mansoor Ahmed [cite: 4]</div>
+            <div><strong>Nationality:</strong> Pakistani [cite: 5]</div>
+            <div><strong>Date:</strong> January 19, 2026 [cite: 3]</div>
+            <div><strong>Contact:</strong> +92 348 5677372 [cite: 7]</div>
         </div>
 
-        <p>Kia Ora Mansoor Ahmed,</p>
-        <p>This assessment confirms that your qualifications and professional profile meet the standards required under current New Zealand immigration law. Your technical expertise aligns with the ANZSCO requirements for the specified role.</p>
+        <p>Kia Ora, Mansoor Ahmed, [cite: 8]</p>
+        <p>We are pleased to inform you that your application for the open job position has been successfully assessed and approved under the Accredited Employer Work Visa (AEWV) program. [cite: 9, 10]</p>
 
-        <div class="footer-note">Official Document generated via NZ Govt Design System (NZGDS) Framework.</div>
-    </div>
-
-    <div class="page">
-        <div class="govt-header"><div class="govt-logo-text">Remuneration & Logistics</div></div>
-
-        <div class="section-box">
-            <div class="field-row"><div class="field-label">Hourly Rate:</div><div>21.61 NZD</div></div>
-            <div class="field-row"><div class="field-label">Travel Status:</div><div>One-way Airfare Provided (Non-Recoverable)</div></div>
-            <div class="field-row"><div class="field-label">Food/Medical:</div><div>Standard Allowance & ACC Cover</div></div>
-        </div>
-
-        <h3>Logistical Provisions</h3>
-        <p>The sponsoring employer is responsible for all recruitment costs and travel from Pakistan. In accordance with the <strong>Holidays Act 2003</strong> and <strong>Minimum Wage Act</strong>, all terms are fully compliant.</p>
-    </div>
-
-    <div class="page">
-        <div class="govt-header"><div class="govt-logo-text">Signatures & Legal</div></div>
+        <div class="section-bar">Application Assessment Outcome [cite: 14]</div>
+        <p><strong>Education:</strong> Your background meets the minimum requirements for the position. [cite: 15]</p>
+        <p><strong>Experience:</strong> Your work experience demonstrates the necessary expertise for success in this role. [cite: 16]</p>
         
-        <p>This document constitutes a formal assessment outcome. Both parties are encouraged to seek independent legal advice to ensure full understanding of the AEWV permit conditions.</p>
+        <div class="footer-info">302b Gascoigne Street, Raureka, Hastings, 4120, New Zealand [cite: 20]</div>
+    </div>
+
+    <div class="page">
+        <div class="govt-header">
+            <div class="govt-logo">M & R TAUKAEA LIMITED<br>Employment Agreement</div>
+        </div>
+
+        <div class="section-bar">Position & Remuneration</div>
+        <p><strong>Occupation:</strong> ANZCO code 832111 [cite: 22]</p>
+        <p><strong>Salary:</strong> 21.61 NZD per hour [cite: 26]</p>
+        
+        <div class="section-bar">Logistics & Benefits</div>
+        <p><strong>Travel:</strong> One-way ticket from Pakistan to New Zealand provided by employer (Non-recoverable).</p>
+        <p><strong>Accommodation:</strong> Subsidised housing provided in Hastings, NZ.</p>
+        <p><strong>Medical:</strong> Private medical cover and ACC protection included.</p>
+
+        <p style="margin-top: 50px;">This position aligns with your skills and will provide a valuable pathway for professional advancement. [cite: 23]</p>
+    </div>
+
+    <div class="page">
+        <div class="section-bar">Authorization & Signatures</div>
+        <p>This document is governed by the laws of the Regional Labor Court. [cite: 35]</p>
 
         <div style="margin-top: 80px;">
-            <p><strong>Applicant Acceptance:</strong></p>
-            <div style="border-bottom: 2px solid black; width: 300px; height: 50px; font-family: 'Brush Script MT', cursive; font-size: 1.5rem;">
+            <p><strong>Applicant Signature:</strong></p>
+            <div style="border-bottom: 2px solid #000; width: 300px; height: 50px; font-family: cursive; font-size: 1.5rem;">
                 Mansoor Ahmed
             </div>
         </div>
 
         <div style="margin-top: 60px;">
-            <p><strong>Authorizing Officer:</strong></p>
-            <p><strong>Layla Richardson</strong><br>NZ Immigration Processing Officer<br>ID: NZEMP3456289</p>
+            <p><strong>Approved By:</strong></p>
+            <p><strong>Layla Richardson</strong> [cite: 39]<br>New Zealand Immigration Processing Officer [cite: 39]<br>ID: NZEMP3456289 [cite: 40]</p>
+        </div>
+
+        <div style="margin-top: 40px; border: 2px solid var(--nz-green); padding: 15px; color: var(--nz-green); display: inline-block; font-weight: bold;">
+            OFFICIAL STAMP: APPROVED 2026
         </div>
     </div>
 
