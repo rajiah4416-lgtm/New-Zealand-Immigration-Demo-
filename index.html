@@ -1,165 +1,29 @@
-HTML
-
 <!DOCTYPE html>
-<html lang="sq">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Work Permit Verification - Albania</title>
+    <title>Track application - e-Visa Albania</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="search-container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="flag">
-        <h2>Verifikimi i Lejes së Punës</h2>
-        <p>Private Verification Portal - Calmfort Food LTD</p>
-        <input type="text" id="passportNum" placeholder="Shkruani Nr. e Pasaportës (e.g. HN5199602)">
-        <button onclick="location.href='verify.html?id=' + document.getElementById('passportNum').value">KONTROLLO</button>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="sq">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Private Verification - Republic of Albania</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <style>
-        :root {
-            --al-red: #e41e20;
-            --navy: #002341;
-            --gold: #c5a059;
-            --bg-gray: #f4f7f6;
-        }
-
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-gray); margin: 0; padding: 0; }
-
-        /* HEADER */
-        .header { background: white; padding: 15px 10%; border-bottom: 3px solid var(--al-red); display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .logo-group { display: flex; align-items: center; gap: 15px; }
-        .logo-group img { height: 50px; }
-        .header-text { border-left: 2px solid #ddd; padding-left: 15px; }
-        .header-text h1 { margin: 0; font-size: 16px; color: var(--navy); text-transform: uppercase; letter-spacing: 1px; }
-        .header-text p { margin: 0; font-size: 12px; color: #666; font-weight: bold; }
-
-        /* SEARCH SECTION */
-        .container { max-width: 900px; margin: 40px auto; padding: 20px; }
-        .search-box { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
-        .search-box h2 { color: var(--navy); margin-bottom: 20px; font-size: 20px; }
-        .input-group { display: flex; max-width: 500px; margin: 0 auto; gap: 10px; }
-        input[type="text"] { flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 4px; outline: none; font-size: 16px; }
-        input[type="text"]:focus { border-color: var(--al-red); }
-        .btn-check { padding: 12px 25px; background: var(--al-red); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-check:hover { background: #b31719; }
-
-        /* RESULTS CARD (Hidden by default) */
-        #resultCard { display: none; margin-top: 30px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #eee; }
-        .status-banner { background: #28a745; color: white; padding: 10px; text-align: center; font-weight: bold; font-size: 18px; }
-        .result-content { display: flex; padding: 30px; gap: 30px; position: relative; }
-        .client-photo { width: 150px; height: 180px; border: 2px solid #eee; background: #fafafa; overflow: hidden; }
-        .client-photo img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .data-table { flex: 1; border-collapse: collapse; }
-        .data-table th, .data-table td { padding: 10px; border-bottom: 1px solid #f0f0f0; text-align: left; font-size: 14px; }
-        .data-table th { color: #888; text-transform: uppercase; font-size: 11px; width: 40%; }
-        .data-table td { color: var(--navy); font-weight: 600; }
-
-        .qr-side { display: flex; flex-direction: column; align-items: center; justify-content: center; border-left: 1px solid #eee; padding-left: 30px; }
-        #qrCode { margin-bottom: 10px; }
-
-        /* FOOTER */
-        .footer { text-align: center; color: #999; font-size: 11px; margin-top: 50px; padding-bottom: 30px; }
-    </style>
-</head>
-<body>
-
-    <header class="header">
-        <div class="logo-group">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" alt="Albania Flag">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Seal_of_the_State_Police_%28Albania%29.svg/1200px-Seal_of_the_State_Police_%28Albania%29.svg.png" alt="State Police">
-            <div class="header-text">
-                <h1>REPUBLIKA E SHQIPËRISË</h1>
-                <p>VERIFIKIMI I LEJES SË PUNËS / WORK PERMIT VERIFICATION</p>
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" alt="AL Flag">
+            <div class="header-titles">
+                <span class="country">Republic of Albania</span>
+                <span class="system">E-Visa Application System</span>
             </div>
         </div>
-        <div style="font-size: 10px; color: #aaa; text-align: right;">PRIVATE PORTAL<br>CALMFORT FOOD LTD</div>
     </header>
 
-    <div class="container">
-        <div class="search-box">
-            <h2>Sistemi i Kontrollit të Dokumenteve</h2>
-            <div class="input-group">
-                <input type="text" id="passInput" placeholder="Shkruani Numrin e Pasaportës (e.g. HN5199602)">
-                <button class="btn-check" onclick="checkPermit()">KONTROLLO</button>
-            </div>
+    <div class="hero-banner"><h1>Track application</h1></div>
+
+    <main style="display: flex; justify-content: center; padding: 60px 20px;">
+        <div style="background: white; padding: 40px; border-radius: 8px; width: 100%; max-width: 500px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+            <label style="display: block; font-weight: bold; margin-bottom: 10px;">Tracking number</label>
+            <input type="text" id="trackID" placeholder="Enter passport or tracking number" style="width: 100%; padding: 15px; border: 1px solid #ccc; border-radius: 4px; font-size: 18px; box-sizing: border-box; margin-bottom: 20px;">
+            <button onclick="location.href='verify.html?id=' + document.getElementById('trackID').value" style="width: 100%; padding: 15px; background: var(--al-red); color: white; border: none; border-radius: 4px; font-size: 18px; font-weight: bold; cursor: pointer;">Track</button>
         </div>
-
-        <div id="resultCard">
-            <div class="status-banner" id="statusBanner">AKTIVE / VALID</div>
-            <div class="result-content">
-                <div class="client-photo">
-                    <img id="photoOut" src="https://via.placeholder.com/150x180?text=No+Photo" alt="Employee Photo">
-                </div>
-                
-                <table class="data-table">
-                    <tr><th>Emri i Plotë / Full Name</th><td id="nameOut">---</td></tr>
-                    <tr><th>Nr. Pasaportës / Passport No</th><td id="passOut">---</td></tr>
-                    <tr><th>Punëdhënësi / Employer</th><td id="employerOut">---</td></tr>
-                    <tr><th>Pozicioni / Position</th><td id="posOut">---</td></tr>
-                    <tr><th>Vlefshmëria / Expiry</th><td id="expiryOut">---</td></tr>
-                    <tr><th>Logjistika / Benefits</th><td>Food, Housing, Transport</td></tr>
-                </table>
-
-                <div class="qr-side">
-                    <div id="qrCode"></div>
-                    <p style="font-size: 9px; color: #999; text-align: center;">Verified Secure<br>System ID: ALB-8026836</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer">
-        © 2026 Calmfort Food Limited. This is a private verification system for internal compliance only.
-    </div>
-
-    <script>
-        // CLIENT DATABASE (For your private check)
-        const clientDB = {
-            "HN5199602": {
-                name: "SHOAIB MUHAMMAD",
-                passport: "HN5199602",
-                employer: "CALMFORT FOOD LIMITED",
-                position: "Restaurant Specialist (Waiter)",
-                expiry: "Jan 12, 2032",
-                status: "AKTIVE / VALID",
-                photo: "" // Add your local photo path here
-            }
-        };
-
-        const qrcode = new QRCode(document.getElementById("qrCode"), { width: 80, height: 80 });
-
-        function checkPermit() {
-            const input = document.getElementById('passInput').value.trim().toUpperCase();
-            const card = document.getElementById('resultCard');
-            
-            if (clientDB[input]) {
-                const data = clientDB[input];
-                document.getElementById('nameOut').innerText = data.name;
-                document.getElementById('passOut').innerText = data.passport;
-                document.getElementById('employerOut').innerText = data.employer;
-                document.getElementById('posOut').innerText = data.position;
-                document.getElementById('expiryOut').innerText = data.expiry;
-                document.getElementById('statusBanner').innerText = data.status;
-                
-                // Generate QR
-                qrcode.clear();
-                qrcode.makeCode("VERIFIED:" + data.name + ":" + data.passport);
-                
-                card.style.display = 'block';
-            } else {
-                alert("Nuk u gjet asnjë rekord / No record found.");
-                card.style.display = 'none';
-            }
-        }
-    </script>
+    </main>
 </body>
-</html>
+</html
