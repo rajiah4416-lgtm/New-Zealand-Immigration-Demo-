@@ -2,47 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Global Employment Document Generator</title>
+    <title>Albania Employment Agreement - Restaurant Sector</title>
     <style>
         @page { size: A4; margin: 0; }
-        :root { --accent: #F47920; --navy: #002341; }
+        :root { --al-red: #e41e20; --al-black: #000000; --soft-bg: #fdfdfd; }
         
-        body { font-family: 'Times New Roman', serif; margin: 0; padding: 0; background: #555; }
+        body { font-family: 'Times New Roman', serif; margin: 0; padding: 0; background: #444; color: #333; }
 
         /* UI CONTROLS - Hidden on Print */
         .controls { 
-            position: fixed; left: 0; top: 0; width: 250px; height: 100%; 
-            background: #222; color: white; padding: 20px; box-sizing: border-box;
-            z-index: 100; font-family: Arial, sans-serif;
+            position: fixed; left: 0; top: 0; width: 280px; height: 100%; 
+            background: #1a1a1a; color: white; padding: 25px; box-sizing: border-box;
+            z-index: 100; font-family: Arial, sans-serif; overflow-y: auto;
         }
-        .controls h3 { color: var(--accent); margin-top: 0; }
-        .controls input, .controls select { width: 100%; margin-bottom: 15px; padding: 8px; border-radius: 4px; border: none; }
-        .btn-print { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; font-weight: bold; cursor: pointer; }
+        .controls h3 { color: var(--al-red); margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .controls label { font-size: 11px; text-transform: uppercase; color: #888; display: block; margin-top: 10px; }
+        .controls input { width: 100%; margin-bottom: 10px; padding: 10px; border-radius: 4px; border: none; background: #333; color: white; }
+        .btn-print { width: 100%; padding: 15px; background: var(--al-red); color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+        .btn-print:hover { background: #b31719; }
 
         /* PAGE SETUP */
         .page { 
-            width: 210mm; height: 296mm; padding: 20mm 25mm; 
-            margin: 10px auto 10px 280px; background: white; 
-            position: relative; page-break-after: always; box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            width: 210mm; min-height: 296mm; padding: 25mm 25mm; 
+            margin: 20px auto 20px 320px; background: white; 
+            position: relative; page-break-after: always; box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
-        /* DYNAMIC HEADER */
-        .header { display: flex; justify-content: space-between; border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-bottom: 25px; }
-        .co-branding h1 { margin: 0; font-size: 20px; color: var(--navy); font-family: Arial; text-transform: uppercase; }
-        .co-branding p { margin: 0; font-size: 10px; color: var(--accent); font-weight: bold; }
-        .flag-icon { width: 40px; height: auto; opacity: 0.8; border: 1px solid #eee; }
+        /* HEADER */
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--al-red); padding-bottom: 10px; margin-bottom: 30px; }
+        .co-branding h1 { margin: 0; font-size: 22px; color: var(--al-black); font-family: Arial; }
+        .co-branding p { margin: 0; font-size: 11px; color: #666; font-style: italic; }
+        .al-flag { width: 50px; height: auto; border: 1px solid #eee; }
 
         /* CONTENT */
-        h2 { font-family: Arial; font-size: 14px; color: var(--navy); background: #f4f4f4; padding: 5px 10px; border-left: 4px solid var(--accent); margin-top: 25px; text-transform: uppercase; }
-        p, li { font-size: 13.5px; line-height: 1.6; text-align: justify; }
-        .data-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-        .data-table td { border: 1px solid #ddd; padding: 10px; font-size: 13px; }
-        .label { background: #f9f9f9; font-weight: bold; width: 35%; }
+        h2 { font-family: Arial; font-size: 15px; color: var(--al-red); background: #fff5f5; padding: 8px 12px; border-left: 5px solid var(--al-black); margin-top: 30px; text-transform: uppercase; }
+        p, li { font-size: 14px; line-height: 1.6; text-align: justify; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .data-table td { border: 1px solid #ddd; padding: 12px; font-size: 13.5px; }
+        .label { background: #f9f9f9; font-weight: bold; width: 35%; color: #000; }
 
         /* PERSISTENT FOOTER LOGO */
         .footer { position: absolute; bottom: 15mm; left: 0; width: 100%; text-align: center; }
-        .footer-logo-box { border: 1px solid #ddd; display: inline-block; padding: 5px 20px; font-family: Arial; font-weight: bold; color: var(--navy); font-size: 12px; text-transform: uppercase; }
-        .page-num { font-size: 9px; color: #999; margin-top: 5px; }
+        .footer-logo-box { border: 1px solid #ddd; display: inline-block; padding: 6px 25px; font-family: Arial; font-weight: bold; color: #000; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+        .page-num { font-size: 10px; color: #999; margin-top: 8px; }
 
         @media print { 
             .controls { display: none; } 
@@ -54,148 +56,145 @@
 <body>
 
     <div class="controls">
-        <h3>Document Settings</h3>
+        <h3>Albania Agreement</h3>
         
-        <label>Select Country</label>
-        <select id="countrySelect" onchange="updateCountry()">
-            <option value="NZ">New Zealand</option>
-            <option value="AU">Australia</option>
-            <option value="UK">United Kingdom</option>
-            <option value="CA">Canada</option>
-            <option value="US">United States</option>
-        </select>
+        <label>Company (Restaurant) Name</label>
+        <input type="text" id="inCo" placeholder="e.g. Tirana Grill & Bar" oninput="syncText()">
+        
+        <label>Employee Full Name</label>
+        <input type="text" id="inName" placeholder="Candidate Name" oninput="syncText()">
 
-        <label>Company Name</label>
-        <input type="text" id="inCo" placeholder="e.g. Calmfort Food Ltd" oninput="syncText()">
+        <label>Passport Number</label>
+        <input type="text" id="inPass" placeholder="Passport No." oninput="syncText()">
         
-        <label>Employee Name</label>
-        <input type="text" id="inName" placeholder="Full Name" oninput="syncText()">
-        
-        <label>Monthly Salary</label>
-        <input type="text" id="inSalary" placeholder="e.g. 5817.07" oninput="syncText()">
+        <label>Monthly Gross Salary (ALL)</label>
+        <input type="text" id="inSalary" placeholder="e.g. 60,000" oninput="syncText()">
 
-        <button class="btn-print" onclick="window.print()">GENERATE 3-PAGE PDF</button>
+        <label>Work Address</label>
+        <input type="text" id="inAddr" placeholder="Street, City, Albania" oninput="syncText()">
+
+        <button class="btn-print" onclick="window.print()">GENERATE 3-PAGE AGREEMENT</button>
+        <p style="font-size: 10px; color: #666; margin-top: 20px;">*Legal content based on Albanian Labor Code 2026 standards.</p>
     </div>
 
     <div class="page">
         <div class="header">
             <div class="co-branding">
-                <h1 class="outCo">COMPANY NAME</h1>
-                <p id="legalSub">ACCREDITED EMPLOYER - REGULATED DOCUMENT</p>
+                <h1 class="outCo">RESTAURANT NAME</h1>
+                <p>KONTRAKO E PUNËS (EMPLOYMENT AGREEMENT)</p>
             </div>
-            <img id="flagImg" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" class="flag-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
         </div>
 
-        <h1 style="text-align: center; font-size: 18px; color: var(--navy);">OFFER OF EMPLOYMENT</h1>
+        <p style="text-align: right;"><strong>Date:</strong> January 23, 2026</p>
         
-        <p><strong>Date:</strong> January 23, 2026</p>
-        <p><strong>To:</strong> <span class="outName">[Employee Name]</span></p>
+        <h1 style="text-align: center; font-size: 20px; text-decoration: underline;">CONTRACT OF EMPLOYMENT</h1>
+        
+        <p>This individual employment contract is entered into in accordance with <strong>Law No. 7961, dated 22.07.1995 "The Labor Code of the Republic of Albania"</strong> (as amended), between:</p>
 
-        <h2>1. Appointment</h2>
-        <p>We are pleased to offer you the position of <strong>Operations Specialist</strong>. This offer is contingent upon your legal right to work in the specified territory and a successful background check.</p>
-
+        <h2>1. The Parties</h2>
         <table class="data-table">
-            <tr><td class="label">Job Classification</td><td>Logistics & Operations</td></tr>
-            <tr><td class="label">Reporting To</td><td>Operations Manager</td></tr>
-            <tr><td class="label">Term</td><td>3 Years (Fixed-Term)</td></tr>
+            <tr><td class="label">Employer (Subjekti)</td><td class="outCo">[RESTAURANT NAME]</td></tr>
+            <tr><td class="label">Workplace Address</td><td class="outAddr">[CITY, ALBANIA]</td></tr>
+            <tr><td class="label">Employee (Punëmarrësi)</td><td class="outName">[EMPLOYEE NAME]</td></tr>
+            <tr><td class="label">Passport Number</td><td class="outPass">[PASSPORT NO]</td></tr>
         </table>
 
+        <h2>2. Position and Duties</h2>
+        <p>The employee is hired as a <strong>Restaurant Waiter (Kamarier)</strong>. Duties include but are not limited to: table service, food and beverage handling, customer relations, and maintaining hygiene standards as per the Law on Food Safety in Albania.</p>
+
         <div class="footer">
-            <div class="footer-logo-box outCo">COMPANY NAME</div>
+            <div class="footer-logo-box outCo">RESTAURANT LOGO</div>
             <div class="page-num">Page 1 of 3</div>
         </div>
     </div>
 
     <div class="page">
         <div class="header">
-            <div class="co-branding"><h1 class="outCo">COMPANY NAME</h1></div>
-            <img class="flag-icon flagImg" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg">
+            <div class="co-branding"><h1 class="outCo">RESTAURANT NAME</h1></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
         </div>
 
-        <h2>2. Remuneration</h2>
-        <p>The company agrees to compensate the Employee at the following rate, subject to local statutory deductions:</p>
+        <h2>3. Duration and Probation</h2>
+        <p><strong>3.1 Term:</strong> This is a Fixed-Term contract for a duration of one (1) year, renewable upon mutual agreement.</p>
+        <p><strong>3.2 Probation:</strong> The first three (3) months of employment shall be considered a probationary period. During this time, either party may terminate the contract with 5 days' notice.</p>
+
+        <h2>4. Working Hours</h2>
+        <p>The standard working week is <strong>40 hours</strong>. Due to the nature of the restaurant industry, work may include weekends and evening shifts. Overtime and work on official public holidays will be compensated according to Article 91 of the Labor Code (+25% or time off in lieu).</p>
+
+        <h2>5. Remuneration</h2>
+        <p>The Employer shall pay the Employee a gross monthly salary as follows:</p>
         
-        <div style="border: 2px solid var(--accent); padding: 20px; text-align: center; margin: 20px 0;">
+        <div style="border: 2px solid var(--al-red); padding: 25px; text-align: center; margin: 25px 0; background: #fffcfc;">
             <span style="font-size: 11px; color: #666;">MONTHLY GROSS SALARY</span><br>
-            <strong style="font-size: 24px; color: var(--accent);"><span class="currSymbol">$</span><span class="outSalary">0.00</span></strong>
+            <strong style="font-size: 26px; color: var(--al-black);">Lek <span class="outSalary">0.00</span> (ALL)</strong>
         </div>
-
-        <h2>3. Hours & Holidays</h2>
-        <p>The standard working week is 40 hours. Leave entitlements (Annual, Sick, and Public Holidays) will be provided as per the national labor standards of the host country.</p>
+        <p>Salaries are paid via bank transfer no later than the 5th of the following month. Social and health insurance contributions shall be deducted according to Albanian legislation.</p>
 
         <div class="footer">
-            <div class="footer-logo-box outCo">COMPANY NAME</div>
+            <div class="footer-logo-box outCo">RESTAURANT LOGO</div>
             <div class="page-num">Page 2 of 3</div>
         </div>
     </div>
 
     <div class="page">
         <div class="header">
-            <div class="co-branding"><h1 class="outCo">COMPANY NAME</h1></div>
-            <img class="flag-icon flagImg" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg">
+            <div class="co-branding"><h1 class="outCo">RESTAURANT NAME</h1></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
         </div>
 
-        <h2>4. Governing Law</h2>
-        <p>This agreement shall be governed by and construed in accordance with the laws of <strong id="countryName">New Zealand</strong>. Any disputes arising from this contract shall be handled by the local labor authorities.</p>
+        <h2>6. Annual Leave and Sick Leave</h2>
+        <p><strong>6.1 Annual Leave:</strong> The employee is entitled to no less than 4 calendar weeks (28 days) of paid annual leave per year.</p>
+        <p><strong>6.2 Sick Leave:</strong> Compensation for the first 14 days of illness is provided by the employer, after which it is covered by Social Security.</p>
 
-        <div style="margin-top: 100px; display: flex; justify-content: space-between;">
-            <div style="width: 40%; border-top: 1px solid #000; padding-top: 10px; text-align: center;">
-                <strong>Employer Signature</strong><br><span class="outCo">Company</span>
+        <h2>7. Termination of Contract</h2>
+        <p>After the probation period, the notice period for termination shall be as follows:</p>
+        <ul>
+            <li>During the first year of work: 1 month notice.</li>
+            <li>Two to five years of work: 2 months notice.</li>
+            <li>Over five years of work: 3 months notice.</li>
+        </ul>
+
+        <h2>8. Signatures</h2>
+        <p>By signing below, both parties agree to the terms of this contract, formulated in two original copies.</p>
+
+        <div style="margin-top: 80px; display: flex; justify-content: space-between;">
+            <div style="width: 45%; border-top: 1px solid #000; padding-top: 10px; text-align: center;">
+                <strong>For the Employer</strong><br>(Manager/Director)
             </div>
-            <div style="width: 40%; border-top: 1px solid #000; padding-top: 10px; text-align: center;">
-                <strong>Employee Signature</strong><br><span class="outName">[Name]</span>
+            <div style="width: 45%; border-top: 1px solid #000; padding-top: 10px; text-align: center;">
+                <strong>The Employee</strong><br><span class="outName">[Full Name]</span>
             </div>
         </div>
 
         <div class="footer">
-            <div class="footer-logo-box outCo">COMPANY NAME</div>
+            <div class="footer-logo-box outCo">RESTAURANT LOGO</div>
             <div class="page-num">Page 3 of 3</div>
         </div>
     </div>
 
     <script>
-        function updateCountry() {
-            const country = document.getElementById('countrySelect').value;
-            const flag = document.getElementById('flagImg');
-            const allFlags = document.querySelectorAll('.flagImg');
-            const countryName = document.getElementById('countryName');
-            const symbols = document.querySelectorAll('.currSymbol');
-            
-            const data = {
-                'NZ': { name: 'New Zealand', symbol: '$', flag: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg' },
-                'AU': { name: 'Australia', symbol: '$', flag: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Flag_of_Australia.svg' },
-                'UK': { name: 'United Kingdom', symbol: '£', flag: 'https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg' },
-                'CA': { name: 'Canada', symbol: '$', flag: 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada.svg' },
-                'US': { name: 'United States', symbol: '$', flag: 'https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg' }
-            };
-
-            flag.src = data[country].flag;
-            allFlags.forEach(f => f.src = data[country].flag);
-            countryName.innerText = data[country].name;
-            symbols.forEach(s => s.innerText = data[country].symbol);
-        }
-
         function syncText() {
-            const co = document.getElementById('inCo').value || 'COMPANY NAME';
-            const name = document.getElementById('inName').value || '[EMPLOYEE NAME]';
+            const co = document.getElementById('inCo').value || 'RESTAURANT NAME';
+            const name = document.getElementById('inName').value || '[NAME]';
             const salary = document.getElementById('inSalary').value || '0.00';
+            const pass = document.getElementById('inPass').value || '[PASSPORT NO]';
+            const addr = document.getElementById('inAddr').value || '[ADDRESS]';
 
             document.querySelectorAll('.outCo').forEach(el => el.innerText = co);
             document.querySelectorAll('.outName').forEach(el => el.innerText = name);
             document.querySelectorAll('.outSalary').forEach(el => el.innerText = salary);
+            document.querySelectorAll('.outPass').forEach(el => el.innerText = pass);
+            document.querySelectorAll('.outAddr').forEach(el => el.innerText = addr);
         }
     </script>
 </body>
 </html>
-💡 Key Features of this Code:
-Dynamic Flags: When you select "United Kingdom" or "Australia" from the sidebar, the small flag in the header changes automatically.
+💡 Albanian Compliance Notes:
+Currency: Salaries in Albania are paid in Lek (ALL). Ensure you enter the gross amount (before taxes).
 
-Currency Switcher: It automatically switches between $ and £ depending on the country.
+Language: For official filing in Albania, the contract is often required to be bilingual (Albanian/English). I have used the English terminology most recognized by international hospitality groups, but included "Kamarier" (Waiter) and "Lek" for local validity.
 
-Real-time Typing: As you type the company name or salary in the sidebar, it updates all three pages of the document instantly.
+Probation: Article 31 of the Labor Code allows a 3-month probation; I have integrated this into Page 2.
 
-Persistent Logo: The bottom of every page features a clean, boxed logo area for your company name.
-
-3-Page Structure: The layout is locked to A4 dimensions to ensure a professional 3-page PDF every time.
-
-Would you like me to add more countries (like Germany, UAE, or Singapore) to the selection list?
+Would you like me to add a specific clause regarding tip-sharing (trishat) or uniform requirements, which are common in Albanian restaurant contracts?
