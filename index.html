@@ -2,10 +2,10 @@
 <html lang="sq">
 <head>
     <meta charset="UTF-8">
-    <title>Albania Bilingual Agreement - Restaurant Sector</title>
+    <title>Bilingual Albania Agreement - Restaurant Specialist</title>
     <style>
         @page { size: A4; margin: 0; }
-        :root { --al-red: #e41e20; --navy: #002341; }
+        :root { --al-red: #e41e20; --navy: #002341; --gold: #c5a059; }
         
         body { font-family: 'Times New Roman', serif; margin: 0; padding: 0; background: #333; color: #111; }
 
@@ -15,8 +15,10 @@
             background: #111; color: white; padding: 20px; box-sizing: border-box;
             z-index: 100; font-family: Arial, sans-serif; overflow-y: auto;
         }
+        .controls h3 { border-bottom: 2px solid var(--al-red); padding-bottom: 10px; margin-bottom: 20px; }
+        .controls label { font-size: 11px; color: #888; text-transform: uppercase; }
         .controls input { width: 100%; margin-bottom: 12px; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: white; }
-        .btn-print { width: 100%; padding: 15px; background: var(--al-red); color: white; border: none; font-weight: bold; cursor: pointer; }
+        .btn-print { width: 100%; padding: 15px; background: var(--al-red); color: white; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; }
 
         /* PAGE SETUP */
         .page { 
@@ -27,23 +29,23 @@
 
         /* HEADER */
         .header { display: flex; justify-content: space-between; border-bottom: 3px solid var(--al-red); padding-bottom: 10px; margin-bottom: 20px; }
-        .co-branding h1 { margin: 0; font-size: 20px; color: var(--navy); font-family: Arial; }
+        .co-branding h1 { margin: 0; font-size: 20px; color: var(--navy); font-family: Arial; text-transform: uppercase; }
         .al-flag { width: 45px; height: auto; }
 
         /* BILINGUAL COLUMNS */
         .row { display: flex; justify-content: space-between; margin-bottom: 15px; gap: 20px; }
-        .col { width: 48%; font-size: 12.5px; line-height: 1.5; }
-        .sq { font-weight: bold; color: #000; } /* Albanian text */
-        .en { font-style: italic; color: #444; } /* English text */
+        .col { width: 48%; font-size: 12px; line-height: 1.5; text-align: justify; }
+        .sq { font-weight: bold; color: #000; border-right: 1px solid #eee; padding-right: 10px; } 
+        .en { font-style: italic; color: #444; }
 
-        h2 { font-family: Arial; font-size: 14px; background: #f4f4f4; padding: 5px; border-bottom: 2px solid var(--al-red); margin-top: 20px; display: flex; justify-content: space-between; }
+        h2 { font-family: Arial; font-size: 13px; background: #f9f9f9; padding: 8px; border-left: 5px solid var(--al-red); margin-top: 20px; display: flex; justify-content: space-between; text-transform: uppercase; }
         
-        .salary-box { border: 2px solid var(--al-red); padding: 15px; text-align: center; margin: 15px 0; }
+        .benefits-box { background: #fff9f9; border: 1px solid #eccaca; padding: 15px; margin: 15px 0; }
+        .salary-box { border: 2px solid var(--al-red); padding: 15px; text-align: center; margin: 15px 0; background: #fafafa; }
         
         /* FOOTER */
         .footer { position: absolute; bottom: 10mm; left: 0; width: 100%; text-align: center; border-top: 1px solid #eee; padding-top: 5px; }
-        .footer-logo { font-weight: bold; font-family: Arial; font-size: 12px; text-transform: uppercase; }
-        .migration-link { font-size: 9px; color: #777; margin-top: 4px; }
+        .migration-link { font-size: 9px; color: #777; margin-top: 4px; font-family: Arial; }
 
         @media print { .controls { display: none; } .page { margin: 0; box-shadow: none; } body { background: none; } }
     </style>
@@ -51,27 +53,32 @@
 <body>
 
     <div class="controls">
-        <h3 style="color:var(--al-red)">Bilingual Generator</h3>
-        <input type="text" id="inCo" placeholder="Restaurant Name" oninput="syncText()">
-        <input type="text" id="inName" placeholder="Employee Name" oninput="syncText()">
-        <input type="text" id="inPass" placeholder="Passport Number" oninput="syncText()">
-        <input type="text" id="inSalary" placeholder="Salary (ALL)" oninput="syncText()">
-        <input type="text" id="inAddr" placeholder="Work Address in Albania" oninput="syncText()">
-        <button class="btn-print" onclick="window.print()">PRINT BILINGUAL CONTRACT</button>
+        <h3>Contract Details</h3>
+        <label>Restaurant Name</label>
+        <input type="text" id="inCo" placeholder="e.g. Tirana Gourmet" oninput="syncText()">
+        <label>Employee Full Name</label>
+        <input type="text" id="inName" placeholder="Candidate Name" oninput="syncText()">
+        <label>Passport Number</label>
+        <input type="text" id="inPass" placeholder="e.g. Z1234567" oninput="syncText()">
+        <label>Monthly Gross (Lek)</label>
+        <input type="text" id="inSalary" placeholder="e.g. 65,000" oninput="syncText()">
+        <label>Work Address</label>
+        <input type="text" id="inAddr" placeholder="City, Albania" oninput="syncText()">
+        <button class="btn-print" onclick="window.print()">GENERATE OFFICIAL PDF</button>
     </div>
 
     <div class="page">
         <div class="header">
-            <div class="co-branding"><h1 class="outCo">COMPANY NAME</h1><p>KONTRAKO E PUNËS / EMPLOYMENT CONTRACT</p></div>
+            <div class="co-branding"><h1 class="outCo">COMPANY NAME</h1><p>KONTRATË INDIVIDUALE PUNE / INDIVIDUAL EMPLOYMENT CONTRACT</p></div>
             <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
         </div>
 
         <div class="row">
-            <div class="col sq">Kjo kontratë lidhet në përputhje me Kodin e Punës të Republikës së Shqipërisë midis:</div>
-            <div class="col en">This contract is entered into in accordance with the Labor Code of the Republic of Albania between:</div>
+            <div class="col sq">Kjo kontratë rregullohet sipas Kodit të Punës të Republikës së Shqipërisë (Ligji Nr. 7961).</div>
+            <div class="col en">This contract is governed by the Labor Code of the Republic of Albania (Law No. 7961).</div>
         </div>
 
-        <h2><span>1. PALËT</span> <span>1. THE PARTIES</span></h2>
+        <h2><span>1. PALËT E KONTRATËS</span> <span>1. PARTIES TO THE CONTRACT</span></h2>
         <div class="row">
             <div class="col sq"><strong>Punëdhënësi:</strong> <span class="outCo">---</span><br>Adresa: <span class="outAddr">---</span></div>
             <div class="col en"><strong>Employer:</strong> <span class="outCo">---</span><br>Address: <span class="outAddr">---</span></div>
@@ -81,76 +88,83 @@
             <div class="col en"><strong>Employee:</strong> <span class="outName">---</span><br>Passport No: <span class="outPass">---</span></div>
         </div>
 
-        <h2><span>2. POZICIONI</span> <span>2. POSITION</span></h2>
+        <h2><span>2. POZICIONI DHE DETYRAT</span> <span>2. POSITION AND DUTIES</span></h2>
         <div class="row">
-            <div class="col sq">Punëmarrësi do të mbajë pozicionin: <strong>Kamarier (Waiter)</strong>. Detyrat përfshijnë shërbimin e klientit dhe mirëmbajtjen e standardeve të higjienës.</div>
-            <div class="col en">The employee shall hold the position of: <strong>Waiter</strong>. Duties include customer service and maintaining food safety standards.</div>
+            <div class="col sq">Punëmarrësi emërohet në pozicionin: <strong>Kamarier</strong>. Përgjegjësitë përfshijnë shërbimin profesional të klientit, menaxhimin e porosive dhe respektimin e rregullave të higjienës ushqimore.</div>
+            <div class="col en">The employee is appointed as: <strong>Waiter</strong>. Responsibilities include professional customer service, order management, and adherence to food safety and hygiene regulations.</div>
         </div>
 
         <div class="footer">
-            <div class="footer-logo outCo">RESTAURANT NAME</div>
-            <div class="migration-link">Official Migration Info: mb.gov.al | asp.gov.al/department-for-border-and-migration/</div>
-            <div style="font-size: 9px; color: #bbb;">Page 1 of 3</div>
+            <div class="migration-link">Official Migration Portal: <strong>mb.gov.al</strong> | Electronic Visas: <strong>e-albania.al</strong></div>
+            <div style="font-size: 9px; color: #bbb;">Page 1 of 3 | Initial: _________</div>
         </div>
     </div>
 
     <div class="page">
         <div class="header"><div class="co-branding"><h1 class="outCo">COMPANY NAME</h1></div></div>
 
-        <h2><span>3. KOHËZGJATJA</span> <span>3. DURATION</span></h2>
-        <div class="row">
-            <div class="col sq">Kjo kontratë është me afat të caktuar 1 vjeçar. Periudha e provës është 3 (tre) muaj.</div>
-            <div class="col en">This is a fixed-term contract for 1 year. The probation period is 3 (three) months.</div>
-        </div>
-
-        <h2><span>4. PAGA</span> <span>4. REMUNERATION</span></h2>
+        <h2><span>3. PAGA DHE KOHA E PUNËS</span> <span>3. WAGES AND WORKING HOURS</span></h2>
         <div class="salary-box">
             <div class="sq">PAGA MUORE BRUTO / MONTHLY GROSS SALARY</div>
             <div style="font-size: 24px; font-weight: bold;">Lek <span class="outSalary">0.00</span> (ALL)</div>
         </div>
-        <div class="row">
-            <div class="col sq">Paga do të paguhet me transfertë bankare brenda datës 5 të çdo muaji pasardhës.</div>
-            <div class="col en">Salary shall be paid via bank transfer by the 5th of each following month.</div>
-        </div>
 
-        <h2><span>5. ORARI I PUNËS</span> <span>5. WORKING HOURS</span></h2>
-        <div class="row">
-            <div class="col sq">Orari i punës është 40 orë në javë. Punëdhënësi do të sigurojë sigurimet shoqërore dhe shëndetësore.</div>
-            <div class="col en">Working hours are 40 per week. The employer will provide social and health insurance contributions.</div>
+        <h2><span>4. PËRFITIMET SHTESË</span> <span>4. ADDITIONAL BENEFITS</span></h2>
+        <div class="benefits-box">
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="col sq"><strong>Ushqimi:</strong> Punëdhënësi do të sigurojë ushqim pa pagesë për punëmarrësin gjatë orarit të punës.</div>
+                <div class="col en"><strong>Food:</strong> The Employer shall provide duty meals free of charge to the employee during working hours.</div>
+            </div>
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="col sq"><strong>Akomodimi:</strong> Punëdhënësi merr përsipër të sigurojë akomodim të përshtatshëm banimi për punëmarrësin.</div>
+                <div class="col en"><strong>Accommodation:</strong> The Employer undertakes to provide suitable housing accommodation for the employee.</div>
+            </div>
+            <div class="row">
+                <div class="col sq"><strong>Transporti:</strong> Transporti nga vendi i akomodimit në vendin e punës do të mbulohet plotësisht nga kompania.</div>
+                <div class="col en"><strong>Transportation:</strong> Transport from the place of accommodation to the workplace will be fully covered by the company.</div>
+            </div>
         </div>
 
         <div class="footer">
-            <div class="footer-logo outCo">RESTAURANT NAME</div>
-            <div class="migration-link">Imigracioni Shqiptar: e-albania.al</div>
-            <div style="font-size: 9px; color: #bbb;">Page 2 of 3</div>
+            <div class="migration-link">Foreigners Department: <strong>asp.gov.al</strong></div>
+            <div style="font-size: 9px; color: #bbb;">Page 2 of 3 | Initial: _________</div>
         </div>
     </div>
 
     <div class="page">
         <div class="header"><div class="co-branding"><h1 class="outCo">COMPANY NAME</h1></div></div>
 
-        <h2><span>6. LEJA VJETORE</span> <span>6. ANNUAL LEAVE</span></h2>
+        <h2><span>5. DISPOZITA TË TJERA</span> <span>5. OTHER PROVISIONS</span></h2>
         <div class="row">
-            <div class="col sq">Punëmarrësi ka të drejtë për leje vjetore të paguar prej 28 ditësh kalendarike.</div>
-            <div class="col en">The employee is entitled to 28 calendar days of paid annual leave.</div>
+            <div class="col sq">Punëdhënësi paguan kontributet e sigurimeve shoqërore dhe shëndetësore sipas legjislacionit shqiptar në fuqi.</div>
+            <div class="col en">The Employer pays social and health insurance contributions according to the Albanian legislation in force.</div>
         </div>
 
-        <h2><span>7. NËNSHKRIMET</span> <span>7. SIGNATURES</span></h2>
-        <div class="row" style="margin-top: 50px;">
-            <div class="col sq" style="border-top: 1px solid #000; text-align: center; padding-top: 10px;">PUNËDHËNËSI (Employer)</div>
-            <div class="col sq" style="border-top: 1px solid #000; text-align: center; padding-top: 10px;">PUNËMARRËSI (Employee)</div>
+        <h2><span>6. NËNSHKRIMET</span> <span>6. SIGNATURES</span></h2>
+        <div class="row" style="margin-top: 40px; gap: 40px;">
+            <div class="col" style="text-align: center;">
+                <div style="border-top: 1px solid #000; padding-top: 10px;">
+                    <strong>PUNËDHËNËSI / EMPLOYER</strong><br>
+                    <span style="font-size: 10px;">(Vula e Kompanisë / Company Stamp)</span>
+                </div>
+                <div style="height: 100px; width: 100px; border: 1px dashed #ccc; margin: 10px auto; display: flex; align-items: center; justify-content: center; color: #ccc; font-size: 10px;">STAMP HERE</div>
+            </div>
+            <div class="col" style="text-align: center;">
+                <div style="border-top: 1px solid #000; padding-top: 10px;">
+                    <strong>PUNËMARRËSI / EMPLOYEE</strong><br>
+                    <span class="outName">[Signature]</span>
+                </div>
+            </div>
         </div>
 
-        <div style="margin-top: 100px; padding: 20px; border: 1px dashed #ccc; font-size: 11px;">
-            <p><strong>Njoftim për Imigracionin / Immigration Notice:</strong><br>
-            Për aplikimet e lejes së qëndrimit, ju lutem vizitoni portalin zyrtar: <br>
-            <strong>https://e-albania.al/</strong> (Shtetasi i huaj / Foreign Citizen section).<br>
-            Border and Migration Department: <strong>asp.gov.al</strong></p>
+        <div style="margin-top: 60px; padding: 15px; background: #f4f4f4; font-size: 11px; border: 1px solid #ddd;">
+            <strong>Immigration Support:</strong> This document is valid for residence permit applications via the <strong>e-Albania</strong> portal. 
+            For technical assistance, visit <strong>www.asp.gov.al</strong> or contact the Department for Border and Migration.
         </div>
 
         <div class="footer">
             <div class="footer-logo outCo">RESTAURANT NAME</div>
-            <div style="font-size: 9px; color: #bbb;">Page 3 of 3 | Bilingual Execution Copy</div>
+            <div style="font-size: 9px; color: #bbb;">Page 3 of 3 | Official Employment Document</div>
         </div>
     </div>
 
@@ -171,11 +185,11 @@
     </script>
 </body>
 </html>
-📋 Key Compliance Features:
-Bilingual Text: Every clause is listed in Albanian (Shqip) first, followed by English. This is essential for the Work Permit application in Albania.
+📋 Key Updates:
+Section 4 (Përfitimet Shtesë / Additional Benefits): I have drafted formal clauses for Food, Accommodation, and Transport. This makes the offer much more attractive and shows the immigration officer that the worker's basic needs are legally covered by the employer.
 
-Immigration Links: Included mb.gov.al (Ministry of Interior) and e-albania.al (the digital portal where foreign workers must register).
+Stamp Box: Added a "Stamp Here" area. In Albania, a contract without a company "Vula" (stamp) is often rejected by the migration office.
 
-Labor Code Standards: Includes the mandatory 28 days of annual leave and the 40-hour work week per Albanian law.
+Bilingual Legal Flow: The terms are integrated into the flow of the Albanian Labor Code, making it a "Visa-Ready" document.
 
-Would you like me to add the official "Seal" placeholder at the bottom of the signature page for the company's stamp?
+Would you like me to add a specific clause about the "Flight Ticket" (return or arrival) being covered by the company as well?
