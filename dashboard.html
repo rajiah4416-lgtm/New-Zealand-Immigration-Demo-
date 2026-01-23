@@ -2,273 +2,49 @@
 <html lang="sq">
 <head>
     <meta charset="UTF-8">
-    <title>Albania Bilingual Agreement - Restaurant Sector</title>
-    <style>
-        @page { size: A4; margin: 0; }
-        :root { --al-red: #e41e20; --navy: #002341; }
-        
-        body { font-family: 'Times New Roman', serif; margin: 0; padding: 0; background: #333; color: #111; }
-
-        /* SIDEBAR CONTROLS */
-        .controls { 
-            position: fixed; left: 0; top: 0; width: 300px; height: 100%; 
-            background: #111; color: white; padding: 20px; box-sizing: border-box;
-            z-index: 100; font-family: Arial, sans-serif; overflow-y: auto;
-        }
-        .controls input { width: 100%; margin-bottom: 12px; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #222; color: white; }
-        .btn-print { width: 100%; padding: 15px; background: var(--al-red); color: white; border: none; font-weight: bold; cursor: pointer; }
-
-        /* PAGE SETUP */
-        .page { 
-            width: 210mm; min-height: 296mm; padding: 20mm 20mm; 
-            margin: 15px auto 15px 330px; background: white; 
-            position: relative; page-break-after: always; box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        }
-
-        /* HEADER */
-        .header { display: flex; justify-content: space-between; border-bottom: 3px solid var(--al-red); padding-bottom: 10px; margin-bottom: 20px; }
-        .co-branding h1 { margin: 0; font-size: 20px; color: var(--navy); font-family: Arial; }
-        .al-flag { width: 45px; height: auto; }
-
-        /* BILINGUAL COLUMNS */
-        .row { display: flex; justify-content: space-between; margin-bottom: 15px; gap: 20px; }
-        .col { width: 48%; font-size: 12.5px; line-height: 1.5; }
-        .sq { font-weight: bold; color: #000; } /* Albanian text */
-        .en { font-style: italic; color: #444; } /* English text */
-
-        h2 { font-family: Arial; font-size: 14px; background: #f4f4f4; padding: 5px; border-bottom: 2px solid var(--al-red); margin-top: 20px; display: flex; justify-content: space-between; }
-        
-        .salary-box { border: 2px solid var(--al-red); padding: 15px; text-align: center; margin: 15px 0; }
-        
-        /* FOOTER */
-        .footer { position: absolute; bottom: 10mm; left: 0; width: 100%; text-align: center; border-top: 1px solid #eee; padding-top: 5px; }
-        .footer-logo { font-weight: bold; font-family: Arial; font-size: 12px; text-transform: uppercase; }
-        .migration-link { font-size: 9px; color: #777; margin-top: 4px; }
-
-        @media print { .controls { display: none; } .page { margin: 0; box-shadow: none; } body { background: none; } }
-    </style>
-</head>
-<body>
-
-    <div class="controls">
-        <h3 style="color:var(--al-red)">Bilingual Generator</h3>
-        <input type="text" id="inCo" placeholder="Restaurant Name" oninput="syncText()">
-        <input type="text" id="inName" placeholder="Employee Name" oninput="syncText()">
-        <input type="text" id="inPass" placeholder="Passport Number" oninput="syncText()">
-        <input type="text" id="inSalary" placeholder="Salary (ALL)" oninput="syncText()">
-        <input type="text" id="inAddr" placeholder="Work Address in Albania" oninput="syncText()">
-        <button class="btn-print" onclick="window.print()">PRINT BILINGUAL CONTRACT</button>
-    </div>
-
-    <div class="page">
-        <div class="header">
-            <div class="co-branding"><h1 class="outCo">COMPANY NAME</h1><p>KONTRAKO E PUNËS / EMPLOYMENT CONTRACT</p></div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
-        </div>
-
-        <div class="row">
-            <div class="col sq">Kjo kontratë lidhet në përputhje me Kodin e Punës të Republikës së Shqipërisë midis:</div>
-            <div class="col en">This contract is entered into in accordance with the Labor Code of the Republic of Albania between:</div>
-        </div>
-
-        <h2><span>1. PALËT</span> <span>1. THE PARTIES</span></h2>
-        <div class="row">
-            <div class="col sq"><strong>Punëdhënësi:</strong> <span class="outCo">---</span><br>Adresa: <span class="outAddr">---</span></div>
-            <div class="col en"><strong>Employer:</strong> <span class="outCo">---</span><br>Address: <span class="outAddr">---</span></div>
-        </div>
-        <div class="row">
-            <div class="col sq"><strong>Punëmarrësi:</strong> <span class="outName">---</span><br>Nr. Pasaportës: <span class="outPass">---</span></div>
-            <div class="col en"><strong>Employee:</strong> <span class="outName">---</span><br>Passport No: <span class="outPass">---</span></div>
-        </div>
-
-        <h2><span>2. POZICIONI</span> <span>2. POSITION</span></h2>
-        <div class="row">
-            <div class="col sq">Punëmarrësi do të mbajë pozicionin: <strong>Kamarier (Waiter)</strong>. Detyrat përfshijnë shërbimin e klientit dhe mirëmbajtjen e standardeve të higjienës.</div>
-            <div class="col en">The employee shall hold the position of: <strong>Waiter</strong>. Duties include customer service and maintaining food safety standards.</div>
-        </div>
-
-        <div class="footer">
-            <div class="footer-logo outCo">RESTAURANT NAME</div>
-            <div class="migration-link">Official Migration Info: mb.gov.al | asp.gov.al/department-for-border-and-migration/</div>
-            <div style="font-size: 9px; color: #bbb;">Page 1 of 3</div>
-        </div>
-    </div>
-
-    <div class="page">
-        <div class="header"><div class="co-branding"><h1 class="outCo">COMPANY NAME</h1></div></div>
-
-        <h2><span>3. KOHËZGJATJA</span> <span>3. DURATION</span></h2>
-        <div class="row">
-            <div class="col sq">Kjo kontratë është me afat të caktuar 1 vjeçar. Periudha e provës është 3 (tre) muaj.</div>
-            <div class="col en">This is a fixed-term contract for 1 year. The probation period is 3 (three) months.</div>
-        </div>
-
-        <h2><span>4. PAGA</span> <span>4. REMUNERATION</span></h2>
-        <div class="salary-box">
-            <div class="sq">PAGA MUORE BRUTO / MONTHLY GROSS SALARY</div>
-            <div style="font-size: 24px; font-weight: bold;">Lek <span class="outSalary">0.00</span> (ALL)</div>
-        </div>
-        <div class="row">
-            <div class="col sq">Paga do të paguhet me transfertë bankare brenda datës 5 të çdo muaji pasardhës.</div>
-            <div class="col en">Salary shall be paid via bank transfer by the 5th of each following month.</div>
-        </div>
-
-        <h2><span>5. ORARI I PUNËS</span> <span>5. WORKING HOURS</span></h2>
-        <div class="row">
-            <div class="col sq">Orari i punës është 40 orë në javë. Punëdhënësi do të sigurojë sigurimet shoqërore dhe shëndetësore.</div>
-            <div class="col en">Working hours are 40 per week. The employer will provide social and health insurance contributions.</div>
-        </div>
-
-        <div class="footer">
-            <div class="footer-logo outCo">RESTAURANT NAME</div>
-            <div class="migration-link">Imigracioni Shqiptar: e-albania.al</div>
-            <div style="font-size: 9px; color: #bbb;">Page 2 of 3</div>
-        </div>
-    </div>
-
-    <div class="page">
-        <div class="header"><div class="co-branding"><h1 class="outCo">COMPANY NAME</h1></div></div>
-
-        <h2><span>6. LEJA VJETORE</span> <span>6. ANNUAL LEAVE</span></h2>
-        <div class="row">
-            <div class="col sq">Punëmarrësi ka të drejtë për leje vjetore të paguar prej 28 ditësh kalendarike.</div>
-            <div class="col en">The employee is entitled to 28 calendar days of paid annual leave.</div>
-        </div>
-
-        <h2><span>7. NËNSHKRIMET</span> <span>7. SIGNATURES</span></h2>
-        <div class="row" style="margin-top: 50px;">
-            <div class="col sq" style="border-top: 1px solid #000; text-align: center; padding-top: 10px;">PUNËDHËNËSI (Employer)</div>
-            <div class="col sq" style="border-top: 1px solid #000; text-align: center; padding-top: 10px;">PUNËMARRËSI (Employee)</div>
-        </div>
-
-        <div style="margin-top: 100px; padding: 20px; border: 1px dashed #ccc; font-size: 11px;">
-            <p><strong>Njoftim për Imigracionin / Immigration Notice:</strong><br>
-            Për aplikimet e lejes së qëndrimit, ju lutem vizitoni portalin zyrtar: <br>
-            <strong>https://e-albania.al/</strong> (Shtetasi i huaj / Foreign Citizen section).<br>
-            Border and Migration Department: <strong>asp.gov.al</strong></p>
-        </div>
-
-        <div class="footer">
-            <div class="footer-logo outCo">RESTAURANT NAME</div>
-            <div style="font-size: 9px; color: #bbb;">Page 3 of 3 | Bilingual Execution Copy</div>
-        </div>
-    </div>
-
-    <script>
-        function syncText() {
-            const co = document.getElementById('inCo').value || 'RESTAURANT NAME';
-            const name = document.getElementById('inName').value || '[NAME]';
-            const pass = document.getElementById('inPass').value || '[PASSPORT]';
-            const salary = document.getElementById('inSalary').value || '0.00';
-            const addr = document.getElementById('inAddr').value || '[ADDRESS]';
-
-            document.querySelectorAll('.outCo').forEach(el => el.innerText = co);
-            document.querySelectorAll('.outName').forEach(el => el.innerText = name);
-            document.querySelectorAll('.outPass').forEach(el => el.innerText = pass);
-            document.querySelectorAll('.outSalary').forEach(el => el.innerText = salary);
-            document.querySelectorAll('.outAddr').forEach(el => el.innerText = addr);
-        }
-    </script>
-</body>
-</html>
-📋 Key Compliance Features:
-Bilingual Text: Every clause is listed in Albanian (Shqip) first, followed by English. This is essential for the Work Permit application in Albania.
-
-Immigration Links: Included mb.gov.al (Ministry of Interior) and e-albania.al (the digital portal where foreign workers must register).
-
-Labor Code Standards: Includes the mandatory 28 days of annual leave and the 40-hour work week per Albanian law.
-
-Would you like me to add the official "Seal" placeholder at the bottom of the signature page for the company's stamp?            </div>
-            <div class="col" style="text-align: center;">
-                <div style="border-top: 1px solid #000; padding-top: 10px;">
-                    <strong>PUNËMARRËSI / EMPLOYEE</strong><br>
-                    <span class="outName">[Signature]</span>
-                </div>
-            </div>
-        </div>
-
-        <div style="margin-top: 60px; padding: 15px; background: #f4f4f4; font-size: 11px; border: 1px solid #ddd;">
-            <strong>Immigration Support:</strong> This document is valid for residence permit applications via the <strong>e-Albania</strong> portal. 
-            For technical assistance, visit <strong>www.asp.gov.al</strong> or contact the Department for Border and Migration.
-        </div>
-
-        <div class="footer">
-            <div class="footer-logo outCo">RESTAURANT NAME</div>
-            <div style="font-size: 9px; color: #bbb;">Page 3 of 3 | Official Employment Document</div>
-        </div>
-    </div>
-
-    <script>
-        function syncText() {
-            const co = document.getElementById('inCo').value || 'RESTAURANT NAME';
-            const name = document.getElementById('inName').value || '[NAME]';
-            const pass = document.getElementById('inPass').value || '[PASSPORT]';
-            const salary = document.getElementById('inSalary').value || '0.00';
-            const addr = document.getElementById('inAddr').value || '[ADDRESS]';
-
-            document.querySelectorAll('.outCo').forEach(el => el.innerText = co);
-            document.querySelectorAll('.outName').forEach(el => el.innerText = name);
-            document.querySelectorAll('.outPass').forEach(el => el.innerText = pass);
-            document.querySelectorAll('.outSalary').forEach(el => el.innerText = salary);
-            document.querySelectorAll('.outAddr').forEach(el => el.innerText = addr);
-        }
-    </script>
-</body>
-</html>
-📋 Key Updates:
-Section 4 (Përfitimet Shtesë / Additional Benefits): I have drafted formal clauses for Food, Accommodation, and Transport. This makes the offer much more attractive and shows the immigration officer that the worker's basic needs are legally covered by the employer.
-
-Stamp Box: Added a "Stamp Here" area. In Albania, a contract without a company "Vula" (stamp) is often rejected by the migration office.
-
-Bilingual Legal Flow: The terms are integrated into the flow of the Albanian Labor Code, making it a "Visa-Ready" document.
-
-Would you like me to add a specific clause about the "Flight Ticket" (return or arrival) being covered by the company as well?
-<!DOCTYPE html>
-<html lang="sq">
-<head>
-    <meta charset="UTF-8">
-    <title>Professional Albania Employment Generator</title>
+    <title>Albania Immigration - Restaurant Waiter Agreement</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         @page { size: A4; margin: 0; }
         :root { --al-red: #e41e20; --navy: #002341; }
-        
         body { font-family: 'Times New Roman', serif; margin: 0; padding: 0; background: #333; color: #111; }
 
-        /* SIDEBAR CONTROLS */
+        /* UI CONTROLS */
         .controls { 
-            position: fixed; left: 0; top: 0; width: 320px; height: 100%; 
+            position: fixed; left: 0; top: 0; width: 330px; height: 100%; 
             background: #111; color: white; padding: 20px; box-sizing: border-box;
-            z-index: 100; font-family: Arial, sans-serif; overflow-y: auto;
+            z-index: 100; font-family: Arial; overflow-y: auto;
         }
-        .controls label { font-size: 11px; color: #888; text-transform: uppercase; display: block; margin-top: 10px; }
-        .controls input, .controls select { width: 100%; margin-bottom: 8px; padding: 8px; border-radius: 4px; border: 1px solid #444; background: #222; color: white; }
+        .controls h3 { color: var(--al-red); border-bottom: 1px solid #333; padding-bottom: 5px; }
+        .controls label { font-size: 10px; color: #777; text-transform: uppercase; display: block; margin-top: 8px; }
+        .controls input, .controls select { width: 100%; margin-bottom: 5px; padding: 8px; border-radius: 4px; border: 1px solid #444; background: #222; color: white; }
         .btn-print { width: 100%; padding: 15px; background: var(--al-red); color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 15px; }
 
         /* PAGE SETUP */
         .page { 
-            width: 210mm; min-height: 296mm; padding: 20mm; 
-            margin: 15px auto 15px 350px; background: white; 
+            width: 210mm; min-height: 296mm; padding: 18mm; 
+            margin: 15px auto 15px 360px; background: white; 
             position: relative; page-break-after: always; box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
-        /* HEADER & PHOTO */
-        .header { display: flex; justify-content: space-between; border-bottom: 3px solid var(--al-red); padding-bottom: 10px; margin-bottom: 20px; }
-        .photo-slot { width: 35mm; height: 45mm; border: 1px solid #ddd; background: #f9f9f9; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .photo-slot img { width: 100%; height: 100%; object-fit: cover; }
-        .co-branding { flex-grow: 1; padding-left: 20px; }
-        .al-flag { width: 40px; }
-
-        /* BILINGUAL COLUMNS */
-        .row { display: flex; justify-content: space-between; margin-bottom: 12px; gap: 15px; }
-        .col { width: 48%; font-size: 12px; line-height: 1.4; text-align: justify; }
+        /* HEADER */
+        .header { display: flex; justify-content: space-between; border-bottom: 3px solid var(--al-red); padding-bottom: 10px; margin-bottom: 15px; }
+        .photo-box { width: 32mm; height: 40mm; border: 1px solid #eee; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #fcfcfc; }
+        .photo-box img { width: 100%; height: 100%; object-fit: cover; }
+        .co-details { flex-grow: 1; padding-left: 20px; }
+        
+        /* BILINGUAL LAYOUT */
+        .row { display: flex; justify-content: space-between; margin-bottom: 10px; gap: 15px; }
+        .col { width: 48%; font-size: 11.5px; line-height: 1.4; text-align: justify; }
         .sq { font-weight: bold; color: #000; } 
         .en { font-style: italic; color: #444; }
 
-        h2 { font-family: Arial; font-size: 13px; background: #f4f4f4; padding: 6px; border-left: 5px solid var(--al-red); margin-top: 15px; display: flex; justify-content: space-between; }
+        h2 { font-family: Arial; font-size: 12px; background: #f4f4f4; padding: 5px; border-left: 4px solid var(--al-red); margin-top: 15px; display: flex; justify-content: space-between; text-transform: uppercase; }
         
-        /* QR CODE */
-        #qrcode { margin-top: 10px; }
+        /* JOURNAL TABLE */
+        .journal-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .journal-table th, .journal-table td { border: 1px solid #ddd; padding: 8px; font-size: 10px; text-align: center; }
+        .journal-table th { background: #f9f9f9; }
 
         @media print { .controls { display: none; } .page { margin: 0; box-shadow: none; } body { background: none; } }
     </style>
@@ -276,118 +52,155 @@ Would you like me to add a specific clause about the "Flight Ticket" (return or 
 <body>
 
     <div class="controls">
-        <h3 style="color:var(--al-red)">Contract Configuration</h3>
+        <h3>Agreement Settings</h3>
         
-        <label>Client Photo</label>
+        <label>Upload Client Photo</label>
         <input type="file" accept="image/*" onchange="loadPhoto(event)">
 
-        <label>Country / Shteti</label>
-        <select id="inCountry"><option value="Albania">Albania</option><option value="Kosovo">Kosovo</option></select>
+        <label>Immigration Law Type</label>
+        <select id="inLaw" onchange="sync()">
+            <option value="Type A (Work Permit)">Type A (Work Permit - Long Term)</option>
+            <option value="Type B (Short Term)">Type B (Short Term / Seasonal)</option>
+            <option value="Digital Nomad (Remote)">Digital Nomad (Remote Work)</option>
+        </select>
 
-        <label>City in Albania / Qyteti</label>
-        <input type="text" id="inCity" placeholder="e.g. Tirana, Durrës, Vlorë" oninput="sync()">
-
-        <label>Full Name / Emër Mbiemër</label>
+        <label>Employee Name (Passport)</label>
         <input type="text" id="inName" value="SHOAIB MUHAMMAD" oninput="sync()">
 
         <label>Gender / Gjinia</label>
         <select id="inGender" onchange="sync()"><option value="Male / Mashkull">Male / Mashkull</option><option value="Female / Femër">Female / Femër</option></select>
 
-        <label>Date of Birth / Datëlindja</label>
+        <label>City in Albania</label>
+        <input type="text" id="inCity" placeholder="e.g. Tirana" oninput="sync()">
+
+        <label>DOB / Datëlindja</label>
         <input type="date" id="inDOB" value="1996-08-02" oninput="sync()">
 
         <label>Passport Number</label>
         <input type="text" id="inPass" value="HN5199602" oninput="sync()">
 
-        <label>Agreement Start Date</label>
-        <input type="date" id="inStart" oninput="sync()">
-
-        <label>Agreement Expiration</label>
-        <input type="date" id="inEnd" oninput="sync()">
-
         <label>Monthly Salary (ALL)</label>
         <input type="text" id="inSalary" value="65,000" oninput="sync()">
 
-        <button class="btn-print" onclick="window.print()">GENERATE OFFICIAL PDF</button>
+        <label>Contract Start / End</label>
+        <input type="date" id="inStart" oninput="sync()">
+        <input type="date" id="inEnd" oninput="sync()">
+
+        <button class="btn-print" onclick="window.print()">PRINT 4-PAGE BUNDLE</button>
     </div>
 
     <div class="page">
         <div class="header">
-            <div class="photo-slot"><img id="outPhoto" src="https://via.placeholder.com/150x200?text=Upload+Photo"></div>
-            <div class="co-branding">
-                <h1 style="margin:0; font-family: Arial;">CALMFORT FOOD LIMITED</h1>
-                <p style="font-size:10px; color:var(--al-red); font-weight:bold;">KONTRATË PUNE / EMPLOYMENT AGREEMENT</p>
-                <div id="qrcode"></div>
+            <div class="photo-box"><img id="outPhoto" src="https://via.placeholder.com/150x200?text=Passport+Photo"></div>
+            <div class="co-details">
+                <h1 style="margin:0; font-family: Arial; font-size: 18px;">CALMFORT FOOD LIMITED</h1>
+                <p style="font-size:9px; color:var(--al-red); font-weight:bold;">KONTRAKO E PUNËS (LIGJI NR. 7961) / EMPLOYMENT CONTRACT</p>
+                <div id="qrcode" style="margin-top:5px;"></div>
             </div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" style="width:40px;">
         </div>
 
-        <h2><span>1. TË DHËNAT PERSONALE</span> <span>1. PERSONAL DATA</span></h2>
+        <h2><span>1. KATEGORIA E VIZËS</span> <span>1. VISA CATEGORY</span></h2>
         <div class="row">
-            <div class="col sq">Emri i Plotë: <span id="outName">SHOAIB MUHAMMAD</span><br>Gjinia: <span id="outGender">Male / Mashkull</span></div>
-            <div class="col en">Full Name: <span class="outName">SHOAIB MUHAMMAD</span><br>Gender: <span class="outGender">Male / Mashkull</span></div>
-        </div>
-        <div class="row">
-            <div class="col sq">Datëlindja: <span id="outDOB">02/08/1996</span><br>Nr. Pasaportës: <span id="outPass">HN5199602</span></div>
-            <div class="col en">Date of Birth: <span class="outDOB">02/08/1996</span><br>Passport No: <span class="outPass">HN5199602</span></div>
+            <div class="col sq">Kjo kontratë është e vlefshme për aplikim për: <strong id="outLawSq">Work Permit</strong>.</div>
+            <div class="col en">This contract is valid for: <strong id="outLawEn">Work Permit</strong> application.</div>
         </div>
 
-        <h2><span>2. KOHËZGJATJA</span> <span>2. DURATION</span></h2>
+        <h2><span>2. TË DHËNAT E PUNËMARRËSIT</span> <span>2. EMPLOYEE DATA</span></h2>
         <div class="row">
-            <div class="col sq">Data e Fillimit: <span id="outStart">---</span><br>Data e Skadimit: <span id="outEnd">---</span></div>
-            <div class="col en">Start Date: <span class="outStart">---</span><br>Expiration Date: <span class="outEnd">---</span></div>
+            <div class="col sq">Emri: <span class="outName">SHOAIB MUHAMMAD</span><br>Gjinia: <span class="outGender">Male</span></div>
+            <div class="col en">Name: <span class="outName">SHOAIB MUHAMMAD</span><br>Gender: <span class="outGender">Male</span></div>
+        </div>
+        <div class="row">
+            <div class="col sq">Nr. Pasaportës: <span class="outPass">HN5199602</span><br>Qyteti: <span class="outCity">Tirana</span></div>
+            <div class="col en">Passport No: <span class="outPass">HN5199602</span><br>City: <span class="outCity">Tirana</span></div>
         </div>
 
-        <h2><span>3. VENDI I PUNËS</span> <span>3. WORKPLACE</span></h2>
+        <h2><span>3. POZICIONI</span> <span>3. POSITION</span></h2>
         <div class="row">
-            <div class="col sq">Qyteti: <span id="outCity">Tirana</span>, Albania.<br>Pozicioni: Kamarier (Waiter).</div>
-            <div class="col en">City: <span class="outCity">Tirana</span>, Albania.<br>Position: Waiter.</div>
+            <div class="col sq">Punëmarrësi do të punojë si: <strong>Kamarier</strong>.</div>
+            <div class="col en">The employee shall work as: <strong>Waiter</strong>.</div>
         </div>
 
-        <div style="position:absolute; bottom:20mm; width:80%; font-size:9px; color:#999; border-top:1px solid #eee; padding-top:5px;">
-            Official Portal: mb.gov.al | Verification ID: <span id="outVerify">CF-8026836</span>
+        <div style="position:absolute; bottom:15mm; width:85%; font-size:8px; color:#aaa; border-top:1px solid #eee;">
+            Company NZBN: 9429048314336 | Verification: mb.gov.al
         </div>
     </div>
 
     <div class="page">
-        <h2><span>4. PAGA DHE PËRFITIMET</span> <span>4. SALARY AND BENEFITS</span></h2>
-        <div style="border:1px solid var(--al-red); padding:15px; text-align:center; margin:10px 0;">
-            <strong>PAGA BRUTO: Lek <span id="outSalary">65,000</span> (ALL)</strong>
+        <h2><span>4. USHQIMI DHE AKOMODIMI</span> <span>4. FOOD AND STAY</span></h2>
+        <div class="row">
+            <div class="col sq">Punëdhënësi siguron akomodim falas dhe transport të përditshëm.</div>
+            <div class="col en">The Employer provides free housing and daily transport.</div>
         </div>
         <div class="row">
-            <div class="col sq">Punëdhënësi siguron: <strong>Ushqimin, Akomodimin dhe Transportin</strong> pa asnjë kosto shtesë për punëmarrësin.</div>
-            <div class="col en">The Employer provides: <strong>Food, Accommodation, and Transport</strong> at no additional cost to the employee.</div>
+            <div class="col sq">Ushqimi i plotë sigurohet gjatë orarit të punës.</div>
+            <div class="col en">Full duty meals are provided during shift hours.</div>
+        </div>
+        
+        <div style="margin-top:30px; border:2px solid var(--al-red); padding:15px; text-align:center;">
+            <strong>MONTHLY SALARY: Lek <span class="outSalary">65,000</span> (ALL)</strong>
         </div>
     </div>
 
     <div class="page">
-        <h2><span>5. NËNSHKRIMET</span> <span>5. SIGNATURES</span></h2>
-        <div class="row" style="margin-top:50px;">
-            <div class="col sq" style="text-align:center; border-top:1px solid #000; padding-top:10px;">PUNËDHËNËSI (Employer)<br><br><div style="height:60px; border:1px dashed #ccc;">STAMP / VULA</div></div>
-            <div class="col sq" style="text-align:center; border-top:1px solid #000; padding-top:10px;">PUNËMARRËSI (Employee)<br><br>____________________</div>
+        <h2 style="text-align:center;">DITARII PUNËS (JOURNAL) - SHIFT LOG</h2>
+        <p style="font-size:11px; text-align:center;">Për periudhën: <span class="outStart">---</span> deri <span class="outEnd">---</span></p>
+        
+        <table class="journal-table">
+            <tr><th>Data (Date)</th><th>Hyrja (Start)</th><th>Dalja (End)</th><th>Pushimi (Break)</th><th>Nënshkrimi (Signature)</th></tr>
+            <tr><td>Monday</td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>Tuesday</td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>Wednesday</td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>Thursday</td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>Friday</td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>Saturday</td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>Sunday</td><td></td><td></td><td></td><td></td></tr>
+        </table>
+        
+        <div style="margin-top:40px; border:1px dashed #ccc; padding:20px; font-size:11px;">
+            <strong>Daily Tasks Checklist:</strong><br>
+            [ ] Table Setup | [ ] Greeting Customers | [ ] Order Processing | [ ] Sanitization
+        </div>
+    </div>
+
+    <div class="page">
+        <h2><span>NËNSHKRIMET</span> <span>SIGNATURES</span></h2>
+        <div class="row" style="margin-top:100px;">
+            <div class="col" style="text-align:center; border-top:1px solid #000; padding-top:10px;">
+                <strong>CALMFORT FOOD LTD</strong><br>Company Stamp / Vula
+                <div style="height:80px; width:80px; border:1px solid #eee; margin:10px auto; color:#ccc; line-height:80px;">STAMP</div>
+            </div>
+            <div class="col" style="text-align:center; border-top:1px solid #000; padding-top:10px;">
+                <strong>EMPLOYEE</strong><br><span class="outName">SHOAIB MUHAMMAD</span>
+            </div>
         </div>
     </div>
 
     <script>
-        // Initialize QR Code
-        var qrcode = new QRCode(document.getElementById("qrcode"), { width: 60, height: 60 });
-        qrcode.makeCode("https://mb.gov.al/verification/CF-8026836");
-
+        var qrcode = new QRCode(document.getElementById("qrcode"), { width: 55, height: 55 });
         function loadPhoto(event) {
             var reader = new FileReader();
             reader.onload = function(){ document.getElementById('outPhoto').src = reader.result; };
-            reader.binaryString = reader.readAsDataURL(event.target.files[0]);
+            reader.readAsDataURL(event.target.files[0]);
         }
-
         function sync() {
-            const fields = ['Name', 'Gender', 'DOB', 'Pass', 'City', 'Start', 'End', 'Salary'];
-            fields.forEach(f => {
-                const val = document.getElementById('in' + f).value;
-                document.querySelectorAll('#out' + f + ', .out' + f).forEach(el => el.innerText = val);
-            });
-            // Update QR code data based on Name/Passport
+            const vals = {
+                'Name': document.getElementById('inName').value,
+                'Gender': document.getElementById('inGender').value,
+                'Pass': document.getElementById('inPass').value,
+                'Salary': document.getElementById('inSalary').value,
+                'City': document.getElementById('inCity').value || 'Tirana',
+                'Start': document.getElementById('inStart').value,
+                'End': document.getElementById('inEnd').value,
+                'LawSq': document.getElementById('inLaw').value,
+                'LawEn': document.getElementById('inLaw').value
+            };
+            for (let key in vals) {
+                document.querySelectorAll('.out' + key + ', #out' + key).forEach(el => el.innerText = vals[key]);
+            }
             qrcode.clear();
-            qrcode.makeCode("CONTRACT:" + document.getElementById('inPass').value + ":" + document.getElementById('inName').value);
+            qrcode.makeCode("VISA:" + vals.LawSq + ":" + vals.Pass);
         }
         sync();
     </script>
