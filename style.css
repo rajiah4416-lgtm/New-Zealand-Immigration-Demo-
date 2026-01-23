@@ -1,4 +1,8 @@
-body{font-family:Arial;background:#f4f6f8;padding:40px}
-.login-box{width:300px;margin:auto;border:1px solid #ccc;padding:20px}
-input,button{width:100%;padding:10px;margin-top:10px}
-button{background:#d9531e;color:white;border:none}
+body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+.search-container, .result-card { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; width: 400px; }
+.flag { width: 80px; margin-bottom: 20px; }
+input { width: 100%; padding: 12px; margin: 20px 0; border: 1px solid #ddd; border-radius: 5px; }
+button { background: #e41e20; color: white; border: none; padding: 12px 25px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+.status-valid { background: #28a745; color: white; padding: 10px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; }
+.content { display: flex; align-items: center; gap: 20px; text-align: left; }
+.photo img { width: 100px; height: 130px; border: 1px solid #ddd; }
