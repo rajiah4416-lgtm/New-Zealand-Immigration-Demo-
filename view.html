@@ -38,7 +38,133 @@
 </div>
 
 <div class="paper-preview">
+    <div class="page"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional NZ Offer Preview</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --brand-main: #004a99;
+            --brand-accent: #00a859; /* NZ Green */
+            --brand-bg: #f0f4f8;
+        }
+        .paper-preview { background: #525659; padding: 50px 0; }
+        
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 30px auto;
+            display: grid;
+            grid-template-columns: 30% 70%; /* Colorful sidebar design */
+            box-shadow: 0 0 20px rgba(0,0,0,0.4);
+        }
+
+        /* Colorful Sidebar */
+        .sidebar {
+            background-color: var(--brand-main);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .sidebar-item { margin-bottom: 30px; font-size: 0.85rem; }
+        .sidebar-item strong { display: block; color: var(--brand-accent); font-size: 1rem; }
+
+        /* Main Content Area */
+        .main-content { padding: 50px 40px; position: relative; }
+        .header-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--brand-main); padding-bottom: 10px; margin-bottom: 30px; }
+        
+        .accent-bar {
+            position: absolute; top: 0; right: 0;
+            width: 100px; height: 10px; background: var(--brand-accent);
+        }
+
+        h1 { color: var(--brand-main); font-size: 1.8rem; margin: 0; }
+        .clause-header { color: var(--brand-main); font-weight: bold; border-left: 4px solid var(--brand-accent); padding-left: 10px; margin: 20px 0 10px 0; }
+    </style>
+</head>
+<body>
+
+<div class="paper-preview">
     <div class="page">
+        <div class="sidebar">
+            <div class="sidebar-item">
+                <strong>VISA TYPE</strong>
+                3-Year AEWV Permitted
+            </div>
+            <div class="sidebar-item">
+                <strong>ORIGIN</strong>
+                Pakistan
+            </div>
+            <div class="sidebar-item">
+                <strong>TRAVEL</strong>
+                One-Way Ticket Paid
+            </div>
+            <div class="sidebar-item">
+                <strong>MINIMUM HOURS</strong>
+                30 Hours Guaranteed
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="accent-bar"></div>
+            <div class="header-top">
+                <h1>OFFER OF EMPLOYMENT</h1>
+                <div style="text-align: right; font-size: 0.8rem;">Ref: NZ-PK-2026</div>
+            </div>
+
+            <p><strong>Date:</strong> Jan 23, 2026</p>
+            <p><strong>Candidate:</strong> <span id="nameDisplay">Full Name</span></p>
+
+            <p>We are delighted to invite you to join our team in New Zealand. This offer is tailored to meet the <strong>Accredited Employer Work Visa</strong> requirements.</p>
+
+            <div class="clause-header">1. POSITION & TERM</div>
+            <p>This is a <strong>3-year fixed-term agreement</strong>. Your expertise is vital to our operations, and we will support your relocation from Pakistan to New Zealand.</p>
+
+            <div class="clause-header">2. COMPENSATION</div>
+            <p>Your remuneration is set at <span id="rateDisplay">NZD $35.00</span> per hour, exceeding the current New Zealand median wage requirements for 2026.</p>
+        </div>
+    </div>
+
+    <div class="page">
+        <div class="sidebar" style="background-color: var(--brand-accent);">
+            <div class="sidebar-item"><strong>BENEFITS</strong> Included</div>
+        </div>
+        <div class="main-content">
+            <div class="clause-header">3. LOGISTICS & RELOCATION</div>
+            <p>As discussed, the company provides a <strong>fully funded one-way airfare</strong> from Pakistan. We also provide the following options as selected:</p>
+            
+            <ul>
+                <li><strong>Accommodation:</strong> Fully Managed Subsidized Housing.</li>
+                <li><strong>Medical:</strong> Private Health Cover + ACC Protection.</li>
+                <li><strong>Food:</strong> Daily Meal Allowance ($25.00 NZD).</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="text-align: center;">
+    <button class="btn" onclick="window.print()">Download Professional PDF</button>
+</div>
+
+</body>
+</html>
+What makes this "Professional & Colorful":
+Split Layout: The left sidebar in Navy Blue acts as a "Fast Facts" section for Immigration officers to quickly see the 3-year term and flight details.
+
+NZ Green Accents: I added Emerald Green (#00a859) to represent New Zealand and symbolize a "Go" (approval) status.
+
+Dynamic Labels: It specifically highlights Pakistan and the One-Way Ticket as key logistical points.
+
+Clean Typography: Using a mix of bold headers and plenty of "white space" makes it much easier to read than a standard block-text letter.
+
+I want to upload the Pakistani code.
+This code now treats the Pakistani recruitment path as a priority. In the sidebar, the origin and the one-way flight from Pakistan are clearly displayed to ensure no confusion during the visa application.
+
+Would you like me to add a section for "Family Relocation" options if the 3-year permit holder is bringing a spouse or children?
         <div class="letterhead">
             <h1 style="margin:0;">EMPLOYMENT AGREEMENT</h1>
             <p>New Zealand Accredited Employer Framework</p>
