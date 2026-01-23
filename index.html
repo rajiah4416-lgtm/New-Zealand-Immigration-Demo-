@@ -2,28 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Track application - e-Visa Albania</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NZ HR Portal | Entry</title>
+    <style>
+        :root { --nz-blue: #004a99; --nz-silver: #f8f9fa; }
+        body { 
+            font-family: 'Helvetica Neue', Arial, sans-serif; 
+            background: linear-gradient(135deg, #004a99 0%, #002d5d 100%);
+            height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0;
+        }
+        .login-card {
+            background: white; padding: 40px; border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); width: 100%; max-width: 400px; text-align: center;
+        }
+        .logo-placeholder {
+            font-size: 2rem; font-weight: bold; color: var(--nz-blue); margin-bottom: 20px;
+        }
+        h1 { font-size: 1.5rem; margin-bottom: 10px; color: #333; }
+        p { color: #666; margin-bottom: 30px; font-size: 0.9rem; }
+        .btn-enter {
+            background: var(--nz-blue); color: white; padding: 12px 30px;
+            border: none; border-radius: 25px; font-size: 1rem; cursor: pointer;
+            text-decoration: none; display: inline-block; transition: background 0.3s;
+        }
+        .btn-enter:hover { background: #003366; }
+        .footer { margin-top: 20px; font-size: 0.7rem; color: #aaa; }
+    </style>
 </head>
 <body>
-    <header class="main-header">
-        <div class="logo-container">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" alt="AL Flag">
-            <div class="header-titles">
-                <span class="country">Republic of Albania</span>
-                <span class="system">E-Visa Application System</span>
-            </div>
-        </div>
-    </header>
 
-    <div class="hero-banner"><h1>Track application</h1></div>
+<div class="login-card">
+    <div class="logo-placeholder">NZ Employment</div>
+    <h1>Document Portal</h1>
+    <p>Generate legally compliant New Zealand offer letters for migrant workers (AEWV 2026).</p>
+    
+    <a href="dashboard.html" class="btn-enter">Enter Generator</a>
 
-    <main style="display: flex; justify-content: center; padding: 60px 20px;">
-        <div style="background: white; padding: 40px; border-radius: 8px; width: 100%; max-width: 500px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-            <label style="display: block; font-weight: bold; margin-bottom: 10px;">Tracking number</label>
-            <input type="text" id="trackID" placeholder="Enter passport or tracking number" style="width: 100%; padding: 15px; border: 1px solid #ccc; border-radius: 4px; font-size: 18px; box-sizing: border-box; margin-bottom: 20px;">
-            <button onclick="location.href='verify.html?id=' + document.getElementById('trackID').value" style="width: 100%; padding: 15px; background: var(--al-red); color: white; border: none; border-radius: 4px; font-size: 18px; font-weight: bold; cursor: pointer;">Track</button>
-        </div>
-    </main>
+    <div class="footer">
+        Confidential: For Authorized HR Personnel Only<br>
+        Compliant with NZ Employment Relations Act 2000
+    </div>
+</div>
+
 </body>
-</html
+</html>
