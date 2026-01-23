@@ -1,8 +1,32 @@
-body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-.search-container, .result-card { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; width: 400px; }
-.flag { width: 80px; margin-bottom: 20px; }
-input { width: 100%; padding: 12px; margin: 20px 0; border: 1px solid #ddd; border-radius: 5px; }
-button { background: #e41e20; color: white; border: none; padding: 12px 25px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-.status-valid { background: #28a745; color: white; padding: 10px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; }
-.content { display: flex; align-items: center; gap: 20px; text-align: left; }
-.photo img { width: 100px; height: 130px; border: 1px solid #ddd; }
+:root {
+    --al-red: #e41e20;
+    --navy: #002341;
+    --dark-bg: #0b0b0b;
+}
+
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; margin: 0; padding: 0; }
+
+/* Clean Header */
+.main-header { background: var(--dark-bg); padding: 15px 5%; color: white; display: flex; align-items: center; border-bottom: 4px solid var(--al-red); }
+.logo-container { display: flex; align-items: center; gap: 15px; }
+.logo-container img { height: 55px; }
+.header-titles .country { display: block; font-size: 14px; color: var(--al-red); font-weight: bold; }
+.header-titles .system { font-size: 18px; font-weight: bold; }
+
+/* Tracking Hero Section */
+.hero-banner { background: var(--al-red); padding: 40px 5%; color: white; }
+.hero-banner h1 { margin: 0; font-size: 36px; }
+
+/* Verification Results Card */
+.result-container { max-width: 850px; margin: 40px auto; background: white; border-radius: 8px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); overflow: hidden; }
+.status-header { background: #28a745; color: white; padding: 12px; text-align: center; font-weight: bold; font-size: 1.2rem; }
+
+.content-flex { display: flex; padding: 30px; gap: 30px; }
+.profile-box { width: 180px; height: 230px; border: 2px solid #eee; display: flex; align-items: center; justify-content: center; background: #fafafa; }
+.profile-box img { width: 100%; height: 100%; object-fit: cover; }
+
+.data-table { flex: 1; border-collapse: collapse; }
+.data-table th { text-align: left; color: #777; font-size: 0.75rem; text-transform: uppercase; padding: 8px 0 2px 0; }
+.data-table td { font-weight: 600; font-size: 1.1rem; color: var(--navy); padding-bottom: 12px; border-bottom: 1px solid #f0f0f0; }
+
+.qr-section { width: 120px; display: flex; flex-direction: column; align-items: center; border-left: 1px solid #eee; padding-left: 20px; }
