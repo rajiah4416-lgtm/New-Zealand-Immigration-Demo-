@@ -1,32 +1,150 @@
+/* --- Global Variables --- */
 :root {
-    --al-red: #e41e20;
-    --navy: #002341;
-    --dark-bg: #0b0b0b;
+    --nz-blue: #004a99;
+    --nz-dark: #002d5d;
+    --silver: #f4f7f6;
+    --text-main: #333333;
+    --text-light: #666666;
+    --white: #ffffff;
+    --border: #dcdcdc;
+    --accent: #2196F3;
 }
 
-body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; margin: 0; padding: 0; }
+/* --- Base Styles --- */
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--silver);
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
 
-/* Clean Header */
-.main-header { background: var(--dark-bg); padding: 15px 5%; color: white; display: flex; align-items: center; border-bottom: 4px solid var(--al-red); }
-.logo-container { display: flex; align-items: center; gap: 15px; }
-.logo-container img { height: 55px; }
-.header-titles .country { display: block; font-size: 14px; color: var(--al-red); font-weight: bold; }
-.header-titles .system { font-size: 18px; font-weight: bold; }
+/* --- Layout Containers --- */
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: var(--white);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
 
-/* Tracking Hero Section */
-.hero-banner { background: var(--al-red); padding: 40px 5%; color: white; }
-.hero-banner h1 { margin: 0; font-size: 36px; }
+/* --- Headings --- */
+h2 {
+    color: var(--nz-blue);
+    border-bottom: 3px solid var(--nz-blue);
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
-/* Verification Results Card */
-.result-container { max-width: 850px; margin: 40px auto; background: white; border-radius: 8px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); overflow: hidden; }
-.status-header { background: #28a745; color: white; padding: 12px; text-align: center; font-weight: bold; font-size: 1.2rem; }
+h3 {
+    color: var(--nz-dark);
+    margin-top: 25px;
+    font-size: 1.2rem;
+    border-left: 4px solid var(--nz-blue);
+    padding-left: 15px;
+}
 
-.content-flex { display: flex; padding: 30px; gap: 30px; }
-.profile-box { width: 180px; height: 230px; border: 2px solid #eee; display: flex; align-items: center; justify-content: center; background: #fafafa; }
-.profile-box img { width: 100%; height: 100%; object-fit: cover; }
+/* --- Form Elements --- */
+.section {
+    background: #fdfdfd;
+    margin-bottom: 30px;
+    padding: 25px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
 
-.data-table { flex: 1; border-collapse: collapse; }
-.data-table th { text-align: left; color: #777; font-size: 0.75rem; text-transform: uppercase; padding: 8px 0 2px 0; }
-.data-table td { font-weight: 600; font-size: 1.1rem; color: var(--navy); padding-bottom: 12px; border-bottom: 1px solid #f0f0f0; }
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
 
-.qr-section { width: 120px; display: flex; flex-direction: column; align-items: center; border-left: 1px solid #eee; padding-left: 20px; }
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: var(--nz-blue);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 74, 153, 0.2);
+}
+
+/* --- Buttons --- */
+.btn {
+    display: inline-block;
+    background-color: var(--nz-blue);
+    color: var(--white);
+    padding: 18px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    transition: transform 0.2s, background 0.3s;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: var(--nz-dark);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* --- Info/Compliance Boxes --- */
+.info-box {
+    background: #e7f3ff;
+    padding: 15px 20px;
+    border-left: 5px solid var(--accent);
+    margin-bottom: 30px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 600px) {
+    .container {
+        margin: 10px;
+        padding: 20px;
+    }
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+Important: Update your HTML files
+Since the styles are now in a separate file, you need to tell your index.html and dashboard.html to look for it.
+
+Add this line inside the <head> section of both files (and remove the old <style> tags):
+
+HTML
+
+<link rel="stylesheet" href="style.css">
+What this CSS does for you:
+Professionalism: It uses a grid system so the "Salary," "Start Date," and "Medical" options align perfectly.
+
+Compliance Highlighting: The .info-box makes the NZ Law warnings stand out so the person creating the letter doesn't miss important legal steps.
+
+Mobile Friendly: If you need to generate a letter while on your phone or tablet, the "grid" layout will automatically stack the boxes vertically.
+
+Would you like me to add a specific "Print Preview" style so you can see what the 3-page PDF will look like before you download it?
