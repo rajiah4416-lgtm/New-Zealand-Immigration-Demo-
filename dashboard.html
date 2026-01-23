@@ -1,15 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Admin Dashboard</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immigration New Zealand - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --nz-blue: #002f6c; /* نیوزی لینڈ کا سرکاری نیلا رنگ */
+            --nz-black: #222222;
+            --nz-gray: #f4f4f4;
+        }
+        body { font-family: 'Open Sans', Arial, sans-serif; background-color: var(--nz-gray); margin: 0; }
+        .header { background: white; border-bottom: 4px solid var(--nz-blue); padding: 20px 10% ; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { color: var(--nz-black); font-size: 24px; margin: 0; }
+        .container { padding: 40px 10%; }
+        .welcome-text { margin-bottom: 30px; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 30px; border: 1px solid #ddd; border-top: 5px solid var(--nz-blue); transition: 0.3s; text-align: left; }
+        .card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.1); transform: translateY(-5px); }
+        .card h3 { color: var(--nz-blue); margin-top: 0; }
+        .card p { color: #555; font-size: 14px; min-height: 40px; }
+        .btn { display: inline-block; background: var(--nz-blue); color: white; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 2px; margin-top: 15px; }
+        .btn:hover { background: #001f4d; }
+    </style>
 </head>
 <body>
-<h2>Admin Dashboard</h2>
-<ul>
-<li><a href="upload.html">Upload PDF</a></li>
-<li><a href="verify.html">Verification Page</a></li>
-<li><a href="view.html">View PDF</a></li>
-</ul>
+
+    <div class="header">
+        <h1>IMMIGRATION NEW ZEALAND</h1>
+        <a href="index.html" style="text-decoration: none; color: red; font-weight: bold;">Logout</a>
+    </div>
+
+    <div class="container">
+        <div class="welcome-text">
+            <h2>Welcome to your Visa Portal</h2>
+            <p>Manage your applications and verify your visa status securely.</p>
+        </div>
+
+        <div class="grid-container">
+            <div class="card">
+                <h3>Submit Documents</h3>
+                <p>Upload your required identity and medical documents for processing.</p>
+                <a href="upload.html" class="btn">Upload Now</a>
+            </div>
+
+            <div class="card">
+                <h3>Verify Visa</h3>
+                <p>Check the validity and conditions of your current New Zealand visa.</p>
+                <a href="verify.html" class="btn">Check Status</a>
+            </div>
+
+            <div class="card">
+                <h3>View Applications</h3>
+                <p>Review your previous submissions and download your e-visa.</p>
+                <a href="view.html" class="btn">View Records</a>
+            </div>
+        </div>
+    </div>
+
 </body>
-</html>
+</html
