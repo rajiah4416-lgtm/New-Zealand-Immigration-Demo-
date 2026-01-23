@@ -1,369 +1,202 @@
 <!DOCTYPE html>
-<html lang="sq">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Official Employment Agreement - Calmfort Food LTD</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NZ Offer Letter Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        /* PDF PRINT OPTIMIZATION */
-        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
-        body { font-family: 'Times New Roman', serif; margin: 0; padding: 0; background: #555; }
-
-        @media print {
-            body { background: white !important; }
-            .no-print { display: none !important; }
-            .page { 
-                margin: 0 !important; 
-                border: none !important; 
-                box-shadow: none !important; 
-                display: block !important;
-                page-break-after: always !important; 
-                height: 297mm;
-            }
-        }
-
-        /* SIDEBAR CONTROLS */
-        .no-print { 
-            position: fixed; left: 0; top: 0; width: 320px; height: 100%; 
-            background: #1a1a1a; color: white; padding: 25px; z-index: 9999; overflow-y: auto; 
-        }
-        .no-print input, .no-print select { width: 100%; padding: 10px; margin: 8px 0 15px 0; border-radius: 4px; border: 1px solid #444; background: #222; color: white; }
-        .btn { width: 100%; padding: 15px; background: #e41e20; color: white; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; }
-
-        /* PAGE STYLING */
-        .page { 
-            width: 210mm; height: 297mm; padding: 20mm; background: white; 
-            margin: 15px auto; position: relative; box-shadow: 0 0 10px rgba(0,0,0,0.5); 
-        }
-
-        /* FIXED HEADER */
-        .header-main { display: flex; justify-content: space-between; border-bottom: 3px solid #e41e20; padding-bottom: 10px; margin-bottom: 20px; }
-        .photo-container { width: 35mm; height: 45mm; border: 1px solid #000; overflow: hidden; background: #fcfcfc; }
-        .photo-container img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .center-meta { flex: 1; text-align: center; padding: 0 10px; }
-        .center-meta h1 { margin: 0; font-size: 18px; font-family: Arial; text-transform: uppercase; }
-        
-        .emblem-box { width: 50px; text-align: center; }
-        .al-flag { width: 100%; border: 1px solid #ddd; margin-bottom: 5px; }
-        .im-seal { width: 100%; }
-
-        /* CONTENT STYLING */
-        h2 { font-size: 13px; background: #f4f4f4; padding: 6px; border-left: 5px solid #e41e20; margin: 15px 0; display: flex; justify-content: space-between; font-family: Arial; }
-        .data-grid { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
-        .data-grid td { padding: 8px; border-bottom: 1px solid #eee; font-size: 12px; vertical-align: top; }
-        .label-cell { font-weight: bold; width: 40%; color: #000; }
-        .value-cell { width: 60%; font-style: italic; color: #333; text-align: right; }
-
-        .footer { position: absolute; bottom: 15mm; left: 20mm; right: 20mm; text-align: center; border-top: 1px solid #ddd; padding-top: 8px; font-size: 9px; color: #777; }
+        :root { --primary: #004a99; --secondary: #f4f4f4; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #eef2f3; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+        .section { margin-bottom: 25px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        label { font-weight: bold; display: block; margin-bottom: 5px; }
+        select, input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn { background: var(--primary); color: white; padding: 15px 25px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; width: 100%; }
+        .btn:hover { opacity: 0.9; }
+        .info-box { background: #e7f3ff; padding: 10px; border-left: 4px solid #2196F3; margin-bottom: 20px; font-size: 0.9em; }
     </style>
 </head>
 <body>
 
-    <div class="no-print">
-        <h3 style="color:#e41e20">Document Configurator</h3>
-        <label>Upload Employee Photo</label>
-        <input type="file" accept="image/*" onchange="loadPhoto(event)">
-        
-        <label>Start Date</label>
-        <input type="date" id="inStart" oninput="sync()">
-        
-        <label>End Date</label>
-        <input type="date" id="inEnd" oninput="sync()">
+<div class="container">
+    <h2>NZ Employment Offer Dashboard</h2>
+    <p>Complete the fields below to generate a 3-page compliant offer package.</p>
 
-        <label>City of Employment</label>
-        <input type="text" id="inCity" placeholder="Tirana" oninput="sync()">
-
-        <button class="btn" onclick="window.print()">GENERATE PDF</button>
-        <p style="font-size:10px; color:#888; margin-top:15px;">Note: Set browser print margins to "NONE".</p>
+    <div class="info-box">
+        <strong>NZ Compliance Note:</strong> This letter includes mandatory clauses for the 3-year Accredited Employer Work Visa (AEWV), including the "90-day trial" restriction and "30-hour minimum" guarantee.
     </div>
 
-    <div class="page">
-        <div class="header-main">
-            <div class="photo-container"><img id="outPhoto" src="https://via.placeholder.com/150x200?text=Passport+Photo"></div>
-            <div class="center-meta">
-                <h1>CALMFORT FOOD LIMITED</h1>
-                <p style="font-size:11px; color:#e41e20; font-weight:bold; margin:5px 0;">KONTRATË PUNE (KAMARIER) / EMPLOYMENT AGREEMENT (WAITER)</p>
-                <div id="qrcode" style="display:inline-block; margin-top:5px;"></div>
-            </div>
-            <div class="emblem-box">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Seal_of_the_State_Police_%28Albania%29.svg/1200px-Seal_of_the_State_Police_%28Albania%29.svg.png" class="im-seal">
-            </div>
-        </div>
-
-        <h2><span>1. PALËT / THE PARTIES</span></h2>
-        <table class="data-grid">
-            <tr><td class="label-cell">Punëdhënësi (Employer):</td><td class="value-cell">Calmfort Food Limited</td></tr>
-            <tr><td class="label-cell">Adresa (NZ Address):</td><td class="value-cell">223 Hardy Street, Nelson, 7010, NZ</td></tr>
-            <tr><td class="label-cell">Punëmarrësi (Employee):</td><td class="value-cell">SHOAIB MUHAMMAD</td></tr>
-            <tr><td class="label-cell">Nr. Pasaportës (Passport No):</td><td class="value-cell">HN5199602</td></tr>
-            <tr><td class="label-cell">Datëlindja (Date of Birth):</td><td class="value-cell">1996-08-02</td></tr>
-            <tr><td class="label-cell">Gjinia (Gender):</td><td class="value-cell">Mashkull / Male</td></tr>
-        </table>
-
-        <h2><span>2. KOHËZGJATJA / DURATION</span></h2>
-        <table class="data-grid">
-            <tr><td class="label-cell">Fillimi (Start Date):</td><td class="value-cell" id="outStart">YYYY-MM-DD</td></tr>
-            <tr><td class="label-cell">Skadimi (End Date):</td><td class="value-cell" id="outEnd">YYYY-MM-DD</td></tr>
-        </table>
-
-        <div class="footer">
-            Calmfort Food Limited (9429048314336) | Verified via mb.gov.al | Page 1 of 3
-        </div>
-    </div>
-
-    <div class="page">
-        <div style="text-align:right;"><img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" style="width:30px;"></div>
-        
-        <h2><span>3. VENDI I PUNËS / WORKPLACE</span></h2>
-        <p style="font-size:12px; line-height:1.6;">Punëmarrësi do të mbajë pozicionin <strong>Kamarier</strong> (Waiter) në qytetin e <span id="outCity">Tirana</span>, Shqipëri. Detyrat përfshijnë shërbimin profesional të klientit dhe respektimin e standardeve të sigurisë ushqimore.</p>
-
-        <h2><span>4. PAGA DHE LOGJISTIKA / REMUNERATION & LOGISTICS</span></h2>
-        <table class="data-grid">
-            <tr><td class="label-cell">Paga Bruto (Gross Salary):</td><td class="value-cell">65,000 ALL (Lek)</td></tr>
-            <tr><td class="label-cell">Akomodimi (Accommodation):</td><td class="value-cell">Siguruar nga Kompania / Provided by Company</td></tr>
-            <tr><td class="label-cell">Ushqimi (Meals):</td><td class="value-cell">Siguruar nga Kompania / Provided by Company</td></tr>
-            <tr><td class="label-cell">Transporti (Transport):</td><td class="value-cell">Siguruar nga Kompania / Provided by Company</td></tr>
-        </table>
-
-        <div style="margin-top:20px; font-size:11px; color:#444; border:1px solid #ddd; padding:10px;">
-            <strong>Garancia Financiare:</strong> Kompania merr përsipër shpenzimet e fluturimit dhe sigurimin shëndetësor për punonjësin sipas rregullave të imigracionit shqiptar.
-        </div>
-
-        <div class="footer">
-            Immigration Support - Albanian Ministry of Interior (mb.gov.al) | Page 2 of 3
-        </div>
-    </div>
-
-    <div class="page">
-        <h2><span>5. NËNSHKRIMET / EXECUTION</span></h2>
-        
-        <div style="margin-top: 80px; display: flex; justify-content: space-between; text-align: center;">
-            <div style="width: 45%;">
-                <div style="border-top: 2px solid #000; padding-top: 10px;"><strong>PUNËDHËNËSI (Employer)</strong></div>
-                <div style="width:120px; height:120px; border:2px dashed #ccc; margin:20px auto; color:#ccc; line-height:120px; font-size:11px;">VULA / STAMP</div>
-                <p style="font-size:10px;">Calmfort Food Limited</p>
-            </div>
-            <div style="width: 45%;">
-                <div style="border-top: 2px solid #000; padding-top: 10px;"><strong>PUNËMARRËSI (Employee)</strong></div>
-                <br><br><br><br><br>
-                <p style="font-size:10px;">SHOAIB MUHAMMAD</p>
+    <form id="offerForm">
+        <div class="section">
+            <h3>1. Candidate Information</h3>
+            <div class="grid">
+                <div>
+                    <label>Full Name</label>
+                    <input type="text" id="candidateName" placeholder="John Doe" required>
+                </div>
+                <div>
+                    <label>Country of Origin</label>
+                    <select id="country">
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Philippines">Philippines</option>
+                        <option value="India">India</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Date of Birth</label>
+                    <input type="date" id="dob" required>
+                </div>
+                <div>
+                    <label>Job Category</label>
+                    <select id="jobCategory" onchange="updateSalaryRange()">
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Construction">Construction</option>
+                        <option value="IT/Tech">IT/Software</option>
+                        <option value="Agriculture">Agriculture</option>
+                    </select>
+                </div>
             </div>
         </div>
 
-        <div style="margin-top: 100px; padding: 15px; background: #fff5f5; border: 1px solid #eccaca; font-size: 11px;">
-            <strong>Njoftim Zyrtar:</strong> Ky dokument shërben si provë punësimi për aplikimin e Vizës tip "D" ose Lejes së Qëndrimit në portalin <strong>e-Albania</strong>.
-        </div>
-
-        <div class="footer">
-            223 Hardy Street, Nelson, 7010, New Zealand | Calmfort Food Ltd | Page 3 of 3
-        </div>
-    </div>
-
-    <script>
-        var qrcode = new QRCode(document.getElementById("qrcode"), { width: 50, height: 50 });
-        qrcode.makeCode("VERIFY:AL-CALMFORT-HN5199602");
-
-        function loadPhoto(event) {
-            var reader = new FileReader();
-            reader.onload = function(){ document.getElementById('outPhoto').src = reader.result; };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-
-        function sync() {
-            document.getElementById('outStart').innerText = document.getElementById('inStart').value || 'YYYY-MM-DD';
-            document.getElementById('outEnd').innerText = document.getElementById('inEnd').value || 'YYYY-MM-DD';
-            document.getElementById('outCity').innerText = document.getElementById('inCity').value || 'Tirana';
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="sq">
-<head>
-    <meta charset="UTF-8">
-    <title>Fixed Albania Employment Agreement</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <style>
-        /* CRITICAL PRINT FIXES */
-        @media print {
-            body { background: none !important; margin: 0 !important; padding: 0 !important; }
-            .controls { display: none !important; }
-            .page { 
-                margin: 0 !important; 
-                box-shadow: none !important; 
-                page-break-after: always !important;
-                -webkit-print-color-adjust: exact;
-            }
-        }
-
-        :root { --al-red: #e41e20; --navy: #002341; }
-        body { font-family: 'Times New Roman', serif; background: #333; margin: 0; padding: 0; }
-
-        /* UI CONTROLS */
-        .controls { 
-            position: fixed; left: 0; top: 0; width: 330px; height: 100%; 
-            background: #111; color: white; padding: 20px; box-sizing: border-box;
-            z-index: 100; font-family: Arial; overflow-y: auto;
-        }
-        .controls input, .controls select { width: 100%; margin-bottom: 10px; padding: 8px; border-radius: 4px; border: 1px solid #444; background: #222; color: white; }
-        .btn-print { width: 100%; padding: 15px; background: var(--al-red); color: white; border: none; font-weight: bold; cursor: pointer; }
-
-        /* PAGE SETUP */
-        .page { 
-            width: 210mm; height: 296.5mm; /* Strict A4 Height */
-            padding: 15mm 20mm; margin: 10px auto; 
-            background: white; position: relative; box-sizing: border-box; 
-            overflow: hidden;
-        }
-
-        /* HEADER */
-        .header { display: flex; justify-content: space-between; border-bottom: 3px solid var(--al-red); padding-bottom: 5px; margin-bottom: 15px; height: 45mm; }
-        .photo-box { width: 35mm; height: 40mm; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .photo-box img { width: 100%; height: 100%; object-fit: cover; }
-        
-        /* BILINGUAL COLUMNS */
-        .row { display: flex; justify-content: space-between; margin-bottom: 8px; gap: 15px; }
-        .col { width: 48%; font-size: 11px; line-height: 1.3; text-align: justify; }
-        .sq { font-weight: bold; color: #000; } 
-        .en { font-style: italic; color: #444; }
-
-        h2 { font-family: Arial; font-size: 11px; background: #f4f4f4; padding: 4px; border-left: 4px solid var(--al-red); margin-top: 10px; display: flex; justify-content: space-between; text-transform: uppercase; }
-        
-        /* FOOTER LOGO */
-        .footer { position: absolute; bottom: 10mm; left: 0; width: 100%; text-align: center; }
-        .footer-logo { border: 1px solid #ddd; display: inline-block; padding: 4px 15px; font-family: Arial; font-weight: bold; font-size: 12px; text-transform: uppercase; }
-        .migration-link { font-size: 8px; color: #777; margin-top: 3px; }
-
-        /* JOURNAL */
-        .journal-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .journal-table th, .journal-table td { border: 1px solid #ddd; padding: 6px; font-size: 10px; text-align: center; }
-    </style>
-</head>
-<body>
-
-    <div class="controls">
-        <h3 style="color:var(--al-red)">Document Settings</h3>
-        <label style="font-size:10px">1. UPLOAD PASSPORT PHOTO</label>
-        <input type="file" accept="image/*" onchange="loadPhoto(event)">
-        
-        <input type="text" id="inName" placeholder="Employee Name" value="SHOAIB MUHAMMAD" oninput="sync()">
-        <input type="text" id="inPass" placeholder="Passport Number" value="HN5199602" oninput="sync()">
-        
-        <label style="font-size:10px">GENDER / GJINIA</label>
-        <select id="inGender" onchange="sync()"><option value="Male / Mashkull">Male / Mashkull</option><option value="Female / Femër">Female / Femër</option></select>
-        
-        <input type="text" id="inCity" placeholder="City in Albania (e.g. Tirana)" oninput="sync()">
-        <input type="text" id="inSalary" placeholder="Salary in ALL" value="65,000" oninput="sync()">
-        
-        <label style="font-size:10px">START DATE</label>
-        <input type="date" id="inStart" oninput="sync()">
-        
-        <button class="btn-print" onclick="window.print()">GENERATE PDF</button>
-        <p style="font-size: 10px; color: #666; margin-top:10px;">Note: If pages are blank, set "Margins" to "None" in your print window.</p>
-    </div>
-
-    <div class="page" id="page1">
-        <div class="header">
-            <div class="photo-box"><img id="outPhoto" src="https://via.placeholder.com/150x200?text=Photo"></div>
-            <div style="flex-grow:1; padding-left:15px;">
-                <h1 style="margin:0; font-family: Arial; font-size: 16px;">CALMFORT FOOD LIMITED</h1>
-                <p style="font-size:8px; color:var(--al-red); font-weight:bold; margin:2px 0;">KONTRATË PUNE (KAMARIER) / EMPLOYMENT CONTRACT (WAITER)</p>
-                <div id="qrcode"></div>
+        <div class="section">
+            <h3>2. Terms & Compensation</h3>
+            <div class="grid">
+                <div>
+                    <label>Hourly Salary (NZD)</label>
+                    <select id="hourlyRate">
+                        </select>
+                </div>
+                <div>
+                    <label>Start Date</label>
+                    <input type="date" id="startDate" required>
+                </div>
+                <div>
+                    <label>End Date (3-Year Term)</label>
+                    <input type="date" id="endDate" required>
+                </div>
+                <div>
+                    <label>Permit Duration</label>
+                    <input type="text" value="3 Years (AEWV)" readonly>
+                </div>
             </div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" style="width:35px; height:auto;">
         </div>
 
-        <h2><span>1. PALËT</span> <span>1. THE PARTIES</span></h2>
-        <div class="row">
-            <div class="col sq">Punëdhënësi: <strong>Calmfort Food Limited</strong><br>Adresa: 223 Hardy Street, Nelson, NZ</div>
-            <div class="col en">Employer: <strong>Calmfort Food Limited</strong><br>Address: 223 Hardy Street, Nelson, NZ</div>
-        </div>
-        <div class="row">
-            <div class="col sq">Punëmarrësi: <span class="outName">---</span><br>Gjinia: <span class="outGender">---</span></div>
-            <div class="col en">Employee: <span class="outName">---</span><br>Gender: <span class="outGender">---</span></div>
-        </div>
-
-        <h2><span>2. POZICIONI</span> <span>2. POSITION</span></h2>
-        <div class="row">
-            <div class="col sq">Punëmarrësi do të shërbejë si <strong>Kamarier</strong> në <span class="outCity">Tirana</span>, Albania.</div>
-            <div class="col en">The employee shall serve as a <strong>Waiter</strong> in <span class="outCity">Tirana</span>, Albania.</div>
-        </div>
-
-        <div class="footer">
-            <div class="footer-logo">CALMFORT FOOD LTD</div>
-            <div class="migration-link">mb.gov.al | asp.gov.al | Page 1 of 3</div>
-        </div>
-    </div>
-
-    <div class="page" id="page2">
-        <div class="header" style="height:20mm; border:none;"><h1 style="font-size:14px;">CALMFORT FOOD LIMITED</h1></div>
-
-        <h2><span>3. PAGA DHE PËRFITIMET</span> <span>3. SALARY & BENEFITS</span></h2>
-        <div style="border:1px solid var(--al-red); padding:10px; text-align:center; margin:10px 0; background:#f9f9f9;">
-            <strong>PAGA BRUTO: Lek <span class="outSalary">---</span> (ALL)</strong>
-        </div>
-
-        <h2><span>4. LOGJISTIKA</span> <span>4. LOGISTICS</span></h2>
-        <div class="row">
-            <div class="col sq"><strong>Ushqimi & Akomodimi:</strong> Sigurohen falas nga kompania gjatë gjithë kohëzgjatjes së kontratës.</div>
-            <div class="col en"><strong>Food & Stay:</strong> Provided free by the company for the entire duration of the contract.</div>
-        </div>
-        <div class="row">
-            <div class="col sq"><strong>Transporti & Fluturimi:</strong> Kompania mbulon transportin lokal dhe biletën e fluturimit vajtje-ardhje.</div>
-            <div class="col en"><strong>Transport & Flight:</strong> Company covers local transport and round-trip flight tickets.</div>
+        <div class="section">
+            <h3>3. Perks & Logistics</h3>
+            <div class="grid">
+                <div>
+                    <label>Food Allowance</label>
+                    <select id="food">
+                        <option value="Not Provided">Not Provided</option>
+                        <option value="Daily Meal Allowance ($20/day)">Daily Meal Allowance</option>
+                        <option value="Full Board Provided">Full Board Provided</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Accommodation</label>
+                    <select id="accommodation">
+                        <option value="Employee to provide own">None (Self-funded)</option>
+                        <option value="Subsidised Company Housing">Subsidised Housing</option>
+                        <option value="Fully Provided (1st Month)">Free (Temporary - 1 Month)</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Medical Insurance</label>
+                    <select id="medical">
+                        <option value="Public System (ACC)">Standard ACC Cover</option>
+                        <option value="Private Health Cover Included">Private Health Insurance</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Transportation</label>
+                    <select id="transport">
+                        <option value="Self-arranged">Self-arranged</option>
+                        <option value="One-way ticket included">One-way Flight to NZ</option>
+                        <option value="Company Vehicle Provided">Company Vehicle Provided</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
-        <div class="footer">
-            <div class="footer-logo">CALMFORT FOOD LTD</div>
-            <div class="migration-link">e-albania.al | Page 2 of 3</div>
-        </div>
-    </div>
+        <button type="button" class="btn" onclick="generatePDF()">Download 3-Page Offer PDF</button>
+    </form>
+</div>
 
-    <div class="page" id="page3">
-        <div class="header" style="height:20mm; border:none;"><h1 style="font-size:14px;">CALMFORT FOOD LIMITED</h1></div>
+<script>
+    // Logic to update hourly rates based on NZ Market Rates 2026
+    function updateSalaryRange() {
+        const cat = document.getElementById('jobCategory').value;
+        const rateSelect = document.getElementById('hourlyRate');
+        rateSelect.innerHTML = '';
+        
+        let rates = [];
+        if(cat === "Healthcare") rates = [32.50, 35.00, 45.00];
+        else if(cat === "Construction") rates = [29.66, 34.00, 40.00];
+        else if(cat === "IT/Tech") rates = [55.00, 65.00, 85.00];
+        else rates = [29.66, 31.00, 33.00]; // Default median rates
 
-        <h2><span>5. DITARI I PUNËS (SHEMBULL)</span> <span>5. SHIFT JOURNAL (SAMPLE)</span></h2>
-        <table class="journal-table">
-            <tr><th>Date</th><th>Start</th><th>End</th><th>Break</th><th>Signature</th></tr>
-            <tr><td>Mon</td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>Tue</td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>Wed</td><td></td><td></td><td></td><td></td></tr>
-        </table>
+        rates.forEach(r => {
+            let opt = document.createElement('option');
+            opt.value = r;
+            opt.innerHTML = `$${r.toFixed(2)} per hour`;
+            rateSelect.appendChild(opt);
+        });
+    }
 
-        <div class="row" style="margin-top:60px;">
-            <div class="col sq" style="text-align:center; border-top:1px solid #000;">PUNËDHËNËSI (Employer)<br><br>VULA (STAMP)</div>
-            <div class="col sq" style="text-align:center; border-top:1px solid #000;">PUNËMARRËSI (Employee)<br><br>________________</div>
-        </div>
+    async function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const data = {
+            name: document.getElementById('candidateName').value,
+            rate: document.getElementById('hourlyRate').value,
+            start: document.getElementById('startDate').value,
+            end: document.getElementById('endDate').value,
+            accom: document.getElementById('accommodation').value,
+            trans: document.getElementById('transport').value
+        };
 
-        <div class="footer">
-            <div class="footer-logo">CALMFORT FOOD LTD</div>
-            <div class="migration-link">Official Immigration Document | Page 3 of 3</div>
-        </div>
-    </div>
+        // PAGE 1: Formal Offer Letter
+        doc.setFontSize(18);
+        doc.text("OFFER OF EMPLOYMENT", 20, 20);
+        doc.setFontSize(12);
+        doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 30);
+        doc.text(`To: ${data.name}`, 20, 40);
+        doc.text("Position: Registered Professional (New Zealand)", 20, 50);
+        doc.text("We are pleased to offer you a 3-year fixed-term position...", 20, 70);
+        doc.text(`Start Date: ${data.start}`, 20, 80);
+        doc.text(`Remuneration: NZD $${data.rate} per hour`, 20, 90);
+        doc.text(`Travel: ${data.trans}`, 20, 100);
 
-    <script>
-        var qrcode = new QRCode(document.getElementById("qrcode"), { width: 50, height: 50 });
-        function loadPhoto(event) {
-            var reader = new FileReader();
-            reader.onload = function(){ document.getElementById('outPhoto').src = reader.result; };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-        function sync() {
-            const vals = {
-                'Name': document.getElementById('inName').value,
-                'Gender': document.getElementById('inGender').value,
-                'Pass': document.getElementById('inPass').value,
-                'Salary': document.getElementById('inSalary').value,
-                'City': document.getElementById('inCity').value || 'Tirana',
-            };
-            for (let key in vals) {
-                document.querySelectorAll('.out' + key).forEach(el => el.innerText = vals[key]);
-            }
-            qrcode.clear();
-            qrcode.makeCode("CALMFORT-AL:" + vals.Pass);
-        }
-        sync();
-    </script>
+        // PAGE 2: NZ Legal Clauses (Mandatory)
+        doc.addPage();
+        doc.setFontSize(16);
+        doc.text("SCHEDULE 1: EMPLOYMENT CONDITIONS", 20, 20);
+        doc.setFontSize(10);
+        doc.text("1. VISA STATUS: This offer is contingent upon your 3-year AEWV.", 20, 40);
+        doc.text("2. HOURS: Guaranteed minimum of 30 hours per week (NZ Law).", 20, 50);
+        doc.text("3. TRIAL PERIOD: As per NZ Employment Relations Act 2000.", 20, 60);
+        doc.text(`4. ACCOMMODATION: ${data.accom}`, 20, 70);
+
+        // PAGE 3: Signing and Acceptance
+        doc.addPage();
+        doc.setFontSize(16);
+        doc.text("ACCEPTANCE", 20, 20);
+        doc.setFontSize(11);
+        doc.text("I accept the terms of this offer and the 3-year work permit conditions.", 20, 40);
+        doc.text("Signed: __________________________", 20, 80);
+        doc.text(`Name: ${data.name}`, 20, 90);
+
+        doc.save(`Offer_Letter_${data.name}.pdf`);
+    }
+
+    // Initialize rates
+    updateSalaryRange();
+</script>
+
 </body>
 </html>
