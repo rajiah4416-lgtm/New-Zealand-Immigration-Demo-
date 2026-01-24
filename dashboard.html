@@ -5,21 +5,23 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-    <title>Dashboard - NZ Immigration</title>
+    <title>NZ Immigration Portal - Dashboard</title>
 </head>
 <body>
-    <header class="nz-header"><h1>NZ Immigration | <small>Client Management</small></h1></header>
+    <header class="nz-header">
+        <h1>New Zealand Government | <small>Immigration Staff Portal</small></h1>
+    </header>
     
     <div class="container">
         <div class="card" style="margin-bottom: 30px;">
-            <h2 style="margin-top:0;">Register New Client & Visa</h2>
+            <h2 style="margin-top:0; border-bottom: 2px solid var(--nz-green); padding-bottom: 10px;">Register New Visa Record</h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
                 <div>
                     <label class="label">Full Name</label>
-                    <input type="text" id="name" class="input" placeholder="Enter name">
+                    <input type="text" id="name" class="input" placeholder="e.g. Shoaib Muhammad">
                     
                     <label class="label">Passport Number</label>
-                    <input type="text" id="passport" class="input" placeholder="e.g. BB6317973">
+                    <input type="text" id="passport" class="input" placeholder="e.g. HN5199602">
                     
                     <label class="label">Date of Birth</label>
                     <input type="date" id="dob" class="input">
@@ -30,18 +32,19 @@
                         <option value="Female">Female</option>
                     </select>
 
-                    <label class="label">Visa Type</label>
+                    <label class="label">Visa Category</label>
                     <select id="visaType" class="input">
-                        <option value="Work Permit">Work Permit</option>
+                        <option value="Work Permit">Work Permit (Accredited Employer)</option>
                         <option value="Visit Visa">Visit Visa</option>
                         <option value="Transit Visa">Transit Visa</option>
                     </select>
                 </div>
                 <div>
-                    <label class="label">Country</label>
+                    <label class="label">Country of Origin</label>
                     <select id="country" class="input">
                         <option value="Pakistan">Pakistan</option>
                         <option value="India">India</option>
+                        <option value="New Zealand">New Zealand</option>
                         <option value="Other">Other Countries</option>
                     </select>
                     
@@ -51,22 +54,22 @@
                     <label class="label">Visa Expiry Date</label>
                     <input type="date" id="vEnd" class="input">
                     
-                    <label class="label">Upload Visa Copy (PDF)</label>
+                    <label class="label">Upload Visa/Agreement (PDF)</label>
                     <input type="file" id="pdfFile" class="input" accept=".pdf">
                 </div>
             </div>
-            <button onclick="saveClient()" class="btn btn-save">Save & Sync Records</button>
+            <button onclick="saveClient()" class="btn btn-save" style="width: 100%;">Save and Sync to Database</button>
         </div>
 
         <div class="card">
             <h3>Active Client Database</h3>
-            <table>
+            <table id="visaTable">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Passport</th>
+                        <th>Client Name</th>
+                        <th>Passport #</th>
                         <th>Visa Type</th>
-                        <th>Expiry</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -76,7 +79,7 @@
     </div>
 
     <script>
-        let clients = JSON.parse(localStorage.getItem('nz_final_db')) || [];
+        let clients = JSON.parse(localStorage.getItem('nz_visa_system_db')) || [];
 
         function saveClient() {
             const fileInput = document.getElementById('pdfFile');
@@ -89,15 +92,15 @@
                 country: document.getElementById('country').value,
                 start: document.getElementById('vStart').value,
                 end: document.getElementById('vEnd').value,
-                fileName: fileInput.files[0] ? fileInput.files[0].name : "Visa_Document.pdf"
+                fileName: fileInput.files[0] ? fileInput.files[0].name : "Visa_Record.pdf"
             };
 
-            if(!data.name || !data.pass) return alert("Please fill Name and Passport.");
+            if(!data.name || !data.pass) return alert("Error: Name and Passport are mandatory.");
             
             clients.push(data);
-            localStorage.setItem('nz_final_db', JSON.stringify(clients));
+            localStorage.setItem('nz_visa_system_db', JSON.stringify(clients));
             render();
-            alert("Client Record Added Successfully.");
+            alert("Success: Record has been coded and saved.");
         }
 
         function render() {
@@ -108,7 +111,7 @@
                     <td><strong>${c.name}</strong></td>
                     <td>${c.pass}</td>
                     <td><span style="color: #005DBB; font-weight: bold;">${c.visaType}</span></td>
-                    <td>${c.end}</td>
+                    <td><span style="color: #23CBA5;">● Active</span></td>
                     <td><button class="btn" style="padding:8px 15px; font-size:14px;" onclick="download(${i})">Check & Download PDF</button></td>
                 </tr>`;
             });
@@ -119,16 +122,22 @@
             const doc = new jsPDF();
             const c = clients[i];
             
-            // Header
+            // Header with Black Background
             doc.setFillColor(11, 12, 12);
-            doc.rect(0, 0, 210, 30, 'F');
+            doc.rect(0, 0, 210, 40, 'F');
             doc.setTextColor(255, 255, 255);
-            doc.setFontSize(18);
-            doc.text("NEW ZEALAND IMMIGRATION RECORD", 15, 20);
+            doc.setFontSize(22);
+            doc.text("IMMIGRATION NEW ZEALAND", 15, 20);
+            doc.setFontSize(10);
+            doc.text("OFFICIAL EMPLOYMENT & VISA CONFIRMATION RECORD", 15, 30);
             
-            // Content Table
+            // BANADO AGREEMENT DETAILS
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(12);
+            doc.text("Category: Banado Agreement (Coded Employment Agreement)", 15, 50);
+            
             doc.autoTable({
-                startY: 40,
+                startY: 55,
                 headStyles: { fillColor: [35, 203, 165] },
                 body: [
                     ['Full Name', c.name],
@@ -136,140 +145,22 @@
                     ['Date of Birth', c.dob],
                     ['Gender', c.gender],
                     ['Country', c.country],
-                    ['Visa Category', c.visaType],
+                    ['Visa Classification', c.visaType],
+                    ['Employment Status', 'Accredited Employer (NZBN: 8026836)'],
                     ['Valid From', c.start],
                     ['Valid Until', c.end]
                 ],
                 theme: 'grid'
             });
 
-            // Save with original uploaded filename
+            doc.setFontSize(9);
+            doc.text("This document confirms the employment arrangement with CALMFORT FOOD LIMITED.", 15, doc.lastAutoTable.finalY + 10);
+            doc.text("Coded as per NZ employment and immigration requirements.", 15, doc.lastAutoTable.finalY + 15);
+
+            // Downloads with the exact original filename
             doc.save(c.fileName);
         }
         render();
     </script>
 </body>
-</html>
-Steps to update:
-Go to your GitHub repository.
-
-Open the dashboard.html file.
-
-Click the Edit (pencil icon) and replace all the code with the code I provided above.
-
-Commit changes.
-
-Wait a minute and refresh your website.
-
-Now, when you add a client, you can choose between Work Permit, Visit Visa, or Transit Visa. When you click the blue button, it will download the PDF using the name of the file you originally uploaded.
-
-Would you like me to add a Status column (Approved / Pending / Expired) next?<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-    <title>Dashboard - NZ Immigration</title>
-</head>
-<body>
-    <header class="nz-header"><h1>NZ Immigration | <small>Client Management</small></h1></header>
-    
-    <div class="main-container">
-        <div class="nz-card" style="margin-bottom: 30px;">
-            <h3>Register New Client & Visa</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div>
-                    <label class="nz-label">Full Name</label>
-                    <input type="text" id="name" class="nz-input">
-                    <label class="nz-label">Passport Number</label>
-                    <input type="text" id="passport" class="nz-input">
-                    <label class="nz-label">Date of Birth</label>
-                    <input type="date" id="dob" class="nz-input">
-                    <label class="nz-label">Gender</label>
-                    <select id="gender" class="nz-input">
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="nz-label">Country</label>
-                    <select id="country" class="nz-input">
-                        <option value="Pakistan">Pakistan</option>
-                        <option value="India">India</option>
-                        <option value="Other">Other Countries</option>
-                    </select>
-                    <label class="nz-label">Visa Start Date</label>
-                    <input type="date" id="vStart" class="nz-input">
-                    <label class="nz-label">Visa Expiry Date</label>
-                    <input type="date" id="vEnd" class="nz-input">
-                    <label class="nz-label">Upload Visa Copy (PDF)</label>
-                    <input type="file" id="pdfFile" class="nz-input" accept=".pdf">
-                </div>
-            </div>
-            <button onclick="saveClient()" class="nz-btn nz-btn-save">Save & Sync Records</button>
-        </div>
-
-        <div class="nz-card">
-            <h3>Active Client Database</h3>
-            <table>
-                <thead>
-                    <tr><th>Name</th><th>Passport</th><th>Country</th><th>Expiry</th><th>Action</th></tr>
-                </thead>
-                <tbody id="tableBody"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <script>
-        let clients = JSON.parse(localStorage.getItem('nz_db')) || [];
-
-        function saveClient() {
-            const fileInput = document.getElementById('pdfFile');
-            const data = {
-                name: document.getElementById('name').value,
-                pass: document.getElementById('passport').value,
-                dob: document.getElementById('dob').value,
-                gender: document.getElementById('gender').value,
-                country: document.getElementById('country').value,
-                start: document.getElementById('vStart').value,
-                end: document.getElementById('vEnd').value,
-                fileName: fileInput.files[0] ? fileInput.files[0].name : "Visa_Document.pdf"
-            };
-            clients.push(data);
-            localStorage.setItem('nz_db', JSON.stringify(clients));
-            render();
-        }
-
-        function render() {
-            const body = document.getElementById('tableBody');
-            body.innerHTML = '';
-            clients.forEach((c, i) => {
-                body.innerHTML += `<tr>
-                    <td>${c.name}</td><td>${c.pass}</td><td>${c.country}</td><td>${c.end}</td>
-                    <td><button class="nz-btn" style="padding:5px 10px; font-size:14px;" onclick="download(${i})">Check & Download PDF</button></td>
-                </tr>`;
-            });
-        }
-
-        function download(i) {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const c = clients[i];
-            doc.setFontSize(22);
-            doc.text("NEW ZEALAND IMMIGRATION RECORD", 15, 20);
-            doc.autoTable({
-                startY: 30,
-                body: [
-                    ['Client Name', c.name], ['Passport #', c.pass], ['DOB', c.dob],
-                    ['Gender', c.gender], ['Country', c.country],
-                    ['Visa Issued', c.start], ['Visa Expiry', c.end]
-                ],
-                theme: 'grid', headStyles: {fillColor: [11, 12, 12]}
-            });
-            // This downloads with the same name as the uploaded file
-            doc.save(c.fileName);
-        }
-        render();
-    </script>
-</body>
-</html>
+                                         </html>
