@@ -1,6 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <title>Dashboard - NZ Immigration</title>
+</head>
+<body>
+    <header class="nz-header"><h1>NZ Immigration | <small>Client Management</small></h1></header>
+    
+    <div class="container">
+        <div class="card" style="margin-bottom: 30px;">
+            <h2 style="margin-top:0;">Register New Client & Visa</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div>
+                    <label class="label">Full Name</label>
+                    <input type="text" id="name" class="input" placeholder="Enter name">
+                    
+                    <label class="label">Passport Number</label>
+                    <input type="text" id="passport" class="input" placeholder="e.g. BB6317973">
+                    
+                    <label class="label">Date of Birth</label>
+                    <input type="date" id="dob" class="input">
+                    
+                    <label class="label">Gender</label>
+                    <select id="gender" class="input">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+
+                    <label class="label">Visa Type</label>
+                    <select id="visaType" class="input">
+                        <option value="Work Permit">Work Permit</option>
+                        <option value="Visit Visa">Visit Visa</option>
+                        <option value="Transit Visa">Transit Visa</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="label">Country</label>
+                    <select id="country" class="input">
+                        <option value="Pakistan">Pakistan</option>
+                        <option value="India">India</option>
+                        <option value="Other">Other Countries</option>
+                    </select>
+                    
+                    <label class="label">Visa Start Date</label>
+                    <input type="date" id="vStart" class="input">
+                    
+                    <label class="label">Visa Expiry Date</label>
+                    <input type="date" id="vEnd" class="input">
+                    
+                    <label class="label">Upload Visa Copy (PDF)</label>
+                    <input type="file" id="pdfFile" class="input" accept=".pdf">
+                </div>
+            </div>
+            <button onclick="saveClient()" class="btn btn-save">Save & Sync Records</button>
+        </div>
+
+        <div class="card">
+            <h3>Active Client Database</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Passport</th>
+                        <th>Visa Type</th>
+                        <th>Expiry</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let clients = JSON.parse(localStorage.getItem('nz_final_db')) || [];
+
+        function saveClient() {
+            const fileInput = document.getElementById('pdfFile');
+            const data = {
+                name: document.getElementById('name').value,
+                pass: document.getElementById('passport').value,
+                dob: document.getElementById('dob').value,
+                gender: document.getElementById('gender').value,
+                visaType: document.getElementById('visaType').value,
+                country: document.getElementById('country').value,
+                start: document.getElementById('vStart').value,
+                end: document.getElementById('vEnd').value,
+                fileName: fileInput.files[0] ? fileInput.files[0].name : "Visa_Document.pdf"
+            };
+
+            if(!data.name || !data.pass) return alert("Please fill Name and Passport.");
+            
+            clients.push(data);
+            localStorage.setItem('nz_final_db', JSON.stringify(clients));
+            render();
+            alert("Client Record Added Successfully.");
+        }
+
+        function render() {
+            const body = document.getElementById('tableBody');
+            body.innerHTML = '';
+            clients.forEach((c, i) => {
+                body.innerHTML += `<tr>
+                    <td><strong>${c.name}</strong></td>
+                    <td>${c.pass}</td>
+                    <td><span style="color: #005DBB; font-weight: bold;">${c.visaType}</span></td>
+                    <td>${c.end}</td>
+                    <td><button class="btn" style="padding:8px 15px; font-size:14px;" onclick="download(${i})">Check & Download PDF</button></td>
+                </tr>`;
+            });
+        }
+
+        function download(i) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const c = clients[i];
+            
+            // Header
+            doc.setFillColor(11, 12, 12);
+            doc.rect(0, 0, 210, 30, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(18);
+            doc.text("NEW ZEALAND IMMIGRATION RECORD", 15, 20);
+            
+            // Content Table
+            doc.autoTable({
+                startY: 40,
+                headStyles: { fillColor: [35, 203, 165] },
+                body: [
+                    ['Full Name', c.name],
+                    ['Passport Number', c.pass],
+                    ['Date of Birth', c.dob],
+                    ['Gender', c.gender],
+                    ['Country', c.country],
+                    ['Visa Category', c.visaType],
+                    ['Valid From', c.start],
+                    ['Valid Until', c.end]
+                ],
+                theme: 'grid'
+            });
+
+            // Save with original uploaded filename
+            doc.save(c.fileName);
+        }
+        render();
+    </script>
+</body>
+</html>
+Steps to update:
+Go to your GitHub repository.
+
+Open the dashboard.html file.
+
+Click the Edit (pencil icon) and replace all the code with the code I provided above.
+
+Commit changes.
+
+Wait a minute and refresh your website.
+
+Now, when you add a client, you can choose between Work Permit, Visit Visa, or Transit Visa. When you click the blue button, it will download the PDF using the name of the file you originally uploaded.
+
+Would you like me to add a Status column (Approved / Pending / Expired) next?<!DOCTYPE html>
+<html lang="en">
+<head>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
