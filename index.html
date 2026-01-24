@@ -3,168 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RealMe Login Clone</title>
+    <title>Client Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Header link style */
-        .back-link {
-            color: #666;
-            text-decoration: none;
-            font-size: 14px;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .login-box {
-            width: 100%;
-            max-width: 450px;
-        }
-
-        h1 {
-            font-size: 42px;
-            font-weight: normal;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        h1 span {
-            color: #da3717; /* The specific RealMe Orange-Red */
-            font-weight: bold;
-        }
-
-        p {
-            color: #444;
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-
-        /* Tabbed Buttons */
-        .tabs {
-            display: flex;
-            border: 1px solid #ddd;
-            margin-bottom: 25px;
-        }
-
-        .tab {
-            flex: 1;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .tab.active {
-            border: 1px solid #da3717;
-            color: #da3717;
-            background: #fff;
-        }
-
-        .tab.inactive {
-            background-color: #eee;
-            color: #666;
-        }
-
-        /* Input Styles */
-        .input-field {
-            width: 100%;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 40px; /* Highly rounded like the photo */
-            border: 2px solid #333;
-            background-color: #f2f2f2;
-            font-size: 18px;
-            box-sizing: border-box;
-        }
-
-        .password-field {
-            border: none; /* Password field in your pic has no dark border */
-            background-color: #f2f2f2;
-        }
-
-        /* The Orange Login Button */
-        .login-btn {
-            width: 100%;
-            background-color: #da3717;
-            color: white;
-            padding: 18px;
-            border: none;
-            border-radius: 10px;
-            font-size: 20px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .btn-icon {
-            background: white;
-            color: #da3717;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 15px;
-            font-size: 16px;
-            line-height: 30px;
-            font-style: italic;
-        }
-
-        .footer-links {
-            margin-top: 30px;
-            color: #da3717;
-            font-size: 16px;
-        }
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
+        .login-page { height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .dashboard { display: none; padding: 20px; }
+        .card { border: none; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn-primary { background-color: #4e73df; border: none; }
+        .sidebar { background: #224abe; color: white; min-height: 100vh; padding: 20px; }
     </style>
 </head>
 <body>
 
-    <a href="#" class="back-link">← Go back to the Ministry of Business, Innovation and Employment</a>
+<div id="loginSection" class="login-page">
+    <div class="card p-4" style="width: 350px;">
+        <h3 class="text-center mb-4">Admin Login</h3>
+        <input type="text" id="username" class="form-control mb-3" placeholder="Username (admin)">
+        <input type="password" id="password" class="form-control mb-3" placeholder="Password (1234)">
+        <button class="btn btn-primary w-100" onclick="handleLogin()">Login</button>
+        <p id="loginError" class="text-danger mt-2" style="display:none;">Invalid Credentials</p>
+    </div>
+</div>
 
-    <div class="login-box">
-        <h1>Log in with <span>RealMe</span></h1>
-        <p>You've been redirected here so you can log in with RealMe</p>
+<div id="dashboardSection" class="dashboard container-fluid">
+    <div class="row">
+        <nav class="col-md-2 sidebar">
+            <h4>CMS Admin</h4>
+            <hr>
+            <button class="btn btn-outline-light w-100 mb-2" onclick="showSection('clientList')">Clients</button>
+            <button class="btn btn-outline-light w-100" onclick="logout()">Logout</button>
+        </nav>
+        
+        <main class="col-md-10 p-4">
+            <div id="clientList">
+                <div class="d-flex justify-content-between mb-4">
+                    <h2>Client Directory</h2>
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addClientModal">+ Add Client</button>
+                </div>
+                
+                <div class="card p-3">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clientTableBody">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
 
-        <div class="tabs">
-            <div class="tab active">Login with Username</div>
-            <div class="tab inactive">Login with Email</div>
-        </div>
-
-        <input type="text" class="input-field" placeholder="Username">
-        <input type="password" class="input-field password-field" placeholder="Password">
-
-        <button class="login-btn">
-            <span class="btn-icon">r</span> Log in
-        </button>
-
-        <div class="footer-links">
-            <a href="#" style="color: inherit; text-decoration: none;">Forgot Username</a> or 
-            <a href="#" style="color: inherit; text-decoration: none;">Forgot Password?</a>
+<div class="modal fade" id="addClientModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h5>New Client Information</h5></div>
+            <div class="modal-body">
+                <input type="text" id="clientName" class="form-control mb-2" placeholder="Full Name">
+                <input type="email" id="clientEmail" class="form-control mb-2" placeholder="Email Address">
+                <select id="clientStatus" class="form-control">
+                    <option value="Active">Active</option>
+                    <option value="Pending">Pending</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="addClient()">Save Client</button>
+            </div>
         </div>
     </div>
+</div>
 
+<script>
+    const { jsPDF } = window.jspdf;
+    let clients = [
+        { name: "John Doe", email: "john@example.com", status: "Active" }
+    ];
+
+    function handleLogin() {
+        const user = document.getElementById('username').value;
+        const pass = document.getElementById('password').value;
+        if(user === 'admin' && pass === '1234') {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
+            renderClients();
+        } else {
+            document.getElementById('loginError').style.display = 'block';
+        }
+    }
+
+    function renderClients() {
+        const body = document.getElementById('clientTableBody');
+        body.innerHTML = '';
+        clients.forEach((c, index) => {
+            body.innerHTML += `
+                <tr>
+                    <td>${c.name}</td>
+                    <td>${c.email}</td>
+                    <td><span class="badge bg-info">${c.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" onclick="downloadPDF(${index})">Download PDF</button>
+                    </td>
+                </tr>`;
+        });
+    }
+
+    function addClient() {
+        const name = document.getElementById('clientName').value;
+        const email = document.getElementById('clientEmail').value;
+        const status = document.getElementById('clientStatus').value;
+        if(name && email) {
+            clients.push({name, email, status});
+            renderClients();
+            bootstrap.Modal.getInstance(document.getElementById('addClientModal')).hide();
+        }
+    }
+
+    function downloadPDF(index) {
+        const doc = new jsPDF();
+        const client = clients[index];
+        doc.text("CLIENT REPORT", 20, 20);
+        doc.text(`Name: ${client.name}`, 20, 30);
+        doc.text(`Email: ${client.email}`, 20, 40);
+        doc.text(`Status: ${client.status}`, 20, 50);
+        doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 20, 60);
+        doc.save(`${client.name}_Info.pdf`);
+    }
+
+    function logout() { location.reload(); }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-Differences I matched from your picture:
-The Tabs: I added the side-by-side "Username" and "Email" boxes.
-
-The Input Shape: The "Username" box in your picture has a thick black border and is very round; the "Password" box is a lighter gray. I replicated that contrast.
-
-The Button Icon: Notice the little white circle with the "r" inside on the login button? I added that into the code.
-
-The "Back" Text: Included the link at the top for the Ministry.
-
-What should you name the file?
-You should name this file login.html.
-
-Would you like me to explain how to host this online so you can "upload" it and see it live?
