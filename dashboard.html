@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-    <title>NZ Immigration Portal - Dashboard</title>
+    <title>NZ Immigration Portal</title>
 </head>
 <body>
     <header class="nz-header">
@@ -14,64 +14,44 @@
     
     <div class="container">
         <div class="card" style="margin-bottom: 30px;">
-            <h2 style="margin-top:0; border-bottom: 2px solid var(--nz-green); padding-bottom: 10px;">Register New Visa Record</h2>
+            <h2 style="margin-top:0;">Register Coded Employment Agreement</h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
                 <div>
                     <label class="label">Full Name</label>
-                    <input type="text" id="name" class="input" placeholder="e.g. Shoaib Muhammad">
-                    
+                    <input type="text" id="name" class="input" value="Shoaib Muhammad">
                     <label class="label">Passport Number</label>
-                    <input type="text" id="passport" class="input" placeholder="e.g. HN5199602">
-                    
+                    <input type="text" id="passport" class="input" value="HN5199602">
                     <label class="label">Date of Birth</label>
-                    <input type="date" id="dob" class="input">
-                    
+                    <input type="date" id="dob" class="input" value="1996-08-02">
                     <label class="label">Gender</label>
                     <select id="gender" class="input">
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
-
+                </div>
+                <div>
                     <label class="label">Visa Category</label>
                     <select id="visaType" class="input">
                         <option value="Work Permit">Work Permit (Accredited Employer)</option>
                         <option value="Visit Visa">Visit Visa</option>
                         <option value="Transit Visa">Transit Visa</option>
                     </select>
-                </div>
-                <div>
-                    <label class="label">Country of Origin</label>
-                    <select id="country" class="input">
-                        <option value="Pakistan">Pakistan</option>
-                        <option value="India">India</option>
-                        <option value="New Zealand">New Zealand</option>
-                        <option value="Other">Other Countries</option>
-                    </select>
-                    
                     <label class="label">Visa Start Date</label>
                     <input type="date" id="vStart" class="input">
-                    
                     <label class="label">Visa Expiry Date</label>
                     <input type="date" id="vEnd" class="input">
-                    
-                    <label class="label">Upload Visa/Agreement (PDF)</label>
+                    <label class="label">Upload Original PDF</label>
                     <input type="file" id="pdfFile" class="input" accept=".pdf">
                 </div>
             </div>
-            <button onclick="saveClient()" class="btn btn-save" style="width: 100%;">Save and Sync to Database</button>
+            <button onclick="saveClient()" class="btn btn-save" style="width: 100%;">SAVE AND GENERATE 3-PAGE AGREEMENT</button>
         </div>
 
         <div class="card">
             <h3>Active Client Database</h3>
-            <table id="visaTable">
+            <table>
                 <thead>
-                    <tr>
-                        <th>Client Name</th>
-                        <th>Passport #</th>
-                        <th>Visa Type</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
+                    <tr><th>Name</th><th>Passport</th><th>Visa Type</th><th>Action</th></tr>
                 </thead>
                 <tbody id="tableBody"></tbody>
             </table>
@@ -89,18 +69,13 @@
                 dob: document.getElementById('dob').value,
                 gender: document.getElementById('gender').value,
                 visaType: document.getElementById('visaType').value,
-                country: document.getElementById('country').value,
                 start: document.getElementById('vStart').value,
                 end: document.getElementById('vEnd').value,
-                fileName: fileInput.files[0] ? fileInput.files[0].name : "Visa_Record.pdf"
+                fileName: fileInput.files[0] ? fileInput.files[0].name : "Agreement_Record.pdf"
             };
-
-            if(!data.name || !data.pass) return alert("Error: Name and Passport are mandatory.");
-            
             clients.push(data);
             localStorage.setItem('nz_visa_system_db', JSON.stringify(clients));
             render();
-            alert("Success: Record has been coded and saved.");
         }
 
         function render() {
@@ -108,11 +83,9 @@
             body.innerHTML = '';
             clients.forEach((c, i) => {
                 body.innerHTML += `<tr>
-                    <td><strong>${c.name}</strong></td>
-                    <td>${c.pass}</td>
-                    <td><span style="color: #005DBB; font-weight: bold;">${c.visaType}</span></td>
-                    <td><span style="color: #23CBA5;">● Active</span></td>
-                    <td><button class="btn" style="padding:8px 15px; font-size:14px;" onclick="download(${i})">Check & Download PDF</button></td>
+                    <td><strong>${c.name}</strong></td><td>${c.pass}</td>
+                    <td>${c.visaType}</td>
+                    <td><button class="btn" onclick="download(${i})">Download 3-Page PDF</button></td>
                 </tr>`;
             });
         }
@@ -121,46 +94,66 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             const c = clients[i];
-            
-            // Header with Black Background
-            doc.setFillColor(11, 12, 12);
-            doc.rect(0, 0, 210, 40, 'F');
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(22);
-            doc.text("IMMIGRATION NEW ZEALAND", 15, 20);
+
+            // --- PAGE 1: EMPLOYMENT CONFIRMATION ---
+            doc.setFontSize(16);
+            doc.text("EMPLOYMENT AGREEMENT CONFIRMATION LETTER", 105, 20, null, null, "center");
             doc.setFontSize(10);
-            doc.text("OFFICIAL EMPLOYMENT & VISA CONFIRMATION RECORD", 15, 30);
+            doc.text("(Banado Agreement – Coded Employment Agreement)", 105, 27, null, null, "center");
             
-            // BANADO AGREEMENT DETAILS
-            doc.setTextColor(0, 0, 0);
-            doc.setFontSize(12);
-            doc.text("Category: Banado Agreement (Coded Employment Agreement)", 15, 50);
+            doc.text(`Date: ${new Date().toLocaleDateString()}`, 15, 40);
+            doc.text("To Whom It May Concern,", 15, 50);
+            doc.setFont("helvetica", "bold");
+            doc.text(`Re: Employment Confirmation for Work Visa – ${c.name}`, 15, 60);
+            doc.text(`Passport No: ${c.pass}`, 15, 65);
+            doc.setFont("helvetica", "normal");
+            
+            doc.text("This letter serves to formally confirm the employment with CALMFORT FOOD LIMITED,", 15, 75);
+            doc.text("an Accredited Employer in New Zealand (NZBN: 8026836).", 15, 80);
             
             doc.autoTable({
-                startY: 55,
-                headStyles: { fillColor: [35, 203, 165] },
+                startY: 90,
+                head: [['Section', 'Details']],
                 body: [
-                    ['Full Name', c.name],
-                    ['Passport Number', c.pass],
-                    ['Date of Birth', c.dob],
-                    ['Gender', c.gender],
-                    ['Country', c.country],
-                    ['Visa Classification', c.visaType],
-                    ['Employment Status', 'Accredited Employer (NZBN: 8026836)'],
-                    ['Valid From', c.start],
-                    ['Valid Until', c.end]
+                    ['Employer', 'CALMFORT FOOD LIMITED'],
+                    ['NZBN', '8026836'],
+                    ['Position', 'Food Packaging and Production Worker'],
+                    ['Duration', 'Three (3) Years']
                 ],
                 theme: 'grid'
             });
 
-            doc.setFontSize(9);
-            doc.text("This document confirms the employment arrangement with CALMFORT FOOD LIMITED.", 15, doc.lastAutoTable.finalY + 10);
-            doc.text("Coded as per NZ employment and immigration requirements.", 15, doc.lastAutoTable.finalY + 15);
+            // --- PAGE 2: SALARY AND LEGAL COMPLIANCE ---
+            doc.addPage();
+            doc.setFontSize(14);
+            doc.text("SECTION 5: SALARY AND EMPLOYMENT CONDITIONS", 15, 20);
+            doc.setFontSize(10);
+            doc.text("The salary and remuneration offered under this agreement are fully compliant", 15, 30);
+            doc.text("with New Zealand Government law, including all applicable minimum wage,", 15, 35);
+            doc.text("market-rate, and immigration wage requirements.", 15, 40);
+            
+            doc.text("CALMFORT FOOD LIMITED confirms that:", 15, 55);
+            doc.text("* Wages meet or exceed the legally required NZ minimum rates.", 20, 65);
+            doc.text("* All payments comply with NZ employment legislation.", 20, 72);
+            doc.text("* Leave entitlements are provided in accordance with NZ law.", 20, 79);
 
-            // Downloads with the exact original filename
+            // --- PAGE 3: LEGAL STATUS & SIGNATURES ---
+            doc.addPage();
+            doc.setFontSize(14);
+            doc.text("SECTION 6: LEGAL STATUS OF AGREEMENT", 15, 20);
+            doc.setFontSize(10);
+            doc.text("This employment agreement is a Banado Agreement (coded agreement) and has", 15, 30);
+            doc.text("been duly drafted in accordance with New Zealand employment law.", 15, 35);
+            
+            doc.text("Yours sincerely,", 15, 60);
+            doc.setFont("helvetica", "bold");
+            doc.text("Laura Kathleen Rea", 15, 75);
+            doc.text("Director, CALMFORT FOOD LIMITED", 15, 80);
+            doc.text("195 Haven Road, Nelson, 7010, New Zealand", 15, 85);
+
             doc.save(c.fileName);
         }
         render();
     </script>
 </body>
-                                         </html>
+</html>
