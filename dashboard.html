@@ -1,211 +1,110 @@
-<div>
-    <label>Country of Origin</label>
-    <select id="country">
-        <option value="Pakistan">Pakistan</option> <option value="United Kingdom">United Kingdom</option>
-        <option value="Philippines">Philippines</option>
-        <option value="India">India</option>
-        <option value="South Africa">South Africa</option>
-        <option value="Other">Other</option>
-    </select>
-</div><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NZ Offer Letter Generator</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
-        :root { --primary: #004a99; --secondary: #f4f4f4; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #eef2f3; padding: 20px; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h2 { color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
-        .section { margin-bottom: 25px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        label { font-weight: bold; display: block; margin-bottom: 5px; }
-        select, input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .btn { background: var(--primary); color: white; padding: 15px 25px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; width: 100%; }
-        .btn:hover { opacity: 0.9; }
-        .info-box { background: #e7f3ff; padding: 10px; border-left: 4px solid #2196F3; margin-bottom: 20px; font-size: 0.9em; }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <title>Dashboard - NZ Immigration</title>
 </head>
 <body>
+    <header class="nz-header"><h1>NZ Immigration | <small>Client Management</small></h1></header>
+    
+    <div class="main-container">
+        <div class="nz-card" style="margin-bottom: 30px;">
+            <h3>Register New Client & Visa</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <label class="nz-label">Full Name</label>
+                    <input type="text" id="name" class="nz-input">
+                    <label class="nz-label">Passport Number</label>
+                    <input type="text" id="passport" class="nz-input">
+                    <label class="nz-label">Date of Birth</label>
+                    <input type="date" id="dob" class="nz-input">
+                    <label class="nz-label">Gender</label>
+                    <select id="gender" class="nz-input">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="nz-label">Country</label>
+                    <select id="country" class="nz-input">
+                        <option value="Pakistan">Pakistan</option>
+                        <option value="India">India</option>
+                        <option value="Other">Other Countries</option>
+                    </select>
+                    <label class="nz-label">Visa Start Date</label>
+                    <input type="date" id="vStart" class="nz-input">
+                    <label class="nz-label">Visa Expiry Date</label>
+                    <input type="date" id="vEnd" class="nz-input">
+                    <label class="nz-label">Upload Visa Copy (PDF)</label>
+                    <input type="file" id="pdfFile" class="nz-input" accept=".pdf">
+                </div>
+            </div>
+            <button onclick="saveClient()" class="nz-btn nz-btn-save">Save & Sync Records</button>
+        </div>
 
-<div class="container">
-    <h2>NZ Employment Offer Dashboard</h2>
-    <p>Complete the fields below to generate a 3-page compliant offer package.</p>
-
-    <div class="info-box">
-        <strong>NZ Compliance Note:</strong> This letter includes mandatory clauses for the 3-year Accredited Employer Work Visa (AEWV), including the "90-day trial" restriction and "30-hour minimum" guarantee.
+        <div class="nz-card">
+            <h3>Active Client Database</h3>
+            <table>
+                <thead>
+                    <tr><th>Name</th><th>Passport</th><th>Country</th><th>Expiry</th><th>Action</th></tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
     </div>
 
-    <form id="offerForm">
-        <div class="section">
-            <h3>1. Candidate Information</h3>
-            <div class="grid">
-                <div>
-                    <label>Full Name</label>
-                    <input type="text" id="candidateName" placeholder="John Doe" required>
-                </div>
-                <div>
-                    <label>Country of Origin</label>
-                    <select id="country">
-                        <option value="United Kingdom">United Kingdom</option>
-                        <option value="Philippines">Philippines</option>
-                        <option value="India">India</option>
-                        <option value="South Africa">South Africa</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Date of Birth</label>
-                    <input type="date" id="dob" required>
-                </div>
-                <div>
-                    <label>Job Category</label>
-                    <select id="jobCategory" onchange="updateSalaryRange()">
-                        <option value="Healthcare">Healthcare</option>
-                        <option value="Construction">Construction</option>
-                        <option value="IT/Tech">IT/Software</option>
-                        <option value="Agriculture">Agriculture</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+    <script>
+        let clients = JSON.parse(localStorage.getItem('nz_db')) || [];
 
-        <div class="section">
-            <h3>2. Terms & Compensation</h3>
-            <div class="grid">
-                <div>
-                    <label>Hourly Salary (NZD)</label>
-                    <select id="hourlyRate">
-                        </select>
-                </div>
-                <div>
-                    <label>Start Date</label>
-                    <input type="date" id="startDate" required>
-                </div>
-                <div>
-                    <label>End Date (3-Year Term)</label>
-                    <input type="date" id="endDate" required>
-                </div>
-                <div>
-                    <label>Permit Duration</label>
-                    <input type="text" value="3 Years (AEWV)" readonly>
-                </div>
-            </div>
-        </div>
+        function saveClient() {
+            const fileInput = document.getElementById('pdfFile');
+            const data = {
+                name: document.getElementById('name').value,
+                pass: document.getElementById('passport').value,
+                dob: document.getElementById('dob').value,
+                gender: document.getElementById('gender').value,
+                country: document.getElementById('country').value,
+                start: document.getElementById('vStart').value,
+                end: document.getElementById('vEnd').value,
+                fileName: fileInput.files[0] ? fileInput.files[0].name : "Visa_Document.pdf"
+            };
+            clients.push(data);
+            localStorage.setItem('nz_db', JSON.stringify(clients));
+            render();
+        }
 
-        <div class="section">
-            <h3>3. Perks & Logistics</h3>
-            <div class="grid">
-                <div>
-                    <label>Food Allowance</label>
-                    <select id="food">
-                        <option value="Not Provided">Not Provided</option>
-                        <option value="Daily Meal Allowance ($20/day)">Daily Meal Allowance</option>
-                        <option value="Full Board Provided">Full Board Provided</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Accommodation</label>
-                    <select id="accommodation">
-                        <option value="Employee to provide own">None (Self-funded)</option>
-                        <option value="Subsidised Company Housing">Subsidised Housing</option>
-                        <option value="Fully Provided (1st Month)">Free (Temporary - 1 Month)</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Medical Insurance</label>
-                    <select id="medical">
-                        <option value="Public System (ACC)">Standard ACC Cover</option>
-                        <option value="Private Health Cover Included">Private Health Insurance</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Transportation</label>
-                    <select id="transport">
-                        <option value="Self-arranged">Self-arranged</option>
-                        <option value="One-way ticket included">One-way Flight to NZ</option>
-                        <option value="Company Vehicle Provided">Company Vehicle Provided</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+        function render() {
+            const body = document.getElementById('tableBody');
+            body.innerHTML = '';
+            clients.forEach((c, i) => {
+                body.innerHTML += `<tr>
+                    <td>${c.name}</td><td>${c.pass}</td><td>${c.country}</td><td>${c.end}</td>
+                    <td><button class="nz-btn" style="padding:5px 10px; font-size:14px;" onclick="download(${i})">Check & Download PDF</button></td>
+                </tr>`;
+            });
+        }
 
-        <button type="button" class="btn" onclick="generatePDF()">Download 3-Page Offer PDF</button>
-    </form>
-</div>
-
-<script>
-    // Logic to update hourly rates based on NZ Market Rates 2026
-    function updateSalaryRange() {
-        const cat = document.getElementById('jobCategory').value;
-        const rateSelect = document.getElementById('hourlyRate');
-        rateSelect.innerHTML = '';
-        
-        let rates = [];
-        if(cat === "Healthcare") rates = [32.50, 35.00, 45.00];
-        else if(cat === "Construction") rates = [29.66, 34.00, 40.00];
-        else if(cat === "IT/Tech") rates = [55.00, 65.00, 85.00];
-        else rates = [29.66, 31.00, 33.00]; // Default median rates
-
-        rates.forEach(r => {
-            let opt = document.createElement('option');
-            opt.value = r;
-            opt.innerHTML = `$${r.toFixed(2)} per hour`;
-            rateSelect.appendChild(opt);
-        });
-    }
-
-    async function generatePDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        const data = {
-            name: document.getElementById('candidateName').value,
-            rate: document.getElementById('hourlyRate').value,
-            start: document.getElementById('startDate').value,
-            end: document.getElementById('endDate').value,
-            accom: document.getElementById('accommodation').value,
-            trans: document.getElementById('transport').value
-        };
-
-        // PAGE 1: Formal Offer Letter
-        doc.setFontSize(18);
-        doc.text("OFFER OF EMPLOYMENT", 20, 20);
-        doc.setFontSize(12);
-        doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 30);
-        doc.text(`To: ${data.name}`, 20, 40);
-        doc.text("Position: Registered Professional (New Zealand)", 20, 50);
-        doc.text("We are pleased to offer you a 3-year fixed-term position...", 20, 70);
-        doc.text(`Start Date: ${data.start}`, 20, 80);
-        doc.text(`Remuneration: NZD $${data.rate} per hour`, 20, 90);
-        doc.text(`Travel: ${data.trans}`, 20, 100);
-
-        // PAGE 2: NZ Legal Clauses (Mandatory)
-        doc.addPage();
-        doc.setFontSize(16);
-        doc.text("SCHEDULE 1: EMPLOYMENT CONDITIONS", 20, 20);
-        doc.setFontSize(10);
-        doc.text("1. VISA STATUS: This offer is contingent upon your 3-year AEWV.", 20, 40);
-        doc.text("2. HOURS: Guaranteed minimum of 30 hours per week (NZ Law).", 20, 50);
-        doc.text("3. TRIAL PERIOD: As per NZ Employment Relations Act 2000.", 20, 60);
-        doc.text(`4. ACCOMMODATION: ${data.accom}`, 20, 70);
-
-        // PAGE 3: Signing and Acceptance
-        doc.addPage();
-        doc.setFontSize(16);
-        doc.text("ACCEPTANCE", 20, 20);
-        doc.setFontSize(11);
-        doc.text("I accept the terms of this offer and the 3-year work permit conditions.", 20, 40);
-        doc.text("Signed: __________________________", 20, 80);
-        doc.text(`Name: ${data.name}`, 20, 90);
-
-        doc.save(`Offer_Letter_${data.name}.pdf`);
-    }
-
-    // Initialize rates
-    updateSalaryRange();
-</script>
-
+        function download(i) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const c = clients[i];
+            doc.setFontSize(22);
+            doc.text("NEW ZEALAND IMMIGRATION RECORD", 15, 20);
+            doc.autoTable({
+                startY: 30,
+                body: [
+                    ['Client Name', c.name], ['Passport #', c.pass], ['DOB', c.dob],
+                    ['Gender', c.gender], ['Country', c.country],
+                    ['Visa Issued', c.start], ['Visa Expiry', c.end]
+                ],
+                theme: 'grid', headStyles: {fillColor: [11, 12, 12]}
+            });
+            // This downloads with the same name as the uploaded file
+            doc.save(c.fileName);
+        }
+        render();
+    </script>
 </body>
 </html>
