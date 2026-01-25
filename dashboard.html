@@ -4,29 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <title>Inimirce Éireann | Portal Oifigiúil</title>
     <style>
         :root { --isd-green: #004d44; --ie-orange: #FF883E; --isd-bg: #f4f7f6; }
         body { font-family: "Helvetica Neue", Arial, sans-serif; background-color: var(--isd-bg); margin: 0; }
-        
-        /* Official Header with Flag */
         header { background: #fff; padding: 10px 5%; border-bottom: 4px solid var(--isd-green); display: flex; justify-content: space-between; align-items: center; }
         .flag { display: flex; width: 45px; height: 25px; border: 1px solid #ddd; }
         .f-g { background: #169B62; flex: 1; } .f-w { background: #fff; flex: 1; } .f-o { background: var(--ie-orange); flex: 1; }
         .isd-title { color: var(--isd-green); font-weight: bold; text-align: center; font-size: 0.9rem; }
-
         .hero { background: var(--isd-green); color: white; padding: 25px; text-align: center; }
         .container { padding: 20px; max-width: 600px; margin: auto; }
         .card { background: white; border-radius: 8px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        
         label { display: block; font-weight: bold; margin: 12px 0 5px; color: var(--isd-green); font-size: 0.85rem; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .btn { background: var(--isd-green); color: white; border: none; width: 100%; padding: 15px; font-weight: bold; border-radius: 4px; cursor: pointer; margin-top: 15px; }
-        
+        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-bottom: 10px; }
+        .btn { background: var(--isd-green); color: white; border: none; width: 100%; padding: 15px; font-weight: bold; border-radius: 4px; cursor: pointer; margin-top: 15px; text-transform: uppercase; }
         #page2 { display: none; }
-        .data-review { background: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
-        .review-item { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; }
+        .review-item { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 10px 0; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -39,21 +32,21 @@
 
 <div class="hero">
     <h1>Inimirce Éireann</h1>
-    <p>Official Immigration Case Management</p>
+    <p>Portal Seachadta Inimirce (Immigration Delivery Service)</p>
 </div>
 
 <div class="container">
     <div id="page1" class="card">
-        <label>Teanga (Language)</label>
+        <label>Teanga (Portal Language)</label>
         <select id="lang"><option value="GA">Gaeilge (Irish)</option><option value="EN">English</option></select>
 
-        <label>Ainm an Chliaint (Client Name)</label>
-        <input type="text" id="name" placeholder="Full Name">
+        <label>Ainm an Chliaint (Client Full Name)</label>
+        <input type="text" id="name" placeholder="Full Name as per Passport">
 
         <label>Uimhir Phas (Passport Number)</label>
-        <input type="text" id="passport" placeholder="Passport No.">
+        <input type="text" id="passport" placeholder="e.g., ZP1825791">
 
-        <label>Tír (Country)</label>
+        <label>Tír Thionscnaimh (Country of Origin)</label>
         <select id="country">
             <option value="Pakistan">Pakistan</option>
             <option value="India">India</option>
@@ -64,47 +57,47 @@
         <input type="date" id="dob">
 
         <label>Inscne (Gender)</label>
-        <select id="gender"><option value="Fireann (Male)">Fireann (Male)</option><option value="Baineann (Female)">Baineann (Female)</option></select>
+        <select id="gender"><option value="Male">Fireann (Male)</option><option value="Female">Baineann (Female)</option></select>
 
         <label>Catagóir Víosa (Visa Category)</label>
         <select id="visa">
-            <option value="Critical Skills">Critical Skills Employment</option>
-            <option value="Study Visa">Study Visa (Stamp 2)</option>
-            <option value="General Permit">General Employment Permit</option>
+            <option value="Critical Skills Employment">Critical Skills Employment</option>
+            <option value="Study Visa (Stamp 2)">Study Visa (Stamp 2)</option>
+            <option value="General Employment">General Employment Permit</option>
         </select>
 
-        <label>Dáta Tosaithe (Start Date)</label>
+        <label>Dáta Tosaithe (Visa Start Date)</label>
         <input type="date" id="startDate">
 
-        <label>Stádas (Decision)</label>
+        <label>Stádas an Chinnidh (Decision Status)</label>
         <select id="status">
             <option value="Waiting">Ag Fanacht (Waiting)</option>
             <option value="Approved">Ceadaithe (Approved)</option>
             <option value="Refused">Diúltaithe (Refused)</option>
         </select>
 
-        <button class="btn" onclick="goToPage2()">SÁBHÁIL AGUS LEAN (SAVE & CONTINUE)</button>
+        <button class="btn" onclick="goToPage2()">Sábháil & Lean (Save & Continue)</button>
     </div>
 
     <div id="page2" class="card">
-        <h2 style="color: var(--isd-green); text-align: center;">Fíorú Sonraí (Data Verification)</h2>
-        <div class="data-review" id="reviewContent"></div>
-        <button class="btn" onclick="generateOfficialPDF()">CRÍOCHNAIGH & DOWNLOAD PDF</button>
-        <button class="btn" style="background:#666;" onclick="location.reload()">CEARTAIGH (EDIT)</button>
+        <h3 style="color: var(--isd-green); margin-top:0;">Dearbhú Sonraí (Data Review)</h3>
+        <div id="reviewContent"></div>
+        <button class="btn" onclick="generateOnePagePDF()">DOWNLOAD ONE-PAGE PDF</button>
+        <button class="btn" style="background:#666;" onclick="location.reload()">EDIT INFORMATION</button>
     </div>
 </div>
 
 <script>
     function updateClock() {
         const options = { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', second: '2-digit', day: 'numeric', month: 'short', year: 'numeric' };
-        document.getElementById('liveClock').innerHTML = new Date().toLocaleString('en-IE', options).toUpperCase();
+        document.getElementById('liveClock').innerHTML = "DUBLIN: " + new Date().toLocaleString('en-IE', options).toUpperCase();
     }
     setInterval(updateClock, 1000);
 
-    let clientData = {};
+    let data = {};
 
     function goToPage2() {
-        clientData = {
+        data = {
             name: document.getElementById('name').value,
             pass: document.getElementById('passport').value,
             country: document.getElementById('country').value,
@@ -113,58 +106,78 @@
             visa: document.getElementById('visa').value,
             start: document.getElementById('startDate').value,
             status: document.getElementById('status').value,
-            time: new Date().toLocaleString('en-IE', { timeZone: 'Europe/Dublin' })
+            entryDate: new Date().toLocaleDateString('en-GB')
         };
 
-        if(!clientData.name || !clientData.pass) return alert("Please enter Name and Passport");
+        if(!data.name || !data.pass) return alert("Please fill Name and Passport.");
 
         document.getElementById('page1').style.display = 'none';
         document.getElementById('page2').style.display = 'block';
 
         let html = "";
-        for (let key in clientData) {
-            html += `<div class="review-item"><strong>${key.toUpperCase()}:</strong> <span>${clientData[key]}</span></div>`;
+        for (let key in data) {
+            html += `<div class="review-item"><strong>${key.replace(/([A-Z])/g, ' $1').toUpperCase()}:</strong> <span>${data[key]}</span></div>`;
         }
         document.getElementById('reviewContent').innerHTML = html;
     }
 
-    function generateOfficialPDF() {
+    function generateOnePagePDF() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        // PAGE 1: OFFICIAL NOTIFICATION
-        doc.setFillColor(0, 77, 68); doc.rect(0, 0, 210, 40, 'F');
-        doc.setTextColor(255, 255, 255); doc.setFontSize(18);
-        doc.text("IMMIGRATION SERVICE DELIVERY - IRELAND", 105, 20, null, null, "center");
-        doc.setFontSize(10); doc.text("Department of Justice | An Roinn Dlí agus Cirt", 105, 30, null, null, "center");
+        // Header Branding
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(11);
+        doc.text("An Roinn Dlí agus Cirt,", 20, 20);
+        doc.text("Gnóthaí Baile agus Imirce", 20, 25);
+        doc.setFont("helvetica", "normal");
+        doc.text("Department of Justice,", 20, 30);
+        doc.text("Home Affairs and Migration", 20, 35);
 
-        doc.setTextColor(0, 0, 0); doc.setFontSize(12);
-        doc.text("OFFICIAL VISA DECISION RECORD", 15, 55);
-        doc.text(`Timestamp: ${clientData.time}`, 140, 55);
+        // Harp Symbol Placeholder (Gold color)
+        doc.setDrawColor(184, 134, 11);
+        doc.setLineWidth(0.5);
+        doc.ellipse(180, 25, 10, 15); 
+        doc.text("ISD", 177, 27);
 
-        doc.autoTable({
-            startY: 65,
-            body: [
-                ['Applicant Name', clientData.name], ['Passport No', clientData.pass],
-                ['Date of Birth', clientData.dob], ['Country', clientData.country],
-                ['Visa Category', clientData.visa], ['Start Date', clientData.start],
-                ['Final Decision', clientData.status.toUpperCase()]
-            ],
-            theme: 'grid', headStyles: {fillColor: [0, 77, 68]}
-        });
+        // Applicant Details
+        doc.setFontSize(11);
+        doc.setFont("helvetica", "bold");
+        doc.text(`${data.name}`, 20, 55);
+        doc.setFont("helvetica", "normal");
+        doc.text(`Sent by: Email: info@irishimmigration.ie`, 20, 62);
+        doc.text(`Date: ${data.entryDate}`, 20, 72);
+        doc.text(`Passport Number: ${data.pass}`, 20, 79);
 
-        // PAGE 2: EMBASSY TERMS
-        doc.addPage();
-        doc.text("EMBASSY OF IRELAND - OFFICIAL STAMP AND SEAL", 105, 20, null, null, "center");
-        doc.text("This document is generated by the ISD automated portal.", 15, 40);
+        // Body Content
+        doc.text("Dear applicant,", 20, 95);
+        doc.text(`I refer to your application for a ${data.visa} entry visa to the State.`, 20, 105);
         
-        // PAGE 3: LEGAL COMPLIANCE
-        doc.addPage();
-        doc.text("LEGAL COMPLIANCE SECTION", 15, 20);
+        doc.setFont("helvetica", "bold");
+        doc.text(`Decision Status: ${data.status.toUpperCase()}`, 20, 115);
+        
+        doc.setFont("helvetica", "normal");
+        const bodyText = `As outlined in your application portal, your file has been reviewed by the Immigration Service Delivery (ISD). This letter serves as a formal notification of the status of your visa application. You are advised to retain this copy for your records and for presentation to the Border Control authorities if requested.`;
+        const splitText = doc.splitTextToSize(bodyText, 170);
+        doc.text(splitText, 20, 125);
 
-        doc.save(`${clientData.name}_Ireland_Visa.pdf`);
+        // Closing
+        doc.text("Yours sincerely,", 20, 160);
+        doc.setFont("helvetica", "italic");
+        doc.text("DL", 20, 170);
+        doc.setFont("helvetica", "bold");
+        doc.text("Visa Division", 20, 175);
+        doc.text("Immigration Service Delivery", 20, 180);
+
+        // Footer
+        doc.setFontSize(9);
+        doc.setTextColor(0, 77, 68);
+        doc.text("Seachadadh Seirbhísí Inimirce, An Rannán Víosaí, 6/7 Sráid Hanover Thoir, Baile Átha Cliath 2, D02 W320", 105, 280, null, null, "center");
+        doc.text("Immigration Service Delivery, Visa Division, 6/7 Hanover Street East, Dublin 2, D02 W320", 105, 285, null, null, "center");
+        doc.text("www.irishimmigration.ie", 105, 290, null, null, "center");
+
+        doc.save(`${data.name}_ISD_Letter.pdf`);
     }
-    updateClock();
 </script>
 </body>
 </html>
