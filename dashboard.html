@@ -4,229 +4,211 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <title>Inimirce Éireann | Portal Oifigiúil</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <title>Inimirce Éireann | Portal Ceithre Leathanach</title>
     <style>
-        :root { 
-            /* Official Irish Branding Colors */
-            --isd-deep-green: #004d44; 
-            --flag-green: #169B62;
-            --flag-orange: #FF883E;
-            --isd-bg: #f4f7f6; 
-        }
-
-        body { font-family: "Helvetica Neue", Arial, sans-serif; background-color: var(--isd-bg); margin: 0; }
-
-        /* Header with Official Flag Symbols */
-        header { 
-            background: #fff; 
-            padding: 10px 5%; 
-            border-bottom: 5px solid var(--isd-deep-green); 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-        }
-
-        .flag-icon { 
-            display: flex; 
-            width: 45px; 
-            height: 25px; 
-            border: 1px solid #ccc; 
-        }
-        .f-g { background: var(--flag-green); flex: 1; } 
-        .f-w { background: #fff; flex: 1; } 
-        .f-o { background: var(--flag-orange); flex: 1; }
-
-        .isd-title { 
-            color: var(--isd-deep-green); 
-            font-weight: bold; 
-            text-align: center; 
-            font-size: 0.95rem;
-            line-height: 1.2;
-        }
-
-        .hero { background: var(--isd-deep-green); color: white; padding: 25px; text-align: center; }
+        :root { --isd-green: #004d44; --flag-green: #169B62; --flag-orange: #FF883E; --bg: #f2f5f4; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding-bottom: 50px; }
         
-        .container { padding: 20px; max-width: 600px; margin: auto; }
-        .card { background: white; border-radius: 4px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        
-        label { display: block; font-weight: bold; margin: 12px 0 5px; color: var(--isd-deep-green); font-size: 0.85rem; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-bottom: 10px; font-size: 1rem; }
-        
-        .btn { 
-            background: var(--isd-deep-green); 
-            color: white; 
-            border: none; 
-            width: 100%; 
-            padding: 15px; 
-            font-weight: bold; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            margin-top: 15px; 
-            text-transform: uppercase; 
-            letter-spacing: 1px;
-        }
+        header { background: #fff; padding: 10px 5%; border-bottom: 5px solid var(--isd-green); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .flag { display: flex; width: 40px; height: 22px; border: 1px solid #ccc; }
+        .f-g { background: var(--flag-green); flex: 1; } .f-w { background: #fff; flex: 1; } .f-o { background: var(--flag-orange); flex: 1; }
+        .isd-logo { color: var(--isd-green); font-weight: bold; text-align: center; line-height: 1.1; font-size: 0.9rem; }
 
-        #page2 { display: none; }
-        .review-item { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 12px 0; font-size: 0.9rem; }
-        .status-badge { font-weight: bold; text-transform: uppercase; }
+        /* Navigation Stepper */
+        .stepper { display: flex; justify-content: space-around; background: #fff; padding: 15px 0; border-bottom: 1px solid #ddd; margin-bottom: 20px; }
+        .step { font-size: 0.8rem; font-weight: bold; color: #aaa; text-transform: uppercase; cursor: not-allowed; }
+        .step.active { color: var(--isd-green); border-bottom: 2px solid var(--isd-green); cursor: pointer; }
+
+        .container { max-width: 700px; margin: auto; padding: 0 20px; }
+        .page { display: none; animation: fadeIn 0.3s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .card { background: #fff; padding: 25px; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h2 { color: var(--isd-green); margin-top: 0; font-size: 1.2rem; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        
+        label { display: block; font-weight: bold; margin: 15px 0 5px; color: var(--isd-green); font-size: 0.8rem; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
+        .btn { background: var(--isd-green); color: white; border: none; width: 100%; padding: 15px; font-weight: bold; cursor: pointer; border-radius: 4px; margin-top: 15px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #fff; }
+        th { background: #f9f9f9; padding: 12px; text-align: left; border-bottom: 2px solid var(--isd-green); font-size: 0.8rem; }
+        td { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+        .status { font-weight: bold; text-transform: uppercase; font-size: 0.75rem; }
+        .row-select { color: var(--isd-green); cursor: pointer; text-decoration: underline; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="flag-icon"><div class="f-g"></div><div class="f-w"></div><div class="f-o"></div></div>
-    <div class="isd-title">AN ROINN DLÍ AGUS CIRT<br><small>DEPARTMENT OF JUSTICE</small></div>
-    <div id="liveClock" style="font-size: 11px; font-weight: bold; color: var(--isd-deep-green);"></div>
+    <div class="flag"><div class="f-g"></div><div class="f-w"></div><div class="f-o"></div></div>
+    <div class="isd-logo">AN ROINN DLÍ AGUS CIRT<br><small>DEPARTMENT OF JUSTICE</small></div>
+    <div id="dublinClock" style="font-size: 10px; font-weight: bold; color: var(--isd-green); text-align: right;"></div>
 </header>
 
-<div class="hero">
-    <h1>Inimirce Éireann</h1>
-    <p>Portal Seachadadh Inimirce (Immigration Delivery Service)</p>
+<div class="stepper">
+    <div id="s1" class="step active" onclick="nav(1)">1. Iontráil (Entry)</div>
+    <div id="s2" class="step" onclick="nav(2)">2. Liosta (List)</div>
+    <div id="s3" class="step" onclick="nav(3)">3. Torthaí (Result)</div>
+    <div id="s4" class="step" onclick="nav(4)">4. Íoslódáil (Download)</div>
 </div>
 
 <div class="container">
-    <div id="page1" class="card">
-        <label>Teanga (Portal Language)</label>
-        <select id="lang"><option value="GA">Gaeilge (Irish)</option><option value="EN">English</option></select>
-
-        <label>Ainm an Chliaint (Client Full Name)</label>
-        <input type="text" id="name" placeholder="Full Name as per Passport">
-
-        <label>Uimhir Phas (Passport Number)</label>
-        <input type="text" id="passport" placeholder="e.g., ZP1825791">
-
-        <label>Tír Thionscnaimh (Country of Origin)</label>
-        <select id="country">
-            <option value="Pakistan">Pakistan</option>
-            <option value="India">India</option>
-            <option value="Other">Other Countries</option>
-        </select>
-
-        <label>Dáta Breithe (Date of Birth)</label>
-        <input type="date" id="dob">
-
-        <label>Inscne (Gender)</label>
-        <select id="gender"><option value="Male">Fireann (Male)</option><option value="Female">Baineann (Female)</option></select>
-
-        <label>Catagóir Víosa (Visa Category)</label>
-        <select id="visa">
-            <option value="Critical Skills Employment">Critical Skills Employment</option>
-            <option value="General Employment">General Employment</option>
-            <option value="Study Visa (Stamp 2)">Study Visa (Stamp 2)</option>
-        </select>
-
-        <label>Dáta Tosaithe (Visa Start Date)</label>
-        <input type="date" id="startDate">
-
-        <label>Stádas an Chinnidh (Decision Status)</label>
-        <select id="status">
-            <option value="Waiting">Ag Fanacht (Waiting)</option>
-            <option value="Approved">Ceadaithe (Approved)</option>
-            <option value="Refused">Diúltaithe (Refused)</option>
-        </select>
-
-        <button class="btn" onclick="goToPage2()">Sábháil & Lean (Save & Continue)</button>
+    <div id="p1" class="page active">
+        <div class="card">
+            <h2>Sonraí an Chliaint</h2>
+            <label>Full Name</label><input type="text" id="name" placeholder="e.g. Shoaib Muhammad">
+            <label>Passport Number</label><input type="text" id="passport" placeholder="e.g. HN5199602">
+            <label>Date of Birth</label><input type="date" id="dob">
+            <label>Visa Category</label>
+            <select id="visa">
+                <option value="Critical Skills Employment">Critical Skills Employment</option>
+                <option value="General Employment Permit">General Employment Permit</option>
+                <option value="Study Visa (Stamp 2)">Study Visa (Stamp 2)</option>
+            </select>
+            <label>Country</label>
+            <select id="country">
+                <option value="Pakistan">Pakistan</option>
+                <option value="India">India</option>
+                <option value="Other">Other Countries</option>
+            </select>
+            <label>Start Date</label><input type="date" id="start">
+            <label>Decision Status</label>
+            <select id="status">
+                <option value="Waiting">Ag Fanacht (Waiting)</option>
+                <option value="Approved">Ceadaithe (Approved)</option>
+                <option value="Refused">Diúltaithe (Refused)</option>
+            </select>
+            <button class="btn" onclick="saveData()">SÁBHÁIL AGUS LEAN (SAVE & CONTINUE)</button>
+        </div>
     </div>
 
-    <div id="page2" class="card">
-        <h3 style="color: var(--isd-deep-green); margin-top:0;">Dearbhú Sonraí (Data Review)</h3>
-        <div id="reviewContent"></div>
-        <button class="btn" onclick="generateOnePagePDF()">DOWNLOAD ONE-PAGE LETTER (PDF)</button>
-        <button class="btn" style="background:#666;" onclick="location.reload()">EDIT INFORMATION</button>
+    <div id="p2" class="page">
+        <div class="card">
+            <h2>Liosta Cliant (Client Database)</h2>
+            <table>
+                <thead>
+                    <tr><th>Ainm (Name)</th><th>Pas (Passport)</th><th>Stádas</th><th>Roghnaigh</th></tr>
+                </thead>
+                <tbody id="clientList"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="p3" class="page">
+        <div class="card">
+            <h2>Toradh an Cháis (Case Result)</h2>
+            <div id="resultView" style="line-height: 1.8; color: #444;"></div>
+            <button class="btn" onclick="nav(4)">DEIMHNIGH (CONFIRM TO DOWNLOAD)</button>
+        </div>
+    </div>
+
+    <div id="p4" class="page">
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 50px; color: var(--isd-green); margin-bottom: 20px;">✓</div>
+            <h2>Réidh le hÍoslódáil</h2>
+            <p>The official notification for <strong id="dlName"></strong> is ready.</p>
+            <button class="btn" onclick="downloadPDF()">ÍOSLÓDÁIL PDF (DOWNLOAD PDF)</button>
+            <button class="btn" style="background:#666;" onclick="nav(1)">NEW ENTRY</button>
+        </div>
     </div>
 </div>
 
 <script>
     function updateClock() {
         const options = { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', second: '2-digit', day: 'numeric', month: 'short', year: 'numeric' };
-        document.getElementById('liveClock').innerHTML = "DUBLIN: " + new Date().toLocaleString('en-IE', options).toUpperCase();
+        document.getElementById('dublinClock').innerHTML = "DUBLIN: " + new Date().toLocaleString('en-IE', options).toUpperCase();
     }
     setInterval(updateClock, 1000);
 
-    let data = {};
+    let clients = JSON.parse(localStorage.getItem('isd_4page_db')) || [];
+    let selectedIdx = null;
 
-    function goToPage2() {
-        data = {
+    function nav(num) {
+        if(num > 1 && clients.length === 0) return alert("Enter data first.");
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('p' + num).classList.add('active');
+        document.getElementById('s' + num).classList.add('active');
+        if(num === 2) renderList();
+    }
+
+    function saveData() {
+        const client = {
             name: document.getElementById('name').value,
             pass: document.getElementById('passport').value,
-            country: document.getElementById('country').value,
             dob: document.getElementById('dob').value,
-            gender: document.getElementById('gender').value,
             visa: document.getElementById('visa').value,
-            start: document.getElementById('startDate').value,
+            country: document.getElementById('country').value,
+            start: document.getElementById('start').value,
             status: document.getElementById('status').value,
-            entryDate: new Date().toLocaleDateString('en-GB')
+            entryDate: new Date().toLocaleString('en-IE', { timeZone: 'Europe/Dublin' })
         };
-
-        if(!data.name || !data.pass) return alert("Please fill Name and Passport.");
-
-        document.getElementById('page1').style.display = 'none';
-        document.getElementById('page2').style.display = 'block';
-
-        let html = "";
-        for (let key in data) {
-            html += `<div class="review-item"><strong>${key.toUpperCase()}:</strong> <span>${data[key]}</span></div>`;
-        }
-        document.getElementById('reviewContent').innerHTML = html;
+        if(!client.name || !client.pass) return alert("Fill Name and Passport");
+        clients.push(client);
+        localStorage.setItem('isd_4page_db', JSON.stringify(clients));
+        nav(2);
     }
 
-    function generateOnePagePDF() {
+    function renderList() {
+        const body = document.getElementById('clientList');
+        body.innerHTML = '';
+        clients.forEach((c, i) => {
+            body.innerHTML += `<tr>
+                <td><strong>${c.name}</strong></td>
+                <td>${c.pass}</td>
+                <td><span class="status" style="color:${c.status==='Approved'?'green':c.status==='Refused'?'red':'orange'}">${c.status}</span></td>
+                <td><span class="row-select" onclick="viewResult(${i})">View</span></td>
+            </tr>`;
+        });
+    }
+
+    function viewResult(i) {
+        selectedIdx = i;
+        const c = clients[i];
+        document.getElementById('resultView').innerHTML = `
+            <p><strong>Applicant:</strong> ${c.name}</p>
+            <p><strong>Passport:</strong> ${c.pass}</p>
+            <p><strong>Visa Category:</strong> ${c.visa}</p>
+            <p><strong>Decision:</strong> ${c.status.toUpperCase()}</p>
+            <p><strong>System Date:</strong> ${c.entryDate}</p>
+        `;
+        document.getElementById('dlName').innerText = c.name;
+        nav(3);
+    }
+
+    function downloadPDF() {
+        const c = clients[selectedIdx];
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-
-        // 1. Bilingual Letterhead
+        
         doc.setFont("helvetica", "bold");
+        doc.text("An Roinn Dlí agus Cirt | Department of Justice", 20, 20);
         doc.setFontSize(10);
-        doc.text("An Roinn Dlí agus Cirt,", 20, 20);
-        doc.text("Gnóthaí Baile agus Imirce", 20, 25);
-        doc.setFont("helvetica", "normal");
-        doc.text("Department of Justice,", 20, 30);
-        doc.text("Home Affairs and Migration", 20, 35);
-
-        // 2. Gold Harp Icon (Representing Official Seal)
-        doc.setDrawColor(184, 134, 11); // Gold
-        doc.setLineWidth(0.5);
-        doc.ellipse(180, 25, 12, 16); 
-        doc.setFontSize(8);
-        doc.text("ISD", 177, 27);
-
-        // 3. Client & Reference Info
+        doc.text("Immigration Service Delivery (ISD)", 20, 26);
+        
         doc.setFontSize(11);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${data.name}`, 20, 55);
-        doc.setFont("helvetica", "normal");
-        doc.text(`Sent by: Email: info@irishimmigration.ie`, 20, 62);
-        doc.text(`Date: ${data.entryDate}`, 20, 72);
-        doc.text(`Passport Number: ${data.pass}`, 20, 79);
+        doc.text(`Date: ${c.entryDate}`, 140, 40);
+        doc.text(`Passport No: ${c.pass}`, 20, 50);
+        doc.text(`To: ${c.name}`, 20, 56);
 
-        // 4. Letter Body
-        doc.text("Dear applicant,", 20, 95);
-        doc.text(`I refer to your application for a ${data.visa} to the State.`, 20, 105);
+        doc.setFont("helvetica", "normal");
+        doc.text(`Ref: ${c.visa} Application`, 20, 70);
+        doc.text(`Regarding your visa application started on ${c.start}, the decision is:`, 20, 80);
         
         doc.setFont("helvetica", "bold");
-        doc.text(`Decision Status: ${data.status.toUpperCase()}`, 20, 115);
-        
+        doc.setTextColor(c.status==='Approved'?22:183, c.status==='Approved'?155:28, c.status==='Approved'?98:28);
+        doc.text(c.status.toUpperCase(), 20, 90);
+
+        doc.setTextColor(0,0,0);
         doc.setFont("helvetica", "normal");
-        const bodyText = `As outlined in your application portal, your file has been reviewed by the Immigration Service Delivery (ISD). This letter serves as a formal notification of the status of your visa application. You are advised to retain this copy for your records and for presentation to the Border Control authorities if requested.`;
-        const splitText = doc.splitTextToSize(bodyText, 170);
-        doc.text(splitText, 20, 125);
-
-        // 5. Official Signature
-        doc.text("Yours sincerely,", 20, 165);
-        doc.setFont("helvetica", "bold");
-        doc.text("DL", 20, 175);
-        doc.text("Visa Division", 20, 180);
-        doc.text("Immigration Service Delivery", 20, 185);
-
-        // 6. Official Green Footer
-        doc.setFontSize(8);
-        doc.setTextColor(0, 77, 68); // ISD Green
-        doc.text("Seachadadh Seirbhísí Inimirce, An Rannán Víosaí, 6/7 Sráid Hanover Thoir, Baile Átha Cliath 2, D02 W320", 105, 280, null, null, "center");
-        doc.text("Immigration Service Delivery, Visa Division, 6/7 Hanover Street East, Dublin 2, D02 W320", 105, 285, null, null, "center");
-        doc.text("www.irishimmigration.ie", 105, 290, null, null, "center");
-
-        doc.save(`${data.name}_ISD_Letter.pdf`);
+        const body = "This is a formal notification from the Irish Immigration Service. Please carry this letter if traveling to the State.";
+        doc.text(doc.splitTextToSize(body, 170), 20, 105);
+        
+        doc.save(`${c.name}_Ireland_Visa.pdf`);
     }
+
     updateClock();
 </script>
 </body>
