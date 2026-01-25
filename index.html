@@ -1,244 +1,202 @@
 <!DOCTYPE html>
-<html lang="sq">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        :root { --alb-red: #e41e20; --alb-black: #000000; --gold-trim: #c5a059; }
-        body { font-family: 'Times New Roman', serif; background: #f4f4f4; margin: 0; }
+        :root { --alb-red: #e41e20; --alb-black: #050505; --gold-seal: #d4af37; }
+        body { font-family: 'Times New Roman', serif; background: #f0f0f0; margin: 0; }
         
-        /* Albanian State Header */
         header { background: white; border-bottom: 6px solid var(--alb-red); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
-        .alb-flag { width: 60px; height: 40px; background: var(--alb-red); position: relative; display: flex; align-items: center; justify-content: center; border: 1px solid #900; }
-        .eagle-small { width: 25px; filter: brightness(0); }
-        .state-title { text-align: center; }
-        .state-title h1 { margin: 0; color: var(--alb-black); font-size: 1.3rem; text-transform: uppercase; letter-spacing: 1px; }
-        .state-title p { margin: 0; color: var(--alb-red); font-size: 0.85rem; font-weight: bold; }
-        .coat-of-arms { height: 65px; }
+        .state-title h1 { margin: 0; color: var(--alb-black); font-size: 1.4rem; text-transform: uppercase; }
+        .state-title p { margin: 0; color: var(--alb-red); font-size: 0.9rem; font-weight: bold; }
+        .harp-icon { height: 70px; }
 
-        .time-banner { background: var(--alb-black); color: white; text-align: center; padding: 8px; font-weight: bold; font-size: 0.8rem; border-bottom: 3px solid var(--gold-trim); }
+        .time-banner { background: var(--alb-black); color: white; text-align: center; padding: 8px; font-weight: bold; font-size: 0.8rem; border-bottom: 3px solid var(--gold-seal); }
 
-        /* System Layout */
         .patch { display: none; padding: 25px; animation: fadeIn 0.4s ease; }
         .patch.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .container { max-width: 1100px; margin: auto; background: white; padding: 35px; border-radius: 3px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-left: 12px solid var(--alb-red); }
+        .container { max-width: 1150px; margin: auto; background: white; padding: 35px; border-radius: 2px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border-left: 10px solid var(--alb-red); }
         
-        /* Inputs */
-        .input-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        label { display: block; font-weight: bold; color: #333; font-size: 0.75rem; margin-bottom: 5px; text-transform: uppercase; }
-        input, select { width: 100%; padding: 11px; border: 1px solid #ccc; font-family: serif; border-radius: 2px; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        label { display: block; font-weight: bold; color: #222; font-size: 0.75rem; margin-bottom: 5px; text-transform: uppercase; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #bbb; border-radius: 2px; font-size: 0.95rem; }
         
-        .btn-alb { background: var(--alb-red); color: white; border: none; padding: 16px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 20px; text-transform: uppercase; border-bottom: 4px solid #800; }
-        .btn-alb:hover { background: #c00; }
-        .btn-delete { background: #000; color: white; border: none; padding: 5px 10px; cursor: pointer; font-size: 0.7rem; }
-
-        /* Registry Table */
-        table { width: 100%; border-collapse: collapse; margin-top: 35px; }
-        th { background: #f0f0f0; color: #000; padding: 14px; text-align: left; border-bottom: 2px solid var(--alb-red); font-size: 0.8rem; }
-        td { padding: 14px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+        .btn-main { background: var(--alb-red); color: white; border: none; padding: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 20px; transition: 0.3s; }
+        .btn-main:hover { background: #b00; }
         
-        .status { padding: 4px 10px; font-weight: bold; font-size: 0.7rem; text-transform: uppercase; border-radius: 2px; }
-        .approved { background: #e6fffa; color: #2c7a7b; border: 1px solid #b2f5ea; }
-        .waiting { background: #fffaf0; color: #9c4221; border: 1px solid #feebc8; }
-        .refusal { background: #fff5f5; color: #c53030; border: 1px solid #feb2b2; }
-
-        #photo_box { width: 135px; height: 165px; border: 2px solid var(--alb-black); object-fit: cover; margin-top: 10px; background: #eee; }
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+        th { background: #f8f8f8; color: var(--alb-red); padding: 12px; text-align: left; border-bottom: 2px solid #000; font-size: 0.8rem; }
+        td { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+        
+        .status { padding: 3px 8px; font-weight: bold; font-size: 0.7rem; border-radius: 2px; }
+        .approved { background: #d1fae5; color: #065f46; }
+        .waiting { background: #fef3c7; color: #92400e; }
+        
+        #qrcode { margin-top: 15px; display: inline-block; padding: 10px; border: 1px solid #eee; }
+        #photo_prev { width: 140px; height: 170px; border: 2px solid #000; object-fit: cover; margin-top: 10px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="alb-flag"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Double-headed_eagle_free_to_use.svg/1024px-Double-headed_eagle_free_to_use.svg.png" class="eagle-small"></div>
-    <div class="state-title">
+    <div style="width: 60px; height: 40px; background: var(--alb-red); border: 1px solid #000;"></div>
+    <div class="state-title" style="text-align:center;">
         <h1>Republika e Shqipërisë</h1>
-        <p>MINISTRY OF THE INTERIOR | DIRECTORATE FOR IMMIGRATION</p>
-        <div style="font-size: 0.7rem; color: #000;">Consular Mission: Istanbul-Karachi Hub</div>
+        <p>CONSULAR SECTION ISTANBUL | KARACHI JURISDICTION</p>
     </div>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Coat_of_arms_of_Albania.svg/1200px-Coat_of_arms_of_Albania.svg.png" class="coat-of-arms">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Coat_of_arms_of_Albania.svg/1200px-Coat_of_arms_of_Albania.svg.png" class="harp-icon">
 </header>
-<div class="time-banner" id="utc_clock">TIRANA TIME: SYNCING...</div>
+<div class="time-banner" id="clock">SYNCING TIRANA TIME...</div>
 
 <div id="patch1" class="patch active">
     <div class="container">
-        <h2 style="border-bottom: 2px solid #eee; padding-bottom: 10px;">Patch 1: Consular Entry & Registry</h2>
-        <div class="input-grid">
+        <h2 style="color:var(--alb-red); border-bottom: 1px solid #ddd; padding-bottom: 10px;">Consular Registry Hub - Karachi</h2>
+        <div class="grid">
             <div>
-                <label>ALB Reference Number (Manual)</label>
-                <input type="text" id="alb_ref" placeholder="ALB-2026-XXXX">
+                <label>Manual ALB Ref Number</label><input type="text" id="ref" placeholder="ALB-99234X">
                 <label>Applicant Full Name</label><input type="text" id="name">
-                <label>Passport Number</label><input type="text" id="pass">
-            </div>
-            <div>
-                <label>Visa Type</label>
-                <select id="cat">
-                    <option>Type D (Long Term - Work)</option>
-                    <option>Type C (Short Stay - Tourism)</option>
-                    <option>Type D (Family Reunification)</option>
-                    <option>Type D (Study)</option>
+                <label>Date of Birth</label><input type="date" id="dob">
+                <label>Nationality</label>
+                <select id="nation">
+                    <option>Pakistan</option>
+                    <option>India</option>
+                    <option>Other</option>
                 </select>
-                <label>Nationality</label><input type="text" id="nation" value="Pakistan National">
-                <label>Gender</label><select id="gender"><option>Male</option><option>Female</option></select>
             </div>
             <div>
-                <label>Status</label><select id="status"><option>Waiting</option><option>Approved</option><option>Refusal</option></select>
-                <label>Photo Upload</label><input type="file" id="pic_in" accept="image/*" onchange="previewImg()">
-                <img id="photo_box" style="display:none;">
+                <label>Passport Number</label><input type="text" id="pass">
+                <label>Submission Date</label><input type="date" id="s_date">
+                <label>Visa Issue Date</label><input type="date" id="i_date">
+                <label>Visa Category</label>
+                <select id="cat">
+                    <option>Type D - Employment</option>
+                    <option>Type C - Tourism</option>
+                    <option>Type D - Business</option>
+                </select>
+            </div>
+            <div>
+                <label>Decision</label><select id="status"><option>Waiting</option><option>Approved</option><option>Refusal</option></select>
+                <label>Applicant Photo</label><input type="file" onchange="processPic(event)">
+                <img id="photo_prev" style="display:none;">
             </div>
         </div>
-        <button class="btn-alb" onclick="saveToRegistry()">ENROLL IN STATE DATABASE</button>
+        <button class="btn-main" onclick="saveRecord()">REGISTER APPLICATION</button>
 
-        <h3>Istanbul Consular Registry (Karachi Applications)</h3>
         <table>
-            <thead>
-                <tr>
-                    <th>ALB Ref</th>
-                    <th>Full Name</th>
-                    <th>Visa Type</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="table_body"></tbody>
+            <thead><tr><th>ALB Ref</th><th>Name</th><th>Nationality</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="list"></tbody>
         </table>
     </div>
 </div>
 
-<div id="patch2" class="patch">
-    <div class="container">
-        <h2>Patch 2: Consular Officer Inspection</h2>
-        <div id="inspect_ui" style="display:flex; gap:30px;"></div>
-        <button class="btn-alb" onclick="showPatch(3)">NEXT: MISSION STATEMENT</button>
-        <button class="btn-alb" style="background:#444;" onclick="showPatch(1)">BACK</button>
-    </div>
-</div>
-
-<div id="patch3" class="patch">
-    <div class="container" style="text-align: center;">
-        <h2>Patch 3: Mission Statement</h2>
-        <div id="alb_msg" style="padding: 40px; font-size: 1.4rem; font-style: italic; color: #333;"></div>
-        <button class="btn-alb" onclick="showPatch(4)">GENERATE OFFICIAL DOCUMENT</button>
-    </div>
-</div>
+<div id="patch2" class="patch"><div class="container" id="inspect_box"></div><button class="btn-main" onclick="showPatch(3)">VIEW STATEMENT</button></div>
+<div id="patch3" class="patch"><div class="container" style="text-align:center;"><div id="stmt" style="font-size:1.5rem; padding:40px;"></div><button class="btn-main" onclick="showPatch(4)">GENERATE DIPLOMATIC PDF</button></div></div>
 
 <div id="patch4" class="patch">
     <div class="container" style="text-align: center;">
-        <h2>Patch 4: Document Finalization</h2>
-        <div id="card_preview" style="text-align: left; border: 4px solid #000; padding: 25px; background: #fffafa; margin-bottom: 25px;"></div>
-        <button class="btn-alb" onclick="makeALBPDF()">DOWNLOAD SEALED ALBANIAN PDF</button>
+        <h2 style="color:var(--alb-red);">Document Verification Portal</h2>
+        <div id="card_ui" style="text-align:left; border:2px solid #000; padding:20px; background:#fffdfa;"></div>
+        <div id="qrcode"></div>
+        <button class="btn-main" onclick="generatePDF()">DOWNLOAD SEALED PDF WITH QR CODE</button>
     </div>
 </div>
 
 <script>
-    function updateClock() {
+    function clock() {
         const opt = { timeZone: 'Europe/Tirane', hour: '2-digit', minute: '2-digit', second: '2-digit', day: 'numeric', month: 'short', year: 'numeric' };
-        document.getElementById('utc_clock').innerHTML = "OFFICIAL TIRANA TIME: " + new Date().toLocaleString('en-GB', opt).toUpperCase();
+        document.getElementById('clock').innerHTML = "TIRANA OFFICIAL TIME: " + new Date().toLocaleString('en-GB', opt).toUpperCase();
     }
-    setInterval(updateClock, 1000);
+    setInterval(clock, 1000);
 
-    let al_db = JSON.parse(localStorage.getItem('albania_db')) || [];
-    let curIdx = null;
-    let b64 = "";
+    let db = JSON.parse(localStorage.getItem('alb_karachi_db')) || [];
+    let activeIdx = null;
+    let imgData = "";
 
-    function previewImg() {
-        const file = document.getElementById('pic_in').files[0];
+    function processPic(e) {
         const reader = new FileReader();
-        reader.onloadend = () => { b64 = reader.result; document.getElementById('photo_box').src = b64; document.getElementById('photo_box').style.display='block'; };
-        reader.readAsDataURL(file);
+        reader.onload = () => { imgData = reader.result; document.getElementById('photo_prev').src = imgData; document.getElementById('photo_prev').style.display='block'; };
+        reader.readAsDataURL(e.target.files[0]);
     }
 
-    function showPatch(n) {
-        document.querySelectorAll('.patch').forEach(p => p.classList.remove('active'));
-        document.getElementById('patch'+n).classList.add('active');
-        if(n===1) renderAL();
-    }
-
-    function saveToRegistry() {
-        const manual = document.getElementById('alb_ref').value.trim();
-        const ref = manual || "ALB-" + Math.floor(100000 + Math.random() * 900000);
-        const entry = {
-            ref: ref,
+    function saveRecord() {
+        const r = {
+            ref: document.getElementById('ref').value || "ALB-" + Math.floor(Math.random()*900000),
             name: document.getElementById('name').value,
-            pass: document.getElementById('pass').value,
-            cat: document.getElementById('cat').value,
+            dob: document.getElementById('dob').value,
             nation: document.getElementById('nation').value,
-            gender: document.getElementById('gender').value,
+            pass: document.getElementById('pass').value,
+            s_date: document.getElementById('s_date').value,
+            i_date: document.getElementById('i_date').value,
+            cat: document.getElementById('cat').value,
             status: document.getElementById('status').value,
-            photo: b64,
-            date: new Date().toLocaleDateString('en-GB')
+            photo: imgData
         };
-        al_db.push(entry);
-        localStorage.setItem('albania_db', JSON.stringify(al_db));
-        renderAL();
+        db.push(r); localStorage.setItem('alb_karachi_db', JSON.stringify(db)); render();
     }
 
-    function renderAL() {
-        const b = document.getElementById('table_body'); b.innerHTML = '';
-        al_db.forEach((r, i) => {
-            b.innerHTML += `<tr>
-                <td><strong>${r.ref}</strong></td>
-                <td>${r.name}</td>
-                <td>${r.cat}</td>
-                <td><span class="status ${r.status.toLowerCase()}">${r.status}</span></td>
-                <td><button onclick="inspectAL(${i})">Review</button> <button class="btn-delete" onclick="cutAL(${i})">X</button></td>
-            </tr>`;
+    function render() {
+        const l = document.getElementById('list'); l.innerHTML = '';
+        db.forEach((r, i) => {
+            l.innerHTML += `<tr><td><b>${r.ref}</b></td><td>${r.name}</td><td>${r.nation}</td><td><span class="status ${r.status.toLowerCase()}">${r.status}</span></td><td><button onclick="view(${i})">Open</button> <button onclick="del(${i})">X</button></td></tr>`;
         });
     }
 
-    function cutAL(i) { al_db.splice(i,1); localStorage.setItem('albania_db', JSON.stringify(al_db)); renderAL(); }
+    function del(i) { db.splice(i,1); localStorage.setItem('alb_karachi_db', JSON.stringify(db)); render(); }
 
-    function inspectAL(i) {
-        curIdx = i;
-        const r = al_db[i];
-        document.getElementById('inspect_ui').innerHTML = `<img src="${r.photo}" style="width:180px; border:4px solid red;">
-            <div><p>Ref: ${r.ref}</p><h2>${r.name}</h2><p>Passport: ${r.pass}</p></div>`;
+    function view(i) {
+        activeIdx = i; const r = db[i];
+        document.getElementById('inspect_box').innerHTML = `<div style="display:flex; gap:30px;"><img src="${r.photo}" style="width:200px;"><div><h2>${r.name}</h2><p>DOB: ${r.dob}</p><p>REF: ${r.ref}</p></div></div>`;
+        document.getElementById('stmt').innerText = r.status === "Approved" ? "The Republic of Albania hereby grants entry authorization." : "Application is under mandatory state review.";
         
-        let m = r.status === "Approved" ? "The Republic of Albania welcomes your application. Your visa has been processed via the Istanbul Consular hub." : 
-                r.status === "Refusal" ? "Your application has been reviewed. Currently, it does not meet the requirements of the Directorate for Immigration." : 
-                "Application is under verification by the State Intelligence and Immigration authorities.";
-        document.getElementById('alb_msg').innerText = m;
-
-        document.getElementById('card_preview').innerHTML = `<h3 style="background:red; color:white; padding:10px;">REPUBLIKA E SHQIPËRISË - VISA</h3>
-            <p><strong>Ref:</strong> ${r.ref} | <strong>Holder:</strong> ${r.name.toUpperCase()}</p>
-            <p><strong>Type:</strong> ${r.cat} | <strong>Authority:</strong> Istanbul-Karachi Hub</p>`;
+        document.getElementById('card_ui').innerHTML = `<h3>Viza Shqiptare</h3><p>REF: ${r.ref}</p><p>HOLDER: ${r.name}</p><p>ISSUE DATE: ${r.i_date}</p>`;
+        
+        // Generate QR Code
+        document.getElementById('qrcode').innerHTML = "";
+        new QRCode(document.getElementById("qrcode"), { text: "VERIFIED: " + r.ref + " NAME: " + r.name, width: 100, height: 100 });
+        
         showPatch(2);
     }
 
-    function makeALBPDF() {
-        const r = al_db[curIdx];
+    function showPatch(n) { document.querySelectorAll('.patch').forEach(p => p.classList.remove('active')); document.getElementById('patch'+n).classList.add('active'); }
+
+    async function generatePDF() {
+        const r = db[activeIdx];
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         
         doc.setFillColor(228, 30, 32); doc.rect(0, 0, 210, 45, 'F');
         doc.setTextColor(255); doc.setFontSize(18); doc.text("REPUBLIKA E SHQIPËRISË", 105, 20, {align:'center'});
-        doc.setFontSize(10); doc.text("MINISTRIA E PUNËVE TË BRENDSHME | IMMIGRATION DIRECTORATE", 105, 30, {align:'center'});
+        doc.setFontSize(10); doc.text("CONSULAR SECTION ISTANBUL | JURISDICTION: KARACHI, PAKISTAN", 105, 30, {align:'center'});
 
         doc.setTextColor(0);
-        if(r.photo) doc.addImage(r.photo, 'JPEG', 155, 55, 35, 45);
+        if(r.photo) doc.addImage(r.photo, 'JPEG', 155, 50, 38, 48);
         
         doc.setFont("times", "bold"); doc.text(`REF: ${r.ref}`, 20, 60);
-        doc.text(`MISSION DECISION: ${r.status.toUpperCase()}`, 20, 70);
-        
         doc.setFont("times", "normal");
-        doc.text(`Applicant: ${r.name}`, 20, 85);
-        doc.text(`Passport: ${r.pass}`, 20, 93);
-        doc.text(`Nationality: ${r.nation}`, 20, 101);
-        doc.text(`Visa Class: ${r.cat}`, 20, 109);
-        doc.text(`Issuing Mission: Consular Section, Istanbul (Karachi Hub)`, 20, 117);
+        doc.text(`Full Name: ${r.name}`, 20, 75);
+        doc.text(`Date of Birth: ${r.dob}`, 20, 83);
+        doc.text(`Nationality: ${r.nation}`, 20, 91);
+        doc.text(`Passport: ${r.pass}`, 20, 99);
+        doc.text(`Submission Date: ${r.s_date}`, 20, 107);
+        doc.text(`Issue Date: ${r.i_date}`, 20, 115);
 
-        doc.setFont("times", "italic");
-        doc.text(doc.splitTextToSize(document.getElementById('alb_msg').innerText, 130), 20, 135);
+        // Add QR Code to PDF
+        const qrCanvas = document.querySelector('#qrcode canvas');
+        if(qrCanvas) doc.addImage(qrCanvas.toDataURL("image/png"), 'PNG', 20, 130, 30, 30);
+        
+        doc.text("Official Digital Verification Seal", 20, 165);
+        doc.setFontSize(9); doc.text("Scan QR code to verify the authenticity of this document via the Ministry of Interior portal.", 20, 170);
 
-        doc.setFont("times", "bold");
-        doc.text("Signed,", 20, 190);
-        doc.text("Consular Visa Officer", 20, 198);
-        doc.line(20, 200, 80, 200);
-
-        doc.save(`Albania_Visa_${r.name}.pdf`);
+        doc.setFont("times", "bold"); doc.text("Authorized Consular Officer,", 20, 200);
+        doc.line(20, 205, 80, 205);
+        doc.save(`Albania_Karachi_${r.name}.pdf`);
     }
 
-    renderAL(); updateClock();
+    render(); clock();
 </script>
 </body>
 </html>
