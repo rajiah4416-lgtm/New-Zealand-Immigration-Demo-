@@ -2,223 +2,200 @@
 <html lang="ga">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-    <title>Imirce Éireann - Tairseach Oifigiúil</title>
+    <title>Inimirce Éireann | Irish Immigration Service</title>
     <style>
         :root {
-            --ie-green: #169B62;
-            --ie-orange: #FF883E;
-            --ie-navy: #002d5a;
+            --isd-green: #004d44; /* Deep Irish Service Green */
+            --isd-light-bg: #f8f9fa;
+            --isd-text: #333;
         }
 
-        body { font-family: "Arial", sans-serif; background-color: #f2f2f2; margin: 0; }
+        body { font-family: "Segoe UI", Arial, sans-serif; background-color: var(--isd-light-bg); margin: 0; color: var(--isd-text); }
 
-        .header-top {
-            background-color: var(--ie-navy);
-            color: white;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 5px solid var(--ie-green);
-        }
+        /* Official Header */
+        header { background: #fff; padding: 15px; border-bottom: 4px solid var(--isd-green); text-align: center; }
+        .isd-logo { font-weight: bold; color: var(--isd-green); font-size: 1.2rem; }
 
-        .flag-icon {
-            display: flex;
-            width: 45px;
-            height: 25px;
-            border: 1px solid #fff;
-        }
-        .f-green { background: var(--ie-green); flex: 1; }
-        .f-white { background: #fff; flex: 1; }
-        .f-orange { background: var(--ie-orange); flex: 1; }
+        .hero { background: var(--isd-green); color: white; padding: 40px 20px; text-align: center; }
+        .hero h1 { font-size: 1.5rem; margin: 0; }
 
-        .main { padding: 30px 5%; }
-        .card { background: white; padding: 25px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 20px; }
+        .container { padding: 20px; max-width: 600px; margin: auto; }
+
+        /* Service Cards Style from Screenshot */
+        .card { background: white; border-radius: 8px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-left: 5px solid var(--isd-green); }
         
-        .status-badge { padding: 5px 10px; border-radius: 3px; font-weight: bold; font-size: 12px; text-transform: uppercase; }
-        .bg-approval { background: #d4edda; color: #155724; }
-        .bg-refusal { background: #f8d7da; color: #721c24; }
-        .bg-waiting { background: #fff3cd; color: #856404; }
+        label { display: block; font-weight: bold; margin: 10px 0 5px; color: var(--isd-green); font-size: 0.9rem; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
 
-        .btn-cut { background: #d4351c; color: white; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; }
+        .btn-save { background: var(--isd-green); color: white; border: none; width: 100%; padding: 15px; font-weight: bold; border-radius: 4px; cursor: pointer; margin-top: 10px; }
+        .btn-pdf { background: #fff; border: 1px solid var(--isd-green); color: var(--isd-green); padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        .btn-cut { background: #c62828; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; font-size: 0.85rem; }
+        th { background: var(--isd-green); color: white; padding: 10px; text-align: left; }
+        td { padding: 10px; border-bottom: 1px solid #ddd; }
+
+        .timestamp { color: #666; font-size: 0.75rem; display: block; margin-top: 5px; }
     </style>
 </head>
 <body>
 
-<div class="header-top">
-    <div>
-        <h1 style="margin:0; font-size: 20px;">Roinn Dlí agus Cirt | <small>Seirbhís Seachadta Inimirce</small></h1>
-    </div>
-    <div style="text-align: right; display: flex; align-items: center; gap: 15px;">
-        <div id="dublinTime" style="font-size: 13px; font-weight: bold;"></div>
-        <div class="flag-icon">
-            <div class="f-green"></div><div class="f-white"></div><div class="f-orange"></div>
-        </div>
-    </div>
+<header>
+    <div class="isd-logo">Seirbhís Seachadta Inimirce</div>
+    <div style="font-size: 11px; color: #666;" id="liveClock">Dublin Time...</div>
+</header>
+
+<div class="hero">
+    <h1>Fáilte go dtí Inimirce Éireann</h1>
+    <p>Welcome to the Irish Immigration Service</p>
 </div>
 
-<div class="main">
+<div class="container">
     <div class="card">
-        <h2 style="margin-top:0; color: var(--ie-navy);">Próiseáil Iarratais ar Víosa (Visa Processing)</h2>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-            <div>
-                <label class="label">Ainm an Chliaint (Client Name)</label>
-                <input type="text" id="cName" class="input">
-                
-                <label class="label">Inscne (Gender)</label>
-                <select id="cGender" class="input">
-                    <option value="Fireann">Fireann (Male)</option>
-                    <option value="Baineann">Baineann (Female)</option>
-                </select>
-            </div>
-            <div>
-                <label class="label">Uimhir Phas (Passport Number)</label>
-                <input type="text" id="cPassport" class="input">
-                
-                <label class="label">Catagóir Víosa (Visa Category)</label>
-                <select id="cCategory" class="input">
-                    <option value="Cead Fostaíochta Scileanna Criticiúla">Cead Fostaíochta Scileanna Criticiúla</option>
-                    <option value="Cead Fostaíochta Ginearálta">Cead Fostaíochta Ginearálta</option>
-                    <option value="Víosa Staidéir (Stampa 2)">Víosa Staidéir (Stampa 2)</option>
-                    <option value="Víosa Turasóireachta">Víosa Turasóireachta</option>
-                </select>
-            </div>
-            <div>
-                <label class="label">Dáta Tosaithe (Start Date)</label>
-                <input type="date" id="cDate" class="input">
-                
-                <label class="label">Stádas Cinneadh (Decision Status)</label>
-                <select id="cStatus" class="input">
-                    <option value="Ag fanacht">Ag fanacht (Waiting)</option>
-                    <option value="Ceadaithe">Ceadaithe (Approved)</option>
-                    <option value="Diúltaithe">Diúltaithe (Refused)</option>
-                </select>
-            </div>
-        </div>
-        <button onclick="addClient()" class="btn" style="width:100%; background: var(--ie-navy);">SÁBHÁIL AGUS TAIFEAD (SAVE RECORD)</button>
+        <h3 style="margin-top:0; border-bottom: 1px solid #eee; padding-bottom:10px;">Iontráil Sonraí (Data Entry)</h3>
+        
+        <label>Ainm an Chliaint (Client Name)</label>
+        <input type="text" id="name" placeholder="e.g. Shoaib Muhammad">
+
+        <label>Uimhir Phas (Passport Number)</label>
+        <input type="text" id="passport" placeholder="e.g. HN5199602">
+
+        <label>Inscne (Gender)</label>
+        <select id="gender">
+            <option value="Male">Fireann (Male)</option>
+            <option value="Female">Baineann (Female)</option>
+        </select>
+
+        <label>Catagóir Víosa (Visa Category)</label>
+        <select id="visa">
+            <option value="Critical Skills">Critical Skills Employment</option>
+            <option value="General Employment">General Employment Permit</option>
+            <option value="Study">Study Visa (Stamp 2)</option>
+            <option value="Visit">Short Stay (C) Visit Visa</option>
+        </select>
+
+        <label>Stádas an Chinnidh (Decision Status)</label>
+        <select id="status">
+            <option value="Waiting">Ag Fanacht (Waiting)</option>
+            <option value="Approval">Ceadaithe (Approved)</option>
+            <option value="Refusal">Diúltaithe (Refused)</option>
+        </select>
+
+        <button class="btn-save" onclick="processRecord()">SÁBHÁIL TAIFEAD (SAVE RECORD)</button>
     </div>
 
     <div class="card">
-        <h3>Taifid Inimirce (Immigration Records)</h3>
-        <table style="width:100%; border-collapse: collapse; text-align: left;">
-            <thead>
-                <tr style="border-bottom: 2px solid var(--ie-navy);">
-                    <th>Ainm</th><th>Pas</th><th>Stádas</th><th>Dáta Iontrála (Entry Time)</th><th>Gníomhartha</th>
-                </tr>
-            </thead>
-            <tbody id="clientRows"></tbody>
-        </table>
+        <h3 style="margin-top:0;">Database Records</h3>
+        <div id="recordTable" style="overflow-x:auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name/Time</th>
+                        <th>Passport</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody"></tbody>
+            </table>
+        </div>
     </div>
 </div>
 
 <script>
+    // Live Dublin Clock
     function updateClock() {
-        const options = { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', second: '2-digit', weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
-        document.getElementById('dublinTime').innerHTML = "Baile Átha Cliath: " + new Date().toLocaleString('en-IE', options);
+        const options = { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', second: '2-digit', weekday: 'short', day: 'numeric', month: 'short' };
+        document.getElementById('liveClock').innerHTML = "Baile Átha Cliath: " + new Date().toLocaleString('en-IE', options);
     }
     setInterval(updateClock, 1000);
 
-    let records = JSON.parse(localStorage.getItem('irish_visa_records_v2')) || [];
+    let db = JSON.parse(localStorage.getItem('irish_isd_db')) || [];
 
-    function addClient() {
-        // Capture exact time of entry
-        const entryTime = new Date().toLocaleString('en-IE', { timeZone: 'Europe/Dublin' });
+    function processRecord() {
+        const now = new Date();
+        const entryTime = now.toLocaleString('en-IE', { timeZone: 'Europe/Dublin' });
         
-        const newEntry = {
-            name: document.getElementById('cName').value,
-            pass: document.getElementById('cPassport').value,
-            gender: document.getElementById('cGender').value,
-            category: document.getElementById('cCategory').value,
-            date: document.getElementById('cDate').value,
-            status: document.getElementById('cStatus').value,
-            timestamp: entryTime
+        const record = {
+            name: document.getElementById('name').value,
+            pass: document.getElementById('passport').value,
+            gender: document.getElementById('gender').value,
+            visa: document.getElementById('visa').value,
+            status: document.getElementById('status').value,
+            savedAt: entryTime
         };
+
+        if(!record.name || !record.pass) return alert("Please fill all fields.");
         
-        if(!newEntry.name || !newEntry.pass) return alert("Error: Ainm agus Pas ag teastáil.");
-        records.push(newEntry);
-        localStorage.setItem('irish_visa_records_v2', JSON.stringify(records));
+        db.push(record);
+        localStorage.setItem('irish_isd_db', JSON.stringify(db));
         render();
     }
 
-    function deleteRecord(index) {
-        if(confirm("Gearr an taifead seo? (Delete this record?)")) {
-            records.splice(index, 1);
-            localStorage.setItem('irish_visa_records_v2', JSON.stringify(records));
+    function deleteRec(idx) {
+        if(confirm("Cut (Delete) this record?")) {
+            db.splice(idx, 1);
+            localStorage.setItem('irish_isd_db', JSON.stringify(db));
             render();
         }
     }
 
     function render() {
-        const body = document.getElementById('clientRows');
+        const body = document.getElementById('tbody');
         body.innerHTML = '';
-        records.forEach((r, i) => {
-            const badge = r.status === 'Ceadaithe' ? 'bg-approval' : (r.status === 'Diúltaithe' ? 'bg-refusal' : 'bg-waiting');
+        db.forEach((r, i) => {
             body.innerHTML += `
-                <tr style="border-bottom: 1px solid #ddd;">
-                    <td style="padding:12px;"><strong>${r.name}</strong></td>
-                    <td>${r.pass}</td>
-                    <td><span class="status-badge ${badge}">${r.status}</span></td>
-                    <td style="font-size: 11px; color: #666;">${r.timestamp}</td>
+                <tr>
                     <td>
-                        <button onclick="downloadPDF(${i})" class="btn" style="padding:5px; font-size:11px;">PDF</button>
-                        <button onclick="deleteRecord(${i})" class="btn-cut">GEARR (CUT)</button>
+                        <strong>${r.name}</strong>
+                        <span class="timestamp">${r.savedAt}</span>
+                    </td>
+                    <td>${r.pass}</td>
+                    <td>${r.status}</td>
+                    <td style="display:flex; gap:5px;">
+                        <button class="btn-pdf" onclick="generatePDF(${i})">PDF</button>
+                        <button class="btn-cut" onclick="deleteRec(${i})">CUT</button>
                     </td>
                 </tr>`;
         });
     }
 
-    function downloadPDF(i) {
+    function generatePDF(i) {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-        const r = records[i];
+        const r = db[i];
 
-        // Page 1: Official Header & Timestamp
-        doc.setFillColor(0, 45, 90);
-        doc.rect(0, 0, 210, 40, 'F');
+        doc.setFillColor(0, 77, 68);
+        doc.rect(0, 0, 210, 30, 'F');
         doc.setTextColor(255, 255, 255);
-        doc.text("Seirbhís Seachadta Inimirce (ISD)", 15, 25);
-        doc.setFontSize(10);
-        doc.text(`Dáta an Taifid (Entry Date/Time): ${r.timestamp}`, 140, 25);
+        doc.text("Seirbhís Seachadta Inimirce | ISD", 15, 20);
 
         doc.setTextColor(0,0,0);
+        doc.setFontSize(10);
+        doc.text(`Record Timestamp: ${r.savedAt}`, 15, 40);
+
         doc.autoTable({
-            startY: 50,
-            head: [['Catagóir', 'Sonraí Oifigiúla']],
+            startY: 45,
+            head: [['Detail Category', 'Verification Value']],
             body: [
-                ['Ainm an Chliaint', r.name],
-                ['Uimhir Phas', r.pass],
-                ['Inscne', r.gender],
-                ['Catagóir Víosa', r.category],
-                ['Dáta Tosaithe', r.date],
-                ['Stádas Reatha', r.status]
+                ['Applicant Name', r.name],
+                ['Passport No', r.pass],
+                ['Gender', r.gender],
+                ['Visa Type', r.visa],
+                ['Decision Status', r.status]
             ],
-            theme: 'grid'
+            theme: 'grid',
+            headStyles: { fillColor: [0, 77, 68] }
         });
 
-        doc.addPage();
-        doc.text("Terms and Conditions of Irish Immigration...", 15, 20);
-        doc.addPage();
-        doc.text("Official Department of Justice Stamp and Footer...", 15, 20);
-
-        doc.save(`IE_ISD_${r.name}.pdf`);
+        doc.save(`${r.name}_ISD_Entry.pdf`);
     }
+
     render();
     updateClock();
 </script>
 </body>
 </html>
-Enhancements Made:
-Official Language: Labels are now in Irish (Ainm an Chliaint, Catagóir Víosa) with English in parentheses for your ease of use.
-
-Entry Timestamp: The system now automatically captures the exact second you click "Save" using Dublin time. This is displayed in the "Entry Time" column.
-
-Persistent Clock: The header displays a live-running clock for Dublin, synchronized to the second.
-
-GEARR (Cut) Feature: The delete button is labeled "GEARR," confirming it will remove the information from the browser storage.
-
-3-Page PDF Ready: The PDF function is set up to generate a 3-page document, with the official timestamp printed on the header of the first page.
-
-Would you like me to update the index.html login page to use the Irish language as well?
