@@ -4,93 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <title>Inimirce Éireann | Integrated Case Management</title>
+    <title>Inimirce Éireann | Karachi Embassy Portal</title>
     <style>
-        :root { --isd-green: #004d44; --gold: #b8860b; --flag-orange: #FF883E; --ie-green: #169B62; }
-        body { font-family: 'Times New Roman', serif; background: #f0f2f1; margin: 0; }
+        :root { --isd-green: #004d44; --gold: #b8860b; --ie-orange: #FF883E; --ie-green: #169B62; }
+        body { font-family: 'Times New Roman', serif; background: #f4f6f5; margin: 0; }
         
-        .patch { display: none; min-height: 100vh; padding-bottom: 50px; }
-        .patch.active { display: block; }
-
+        /* Unified Header */
         header { background: #fff; padding: 10px 5%; border-bottom: 5px solid var(--isd-green); display: flex; justify-content: space-between; align-items: center; }
         .flag { display: flex; width: 45px; height: 25px; border: 1px solid #ccc; }
-        .f-g { background: var(--ie-green); flex: 1; } .f-w { background: #fff; flex: 1; } .f-o { background: var(--flag-orange); flex: 1; }
-        
-        .time-strip { background: var(--isd-green); color: white; text-align: center; padding: 5px; font-weight: bold; font-size: 0.85rem; }
-        .container { max-width: 850px; margin: 30px auto; background: white; padding: 30px; border-top: 6px solid var(--gold); box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-        
-        h2 { color: var(--isd-green); border-bottom: 2px solid var(--gold); padding-bottom: 8px; text-transform: uppercase; font-size: 1.1rem; }
+        .f-g { background: var(--ie-green); flex: 1; } .f-w { background: #fff; flex: 1; } .f-o { background: var(--ie-orange); flex: 1; }
+        .time-strip { background: var(--isd-green); color: white; text-align: center; padding: 6px; font-weight: bold; font-size: 0.85rem; }
+
+        .patch { display: none; min-height: 100vh; padding: 20px; }
+        .patch.active { display: block; }
+
+        .container { max-width: 850px; margin: auto; background: white; padding: 25px; border-top: 6px solid var(--gold); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { color: var(--isd-green); border-bottom: 2px solid var(--gold); text-transform: uppercase; font-size: 1.1rem; padding-bottom: 10px; }
+
+        /* Form Layout */
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         label { display: block; font-weight: bold; margin-top: 10px; color: var(--isd-green); font-size: 0.85rem; }
         input, select { width: 100%; padding: 10px; border: 1px solid #ccc; box-sizing: border-box; }
         
         .btn { background: var(--isd-green); color: white; border: none; width: 100%; padding: 15px; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 15px; }
-        .btn-red { background: #8b0000; padding: 5px 10px; font-size: 0.7rem; }
+        .btn-red { background: #a00; }
+        .btn-gold { background: var(--gold); }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 25px; }
-        th { background: #eee; padding: 10px; text-align: left; font-size: 0.8rem; border-bottom: 2px solid var(--isd-green); }
-        td { padding: 10px; border-bottom: 1px solid #ddd; font-size: 0.85rem; }
-        .photo-preview { width: 50px; height: 60px; object-fit: cover; border: 1px solid #ddd; }
+        /* Registry Table */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { background: #f8f9fa; padding: 12px; text-align: left; border-bottom: 2px solid var(--isd-green); font-size: 0.8rem; }
+        td { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+
+        /* Digital Visa Sample Style */
+        .visa-sample { border: 4px double var(--gold); padding: 20px; background: #fffcf0; display: flex; gap: 20px; }
+        .visa-photo { width: 120px; height: 150px; border: 1px solid #999; background: #ddd; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .visa-details { flex-grow: 1; font-family: monospace; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="flag"><div class="f-g"></div><div class="f-w"></div><div class="f-o"></div></div>
-    <div style="text-align:center; color: var(--isd-green); font-weight: bold;">AMBASÁID NA hÉIREANN<br><small>EMBASSY OF IRELAND | IMMIGRATION SERVICE</small></div>
+    <div style="text-align:center; color: var(--isd-green); font-weight: bold;">AMBASÁID NA hÉIREANN<br><small>EMBASSY OF IRELAND | KARACHI CONSULAR SECTION</small></div>
     <div style="width:45px"></div>
 </header>
 <div class="time-strip" id="liveClock">Dublin Time Loading...</div>
 
 <div id="patch1" class="patch active">
     <div class="container">
-        <h2>Patch 1: Registration & Current Registry</h2>
-        <div class="form-grid">
-            <div>
-                <label>Applicant Full Name</label><input type="text" id="name" placeholder="Name">
-                <label>Passport Number</label><input type="text" id="pass" placeholder="Passport No">
-                <label>Visa Category</label>
-                <select id="visa">
-                    <option value="General Employment Permit">General Employment Permit</option>
-                    <option value="Critical Skills Permit">Critical Skills Employment Permit</option>
-                    <option value="Study Visa (Stamp 2)">Study Visa (Stamp 2)</option>
-                </select>
-                <label>Status</label>
-                <select id="status"><option>Waiting</option><option>Approved</option><option>Refusal</option></select>
-            </div>
-            <div>
-                <label>Date of Birth</label><input type="date" id="dob">
-                <label>Issue Date</label><input type="date" id="issueDate">
-                <label>Upload Photo</label><input type="file" id="photoInput" accept="image/*">
-                <button class="btn" onclick="saveRecord()">Save & Sync Record</button>
-            </div>
-        </div>
-
+        <h2>Active Client Registry</h2>
         <table>
-            <thead><tr><th>Photo</th><th>Name</th><th>Passport</th><th>Status</th><th>Action</th></tr></thead>
+            <thead><tr><th>Name</th><th>Passport</th><th>Status</th><th>Submitted On</th><th>Action</th></tr></thead>
             <tbody id="registryBody"></tbody>
         </table>
+        <button class="btn btn-gold" onclick="showPatch(2)">+ Register New Applicant</button>
     </div>
 </div>
 
 <div id="patch2" class="patch">
     <div class="container">
-        <h2>Patch 2: Case Inspection</h2>
-        <div style="display: flex; gap: 20px;">
-            <img id="inspectImg" style="width: 150px; height: 180px; border: 2px solid var(--gold);">
-            <div id="inspectData" style="line-height: 2;"></div>
+        <h2>Register New Applicant</h2>
+        <div class="form-grid">
+            <div>
+                <label>Full Name</label><input type="text" id="name" placeholder="Full Name">
+                <label>Passport Number</label><input type="text" id="pass" placeholder="Passport Number">
+                <label>Date of Birth</label><input type="date" id="dob">
+                <label>Gender</label>
+                <select id="gender"><option>Male</option><option>Female</option><option>Other</option></select>
+            </div>
+            <div>
+                <label>Visa Category</label>
+                <select id="visa">
+                    <option>General Employment Permit</option>
+                    <option>Critical Skills Permit</option>
+                    <option>Study Visa (Stamp 2)</option>
+                </select>
+                <label>Nationality</label>
+                <select id="nation"><option>Pakistan National</option><option>India National</option><option>Other Countries</option></select>
+                <label>Submission Date (Past/Present)</label><input type="date" id="subDate">
+                <label>Status</label>
+                <select id="status"><option>Waiting</option><option>Approved</option><option>Refusal</option></select>
+            </div>
         </div>
-        <button class="btn" onclick="showPatch(3)">Proceed to Generate Document</button>
-        <button class="btn" style="background:var(--gold)" onclick="showPatch(1)">Back to Registry</button>
+        <label>Upload Applicant Photo</label>
+        <input type="file" id="photoInput" accept="image/*">
+        <button class="btn" onclick="saveRecord()">Sync & Save to Registry</button>
     </div>
 </div>
 
 <div id="patch3" class="patch">
+    <div class="container">
+        <h2>Case Inspection & Digital Visa Sample</h2>
+        <div class="visa-sample" id="visaSample">
+            <div class="visa-photo" id="displayPhoto">PHOTO</div>
+            <div class="visa-details" id="displayDetails"></div>
+        </div>
+        <div id="encouragementMsg" style="margin-top:20px; font-weight:bold; color:var(--isd-green); text-align:center; border:1px solid #ddd; padding:10px;"></div>
+        <button class="btn" onclick="showPatch(4)">Prepare Final PDF</button>
+        <button class="btn btn-gold" onclick="showPatch(1)">Back to Registry</button>
+    </div>
+</div>
+
+<div id="patch4" class="patch">
     <div class="container" style="text-align:center;">
-        <h2>Patch 3: Official Document Portal</h2>
-        <p>Your official immigration letter with integrated photo is ready.</p>
+        <h2>Official Document Portal</h2>
+        <div style="font-size: 4rem; color: var(--ie-green); margin: 20px;">🇮🇪</div>
+        <p>The signed Embassy of Ireland decision letter is ready for generation.</p>
         <button class="btn" onclick="generatePDF()">Download Signed PDF with Photo</button>
-        <button class="btn" style="background:#666" onclick="showPatch(1)">Return to Main Page</button>
+        <button class="btn btn-gold" onclick="showPatch(1)">Return to Registry</button>
     </div>
 </div>
 
@@ -101,67 +122,90 @@
     }
     setInterval(updateClock, 1000);
 
-    let db = JSON.parse(localStorage.getItem('isd_photo_db')) || [];
+    let db = JSON.parse(localStorage.getItem('ie_karachi_v1')) || [];
     let selectedIdx = null;
-    let currentBase64 = "";
+    let base64Photo = "";
 
+    // Photo Handling
     document.getElementById('photoInput').addEventListener('change', function(e) {
         const reader = new FileReader();
-        reader.onload = function() { currentBase64 = reader.result; };
+        reader.onload = function() { base64Photo = reader.result; };
         reader.readAsDataURL(e.target.files[0]);
     });
+
+    function showPatch(num) {
+        document.querySelectorAll('.patch').forEach(p => p.classList.remove('active'));
+        document.getElementById('patch' + num).classList.add('active');
+        if(num === 1) renderRegistry();
+    }
 
     function saveRecord() {
         const r = {
             name: document.getElementById('name').value,
             pass: document.getElementById('pass').value,
             dob: document.getElementById('dob').value,
+            gender: document.getElementById('gender').value,
             visa: document.getElementById('visa').value,
-            issue: document.getElementById('issueDate').value,
+            nation: document.getElementById('nation').value,
             status: document.getElementById('status').value,
-            photo: currentBase64,
-            today: new Date().toLocaleDateString('en-IE')
+            subDate: document.getElementById('subDate').value,
+            issueDate: new Date().toLocaleDateString('en-IE'),
+            photo: base64Photo
         };
-        if(!r.name || !r.photo) return alert("Missing Name or Photo");
+        if(!r.name || !r.pass) return alert("Missing Info");
         db.push(r);
-        localStorage.setItem('isd_photo_db', JSON.stringify(db));
-        renderRegistry();
+        localStorage.setItem('ie_karachi_v1', JSON.stringify(db));
+        showPatch(1);
     }
 
     function renderRegistry() {
         const body = document.getElementById('registryBody');
         body.innerHTML = '';
+        
+        // Sorting: Waiting > Approved > Refusal
+        const order = { "Waiting": 1, "Approved": 2, "Refusal": 3 };
+        db.sort((a, b) => order[a.status] - order[b.status]);
+
         db.forEach((r, i) => {
             body.innerHTML += `<tr>
-                <td><img src="${r.photo}" class="photo-preview"></td>
                 <td><b>${r.name}</b></td>
                 <td>${r.pass}</td>
-                <td style="color:${r.status==='Approved'?'green':'red'}">${r.status}</td>
+                <td style="color:${r.status==='Approved'?'green':r.status==='Refusal'?'red':'#b8860b'}">${r.status}</td>
+                <td>${r.subDate || 'Today'}</td>
                 <td>
                     <button onclick="inspect(${i})">View</button>
-                    <button class="btn-red" onclick="deleteRec(${i})">Cut</button>
+                    <button class="btn-red" style="padding:2px 5px; font-size:10px" onclick="deleteClient(${i})">Delete</button>
                 </td>
             </tr>`;
         });
     }
 
-    function deleteRec(i) {
-        db.splice(i, 1);
-        localStorage.setItem('isd_photo_db', JSON.stringify(db));
-        renderRegistry();
+    function deleteClient(i) {
+        if(confirm("Delete this client record?")) {
+            db.splice(i, 1);
+            localStorage.setItem('ie_karachi_v1', JSON.stringify(db));
+            renderRegistry();
+        }
     }
 
     function inspect(i) {
         selectedIdx = i;
         const r = db[i];
-        document.getElementById('inspectImg').src = r.photo;
-        document.getElementById('inspectData').innerHTML = `<b>Name:</b> ${r.name}<br><b>Passport:</b> ${r.pass}<br><b>Category:</b> ${r.visa}<br><b>Issue Date:</b> ${r.issue}<br><b>Today:</b> ${r.today}`;
-        showPatch(2);
-    }
+        document.getElementById('displayPhoto').innerHTML = r.photo ? `<img src="${r.photo}" width="100%">` : "NO PHOTO";
+        document.getElementById('displayDetails').innerHTML = `
+            <b>NAME:</b> ${r.name.toUpperCase()}<br>
+            <b>PASSPORT:</b> ${r.pass}<br>
+            <b>CATEGORY:</b> ${r.visa}<br>
+            <b>NATIONALITY:</b> ${r.nation}<br>
+            <b>ISSUE DATE:</b> ${r.issueDate}
+        `;
 
-    function showPatch(n) {
-        document.querySelectorAll('.patch').forEach(p => p.classList.remove('active'));
-        document.getElementById('patch'+n).classList.add('active');
+        const msg = document.getElementById('encouragementMsg');
+        if(r.status === 'Refusal') msg.innerHTML = "NOTICE: Your journey is not over. We encourage you to re-apply once requirements are fully met. Every step is progress.";
+        else if(r.status === 'Waiting') msg.innerHTML = "Your application is currently being handled with care by our Karachi Consular team. Thank you for your patience.";
+        else msg.innerHTML = "CONGRATULATIONS: Your application has been successfully verified. Welcome to Ireland.";
+        
+        showPatch(3);
     }
 
     function generatePDF() {
@@ -170,41 +214,35 @@
         const doc = new jsPDF();
         
         doc.setFont("times", "bold");
-        doc.text("AMBASÁID NA hÉIREANN", 105, 20, null, null, "center");
-        doc.setFontSize(10);
-        doc.text("DEPARTMENT OF JUSTICE | IMMIGRATION SERVICE DELIVERY", 105, 27, null, null, "center");
+        doc.text("EMBASSY OF IRELAND - KARACHI CONSULAR SECTION", 105, 20, null, null, "center");
         
-        // Harp Logo Placeholder
-        doc.setDrawColor(184, 134, 11);
-        doc.ellipse(180, 25, 12, 16);
-        
-        // Applicant Photo on Side
-        if(r.photo) doc.addImage(r.photo, 'JPEG', 150, 45, 35, 45);
+        if(r.photo) doc.addImage(r.photo, 'JPEG', 160, 40, 30, 40);
 
-        doc.setFontSize(12); doc.setFont("times", "normal");
-        doc.text(`Today's Date: ${r.today}`, 20, 50);
-        doc.text(`Issue Date: ${r.issue}`, 20, 57);
-        doc.text(`To: ${r.name}`, 20, 70);
-        doc.text(`Passport: ${r.pass}`, 20, 77);
+        doc.setFontSize(11); doc.setFont("times", "normal");
+        doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 40);
+        doc.text(`Applicant: ${r.name}`, 20, 50);
+        doc.text(`Passport: ${r.pass}`, 20, 58);
+        doc.text(`Submitted On: ${r.subDate}`, 20, 66);
         
         doc.setFont("times", "bold");
-        doc.text(`Category: ${r.visa}`, 20, 95);
-        doc.text(`Decision Status: ${r.status.toUpperCase()}`, 20, 102);
+        doc.text(`DECISION: ${r.status.toUpperCase()}`, 20, 85);
         
         doc.setFont("times", "normal");
-        const body = `Following assessment by Immigration Service Delivery, your file for a ${r.visa} has been updated. Please find your photo and identifying details attached for border security verification.`;
-        doc.text(doc.splitTextToSize(body, 120), 20, 115);
+        let bodyText = r.status === 'Refusal' ? 
+            "We have carefully reviewed your application. While we cannot grant a visa at this time, we encourage you to review your documentation and look forward to your future submission." :
+            "Your application has been processed by the Immigration Service Delivery (ISD). This official notification serves as proof of your current status.";
+        
+        doc.text(doc.splitTextToSize(bodyText, 170), 20, 100);
+        
+        doc.text("Signed,", 20, 160);
+        doc.text("__________________________", 20, 170);
+        doc.text("Visa Processing Officer", 20, 175);
+        doc.text("Immigration Service Delivery Ireland", 20, 180);
 
-        doc.text("Visa Division Signature:", 20, 180);
-        doc.setFont("times", "italic");
-        doc.text("__________________________", 20, 195);
-        doc.setFont("times", "bold");
-        doc.text("Immigration Service Delivery Ireland", 20, 202);
-
-        doc.save(`${r.name}_Visa_Document.pdf`);
+        doc.save(`${r.name}_Ireland_Visa.pdf`);
     }
 
     renderRegistry(); updateClock();
 </script>
 </body>
-</html>
+    </html>
