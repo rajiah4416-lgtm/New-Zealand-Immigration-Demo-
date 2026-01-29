@@ -2,197 +2,195 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>e-Visa Albania | Official Mission Portal</title>
+    <title>Irish Immigration Service | Case Management</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        :root { --alb-red: #e41e20; --alb-dark: #1a1a1a; --gold: #c5a059; }
-        body { font-family: 'Times New Roman', serif; margin: 0; background: #fdfdfd; }
+        :root { --ireland-green: #169b62; --ireland-orange: #ff883e; --ireland-blue: #003366; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f0f2f0; color: #333; }
         
-        /* Top Utility Bar */
-        .top-bar { background: var(--alb-dark); color: white; padding: 10px 5%; display: flex; justify-content: space-between; font-size: 0.75rem; border-bottom: 2px solid var(--gold); }
+        /* Top Branding */
+        .top-nav { background: var(--ireland-blue); color: white; padding: 10px 5%; display: flex; justify-content: space-between; font-size: 0.8rem; border-bottom: 4px solid var(--ireland-green); }
+        header { background: white; padding: 20px 5%; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo-box { display: flex; align-items: center; }
+        .flag-stripe { width: 10px; height: 50px; }
         
-        /* Official Header */
-        header { background: white; padding: 20px 5%; display: flex; align-items: center; border-bottom: 1px solid #ddd; }
-        .logo-img { height: 70px; margin-right: 20px; }
-        .header-text h1 { margin: 0; font-size: 1.4rem; color: #000; letter-spacing: 1px; }
-        .header-text p { margin: 0; color: var(--alb-red); font-weight: bold; font-size: 0.8rem; }
-
-        /* Navigation Tabs */
-        .nav-tabs { display: flex; background: #eee; padding: 0 5%; border-bottom: 1px solid #ccc; }
-        .tab { padding: 15px 25px; cursor: pointer; font-weight: bold; font-size: 0.85rem; border-right: 1px solid #ccc; transition: 0.3s; }
-        .tab:hover, .tab.active { background: white; color: var(--alb-red); border-bottom: 3px solid var(--alb-red); }
-
-        /* Main Content */
-        .content-area { padding: 40px 10%; display: none; }
-        .content-area.active { display: block; }
-
-        /* Visa Form & Elements */
-        .visa-form { background: white; padding: 30px; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 2px; margin-top: 5px; font-family: sans-serif; }
-        label { font-size: 0.7rem; font-weight: bold; color: #555; text-transform: uppercase; }
+        /* Dashboard Container */
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: 350px 1fr; gap: 30px; }
         
-        .btn-action { background: var(--alb-red); color: white; border: none; padding: 15px 30px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 20px; font-size: 1rem; }
+        /* Form & List Styling */
+        .panel { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid var(--ireland-green); }
+        h2 { color: var(--ireland-blue); font-size: 1.2rem; margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
         
-        /* Status Checker Styling */
-        .status-box { text-align: center; padding: 40px; border: 2px dashed #ccc; background: #fff; }
-        .status-result { margin-top: 20px; padding: 20px; border-radius: 4px; display: none; }
-        .approved { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px; color: #666; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        
+        .btn-submit { background: var(--ireland-green); color: white; border: none; padding: 12px; width: 100%; cursor: pointer; font-weight: bold; border-radius: 4px; margin-top: 10px; }
+        .btn-submit:hover { background: #128052; }
 
-        #photo_frame { width: 130px; height: 160px; border: 1px solid #000; margin-top: 10px; object-fit: cover; display: none; }
+        /* Client Table */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
+        th { background: #f8f9fa; text-align: left; padding: 12px; border-bottom: 2px solid #eee; color: var(--ireland-blue); }
+        td { padding: 12px; border-bottom: 1px solid #eee; }
+        
+        /* Status Badges */
+        .badge { padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+        .approved { background: #e6fffa; color: #234e52; border: 1px solid #b2f5ea; }
+        .rejected { background: #fff5f5; color: #822727; border: 1px solid #feb2b2; }
+        .waiting { background: #fffaf0; color: #7b341e; border: 1px solid #fbd38d; }
     </style>
 </head>
 <body>
 
-<div class="top-bar">
-    <div id="time-display">Tirana: --:-- | Karachi: --:--</div>
-    <div>Official Government Portal | Republic of Albania</div>
+<div class="top-nav">
+    <div id="live-clocks">Dublin: --:-- | Local: --:--</div>
+    <div>Department of Justice - Immigration Service Delivery</div>
 </div>
 
 <header>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Coat_of_arms_of_Albania.svg/1200px-Coat_of_arms_of_Albania.svg.png" class="logo-img">
-    <div class="header-text">
-        <h1>REPUBLIKA E SHQIPËRISË</h1>
-        <p>MINISTRY FOR EUROPE AND FOREIGN AFFAIRS - CONSULAR SERVICES</p>
+    <div class="logo-box">
+        <div style="background:#169b62" class="flag-stripe"></div>
+        <div style="background:#fff; border:1px solid #eee" class="flag-stripe"></div>
+        <div style="background:#ff883e" class="flag-stripe"></div>
+        <div style="margin-left: 15px;">
+            <h1 style="margin:0; font-size: 1.5rem; letter-spacing: -1px;">An tSeirbhís Inimirce</h1>
+            <p style="margin:0; font-size: 0.9rem; color: #666;">Immigration Service Delivery</p>
+        </div>
     </div>
 </header>
 
-<div class="nav-tabs">
-    <div class="tab active" onclick="showTab('apply')">Apply for Visa</div>
-    <div class="tab" onclick="showTab('check')">Check Visa Status</div>
-    <div class="tab" onclick="showTab('login')">Consular Login</div>
-</div>
-
-<div id="apply" class="content-area active">
-    <div class="visa-form">
-        <h3 style="border-bottom: 2px solid var(--alb-red); padding-bottom: 10px;">Electronic Visa Application</h3>
-        <div class="grid">
-            <div>
-                <label>Surname, Name (ALL CAPS)</label>
-                <input type="text" id="v_name" placeholder="ALI, RAHAT">
-                <label style="display:block; margin-top:15px;">Date of Birth</label>
-                <input type="date" id="v_dob">
+<div class="container">
+    <div class="grid">
+        <div class="panel">
+            <h2>Client Registration</h2>
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="name" placeholder="John Doe">
             </div>
-            <div>
+            <div class="form-group">
                 <label>Passport Number</label>
-                <input type="text" id="v_pass" placeholder="ZP1825791">
-                <label style="display:block; margin-top:15px;">Visa Issue Date</label>
-                <input type="date" id="v_issue">
+                <input type="text" id="passport" placeholder="L1234567">
             </div>
-            <div>
-                <label>Visa Category</label>
-                <select id="v_type">
-                    <option value="C">Type C (Visit)</option>
-                    <option value="D">Type D (Work)</option>
+            <div class="form-group">
+                <label>Date of Birth</label>
+                <input type="date" id="dob">
+            </div>
+            <div class="form-group">
+                <label>Visa Reference Number</label>
+                <input type="text" id="visa_no" placeholder="IRE-990022">
+            </div>
+            <div class="form-group">
+                <label>Decision Status</label>
+                <select id="status">
+                    <option value="waiting">Waiting / Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
                 </select>
-                <label style="display:block; margin-top:15px;">Applicant Photo</label>
-                <input type="file" onchange="handleImg(event)">
-                <img id="photo_frame">
             </div>
+            <button class="btn-submit" onclick="addClient()">Add to Immigration Ledger</button>
         </div>
-        <button class="btn-action" onclick="genPDF()">APPROVE & GENERATE E-VISA</button>
+
+        <div class="panel">
+            <h2>Active Case Ledger</h2>
+            <table id="clientTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Passport</th>
+                        <th>Visa No.</th>
+                        <th>DOB</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="clientBody">
+                    </tbody>
+            </table>
+        </div>
     </div>
 </div>
-
-<div id="check" class="content-area">
-    <div class="status-box">
-        <h3>Track Your Application</h3>
-        <input type="text" id="track_id" style="width: 300px;" placeholder="Enter Reference (e.g., ABL9064...)">
-        <button class="btn-action" style="width: 200px; margin-left: 10px;" onclick="checkStatus()">Search</button>
-        
-        <div id="status_res" class="status-result approved">
-            <strong>Status: APPROVED</strong><br>
-            The electronic visa for the provided reference has been issued. You may download the digital copy.
-        </div>
-    </div>
-</div>
-
-<div id="qr_hidden" style="display:none;"></div>
 
 <script>
-    // Time Logic
-    function updateClock() {
+    // Live Dublin Time Logic
+    function updateClocks() {
         const now = new Date();
-        const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-        const tirana = new Intl.DateTimeFormat('en-GB', { ...options, timeZone: 'Europe/Tirane' }).format(now);
-        const karachi = new Intl.DateTimeFormat('en-GB', { ...options, timeZone: 'Asia/Karachi' }).format(now);
-        document.getElementById('time-display').innerText = `Tirana: ${tirana} | Karachi: ${karachi}`;
+        const dublin = new Intl.DateTimeFormat('en-GB', { 
+            hour: '2-digit', minute: '2-digit', second: '2-digit', 
+            timeZone: 'Europe/Dublin', hour12: false 
+        }).format(now);
+        const local = now.toLocaleTimeString('en-GB', { hour12: false });
+        document.getElementById('live-clocks').innerText = `Dublin: ${dublin} | Local: ${local}`;
     }
-    setInterval(updateClock, 1000);
+    setInterval(updateClocks, 1000);
 
-    // Tab Logic
-    function showTab(id) {
-        document.querySelectorAll('.content-area').forEach(c => c.classList.remove('active'));
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        event.currentTarget.classList.add('active');
+    // Client Management Logic
+    let clients = [];
+
+    function addClient() {
+        const client = {
+            name: document.getElementById('name').value,
+            passport: document.getElementById('passport').value,
+            dob: document.getElementById('dob').value,
+            visa: document.getElementById('visa_no').value,
+            status: document.getElementById('status').value
+        };
+
+        if(!client.name || !client.passport) return alert("Please fill basic info");
+
+        clients.push(client);
+        renderTable();
+        clearForm();
     }
 
-    let imgData = "";
-    function handleImg(e) {
-        const reader = new FileReader();
-        reader.onload = () => { imgData = reader.result; document.getElementById('photo_frame').src = imgData; document.getElementById('photo_frame').style.display='block'; };
-        reader.readAsDataURL(e.target.files[0]);
+    function renderTable() {
+        const body = document.getElementById('clientBody');
+        body.innerHTML = "";
+        
+        clients.forEach((c, index) => {
+            const row = `<tr>
+                <td><strong>${c.name.toUpperCase()}</strong></td>
+                <td>${c.passport}</td>
+                <td>${c.visa}</td>
+                <td>${c.dob}</td>
+                <td><span class="badge ${c.status}">${c.status}</span></td>
+                <td><button onclick="downloadLetter(${index})" style="cursor:pointer; font-size:10px;">Letter</button></td>
+            </tr>`;
+            body.innerHTML += row;
+        });
     }
 
-    function checkStatus() {
-        if(document.getElementById('track_id').value.length > 5) {
-            document.getElementById('status_res').style.display = 'block';
-        }
+    function clearForm() {
+        document.querySelectorAll('input').forEach(i => i.value = "");
     }
 
-    async function genPDF() {
+    // PDF Generation for Official Letter
+    function downloadLetter(index) {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-        const n = document.getElementById('v_name').value.toUpperCase();
-        const p = document.getElementById('v_pass').value.toUpperCase();
-        const i = document.getElementById('v_issue').value;
-        const ref = "ABL" + Math.floor(Math.random() * 900000 + 100000) + "OP7";
-
-        // Borders & Branding
-        doc.setLineWidth(0.5); doc.rect(5, 5, 200, 287);
-        doc.setFontSize(9); doc.text("Electronic-Visa REPUBLIC OF ALBANIA", 10, 15);
-        doc.text("A100018340e", 195, 12, {align:"right"});
-        doc.setFont("times", "bold"); doc.text(ref, 195, 18, {align:"right"});
-
-        // Red Emblem
-        doc.setFillColor(228, 30, 32); doc.rect(98, 10, 15, 15, 'F');
-        doc.line(5, 32, 205, 32);
-
-        if(imgData) doc.addImage(imgData, 'JPEG', 15, 42, 38, 48);
-
-        // Grid Data
-        doc.setFontSize(8); doc.setFont("times", "normal");
-        const data = [
-            ["E VLEFSHME PER / VALID FOR", "ALBANIA"],
-            ["NGA / FROM", i],
-            ["DERI / UNTIL", "ONE YEAR FROM ISSUE"],
-            ["TIPI VIZES / TYPE OF VISA", document.getElementById('v_type').value],
-            ["NUMRI I PASAPORTES / PASSPORT NO.", p],
-            ["MBIEMER, EMER / SURNAME, NAME", n],
-            ["LESHUAR NE / ISSUED IN", "KARACHI (Istanbul Consular Mission)"]
-        ];
-
-        data.forEach((row, idx) => {
-            doc.setFont("times", "normal"); doc.text(row[0], 65, 45 + (idx * 11.5));
-            doc.setFont("times", "bold"); doc.text(row[1], 120, 45 + (idx * 11.5));
-        });
-
-        // MRZ Zone
-        doc.setFont("courier", "bold"); doc.setFontSize(11);
-        doc.text(`P<ALB${n.replace(/ /g, "<")}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`.substring(0, 44), 10, 165);
-        doc.text(`${p}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`.substring(0, 44), 10, 175);
-
-        // QR Code
-        const qh = document.getElementById("qr_hidden"); qh.innerHTML = "";
-        new QRCode(qh, { text: "VERIFIED:" + ref, width: 128, height: 128 });
+        const c = clients[index];
         
-        setTimeout(() => {
-            const canvas = qh.querySelector('canvas');
-            if(canvas) doc.addImage(canvas.toDataURL("image/png"), 'PNG', 15, 240, 35, 35);
-            doc.save(`Albania_Visa_${n}.pdf`);
-        }, 500);
+        doc.setFillColor(22, 155, 98); doc.rect(0, 0, 210, 20, 'F');
+        doc.setTextColor(255, 255, 255); doc.text("Immigration Service Delivery - Ireland", 10, 13);
+        
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(10);
+        doc.text(`Date: ${new Date().toLocaleDateString()}`, 150, 40);
+        doc.text(`Reference: ${c.visa}`, 10, 40);
+        
+        doc.setFont("helvetica", "bold");
+        doc.text(`RE: VISA APPLICATION DECISION - ${c.status.toUpperCase()}`, 10, 60);
+        
+        doc.setFont("helvetica", "normal");
+        doc.text(`Applicant Name: ${c.name}`, 10, 80);
+        doc.text(`Passport: ${c.passport}`, 10, 90);
+        
+        let msg = c.status === "approved" ? "We are pleased to inform you..." : 
+                  c.status === "rejected" ? "We regret to inform you that your application was unsuccessful..." :
+                  "Your application is currently under review by an officer.";
+                  
+        doc.text(msg, 10, 110);
+        doc.save(`Ireland_Decision_${c.name}.pdf`);
     }
 </script>
 </body>
