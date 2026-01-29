@@ -2,137 +2,149 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Offer Agreement Generator | Ireland</title>
+    <title>Waitstaff Employment Agreement | Ireland</title>
     <style>
         :root { --irl-green: #169b62; --irl-orange: #ff883e; --irl-blue: #003366; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f4f7f6; }
+        body { font-family: 'Times New Roman', Times, serif; margin: 0; background: #525659; }
 
-        /* Side Branding */
-        .side-branding { position: fixed; left: 0; top: 0; bottom: 0; width: 10px; display: flex; flex-direction: column; z-index: 1000; }
+        /* Sidebar UI */
+        .side-branding { position: fixed; left: 0; top: 0; bottom: 0; width: 8px; display: flex; flex-direction: column; z-index: 1000; }
         .stripe-green { background: var(--irl-green); flex: 1; }
         .stripe-white { background: #fff; flex: 1; }
         .stripe-orange { background: var(--irl-orange); flex: 1; }
 
-        /* Top Bar */
-        .top-nav { background: var(--irl-blue); color: white; padding: 12px 60px; display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold; }
-        
-        /* Header & Small Flag */
-        header { background: white; padding: 15px 60px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .small-flag { display: flex; width: 35px; height: 25px; margin-right: 15px; border: 1px solid #ddd; }
+        /* Header UI (Only visible on screen) */
+        .no-print-header { 
+            background: white; padding: 10px 60px; display: flex; justify-content: space-between; 
+            align-items: center; position: sticky; top: 0; z-index: 999; box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+        }
+        .small-flag { display: flex; width: 30px; height: 20px; margin-right: 12px; border: 1px solid #ddd; }
         .f-green { background: var(--irl-green); flex: 1; }
         .f-white { background: #fff; flex: 1; }
         .f-orange { background: var(--irl-orange); flex: 1; }
-        .header-title h1 { margin:0; font-size: 1.3rem; color: #000; }
 
-        /* Form Container */
-        .container { padding: 40px 10%; display: flex; gap: 30px; }
-        .input-panel { flex: 1; background: white; padding: 25px; border-radius: 8px; border: 1px solid #ddd; }
-        .preview-panel { flex: 1.5; background: white; padding: 40px; border-radius: 8px; border: 1px solid #ddd; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); min-height: 600px; font-size: 0.9rem; line-height: 1.6; }
+        /* A4 Page Styling */
+        .page {
+            width: 210mm; min-height: 297mm; padding: 25mm; margin: 20px auto;
+            background: white; box-shadow: 0 0 10px rgba(0,0,0,0.5); position: relative;
+            box-sizing: border-box; color: #333; line-height: 1.6;
+        }
 
-        label { display: block; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px; color: #444; margin-top: 15px; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
-        .btn-gen { background: var(--irl-green); color: white; border: none; width: 100%; padding: 15px; font-weight: bold; cursor: pointer; border-radius: 4px; margin-top: 20px; }
+        .agreement-title { text-align: center; border-bottom: 2px solid var(--irl-blue); margin-bottom: 30px; padding-bottom: 10px; }
+        h3 { color: var(--irl-blue); border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 25px; }
+        .footer-page-num { position: absolute; bottom: 15mm; left: 0; right: 0; text-align: center; font-size: 10pt; color: #999; }
         
-        /* Offer Letter Styling */
-        .letter-head { text-align: center; border-bottom: 2px solid var(--irl-blue); padding-bottom: 10px; margin-bottom: 20px; }
-        .section-title { font-weight: bold; color: var(--irl-blue); border-bottom: 1px solid #eee; margin-top: 15px; }
+        .print-btn { 
+            position: fixed; right: 30px; bottom: 30px; padding: 15px 30px; 
+            background: var(--irl-green); color: white; border: none; border-radius: 50px; 
+            font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        @media print {
+            body { background: none; }
+            .no-print-header, .print-btn { display: none; }
+            .page { margin: 0; box-shadow: none; page-break-after: always; }
+        }
     </style>
 </head>
 <body>
 
-<div class="side-branding">
+<div class="side-branding no-print-header">
     <div class="stripe-green"></div><div class="stripe-white"></div><div class="stripe-orange"></div>
 </div>
 
-<div class="top-nav">
-    <div id="dub-time">Dublin: Loading...</div>
-    <div>Employment Rights Division - WRC Standards</div>
+<div class="no-print-header">
+    <div style="display: flex; align-items: center;">
+        <div class="small-flag"><div class="f-green"></div><div class="f-white"></div><div class="f-orange"></div></div>
+        <div>
+            <strong style="font-size: 1.1rem;">Ireland Immigration Department</strong><br>
+            <small id="dub-clock">Dublin: Loading...</small>
+        </div>
+    </div>
+    <div style="font-size: 0.8rem; text-align: right;">
+        Status: <strong>WAITING / PENDING</strong> <span style="font-size: 1.2rem;">🏁</span>
+    </div>
 </div>
 
-<header>
-    <div style="display: flex; align-items: center;">
-        <div class="small-flag">
-            <div class="f-green"></div><div class="f-white"></div><div class="f-orange"></div>
-        </div>
-        <div class="header-title">
-            <h1>Ireland Immigration Department</h1>
-            <p style="margin:0; font-size: 0.8rem; color: #666;">Official Offer Agreement Generator</p>
-        </div>
-    </div>
-</header>
+<button class="print-btn" onclick="window.print()">Print 3-Page Agreement</button>
 
-<div class="container">
-    <div class="input-panel">
-        <h3 style="margin-top:0;">Agreement Details</h3>
-        <label>Candidate Name</label>
-        <input type="text" id="c_name" placeholder="Full Name" oninput="updateLetter()">
-        
-        <label>Employer Name</label>
-        <input type="text" id="e_name" placeholder="Restaurant/Hotel Name" oninput="updateLetter()">
-        
-        <label>Candidate Origin</label>
-        <select id="c_origin" onchange="updateLetter()">
-            <option value="Pakistan">Pakistan</option>
-            <option value="India">India</option>
-        </select>
-
-        <label>Annual Salary (€)</label>
-        <input type="number" id="salary" value="27000" oninput="updateLetter()">
-        
-        <label>Accommodation Details</label>
-        <select id="accom" onchange="updateLetter()">
-            <option value="Provided by Employer (First 3 Months)">Provided by Employer</option>
-            <option value="Monthly Housing Allowance of €500">Housing Allowance</option>
-        </select>
-
-        <button class="btn-gen" onclick="window.print()">Print Official Agreement</button>
+<div class="page">
+    <div class="agreement-title">
+        <h1>Contract of Employment</h1>
+        <p>Waitstaff General Employment Category</p>
     </div>
 
-    <div class="preview-panel" id="letter-content">
-        <div class="letter-head">
-            <h2 style="margin:0;">EMPLOYMENT OFFER AGREEMENT</h2>
-            <small>Position: Waiter (General Employment Permit)</small>
+    <h3>1. The Parties</h3>
+    <p>This agreement is entered into on this day, <strong>January 29, 2026</strong>, between:</p>
+    <p><strong>Employer:</strong> [Insert Restaurant Name Here]<br>Registered Business Address, Ireland.</p>
+    <p><strong>Employee:</strong> [Insert Candidate Name]<br>Origin: <strong>Pakistan / India</strong></p>
+
+    <h3>2. Position and Duties</h3>
+    <p>The Employee is appointed to the position of <strong>Waiter</strong>. The Employee will perform duties customary to this role, including guest service, table management, and adherence to Irish health and safety standards (HACCP).</p>
+
+    <h3>3. Remuneration</h3>
+    <p>The Employee’s gross salary will be <strong>€27,000 per annum</strong>. This is payable weekly/monthly in arrears by credit transfer to a nominated Irish bank account.</p>
+    
+    <h3>4. Working Hours</h3>
+    <p>The standard working week is 39 hours. Overtime, if required, will be compensated in accordance with the <em>Organisation of Working Time Act 1997</em>. A maximum 48-hour limit applies.</p>
+
+    <div class="footer-page-num">Page 1 of 3</div>
+</div>
+
+<div class="page">
+    <h3>5. Accommodation and Board</h3>
+    <p>In support of the Employee’s relocation from their country of origin (Pakistan/India), the Employer agrees to the following:</p>
+    <ul>
+        <li><strong>Food:</strong> Wholesome duty meals provided at no cost during working hours.</li>
+        <li><strong>Accommodation:</strong> Safe and secure housing will be provided for the first 6 months of employment. Any statutory deductions for "Board and Lodgings" will strictly follow Workplace Relations Commission (WRC) caps.</li>
+    </ul>
+
+    <h3>6. Transport</h3>
+    <p>The Employer will facilitate the Employee's arrival by covering the cost of the initial flight to Ireland. For daily commuting, the Employer will provide a monthly Leap Card allowance for public transport usage within the Dublin/Regional area.</p>
+
+    <h3>7. Annual Leave and Public Holidays</h3>
+    <p>The Employee is entitled to 20 days of paid annual leave per year. Additionally, there are 10 statutory Public Holidays in Ireland. Compensation for working on a public holiday will be an additional day's pay or a day off in lieu.</p>
+
+    <h3>8. Probationary Period</h3>
+    <p>A probationary period of six months applies from the date of commencement. During this time, performance will be reviewed monthly.</p>
+
+    <div class="footer-page-num">Page 2 of 3</div>
+</div>
+
+<div class="page">
+    <h3>9. Sick Pay and Statutory Rights</h3>
+    <p>The Employee is entitled to statutory sick pay under the <em>Sick Leave Act 2022</em> (currently 5 days per year at 70% of gross pay, capped at €110 per day). The Employee also has access to a PRSA pension scheme as required by law.</p>
+
+    <h3>10. Gratuities (Tips)</h3>
+    <p>In accordance with the <em>Payment of Wages (Tips and Gratuities) Act 2022</em>, the Employer will distribute 100% of electronic tips to the staff. Tips will not be used to subsidize the basic minimum wage.</p>
+
+    <h3>11. Confidentiality</h3>
+    <p>The Employee shall not disclose any proprietary business information or trade secrets belonging to the Employer during or after the term of employment.</p>
+
+    <h3>12. Governing Law</h3>
+    <p>This contract is governed by the laws of the Republic of Ireland and is subject to the jurisdiction of the Irish Courts and the Workplace Relations Commission.</p>
+
+    <br><br><br>
+    <div style="display: flex; justify-content: space-between; margin-top: 50px;">
+        <div style="border-top: 1px solid #000; width: 40%; text-align: center; padding-top: 5px;">
+            Signed for the Employer
         </div>
-        
-        <p>This agreement is made between <strong><span id="p_ename">[Employer Name]</span></strong> and <strong><span id="p_cname">[Candidate Name]</span></strong> from <strong><span id="p_origin">Pakistan</span></strong>.</p>
-
-        <div class="section-title">1. Remuneration & Hours</div>
-        <p>The gross annual salary is <strong>€<span id="p_salary">27,000</span></strong>. Working hours are 39 hours per week, not exceeding 48 hours per Irish Law (Working Time Act 1997).</p>
-
-        <div class="section-title">2. Food & Accommodation</div>
-        <p>Meals will be provided free of charge during duty hours. Accommodation: <strong><span id="p_accom">Provided by Employer</span></strong>.</p>
-
-        <div class="section-title">3. Transport</div>
-        <p>Employer shall provide/reimburse the initial flight to Ireland. Local transport support (Leap Card) will be provided for commuting.</p>
-
-        <div class="section-title">4. Statutory Rights</div>
-        <p>The employee is entitled to 20 days paid annual leave, 10 Public Holidays, and Statutory Sick Pay as per the Sick Leave Act 2022.</p>
-        
-        <br><br>
-        <div style="display: flex; justify-content: space-between;">
-            <div>___________________<br>Employer Signature</div>
-            <div>___________________<br>Employee Signature</div>
+        <div style="border-top: 1px solid #000; width: 40%; text-align: center; padding-top: 5px;">
+            Signed by the Employee
         </div>
     </div>
+
+    <div class="footer-page-num">Page 3 of 3</div>
 </div>
 
 <script>
-    function updateClock() {
+    function updateTime() {
         const now = new Date();
-        const dub = now.toLocaleTimeString('en-GB', { timeZone: 'Europe/Dublin', hour12: false });
-        const date = now.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
-        document.getElementById('dub-time').innerText = `Dublin: ${date} | ${dub}`;
+        const options = { timeZone: 'Europe/Dublin', weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        document.getElementById('dub-clock').innerText = "Dublin: " + now.toLocaleString('en-GB', options);
     }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    function updateLetter() {
-        document.getElementById('p_cname').innerText = document.getElementById('c_name').value || "[Candidate Name]";
-        document.getElementById('p_ename').innerText = document.getElementById('e_name').value || "[Employer Name]";
-        document.getElementById('p_origin').innerText = document.getElementById('c_origin').value;
-        document.getElementById('p_salary').innerText = Number(document.getElementById('salary').value).toLocaleString();
-        document.getElementById('p_accom').innerText = document.getElementById('accom').value;
-    }
+    setInterval(updateTime, 1000);
+    updateTime();
 </script>
 
 </body>
