@@ -2,149 +2,169 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Waitstaff Employment Agreement | Ireland</title>
+    <title>Official Contract Builder | Ireland</title>
     <style>
         :root { --irl-green: #169b62; --irl-orange: #ff883e; --irl-blue: #003366; }
-        body { font-family: 'Times New Roman', Times, serif; margin: 0; background: #525659; }
-
-        /* Sidebar UI */
-        .side-branding { position: fixed; left: 0; top: 0; bottom: 0; width: 8px; display: flex; flex-direction: column; z-index: 1000; }
-        .stripe-green { background: var(--irl-green); flex: 1; }
-        .stripe-white { background: #fff; flex: 1; }
-        .stripe-orange { background: var(--irl-orange); flex: 1; }
-
-        /* Header UI (Only visible on screen) */
-        .no-print-header { 
-            background: white; padding: 10px 60px; display: flex; justify-content: space-between; 
-            align-items: center; position: sticky; top: 0; z-index: 999; box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
-        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; }
+        
+        /* UI Styling */
+        .no-print { background: white; padding: 20px 60px; border-bottom: 2px solid #ddd; position: sticky; top: 0; z-index: 100; }
+        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .input-group { display: flex; flex-direction: column; }
+        label { font-size: 0.75rem; font-weight: bold; margin-bottom: 4px; color: var(--irl-blue); text-transform: uppercase; }
+        input, select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        
         .small-flag { display: flex; width: 30px; height: 20px; margin-right: 12px; border: 1px solid #ddd; }
         .f-green { background: var(--irl-green); flex: 1; }
         .f-white { background: #fff; flex: 1; }
         .f-orange { background: var(--irl-orange); flex: 1; }
 
-        /* A4 Page Styling */
-        .page {
-            width: 210mm; min-height: 297mm; padding: 25mm; margin: 20px auto;
-            background: white; box-shadow: 0 0 10px rgba(0,0,0,0.5); position: relative;
-            box-sizing: border-box; color: #333; line-height: 1.6;
+        /* A4 Document Styling */
+        .document-container { padding: 20px; }
+        .a4-page {
+            width: 210mm; min-height: 297mm; padding: 20mm; margin: 20px auto;
+            background: white; box-shadow: 0 0 15px rgba(0,0,0,0.2); 
+            box-sizing: border-box; font-family: 'Times New Roman', serif; line-height: 1.5; position: relative;
         }
-
-        .agreement-title { text-align: center; border-bottom: 2px solid var(--irl-blue); margin-bottom: 30px; padding-bottom: 10px; }
-        h3 { color: var(--irl-blue); border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 25px; }
-        .footer-page-num { position: absolute; bottom: 15mm; left: 0; right: 0; text-align: center; font-size: 10pt; color: #999; }
         
-        .print-btn { 
-            position: fixed; right: 30px; bottom: 30px; padding: 15px 30px; 
-            background: var(--irl-green); color: white; border: none; border-radius: 50px; 
-            font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
+        h2, h3 { color: var(--irl-blue); border-bottom: 1px solid #eee; }
+        .contract-header { text-align: center; margin-bottom: 40px; }
+        .page-footer { position: absolute; bottom: 15mm; left: 0; right: 0; text-align: center; font-size: 10pt; color: #777; }
+        
+        .sign-area { display: flex; justify-content: space-between; margin-top: 50px; }
+        .sign-box { border-top: 1px solid #000; width: 45%; text-align: center; padding-top: 10px; margin-top: 40px; font-weight: bold; }
 
         @media print {
-            body { background: none; }
-            .no-print-header, .print-btn { display: none; }
-            .page { margin: 0; box-shadow: none; page-break-after: always; }
+            body { background: white; }
+            .no-print { display: none; }
+            .a4-page { margin: 0; box-shadow: none; page-break-after: always; }
         }
     </style>
 </head>
 <body>
 
-<div class="side-branding no-print-header">
-    <div class="stripe-green"></div><div class="stripe-white"></div><div class="stripe-orange"></div>
-</div>
-
-<div class="no-print-header">
-    <div style="display: flex; align-items: center;">
-        <div class="small-flag"><div class="f-green"></div><div class="f-white"></div><div class="f-orange"></div></div>
-        <div>
-            <strong style="font-size: 1.1rem;">Ireland Immigration Department</strong><br>
-            <small id="dub-clock">Dublin: Loading...</small>
+<div class="no-print">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+            <div class="small-flag"><div class="f-green"></div><div class="f-white"></div><div class="f-orange"></div></div>
+            <h1 style="margin:0; font-size: 1.2rem;">Contract Data Entry</h1>
         </div>
+        <button onclick="window.print()" style="padding: 10px 20px; background: var(--irl-green); color: white; border: none; cursor: pointer; border-radius: 4px; font-weight: bold;">PRINT CONTRACT</button>
     </div>
-    <div style="font-size: 0.8rem; text-align: right;">
-        Status: <strong>WAITING / PENDING</strong> <span style="font-size: 1.2rem;">🏁</span>
+
+    <div class="input-grid">
+        <div class="input-group"><label>Client Full Name</label><input type="text" id="in_name" placeholder="John Doe" oninput="sync()"></div>
+        <div class="input-group"><label>Passport Number</label><input type="text" id="in_passport" placeholder="A1234567" oninput="sync()"></div>
+        <div class="input-group"><label>Date of Birth</label><input type="date" id="in_dob" oninput="sync()"></div>
+        <div class="input-group">
+            <label>Country of Origin</label>
+            <select id="in_country" onchange="sync()"><option value="Pakistan">Pakistan</option><option value="India">India</option></select>
+        </div>
+        <div class="input-group"><label>Irish Company Name</label><input type="text" id="in_comp" placeholder="Dublin Bistro Ltd" oninput="sync()"></div>
+        <div class="input-group"><label>Company Address</label><input type="text" id="in_addr" placeholder="12 O'Connell St, Dublin" oninput="sync()"></div>
+        <div class="input-group"><label>Company Phone</label><input type="text" id="in_phone" placeholder="+353 1 234 5678" oninput="sync()"></div>
+        <div class="input-group"><label>Ireland Email</label><input type="email" id="in_email" placeholder="hr@company.ie" oninput="sync()"></div>
     </div>
 </div>
 
-<button class="print-btn" onclick="window.print()">Print 3-Page Agreement</button>
-
-<div class="page">
-    <div class="agreement-title">
-        <h1>Contract of Employment</h1>
-        <p>Waitstaff General Employment Category</p>
-    </div>
-
-    <h3>1. The Parties</h3>
-    <p>This agreement is entered into on this day, <strong>January 29, 2026</strong>, between:</p>
-    <p><strong>Employer:</strong> [Insert Restaurant Name Here]<br>Registered Business Address, Ireland.</p>
-    <p><strong>Employee:</strong> [Insert Candidate Name]<br>Origin: <strong>Pakistan / India</strong></p>
-
-    <h3>2. Position and Duties</h3>
-    <p>The Employee is appointed to the position of <strong>Waiter</strong>. The Employee will perform duties customary to this role, including guest service, table management, and adherence to Irish health and safety standards (HACCP).</p>
-
-    <h3>3. Remuneration</h3>
-    <p>The Employee’s gross salary will be <strong>€27,000 per annum</strong>. This is payable weekly/monthly in arrears by credit transfer to a nominated Irish bank account.</p>
+<div class="document-container">
     
-    <h3>4. Working Hours</h3>
-    <p>The standard working week is 39 hours. Overtime, if required, will be compensated in accordance with the <em>Organisation of Working Time Act 1997</em>. A maximum 48-hour limit applies.</p>
-
-    <div class="footer-page-num">Page 1 of 3</div>
-</div>
-
-<div class="page">
-    <h3>5. Accommodation and Board</h3>
-    <p>In support of the Employee’s relocation from their country of origin (Pakistan/India), the Employer agrees to the following:</p>
-    <ul>
-        <li><strong>Food:</strong> Wholesome duty meals provided at no cost during working hours.</li>
-        <li><strong>Accommodation:</strong> Safe and secure housing will be provided for the first 6 months of employment. Any statutory deductions for "Board and Lodgings" will strictly follow Workplace Relations Commission (WRC) caps.</li>
-    </ul>
-
-    <h3>6. Transport</h3>
-    <p>The Employer will facilitate the Employee's arrival by covering the cost of the initial flight to Ireland. For daily commuting, the Employer will provide a monthly Leap Card allowance for public transport usage within the Dublin/Regional area.</p>
-
-    <h3>7. Annual Leave and Public Holidays</h3>
-    <p>The Employee is entitled to 20 days of paid annual leave per year. Additionally, there are 10 statutory Public Holidays in Ireland. Compensation for working on a public holiday will be an additional day's pay or a day off in lieu.</p>
-
-    <h3>8. Probationary Period</h3>
-    <p>A probationary period of six months applies from the date of commencement. During this time, performance will be reviewed monthly.</p>
-
-    <div class="footer-page-num">Page 2 of 3</div>
-</div>
-
-<div class="page">
-    <h3>9. Sick Pay and Statutory Rights</h3>
-    <p>The Employee is entitled to statutory sick pay under the <em>Sick Leave Act 2022</em> (currently 5 days per year at 70% of gross pay, capped at €110 per day). The Employee also has access to a PRSA pension scheme as required by law.</p>
-
-    <h3>10. Gratuities (Tips)</h3>
-    <p>In accordance with the <em>Payment of Wages (Tips and Gratuities) Act 2022</em>, the Employer will distribute 100% of electronic tips to the staff. Tips will not be used to subsidize the basic minimum wage.</p>
-
-    <h3>11. Confidentiality</h3>
-    <p>The Employee shall not disclose any proprietary business information or trade secrets belonging to the Employer during or after the term of employment.</p>
-
-    <h3>12. Governing Law</h3>
-    <p>This contract is governed by the laws of the Republic of Ireland and is subject to the jurisdiction of the Irish Courts and the Workplace Relations Commission.</p>
-
-    <br><br><br>
-    <div style="display: flex; justify-content: space-between; margin-top: 50px;">
-        <div style="border-top: 1px solid #000; width: 40%; text-align: center; padding-top: 5px;">
-            Signed for the Employer
+    <div class="a4-page">
+        <div class="contract-header">
+            <h1 style="margin:0;">CONTRACT OF EMPLOYMENT</h1>
+            <p>WAITER CATEGORY - GENERAL EMPLOYMENT PERMIT</p>
         </div>
-        <div style="border-top: 1px solid #000; width: 40%; text-align: center; padding-top: 5px;">
-            Signed by the Employee
-        </div>
+
+        <h3>1. THE PARTIES</h3>
+        <p>This Contract is made on <strong>January 29, 2026</strong> between:</p>
+        <p><strong>The Employer:</strong> <span id="v_comp">[Company Name]</span><br>
+        Address: <span id="v_addr">[Company Address]</span><br>
+        Phone: <span id="v_phone">[Phone]</span> | Email: <span id="v_email">[Email]</span></p>
+
+        <p><strong>The Employee:</strong> <span id="v_name">[Client Name]</span><br>
+        Passport No: <span id="v_passport">[Passport]</span><br>
+        Date of Birth: <span id="v_dob">[DOB]</span><br>
+        Citizenship: <span id="v_country">Pakistan</span></p>
+
+        <h3>2. POSITION & DUTIES</h3>
+        <p>The Employee is engaged as a <strong>Waiter</strong>. Duties include food/beverage service, compliance with Food Safety Authority of Ireland (FSAI) standards, and maintaining high customer service levels.</p>
+
+        <h3>3. COMMENCEMENT & DURATION</h3>
+        <p>This is a full-time permanent contract. Employment shall commence upon the successful issuance of an Irish General Employment Permit.</p>
+
+        <div class="page-footer">Page 1 of 3 | Initial: _________</div>
     </div>
 
-    <div class="footer-page-num">Page 3 of 3</div>
+    <div class="a4-page">
+        <h3>4. REMUNERATION</h3>
+        <p>The basic annual salary is <strong>€36,605</strong> (conforming to the March 2026 MAR threshold). Payment will be made monthly by bank transfer. Tips/Gratuities will be distributed 100% to staff as per the 2022 Act.</p>
+
+        <h3>5. HOURS OF WORK</h3>
+        <p>Normal hours are 39 per week. Shifts include weekends and evenings. Overtime is governed by the <em>Organisation of Working Time Act 1997</em>.</p>
+
+        <h3>6. ACCOMMODATION & BENEFITS</h3>
+        <p>The Employer agrees to provide duty meals. Additionally, the employer will provide initial accommodation for a period of 6 months to assist with the relocation from <span id="v_country2">Pakistan</span>.</p>
+
+        <h3>7. ANNUAL LEAVE</h3>
+        <p>The Employee is entitled to 20 days paid annual leave plus 10 Public Holidays as per Irish statutory requirements.</p>
+
+        <div class="page-footer">Page 2 of 3 | Initial: _________</div>
+    </div>
+
+    <div class="a4-page">
+        <h3>8. SICK LEAVE</h3>
+        <p>Entitlement to 5 days of statutory sick pay per year after 13 weeks of service, at 70% of the wage (up to €110/day).</p>
+
+        <h3>9. PENSION</h3>
+        <p>The Employee will be enrolled in the <em>My Future Fund</em> auto-enrolment scheme as per 2026 regulations.</p>
+
+        <h3>10. TERMINATION</h3>
+        <p>Notice periods follow the <em>Minimum Notice and Terms of Employment Acts 1973–2005</em>.</p>
+
+        <h3>11. SIGNATURES</h3>
+        <p>By signing below, both parties agree to the terms of this legally binding agreement in accordance with the laws of the Republic of Ireland.</p>
+
+        <div class="sign-area">
+            <div class="sign-box">
+                Authorized Signature<br>
+                (For <span id="v_comp2">[Company]</span>)
+            </div>
+            <div class="sign-box">
+                Employee Signature<br>
+                (<span id="v_name2">[Client Name]</span>)
+            </div>
+        </div>
+
+        <div style="margin-top: 100px; border: 1px dashed #ccc; padding: 20px; text-align: center; color: #999;">
+            OFFICIAL COMPANY STAMP AREA
+        </div>
+
+        <div class="page-footer">Page 3 of 3 | End of Agreement</div>
+    </div>
+
 </div>
 
 <script>
-    function updateTime() {
-        const now = new Date();
-        const options = { timeZone: 'Europe/Dublin', weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-        document.getElementById('dub-clock').innerText = "Dublin: " + now.toLocaleString('en-GB', options);
+    function sync() {
+        // Mapping inputs to preview spans
+        const fields = {
+            'in_name': ['v_name', 'v_name2'],
+            'in_passport': ['v_passport'],
+            'in_dob': ['v_dob'],
+            'in_country': ['v_country', 'v_country2'],
+            'in_comp': ['v_comp', 'v_comp2'],
+            'in_addr': ['v_addr'],
+            'in_phone': ['v_phone'],
+            'in_email': ['v_email']
+        };
+
+        for (let id in fields) {
+            let val = document.getElementById(id).value || "...";
+            fields[id].forEach(spanId => {
+                document.getElementById(spanId).innerText = val;
+            });
+        }
     }
-    setInterval(updateTime, 1000);
-    updateTime();
 </script>
 
 </body>
