@@ -2,43 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Official Irish Employment Contract</title>
+    <title>Official Employment Agreement | Ireland 2026</title>
     <style>
-        :root { --irl-green: #169b62; --irl-orange: #ff883e; --irl-blue: #003366; }
-        body { font-family: 'Times New Roman', serif; margin: 0; background: #f0f2f5; color: #333; }
+        :root { 
+            --embassy-green: #169b62; 
+            --embassy-orange: #ff883e; 
+            --embassy-blue: #003366; 
+            --state-gold: #c5a059;
+        }
+        body { font-family: 'Georgia', 'Times New Roman', serif; margin: 0; background: #f4f4f4; color: #222; }
         
         /* UI Panel */
-        .no-print { background: white; padding: 25px; border-bottom: 3px solid var(--irl-blue); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; max-width: 1200px; margin: 0 auto; }
+        .no-print { background: white; padding: 25px; border-bottom: 4px solid var(--embassy-green); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 1200px; margin: 0 auto; }
         .input-group { display: flex; flex-direction: column; }
-        label { font-size: 11px; font-weight: bold; color: var(--irl-blue); text-transform: uppercase; margin-bottom: 4px; }
-        input, select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
-        .btn-print { padding: 12px 30px; background: var(--irl-green); color: white; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; margin-top: 15px; }
+        label { font-size: 10px; font-weight: bold; color: var(--embassy-green); text-transform: uppercase; margin-bottom: 4px; }
+        input, select { padding: 8px; border: 1px solid #ddd; border-radius: 2px; font-size: 13px; }
+        .btn-print { padding: 12px 40px; background: var(--embassy-green); color: white; border: none; cursor: pointer; border-radius: 2px; font-weight: bold; margin-top: 15px; letter-spacing: 1px; }
 
-        /* A4 Page Styling */
+        /* Document Styling */
         .a4-page {
             width: 210mm; min-height: 297mm; padding: 25mm; margin: 20px auto;
-            background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); 
-            box-sizing: border-box; line-height: 1.6; position: relative;
+            background: white; box-shadow: 0 0 15px rgba(0,0,0,0.1); 
+            box-sizing: border-box; line-height: 1.7; position: relative;
+            border-top: 15px solid var(--embassy-green);
         }
         
-        /* Official Flag Design */
-        .flag-box { display: flex; width: 60px; height: 30px; border: 1px solid #ddd; margin-bottom: 10px; }
-        .f-green { background: var(--irl-green); flex: 1; }
-        .f-white { background: #fff; flex: 1; }
-        .f-orange { background: var(--irl-orange); flex: 1; }
-
-        .header { text-align: center; border-bottom: 2px solid var(--irl-blue); margin-bottom: 30px; padding-bottom: 15px; }
-        h3 { color: var(--irl-blue); border-bottom: 1px solid #eee; margin-top: 25px; padding-bottom: 5px; }
-        .footer { position: absolute; bottom: 15mm; left: 0; right: 0; text-align: center; font-size: 10pt; color: #999; }
+        /* Embassy Header Elements */
+        .embassy-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 30px; }
+        .harp-emblem { width: 50px; height: auto; margin-bottom: 5px; filter: sepia(1) saturate(5) hue-rotate(10deg); /* Gold Look */ }
+        .state-title { text-align: left; }
+        .state-title h2 { margin: 0; font-size: 18px; color: var(--embassy-blue); letter-spacing: 1px; }
+        .state-title p { margin: 0; font-size: 12px; color: #666; font-style: italic; }
         
-        .signing-area { display: flex; justify-content: space-between; margin-top: 50px; }
-        .sig-box { width: 45%; text-align: center; border-top: 1px solid #333; padding-top: 10px; margin-top: 40px; }
+        .flag-accent { display: flex; height: 5px; width: 100px; margin-top: 5px; }
+        .f-g { background: var(--embassy-green); flex: 1; }
+        .f-w { background: #fff; flex: 1; }
+        .f-o { background: var(--embassy-orange); flex: 1; }
+
+        .contract-title { text-align: center; margin: 40px 0; }
+        .contract-title h1 { font-size: 24px; color: var(--embassy-blue); text-transform: uppercase; border-bottom: 2px solid var(--embassy-orange); display: inline-block; padding-bottom: 5px; }
+
+        h3 { color: var(--embassy-green); font-variant: small-caps; border-bottom: 1px solid #f0f0f0; margin-top: 30px; }
+        .footer { position: absolute; bottom: 15mm; left: 0; right: 0; text-align: center; font-size: 9pt; color: #aaa; border-top: 1px solid #eee; padding-top: 10px; margin: 0 25mm; }
+
+        .signing-table { width: 100%; margin-top: 50px; border-collapse: collapse; }
+        .sig-cell { width: 50%; padding: 20px; text-align: center; vertical-align: bottom; }
+        .sig-line { border-top: 1px solid #333; margin-top: 50px; padding-top: 5px; font-weight: bold; font-size: 12px; }
 
         @media print {
             body { background: white; }
             .no-print { display: none; }
-            .a4-page { margin: 0; box-shadow: none; page-break-after: always; }
+            .a4-page { margin: 0; box-shadow: none; page-break-after: always; border-top-width: 25px; }
         }
     </style>
 </head>
@@ -46,86 +61,91 @@
 
 <div class="no-print">
     <div class="input-grid">
-        <div class="input-group"><label>Client Full Name</label><input type="text" id="in_name" placeholder="John Doe" oninput="sync()"></div>
-        <div class="input-group"><label>Passport Number</label><input type="text" id="in_pass" placeholder="A1234567" oninput="sync()"></div>
-        <div class="input-group"><label>Date of Birth</label><input type="date" id="in_dob" oninput="sync()"></div>
-        <div class="input-group"><label>Country</label><select id="in_country" onchange="sync()"><option value="Pakistan">Pakistan</option><option value="India">India</option></select></div>
-        <div class="input-group"><label>Company Name</label><input type="text" id="in_comp" placeholder="Ireland Tech Solutions" oninput="sync()"></div>
-        <div class="input-group"><label>Company Address</label><input type="text" id="in_addr" oninput="sync()"></div>
-        <div class="input-group"><label>Company Phone</label><input type="text" id="in_phone" placeholder="+353..." oninput="sync()"></div>
-        <div class="input-group"><label>Company Email</label><input type="text" id="in_email" oninput="sync()"></div>
-        <div class="input-group"><label>Job Category</label><select id="in_cat" onchange="sync()"><option value="General Helper">General Helper</option><option value="Computer Operator">Computer Operator</option></select></div>
-        <div class="input-group"><label>Annual Salary (€)</label><input type="number" id="in_salary" value="36605" oninput="sync()"></div>
+        <div class="input-group"><label>Client Name</label><input type="text" id="in_name" placeholder="John Doe" oninput="sync()"></div>
+        <div class="input-group"><label>Passport</label><input type="text" id="in_pass" oninput="sync()"></div>
+        <div class="input-group"><label>DOB</label><input type="date" id="in_dob" oninput="sync()"></div>
+        <div class="input-group"><label>Origin</label><select id="in_country" onchange="sync()"><option value="Pakistan">Pakistan</option><option value="India">India</option></select></div>
+        <div class="input-group"><label>Company Name</label><input type="text" id="in_comp" oninput="sync()"></div>
+        <div class="input-group"><label>Irish Address</label><input type="text" id="in_addr" oninput="sync()"></div>
+        <div class="input-group"><label>Phone</label><input type="text" id="in_phone" oninput="sync()"></div>
+        <div class="input-group"><label>Email</label><input type="text" id="in_email" oninput="sync()"></div>
+        <div class="input-group"><label>Role</label><select id="in_cat" onchange="sync()"><option value="General Helper">General Helper</option><option value="Computer Operator">Computer Operator</option></select></div>
     </div>
-    <div style="text-align:center"><button class="btn-print" onclick="window.print()">PRINT 3-PAGE CONTRACT</button></div>
+    <div style="text-align:center"><button class="btn-print" onclick="window.print()">GENERATE EMBASSY FORMAT DOCUMENT</button></div>
 </div>
 
 <div class="a4-page">
-    <center>
-        <div class="flag-box"><div class="f-green"></div><div class="f-white"></div><div class="f-orange"></div></div>
-    </center>
-    <div class="header">
-        <h1 style="margin:0; letter-spacing: 2px;">CONTRACT OF EMPLOYMENT</h1>
-        <p>REPUBLIC OF IRELAND | GENERAL EMPLOYMENT PERMIT (2026)</p>
+    <div class="embassy-header">
+        <div class="state-title">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Irish_Harp_Gold_on_Blue.svg" class="harp-emblem" alt="Harp">
+            <h2>Government of Ireland</h2>
+            <p>Department of Foreign Affairs & Trade</p>
+            <div class="flag-accent"><div class="f-g"></div><div class="f-w"></div><div class="f-o"></div></div>
+        </div>
+        <div style="text-align: right; font-size: 11px;">
+            <strong>Ref No:</strong> IE-GEP-2026<br>
+            <strong>Date:</strong> January 29, 2026
+        </div>
     </div>
 
-    <h3>1. THE PARTIES</h3>
-    <p>This agreement is entered into by <strong>The Employer</strong>:</p>
-    <p><strong>Company:</strong> <span id="v_comp">__________</span><br>
-       <strong>Address:</strong> <span id="v_addr">__________</span><br>
-       <strong>Contact:</strong> <span id="v_phone">__________</span> | <span id="v_email">__________</span></p>
+    <div class="contract-title">
+        <h1>Contract of Employment</h1>
+    </div>
 
-    <p>And <strong>The Employee</strong>:</p>
-    <p><strong>Name:</strong> <span id="v_name">__________</span><br>
-       <strong>Passport:</strong> <span id="v_pass">__________</span><br>
+    <h3>I. Particulars of the Employer</h3>
+    <p>This document certifies the formal offer of employment by:</p>
+    <p><strong>Registered Company:</strong> <span id="v_comp">__________</span><br>
+       <strong>Business Address:</strong> <span id="v_addr">__________</span><br>
+       <strong>Official Contact:</strong> <span id="v_phone">__________</span> | <span id="v_email">__________</span></p>
+
+    <h3>II. Particulars of the Employee</h3>
+    <p><strong>Full Legal Name:</strong> <span id="v_name">__________</span><br>
+       <strong>Passport Number:</strong> <span id="v_pass">__________</span><br>
        <strong>Date of Birth:</strong> <span id="v_dob">__________</span><br>
-       <strong>Nationality:</strong> <span id="v_country">Pakistan</span></p>
+       <strong>Country of Origin:</strong> <span id="v_country">Pakistan</span></p>
 
-    <h3>2. POSITION & SALARY</h3>
-    <p>The Employee is engaged as a <strong><span id="v_cat">General Helper</span></strong>. The annual salary is <strong>€<span id="v_salary">36,605</span></strong> gross, fulfilling the March 2026 MAR requirements.</p>
-
-    <div class="footer">Page 1 of 3 | Initial: ________</div>
+    <div class="footer">Embassy of Ireland | General Employment Permit Standard | Page 1</div>
 </div>
 
 <div class="a4-page">
-    <h3>3. SICK PAY & ENTITLEMENTS</h3>
-    <p>As per the <em>Sick Leave Act 2022</em>, the Employee is entitled to <strong>5 days</strong> of statutory sick pay per calendar year, provided 13 weeks of service have been completed. Payment is 70% of normal earnings, capped at €110 per day.</p>
+    <h3>III. Terms of Engagement</h3>
+    <p><strong>1. Position:</strong> The employee is engaged in the capacity of <strong><span id="v_cat">General Helper</span></strong>.</p>
+    <p><strong>2. Remuneration:</strong> The gross annual salary is fixed at <strong>€36,605</strong>, payable in monthly installments, meeting the 2026 statutory threshold.</p>
+    <p><strong>3. Hours of Work:</strong> A standard 39-hour work week applies. The employee is entitled to appropriate rest periods as per the <em>Organisation of Working Time Act 1997</em>.</p>
 
-    <h3>4. ANNUAL LEAVE</h3>
-    <p>Entitlement of 20 days paid leave per annum, plus 10 Public Holidays.</p>
+    <h3>IV. Statutory Leave & Benefits</h3>
+    <p><strong>1. Annual Leave:</strong> 20 days per annum plus 10 Public Holidays.</p>
+    <p><strong>2. Sick Leave:</strong> Entitlement to 5 days of statutory sick pay per year as per current 2026 Irish legislation.</p>
+    <p><strong>3. Relocation:</strong> The employer shall provide secure accommodation for a period of 6 months following arrival from <span id="v_country2">Pakistan</span>.</p>
 
-    <h3>5. WORKING HOURS</h3>
-    <p>Normal hours of work are 39 per week. Total working hours shall not exceed 48 per week as per the <em>Organisation of Working Time Act 1997</em>.</p>
-
-    <h3>6. ACCOMMODATION</h3>
-    <p>The Employer agrees to assist the Employee with safe housing for the first 6 months of the relocation from <span id="v_country2">Pakistan</span>.</p>
-
-    <div class="footer">Page 2 of 3 | Initial: ________</div>
+    <div class="footer">Embassy of Ireland | General Employment Permit Standard | Page 2</div>
 </div>
 
 <div class="a4-page">
-    <h3>7. TERMINATION</h3>
-    <p>Statutory notice periods apply as per the <em>Minimum Notice and Terms of Employment Acts 1973–2005</em>.</p>
+    <h3>V. Governing Law</h3>
+    <p>This contract is subject to the issuance of a valid Employment Permit by the Department of Enterprise, Trade and Employment (DETE) and shall be governed by the laws of the Republic of Ireland.</p>
 
-    <h3>8. ACCEPTANCE OF TERMS</h3>
-    <p>This contract remains subject to the approval of a General Employment Permit by the Department of Enterprise, Trade and Employment (DETE).</p>
+    <table class="signing-table">
+        <tr>
+            <td class="sig-cell">
+                <div class="sig-line">Authorized Signature for Employer</div>
+                <p><small>(Official Company Stamp to be affixed)</small></p>
+                <p id="v_comp2" style="font-size: 11px; margin-top: 5px;">[Company Name]</p>
+            </td>
+            <td class="sig-cell">
+                <div class="sig-line">Employee Signature</div>
+                <p><small>(As per Passport)</small></p>
+                <p id="v_name2" style="font-size: 11px; margin-top: 5px;">[Client Name]</p>
+            </td>
+        </tr>
+    </table>
 
-    <div class="signing-area">
-        <div class="sig-box">
-            <strong>For <span id="v_comp2">__________</span></strong><br>
-            <p><small>(Authorized Employer Signature)</small></p>
-        </div>
-        <div class="sig-box">
-            <strong><span id="v_name2">__________</span></strong><br>
-            <p><small>(Employee Signature)</small></p>
-        </div>
+    <div style="margin-top: 100px; border: 1px solid #eee; padding: 40px; text-align: center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Irish_Harp_Gold_on_Blue.svg" style="width: 80px; opacity: 0.1;" alt="Watermark">
+        <p style="color: #eee; font-size: 10px; margin: 0;">OFFICIAL EMBASSY SEAL AREA</p>
     </div>
 
-    <div style="margin-top: 100px; padding: 30px; border: 1px dashed #ccc; text-align: center; color: #aaa;">
-        PLACE OFFICIAL COMPANY STAMP HERE
-    </div>
-
-    <div class="footer">Page 3 of 3 | End of Agreement</div>
+    <div class="footer">Embassy of Ireland | General Employment Permit Standard | Page 3</div>
 </div>
 
 <script>
@@ -139,8 +159,7 @@
             'in_addr': ['v_addr'],
             'in_phone': ['v_phone'],
             'in_email': ['v_email'],
-            'in_cat': ['v_cat'],
-            'in_salary': ['v_salary']
+            'in_cat': ['v_cat']
         };
         for(let key in ids) {
             let val = document.getElementById(key).value || "__________";
