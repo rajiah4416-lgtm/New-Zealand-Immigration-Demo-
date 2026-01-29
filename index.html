@@ -2,152 +2,149 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contract Builder | Ireland Immigration</title>
+    <title>Waitstaff Employment Agreement | Ireland 2026</title>
     <style>
         :root { --irl-green: #169b62; --irl-orange: #ff883e; --irl-blue: #003366; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f0f2f5; color: #333; }
-        
-        /* UI Control Panel */
-        .no-print { background: white; padding: 20px 40px; border-bottom: 3px solid var(--irl-blue); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        body { font-family: 'Times New Roman', Times, serif; margin: 0; background: #525659; }
+
+        /* Control Panel */
+        .no-print-header { 
+            background: white; padding: 20px 60px; display: flex; flex-direction: column;
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+        }
         .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 15px; }
         .input-group { display: flex; flex-direction: column; }
-        label { font-size: 0.7rem; font-weight: bold; color: var(--irl-blue); text-transform: uppercase; margin-bottom: 4px; }
-        input, select { padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.9rem; }
-        .btn-print { padding: 12px 25px; background: var(--irl-green); color: white; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; }
-
-        /* A4 Document Styling */
-        .a4-page {
-            width: 210mm; min-height: 297mm; padding: 25mm; margin: 20px auto;
-            background: white; box-shadow: 0 0 15px rgba(0,0,0,0.2); 
-            box-sizing: border-box; font-family: 'Times New Roman', serif; line-height: 1.6; position: relative;
-        }
-        .header-logo { display: flex; align-items: center; border-bottom: 2px solid var(--irl-blue); padding-bottom: 10px; margin-bottom: 30px; }
-        .small-flag { display: flex; width: 35px; height: 22px; margin-right: 15px; border: 1px solid #ddd; flex-shrink: 0; }
+        label { font-size: 0.75rem; font-weight: bold; color: var(--irl-blue); margin-bottom: 4px; }
+        input, select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        
+        .small-flag { display: flex; width: 30px; height: 20px; margin-right: 12px; border: 1px solid #ddd; }
         .f-green { background: var(--irl-green); flex: 1; }
         .f-white { background: #fff; flex: 1; }
         .f-orange { background: var(--irl-orange); flex: 1; }
-        
-        h3 { color: var(--irl-blue); border-bottom: 1px solid #eee; margin-top: 25px; }
-        .page-footer { position: absolute; bottom: 15mm; left: 0; right: 0; text-align: center; font-size: 10pt; color: #777; }
 
+        /* A4 Page Styling */
+        .page {
+            width: 210mm; min-height: 297mm; padding: 25mm; margin: 20px auto;
+            background: white; box-shadow: 0 0 10px rgba(0,0,0,0.5); position: relative;
+            box-sizing: border-box; color: #333; line-height: 1.6;
+        }
+
+        .agreement-title { text-align: center; border-bottom: 2px solid var(--irl-blue); margin-bottom: 30px; padding-bottom: 10px; }
+        h3 { color: var(--irl-blue); border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 25px; }
+        .footer-page-num { position: absolute; bottom: 15mm; left: 0; right: 0; text-align: center; font-size: 10pt; color: #999; }
+        
         /* Signature & Stamp Styling */
         .signing-row { display: flex; justify-content: space-between; margin-top: 40px; }
         .sig-container { width: 45%; text-align: center; }
-        canvas { border: 1px dashed #ccc; background: #fafafa; cursor: crosshair; width: 100%; height: 100px; }
+        canvas { border: 1px dashed #ccc; background: #fafafa; cursor: crosshair; width: 100%; height: 80px; }
         .stamp-preview { width: 100px; height: 100px; object-fit: contain; margin-top: 10px; border: 1px solid #eee; display: none; }
 
+        .print-btn { 
+            align-self: flex-end; padding: 12px 30px; background: var(--irl-green); 
+            color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;
+        }
+
         @media print {
-            body { background: white; }
-            .no-print { display: none; }
-            .a4-page { margin: 0; box-shadow: none; page-break-after: always; }
-            canvas { border: none; background: transparent; }
+            body { background: none; }
+            .no-print-header, button { display: none; }
+            .page { margin: 0; box-shadow: none; page-break-after: always; }
         }
     </style>
 </head>
 <body>
 
-<div class="no-print">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
+<div class="no-print-header">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
         <div style="display: flex; align-items: center;">
             <div class="small-flag"><div class="f-green"></div><div class="f-white"></div><div class="f-orange"></div></div>
-            <h2 style="margin:0; font-size: 1.2rem;">Official Contract Builder 2026</h2>
+            <strong style="font-size: 1.1rem;">Ireland Immigration Department | Contract Generator</strong>
         </div>
-        <button class="btn-print" onclick="window.print()">Print Final Agreement</button>
+        <button class="print-btn" onclick="window.print()">Print Final 3-Page Agreement</button>
     </div>
 
     <div class="input-grid">
-        <div class="input-group"><label>Category</label><select id="in_cat" onchange="sync()"><option value="General Helper">General Helper</option><option value="Computer Operator">Computer Operator</option></select></div>
+        <div class="input-group"><label>Client Full Name</label><input type="text" id="in_name" placeholder="John Doe" oninput="sync()"></div>
+        <div class="input-group"><label>Passport Number</label><input type="text" id="in_pass" placeholder="A1234567" oninput="sync()"></div>
+        <div class="input-group"><label>Country of Origin</label><select id="in_country" onchange="sync()"><option value="Pakistan">Pakistan</option><option value="India">India</option></select></div>
+        <div class="input-group"><label>Job Category</label><select id="in_cat" onchange="sync()"><option value="General Helper">General Helper</option><option value="Computer Operator">Computer Operator</option></select></div>
         <div class="input-group"><label>Issue Date</label><input type="date" id="in_date" oninput="sync()"></div>
-        <div class="input-group"><label>Salary (€)</label><input type="number" id="in_salary" value="36605" oninput="sync()"></div>
-        <div class="input-group"><label>Passport</label><input type="text" id="in_pass" placeholder="A1234567" oninput="sync()"></div>
-        <div class="input-group"><label>Company Name</label><input type="text" id="in_comp" placeholder="Irish Tech Ltd" oninput="sync()"></div>
-        <div class="input-group"><label>Company Phone</label><input type="text" id="in_cphone" placeholder="+353 1 234..." oninput="sync()"></div>
-        <div class="input-group"><label>Company Address</label><input type="text" id="in_caddr" placeholder="Dublin, Ireland" oninput="sync()"></div>
+        <div class="input-group"><label>Annual Salary (€)</label><input type="number" id="in_salary" value="36605" oninput="sync()"></div>
+        <div class="input-group"><label>Company Phone</label><input type="text" id="in_cphone" placeholder="+353..." oninput="sync()"></div>
         <div class="input-group"><label>Upload Company Stamp</label><input type="file" id="in_stamp" accept="image/*" onchange="handleStamp(event)"></div>
     </div>
-    <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">* Sign the signature pad on Page 3 with your mouse/stylus before printing.</p>
 </div>
 
-<div id="contract-content">
-    <div class="a4-page">
-        <div class="header-logo">
-            <div class="small-flag"><div class="f-green"></div><div class="f-white"></div><div class="f-orange"></div></div>
-            <div style="flex:1">
-                <h2 style="margin:0; font-size: 18pt;">EMPLOYMENT AGREEMENT</h2>
-                <small>Ireland Department of Enterprise, Trade and Employment</small>
-            </div>
-            <div style="text-align: right;"><small>Issue Date:</small><br><strong id="v_date">--/--/----</strong></div>
-        </div>
-
-        <h3>1. THE PARTIES</h3>
-        <p>This Contract is made between <strong>The Employer</strong>:</p>
-        <p><strong>Company Name:</strong> <span id="v_comp">[Company Name]</span><br>
-        <strong>Business Address:</strong> <span id="v_caddr">[Company Address]</span><br>
-        <strong>Phone:</strong> <span id="v_cphone">[Company Phone]</span></p>
-
-        <p>And <strong>The Employee</strong>: <strong>[Client Name]</strong>, holding Passport No: <strong><span id="v_pass">---</span></strong>.</p>
-
-        <h3>2. APPOINTMENT & SALARY</h3>
-        <p>The Employee is appointed as <strong><span id="v_cat">General Helper</span></strong>. The annual salary is set at <strong>€<span id="v_salary">36,605</span></strong>, payable monthly.</p>
-
-        <h3>3. WORKING HOURS</h3>
-        <p>Standard hours: 39 hours per week. Maximum working hours per week shall not exceed 48 hours as per the <em>Organisation of Working Time Act 1997</em>.</p>
-
-        <div class="page-footer">Page 1 of 3 | Initial: ________</div>
+<div class="page">
+    <div class="agreement-title">
+        <h1>Contract of Employment</h1>
+        <p><strong>Official Issue Date: <span id="v_date">--/--/----</span></strong></p>
     </div>
 
-    <div class="a4-page">
-        <h3>4. JOB DESCRIPTION</h3>
-        <p>For the role of <strong><span id="v_cat2">General Helper</span></strong>, duties include operational support, site maintenance, and compliance with Irish Health and Safety regulations.</p>
+    <h3>1. The Parties</h3>
+    <p>This agreement is entered into between <strong>The Employer</strong> (Irish Registered Business) and:</p>
+    <p><strong>Employee Name:</strong> <span id="v_name">[Client Name]</span><br>
+    <strong>Passport No:</strong> <span id="v_pass">[Passport]</span><br>
+    <strong>Citizenship:</strong> <span id="v_country">Pakistan</span></p>
 
-        <h3>5. BENEFITS & ACCOMMODATION</h3>
-        <p>The Employer agrees to provide meals during shift hours. Safe accommodation is provided for the first 6 months to assist with relocation from Pakistan/India.</p>
+    <h3>2. Position and Salary</h3>
+    <p>The Employee is appointed to the category of <strong><span id="v_cat">General Helper</span></strong>. The gross annual remuneration is <strong>€<span id="v_salary">36,605</span></strong>, meeting the 2026 General Employment Permit threshold.</p>
+    
+    <h3>3. Working Hours</h3>
+    <p>A standard 39-hour work week applies. Overtime is regulated by the <em>Organisation of Working Time Act 1997</em>.</p>
 
-        <h3>6. LEAVE ENTITLEMENTS</h3>
-        <p>Annual leave: 20 days. Public Holidays: 10 days. Sick pay is provided per the <em>Sick Leave Act 2022</em>.</p>
-        <div class="page-footer">Page 2 of 3 | Initial: ________</div>
+    <div class="footer-page-num">Page 1 of 3</div>
+</div>
+
+<div class="page">
+    <h3>4. Job Description</h3>
+    <p>As a <strong><span id="v_cat2">General Helper</span></strong>, duties include support of daily facility operations and compliance with Irish Health and Safety (HSA) standards. (If Computer Operator: Management of technical data systems and IT support).</p>
+
+    <h3>5. Accommodation & Transport</h3>
+    <p>The Employer will provide secure accommodation for the first 6 months to assist with the Employee's relocation from <strong><span id="v_country2">Pakistan</span></strong>. Duty meals and an initial travel allowance are included.</p>
+
+    <h3>6. Annual Leave</h3>
+    <p>The Employee is entitled to 20 days of paid annual leave and 10 statutory Public Holidays annually.</p>
+
+    <div class="footer-page-num">Page 2 of 3</div>
+</div>
+
+<div class="page">
+    <h3>7. Statutory Rights</h3>
+    <p>Entitlements to Sick Pay (under the <em>Sick Leave Act 2022</em>) and Pension Auto-Enrolment (2026) are guaranteed.</p>
+
+    <h3>8. Execution & Signatures</h3>
+    <p>This contract is legally binding under the laws of the Republic of Ireland.</p>
+    
+    <div class="signing-row">
+        <div class="sig-container">
+            <p><strong>For the Company</strong></p>
+            <canvas id="comp-sig"></canvas>
+            <button class="no-print" onclick="clearSig('comp-sig')" style="font-size: 10px;">Clear</button>
+            <img id="stamp-output" class="stamp-preview" />
+            <p><small>(Signature & Official Stamp)</small></p>
+            <p><small>Phone: <span id="v_cphone">[Phone]</span></small></p>
+        </div>
+        <div class="sig-container">
+            <p><strong>The Employee</strong></p>
+            <canvas id="emp-sig"></canvas>
+            <button class="no-print" onclick="clearSig('emp-sig')" style="font-size: 10px;">Clear</button>
+            <p><small>(Signature: <span id="v_name2">[Name]</span>)</small></p>
+        </div>
     </div>
 
-    <div class="a4-page">
-        <h3>7. TERMS OF TERMINATION</h3>
-        <p>This agreement may be terminated by either party following the statutory notice period required by Irish law.</p>
-
-        <div style="margin-top: 60px;">
-            <p><strong>8. EXECUTION OF AGREEMENT</strong></p>
-            <p>Both parties agree to the terms herein as of <span id="v_date2">--/--/----</span>.</p>
-        </div>
-
-        <div class="signing-row">
-            <div class="sig-container">
-                <p>For <span id="v_comp2">[Company Name]</span></p>
-                <canvas id="comp-sig"></canvas>
-                <button class="no-print" onclick="clearSig('comp-sig')" style="font-size: 10px;">Clear Signature</button>
-                <img id="stamp-output" class="stamp-preview" />
-                <p><small>(Authorized Stamp & Signature)</small></p>
-            </div>
-            <div class="sig-container">
-                <p>Employee</p>
-                <canvas id="emp-sig"></canvas>
-                <button class="no-print" onclick="clearSig('emp-sig')" style="font-size: 10px;">Clear Signature</button>
-                <p><small>(Employee Signature)</small></p>
-            </div>
-        </div>
-
-        <div class="page-footer">Page 3 of 3 | End of Agreement</div>
-    </div>
+    <div class="footer-page-num">Page 3 of 3</div>
 </div>
 
 <script>
-    // Data Syncing
     function sync() {
         const map = {
-            'in_date': ['v_date', 'v_date2'],
-            'in_cat': ['v_cat', 'v_cat2'],
-            'in_salary': ['v_salary'],
+            'in_name': ['v_name', 'v_name2'],
             'in_pass': ['v_pass'],
-            'in_comp': ['v_comp', 'v_comp2'],
-            'in_cphone': ['v_cphone'],
-            'in_caddr': ['v_caddr']
+            'in_country': ['v_country', 'v_country2'],
+            'in_cat': ['v_cat', 'v_cat2'],
+            'in_date': ['v_date'],
+            'in_salary': ['v_salary'],
+            'in_cphone': ['v_cphone']
         };
         for(let id in map) {
             let val = document.getElementById(id).value;
@@ -155,27 +152,21 @@
         }
     }
 
-    // Handle Stamp Upload
     function handleStamp(event) {
         const output = document.getElementById('stamp-output');
         output.src = URL.createObjectURL(event.target.files[0]);
-        output.style.display = 'inline-block';
+        output.style.display = 'block';
+        output.style.margin = '10px auto';
     }
 
-    // Signature Pad Logic
     function initSig(id) {
         const canvas = document.getElementById(id);
         const ctx = canvas.getContext('2d');
         let drawing = false;
-
         canvas.addEventListener('mousedown', () => { drawing = true; ctx.beginPath(); });
         canvas.addEventListener('mousemove', (e) => {
             if (!drawing) return;
-            ctx.lineWidth = 2;
-            ctx.lineCap = 'round';
-            ctx.strokeStyle = 'black';
-            ctx.lineTo(e.offsetX, e.offsetY);
-            ctx.stroke();
+            ctx.lineWidth = 2; ctx.lineTo(e.offsetX, e.offsetY); ctx.stroke();
         });
         window.addEventListener('mouseup', () => drawing = false);
     }
@@ -188,5 +179,6 @@
     initSig('comp-sig');
     initSig('emp-sig');
 </script>
+
 </body>
-    </html>
+</html>
