@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ireland Immigration Department | Official Portal</title>
+    <title>Ireland Immigration Department</title>
     <style>
         :root { --irl-green: #169b62; --irl-orange: #ff883e; --irl-blue: #003366; }
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f4f7f6; overflow-x: hidden; }
@@ -13,46 +13,53 @@
         .stripe-white { background: #fff; flex: 1; }
         .stripe-orange { background: var(--irl-orange); flex: 1; }
 
-        /* Top Bar & Live Time Display */
+        /* Top Bar */
         .top-nav { background: var(--irl-blue); color: white; padding: 12px 60px; display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold; }
         
-        /* Updated Official Header */
-        header { background: white; padding: 25px 60px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        /* Fixed Small Header & Small Flag */
+        header { background: white; padding: 20px 60px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .brand-logo { display: flex; align-items: center; }
-        .header-title h1 { margin:0; font-size: 1.6rem; color: #000; letter-spacing: -0.5px; }
-        .header-title p { margin:0; font-size: 0.9rem; color: #666; font-weight: 500; }
+        
+        /* Small Square Flag as seen in your marked images */
+        .small-flag { display: flex; width: 40px; height: 30px; margin-right: 15px; border: 1px solid #ddd; }
+        .f-green { background: var(--irl-green); flex: 1; }
+        .f-white { background: #fff; flex: 1; }
+        .f-orange { background: var(--irl-orange); flex: 1; }
+
+        .header-title h1 { margin:0; font-size: 1.4rem; color: #000; }
+        .header-title p { margin:0; font-size: 0.85rem; color: #666; }
 
         /* Navigation Buttons */
-        .nav-buttons button { background: #f0f0f0; border: 1px solid #ddd; font-weight: bold; color: var(--irl-blue); cursor: pointer; padding: 12px 25px; margin-left: 10px; border-radius: 4px; transition: 0.2s; }
+        .nav-buttons button { background: #f0f0f0; border: 1px solid #ddd; font-weight: bold; color: var(--irl-blue); cursor: pointer; padding: 10px 20px; margin-left: 10px; border-radius: 4px; }
         .nav-buttons button.active { background: var(--irl-green); color: white; border-color: var(--irl-green); }
 
-        /* Absolute Page Separation */
-        .page { display: none; padding: 50px 10%; width: 100%; box-sizing: border-box; }
+        /* Page Separation */
+        .page { display: none; padding: 40px 10%; }
         .page.active { display: block; }
 
-        /* Form Page Styling */
-        .form-card { background: white; padding: 40px; border-radius: 12px; max-width: 650px; margin: auto; border: 1px solid #e1e1e1; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .form-group { margin-bottom: 22px; }
-        label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; color: #444; text-transform: uppercase; }
-        input, select { width: 100%; padding: 14px; border: 1.5px solid #dce1e5; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
-        .btn-submit { background: var(--irl-green); color: white; border: none; width: 100%; padding: 18px; font-weight: bold; cursor: pointer; border-radius: 6px; font-size: 1.1rem; }
+        /* Registration Form */
+        .form-card { background: white; padding: 30px; border-radius: 8px; max-width: 600px; margin: auto; border: 1px solid #e1e1e1; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px; color: #444; text-transform: uppercase; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-submit { background: var(--irl-green); color: white; border: none; width: 100%; padding: 15px; font-weight: bold; cursor: pointer; border-radius: 4px; }
 
-        /* Ledger Table Page Styling */
-        .ledger-card { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 100%; box-sizing: border-box; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { text-align: left; padding: 18px; background: #f9fafb; color: var(--irl-blue); border-bottom: 2px solid #edf2f7; font-size: 0.85rem; }
-        td { padding: 18px; border-bottom: 1px solid #f0f0f0; font-size: 1rem; }
+        /* Ledger Table */
+        .ledger-card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 15px; background: #f8f9fa; color: var(--irl-blue); border-bottom: 2px solid #eee; font-size: 0.8rem; }
+        td { padding: 15px; border-bottom: 1px solid #f0f0f0; }
 
-        /* Checkered Flag Status Indicator */
-        .status-cell { display: flex; align-items: center; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; }
-        .checkered-flag { width: 24px; height: 16px; margin-right: 10px; border: 1px solid #333;
+        /* Checkered Flag Status */
+        .status-cell { display: flex; align-items: center; font-weight: bold; font-size: 0.8rem; }
+        .checkered-flag { width: 20px; height: 14px; margin-right: 8px; border: 1px solid #333;
             background-image: linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000), 
                               linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000);
-            background-size: 8px 8px; background-position: 0 0, 4px 4px; }
+            background-size: 6px 6px; background-position: 0 0, 3px 3px; }
         
-        .waiting { color: #d69e2e; }
+        .waiting { color: #b7791f; }
         .approval { color: var(--irl-green); }
-        .rejection { color: #e53e3e; }
+        .rejection { color: #c53030; }
     </style>
 </head>
 <body>
@@ -62,58 +69,60 @@
 </div>
 
 <div class="top-nav">
-    <div id="dublin-live">Dublin: Thu, 29 Jan 2026 | 08:35:00</div>
-    <div id="local-live">Local: --:--:--</div>
+    <div id="dublin-time">Dublin: Loading...</div>
+    <div id="local-time">Local: --:--:--</div>
 </div>
 
 <header>
     <div class="brand-logo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg" alt="Flag of Ireland">
+        <div class="small-flag">
+            <div class="f-green"></div><div class="f-white"></div><div class="f-orange"></div>
+        </div>
         <div class="header-title">
             <h1>Ireland Immigration Department</h1>
             <p>Immigration Service Delivery</p>
         </div>
     </div>
     <div class="nav-buttons">
-        <button id="btn-reg" class="active" onclick="toggleView('reg')">New Registration</button>
-        <button id="btn-list" onclick="toggleView('list')">Active Case Ledger</button>
+        <button id="btn-reg" class="active" onclick="showPage('reg')">New Registration</button>
+        <button id="btn-list" onclick="showPage('list')">Active Case Ledger</button>
     </div>
 </header>
 
 <div id="page-reg" class="page active">
     <div class="form-card">
-        <h2 style="margin-top:0; color: var(--irl-blue);">Application Entry Form</h2>
+        <h2 style="margin-top:0;">Client Registration</h2>
         <div class="form-group">
             <label>Full Name</label>
-            <input type="text" id="in_name" placeholder="Enter Applicant Name">
+            <input type="text" id="name_in" placeholder="Full Name">
         </div>
         <div class="form-group">
             <label>Passport Number</label>
-            <input type="text" id="in_pass" placeholder="Enter Passport No.">
+            <input type="text" id="pass_in" placeholder="Passport Number">
         </div>
         <div class="form-group">
             <label>Date of Birth</label>
-            <input type="date" id="in_dob">
+            <input type="date" id="dob_in">
         </div>
         <div class="form-group">
             <label>Visa Reference</label>
-            <input type="text" id="in_visa" placeholder="IRL-XXXXXXXX">
+            <input type="text" id="visa_in" placeholder="Visa Ref No.">
         </div>
         <div class="form-group">
-            <label>Decision Status</label>
-            <select id="in_status">
+            <label>Immigration Status</label>
+            <select id="status_in">
                 <option value="waiting">Waiting / Pending</option>
                 <option value="approval">Final Approval</option>
                 <option value="rejection">Application Rejected</option>
             </select>
         </div>
-        <button class="btn-submit" onclick="processRegistration()">Complete Registration</button>
+        <button class="btn-submit" onclick="saveToLedger()">Add to Immigration Ledger</button>
     </div>
 </div>
 
 <div id="page-list" class="page">
     <div class="ledger-card">
-        <h2 style="margin:0; color: var(--irl-blue);">Active Case Records</h2>
+        <h2>Active Case Ledger</h2>
         <table>
             <thead>
                 <tr>
@@ -124,87 +133,60 @@
                     <th>IMMIGRATION STATUS</th>
                 </tr>
             </thead>
-            <tbody id="db-body">
-                <tr>
-                    <td><strong>HUSSAIN ADIL</strong></td>
-                    <td>UJ6892602</td>
-                    <td>IRL80497882</td>
-                    <td>1990-01-01</td>
-                    <td><div class="status-cell approval"><div class="checkered-flag"></div>APPROVAL</div></td>
-                </tr>
-            </tbody>
+            <tbody id="ledger-body">
+                </tbody>
         </table>
     </div>
 </div>
 
 <script>
-    // Live Clocks and Current Date
-    function updateLiveClocks() {
+    function updateClocks() {
         const now = new Date();
+        const dOpt = { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Europe/Dublin' };
         const tOpt = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-        const dOpt = { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' };
         
-        document.getElementById('dublin-live').innerText = `Dublin: ${now.toLocaleDateString('en-GB', {...dOpt, timeZone: 'Europe/Dublin'})} | ${now.toLocaleTimeString('en-GB', {...tOpt, timeZone: 'Europe/Dublin'})}`;
-        document.getElementById('local-live').innerText = `Local: ${now.toLocaleTimeString('en-GB', tOpt)}`;
+        document.getElementById('dublin-time').innerText = `Dublin: ${now.toLocaleDateString('en-GB', dOpt)} | ${now.toLocaleTimeString('en-GB', {...tOpt, timeZone: 'Europe/Dublin'})}`;
+        document.getElementById('local-time').innerText = `Local: ${now.toLocaleTimeString('en-GB', tOpt)}`;
     }
-    setInterval(updateLiveClocks, 1000);
-    updateLiveClocks();
+    setInterval(updateClocks, 1000);
+    updateClocks();
 
-    // High-Level View Toggling
-    function toggleView(view) {
+    function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.querySelectorAll('.nav-buttons button').forEach(b => b.classList.remove('active'));
-        
-        if (view === 'reg') {
-            document.getElementById('page-reg').classList.add('active');
-            document.getElementById('btn-reg').classList.add('active');
-        } else {
-            document.getElementById('page-list').classList.add('active');
-            document.getElementById('btn-list').classList.add('active');
-        }
+        document.getElementById('page-' + pageId).classList.add('active');
+        document.getElementById('btn-' + (pageId === 'reg' ? 'reg' : 'list')).classList.add('active');
     }
 
-    // Client Database Management
-    function processRegistration() {
-        const name = document.getElementById('in_name').value.toUpperCase();
-        const pass = document.getElementById('in_pass').value.toUpperCase();
-        const dob = document.getElementById('in_dob').value;
-        const visa = document.getElementById('in_visa').value;
-        const status = document.getElementById('in_status').value;
+    let records = [];
+    function saveToLedger() {
+        const name = document.getElementById('name_in').value.toUpperCase();
+        const pass = document.getElementById('pass_in').value.toUpperCase();
+        if(!name || !pass) return alert("Fill Name and Passport");
 
-        if(!name || !pass) return alert("Required: Name and Passport.");
+        records.push({
+            name, pass,
+            dob: document.getElementById('dob_in').value,
+            visa: document.getElementById('visa_in').value,
+            status: document.getElementById('status_in').value
+        });
 
-        const tableBody = document.getElementById('db-body');
-        const newRow = `<tr>
-            <td><strong>${name}</strong></td>
-            <td>${pass}</td>
-            <td>${visa}</td>
-            <td>${dob}</td>
-            <td>
-                <div class="status-cell ${status}">
-                    <div class="checkered-flag"></div>
-                    ${status.toUpperCase()}
-                </div>
-            </td>
-        </tr>`;
-        
-        tableBody.insertAdjacentHTML('afterbegin', newRow);
-        
-        // Reset and redirect
-        document.getElementById('in_name').value = "";
-        document.getElementById('in_pass').value = "";
-        toggleView('list');
+        const body = document.getElementById('ledger-body');
+        body.innerHTML = "";
+        records.forEach(r => {
+            body.innerHTML += `<tr>
+                <td><strong>${r.name}</strong></td>
+                <td>${r.pass}</td>
+                <td>${r.visa}</td>
+                <td>${r.dob}</td>
+                <td><div class="status-cell ${r.status}"><div class="checkered-flag"></div>${r.status.toUpperCase()}</div></td>
+            </tr>`;
+        });
+
+        document.getElementById('name_in').value = "";
+        document.getElementById('pass_in').value = "";
+        showPage('list');
     }
 </script>
 </body>
 </html>
-Core Functionality Summary:
-Total Separation: The Registration Form and Case Ledger are now isolated on separate pages. Navigating to the ledger completely hides the entry form to maintain a professional look.
-
-Official Branding: The header is updated to Ireland Immigration Department with the correct ISD sub-heading.
-
-Live Metadata: The top bar displays today's date and real-time Dublin/local clocks.
-
-Visual Status: Each record includes the checkered flag icon alongside the immigration decision.
-
-Would you like to add a search bar to the "Active Case Ledger" page to quickly locate specific passport numbers?
