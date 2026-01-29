@@ -2,64 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ireland Immigration Department</title>
+    <title>Offer Agreement Generator | Ireland</title>
     <style>
         :root { --irl-green: #169b62; --irl-orange: #ff883e; --irl-blue: #003366; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f4f7f6; overflow-x: hidden; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f4f7f6; }
 
-        /* Professional Side Ribbon */
+        /* Side Branding */
         .side-branding { position: fixed; left: 0; top: 0; bottom: 0; width: 10px; display: flex; flex-direction: column; z-index: 1000; }
         .stripe-green { background: var(--irl-green); flex: 1; }
         .stripe-white { background: #fff; flex: 1; }
         .stripe-orange { background: var(--irl-orange); flex: 1; }
 
-        /* Metadata Bar */
-        .top-nav { background: var(--irl-blue); color: white; padding: 12px 60px; display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        /* Top Bar */
+        .top-nav { background: var(--irl-blue); color: white; padding: 12px 60px; display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold; }
         
-        /* Small Professional Header & Flag */
+        /* Header & Small Flag */
         header { background: white; padding: 15px 60px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .brand-logo { display: flex; align-items: center; }
-        
-        /* Restored Small Flag Design */
-        .small-flag { display: flex; width: 35px; height: 25px; margin-right: 15px; border: 1px solid #ddd; border-radius: 2px; overflow: hidden; }
+        .small-flag { display: flex; width: 35px; height: 25px; margin-right: 15px; border: 1px solid #ddd; }
         .f-green { background: var(--irl-green); flex: 1; }
         .f-white { background: #fff; flex: 1; }
         .f-orange { background: var(--irl-orange); flex: 1; }
+        .header-title h1 { margin:0; font-size: 1.3rem; color: #000; }
 
-        .header-title h1 { margin:0; font-size: 1.3rem; color: #000; font-weight: 700; }
-        .header-title p { margin:0; font-size: 0.8rem; color: #666; font-weight: 500; }
+        /* Form Container */
+        .container { padding: 40px 10%; display: flex; gap: 30px; }
+        .input-panel { flex: 1; background: white; padding: 25px; border-radius: 8px; border: 1px solid #ddd; }
+        .preview-panel { flex: 1.5; background: white; padding: 40px; border-radius: 8px; border: 1px solid #ddd; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); min-height: 600px; font-size: 0.9rem; line-height: 1.6; }
 
-        /* Separated Page Controls */
-        .nav-buttons button { background: #f0f0f0; border: 1px solid #ddd; font-weight: bold; color: var(--irl-blue); cursor: pointer; padding: 10px 18px; margin-left: 8px; border-radius: 4px; font-size: 0.85rem; transition: 0.2s; }
-        .nav-buttons button.active { background: var(--irl-green); color: white; border-color: var(--irl-green); }
-
-        /* Container Logic */
-        .page { display: none; padding: 40px 10%; }
-        .page.active { display: block; }
-
-        /* Form Styling */
-        .form-card { background: white; padding: 30px; border-radius: 8px; max-width: 600px; margin: auto; border: 1px solid #e1e1e1; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .form-group { margin-bottom: 18px; }
-        label { display: block; font-size: 0.75rem; font-weight: bold; margin-bottom: 6px; color: #444; text-transform: uppercase; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem; }
-        .btn-submit { background: var(--irl-green); color: white; border: none; width: 100%; padding: 16px; font-weight: bold; cursor: pointer; border-radius: 4px; font-size: 1rem; margin-top: 10px; }
-
-        /* Ledger Styling */
-        .ledger-card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 14px; background: #f8f9fa; color: var(--irl-blue); border-bottom: 2px solid #eee; font-size: 0.75rem; text-transform: uppercase; }
-        td { padding: 14px; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
-
-        /* Checkered Flag Decision */
-        .status-cell { display: flex; align-items: center; font-weight: bold; font-size: 0.75rem; }
-        .checkered-flag { width: 22px; height: 14px; margin-right: 8px; border: 1px solid #333;
-            background-image: linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000), 
-                              linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000);
-            background-size: 6px 6px; background-position: 0 0, 3px 3px; }
+        label { display: block; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px; color: #444; margin-top: 15px; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn-gen { background: var(--irl-green); color: white; border: none; width: 100%; padding: 15px; font-weight: bold; cursor: pointer; border-radius: 4px; margin-top: 20px; }
         
-        .waiting { color: #b7791f; }
-        .approval { color: var(--irl-green); }
-        .rejection { color: #c53030; }
+        /* Offer Letter Styling */
+        .letter-head { text-align: center; border-bottom: 2px solid var(--irl-blue); padding-bottom: 10px; margin-bottom: 20px; }
+        .section-title { font-weight: bold; color: var(--irl-blue); border-bottom: 1px solid #eee; margin-top: 15px; }
     </style>
 </head>
 <body>
@@ -69,154 +45,95 @@
 </div>
 
 <div class="top-nav">
-    <div id="dublin-time">Dublin: Loading...</div>
-    <div id="local-time">Local: --:--:--</div>
+    <div id="dub-time">Dublin: Loading...</div>
+    <div>Employment Rights Division - WRC Standards</div>
 </div>
 
 <header>
-    <div class="brand-logo">
+    <div style="display: flex; align-items: center;">
         <div class="small-flag">
             <div class="f-green"></div><div class="f-white"></div><div class="f-orange"></div>
         </div>
         <div class="header-title">
             <h1>Ireland Immigration Department</h1>
-            <p>Immigration Service Delivery</p>
+            <p style="margin:0; font-size: 0.8rem; color: #666;">Official Offer Agreement Generator</p>
         </div>
-    </div>
-    <div class="nav-buttons">
-        <button id="btn-reg" class="active" onclick="switchTab('reg')">New Registration</button>
-        <button id="btn-list" onclick="switchTab('list')">Active Case Ledger</button>
     </div>
 </header>
 
-<div id="page-reg" class="page active">
-    <div class="form-card">
-        <h2 style="margin-top:0; border-bottom: 2px solid #f4f7f6; padding-bottom: 10px;">Client Intake Form</h2>
-        <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" id="reg_name" placeholder="Enter Full Name">
-        </div>
-        <div class="form-group">
-            <label>Passport Number</label>
-            <input type="text" id="reg_pass" placeholder="Enter Passport Number">
-        </div>
-        <div style="display: flex; gap: 15px;">
-            <div class="form-group" style="flex: 1;">
-                <label>Date of Birth</label>
-                <input type="date" id="reg_dob">
-            </div>
-            <div class="form-group" style="flex: 1;">
-                <label>Country of Origin</label>
-                <select id="reg_country">
-                    <option value="Pakistan">Pakistan</option>
-                    <option value="India">India</option>
-                </select>
-            </div>
-        </div>
-        <div style="display: flex; gap: 15px;">
-            <div class="form-group" style="flex: 1;">
-                <label>Visa Category</label>
-                <select id="reg_cat">
-                    <option value="Syria">Syria (Family/Humanitarian)</option>
-                    <option value="Employment">Employment</option>
-                    <option value="Study">Study</option>
-                </select>
-            </div>
-            <div class="form-group" style="flex: 1;">
-                <label>Visa Reference</label>
-                <input type="text" id="reg_visa" placeholder="IRL-REF-XXXX">
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Immigration Status</label>
-            <select id="reg_status">
-                <option value="waiting">Waiting / Pending</option>
-                <option value="approval">Final Approval</option>
-                <option value="rejection">Application Rejected</option>
-            </select>
-        </div>
-        <button class="btn-submit" onclick="submitToLedger()">Register Application</button>
-    </div>
-</div>
+<div class="container">
+    <div class="input-panel">
+        <h3 style="margin-top:0;">Agreement Details</h3>
+        <label>Candidate Name</label>
+        <input type="text" id="c_name" placeholder="Full Name" oninput="updateLetter()">
+        
+        <label>Employer Name</label>
+        <input type="text" id="e_name" placeholder="Restaurant/Hotel Name" oninput="updateLetter()">
+        
+        <label>Candidate Origin</label>
+        <select id="c_origin" onchange="updateLetter()">
+            <option value="Pakistan">Pakistan</option>
+            <option value="India">India</option>
+        </select>
 
-<div id="page-list" class="page">
-    <div class="ledger-card">
-        <h2 style="margin:0; padding-bottom: 15px; color: var(--irl-blue);">Active Case Records</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Passport</th>
-                    <th>Country</th>
-                    <th>Category</th>
-                    <th>Reference</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="ledger-rows">
-                </tbody>
-        </table>
+        <label>Annual Salary (€)</label>
+        <input type="number" id="salary" value="27000" oninput="updateLetter()">
+        
+        <label>Accommodation Details</label>
+        <select id="accom" onchange="updateLetter()">
+            <option value="Provided by Employer (First 3 Months)">Provided by Employer</option>
+            <option value="Monthly Housing Allowance of €500">Housing Allowance</option>
+        </select>
+
+        <button class="btn-gen" onclick="window.print()">Print Official Agreement</button>
+    </div>
+
+    <div class="preview-panel" id="letter-content">
+        <div class="letter-head">
+            <h2 style="margin:0;">EMPLOYMENT OFFER AGREEMENT</h2>
+            <small>Position: Waiter (General Employment Permit)</small>
+        </div>
+        
+        <p>This agreement is made between <strong><span id="p_ename">[Employer Name]</span></strong> and <strong><span id="p_cname">[Candidate Name]</span></strong> from <strong><span id="p_origin">Pakistan</span></strong>.</p>
+
+        <div class="section-title">1. Remuneration & Hours</div>
+        <p>The gross annual salary is <strong>€<span id="p_salary">27,000</span></strong>. Working hours are 39 hours per week, not exceeding 48 hours per Irish Law (Working Time Act 1997).</p>
+
+        <div class="section-title">2. Food & Accommodation</div>
+        <p>Meals will be provided free of charge during duty hours. Accommodation: <strong><span id="p_accom">Provided by Employer</span></strong>.</p>
+
+        <div class="section-title">3. Transport</div>
+        <p>Employer shall provide/reimburse the initial flight to Ireland. Local transport support (Leap Card) will be provided for commuting.</p>
+
+        <div class="section-title">4. Statutory Rights</div>
+        <p>The employee is entitled to 20 days paid annual leave, 10 Public Holidays, and Statutory Sick Pay as per the Sick Leave Act 2022.</p>
+        
+        <br><br>
+        <div style="display: flex; justify-content: space-between;">
+            <div>___________________<br>Employer Signature</div>
+            <div>___________________<br>Employee Signature</div>
+        </div>
     </div>
 </div>
 
 <script>
     function updateClock() {
         const now = new Date();
-        const dOpt = { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Europe/Dublin' };
-        const tOpt = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-        
-        document.getElementById('dublin-time').innerText = `Dublin: ${now.toLocaleDateString('en-GB', dOpt)} | ${now.toLocaleTimeString('en-GB', {...tOpt, timeZone: 'Europe/Dublin'})}`;
-        document.getElementById('local-time').innerText = `Local: ${now.toLocaleTimeString('en-GB', tOpt)}`;
+        const dub = now.toLocaleTimeString('en-GB', { timeZone: 'Europe/Dublin', hour12: false });
+        const date = now.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+        document.getElementById('dub-time').innerText = `Dublin: ${date} | ${dub}`;
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    function switchTab(target) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.nav-buttons button').forEach(b => b.classList.remove('active'));
-        document.getElementById('page-' + target).classList.add('active');
-        document.getElementById('btn-' + target).classList.add('active');
-    }
-
-    let database = [];
-    function submitToLedger() {
-        const name = document.getElementById('reg_name').value.toUpperCase();
-        const pass = document.getElementById('reg_pass').value.toUpperCase();
-        
-        if(!name || !pass) return alert("Required: Full Name and Passport Number.");
-
-        const record = {
-            name, pass,
-            dob: document.getElementById('reg_dob').value,
-            country: document.getElementById('reg_country').value,
-            category: document.getElementById('reg_cat').value,
-            visa: document.getElementById('reg_visa').value || 'PENDING',
-            status: document.getElementById('reg_status').value
-        };
-
-        database.push(record);
-        renderLedger();
-        
-        // Clear and switch
-        document.getElementById('reg_name').value = "";
-        document.getElementById('reg_pass').value = "";
-        switchTab('list');
-    }
-
-    function renderLedger() {
-        const body = document.getElementById('ledger-rows');
-        body.innerHTML = "";
-        database.forEach(r => {
-            body.innerHTML += `<tr>
-                <td><strong>${r.name}</strong></td>
-                <td>${r.pass}</td>
-                <td>${r.country}</td>
-                <td>${r.category}</td>
-                <td>${r.visa}</td>
-                <td><div class="status-cell ${r.status}"><div class="checkered-flag"></div>${r.status.toUpperCase()}</div></td>
-            </tr>`;
-        });
+    function updateLetter() {
+        document.getElementById('p_cname').innerText = document.getElementById('c_name').value || "[Candidate Name]";
+        document.getElementById('p_ename').innerText = document.getElementById('e_name').value || "[Employer Name]";
+        document.getElementById('p_origin').innerText = document.getElementById('c_origin').value;
+        document.getElementById('p_salary').innerText = Number(document.getElementById('salary').value).toLocaleString();
+        document.getElementById('p_accom').innerText = document.getElementById('accom').value;
     }
 </script>
+
 </body>
 </html>
