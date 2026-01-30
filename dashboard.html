@@ -2,166 +2,103 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Official Employment Agreement | Ireland 2026</title>
+    <title>Employment Offer & Agreement - Waiter</title>
     <style>
-        :root { 
-            --embassy-green: #169b62; 
-            --embassy-orange: #ff883e; 
-            --embassy-blue: #003366; 
-            --state-gold: #c5a059;
-        }
-        body { font-family: 'Georgia', serif; margin: 0; background: #f0f0f0; color: #222; }
-        
-        /* UI Control Panel */
-        .no-print { background: white; padding: 20px; border-bottom: 5px solid var(--embassy-green); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; max-width: 1300px; margin: 0 auto; }
-        .input-group { display: flex; flex-direction: column; }
-        label { font-size: 10px; font-weight: bold; color: var(--embassy-green); text-transform: uppercase; margin-bottom: 3px; }
-        input, select { padding: 8px; border: 1px solid #ddd; border-radius: 3px; font-size: 13px; }
-        .btn-print { padding: 12px 35px; background: var(--embassy-green); color: white; border: none; cursor: pointer; border-radius: 3px; font-weight: bold; margin-top: 15px; }
-
-        /* Document Styling */
-        .a4-page {
-            width: 210mm; min-height: 297mm; padding: 25mm; margin: 20px auto;
-            background: white; box-shadow: 0 0 15px rgba(0,0,0,0.1); 
-            box-sizing: border-box; line-height: 1.7; position: relative;
-            border-top: 12px solid var(--embassy-green);
-        }
-        
-        /* High-Visibility Header */
-        .embassy-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 30px; }
-        .flag-box { display: flex; width: 60px; height: 35px; border: 1px solid #ddd; margin-bottom: 8px; }
-        .f-g { background: var(--embassy-green); flex: 1; }
-        .f-w { background: #fff; flex: 1; }
-        .f-o { background: var(--embassy-orange); flex: 1; }
-        
-        .harp-logo { width: 45px; height: auto; fill: var(--state-gold); }
-        .state-titles h2 { margin: 0; font-size: 18px; color: var(--embassy-blue); text-transform: uppercase; }
-        .state-titles p { margin: 0; font-size: 12px; color: #555; font-style: italic; }
-
-        h3 { color: var(--embassy-green); border-bottom: 1px solid #f0f0f0; margin-top: 25px; font-size: 16px; }
-        .footer { position: absolute; bottom: 15mm; left: 25mm; right: 25mm; text-align: center; font-size: 9pt; color: #999; border-top: 1px solid #eee; padding-top: 5px; }
-
-        .signing-row { display: flex; justify-content: space-between; margin-top: 60px; }
-        .sig-box { width: 45%; text-align: center; border-top: 1px solid #000; padding-top: 8px; font-weight: bold; font-size: 13px; }
-
-        @media print {
-            body { background: white; }
-            .no-print { display: none; }
-            .a4-page { margin: 0; box-shadow: none; page-break-after: always; border-top-width: 20px; }
-        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.5; color: #222; margin: 50px; font-size: 14px; }
+        .page-break { page-break-after: always; }
+        .header-box { border-bottom: 3px solid #004b91; padding-bottom: 10px; margin-bottom: 20px; }
+        h1 { color: #004b91; text-transform: uppercase; font-size: 22px; margin: 0; }
+        h2 { border-left: 5px solid #004b91; padding-left: 10px; font-size: 18px; margin-top: 30px; background: #f4f4f4; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .info-pane { border: 1px solid #ccc; padding: 15px; border-radius: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        td { padding: 8px; border: 1px solid #eee; vertical-align: top; }
+        .label { font-weight: bold; width: 40%; background: #fafafa; }
+        .signature-section { margin-top: 40px; }
+        .sig-line { border-top: 1px solid #000; margin-top: 50px; width: 250px; display: inline-block; }
+        .stamp-box { border: 2px dashed #ccc; width: 150px; height: 100px; text-align: center; line-height: 100px; color: #ccc; float: right; }
     </style>
 </head>
 <body>
 
-<div class="no-print">
-    <div class="input-grid">
-        <div class="input-group"><label>Full Name</label><input type="text" id="in_name" placeholder="Client Name" oninput="sync()"></div>
-        <div class="input-group"><label>Passport</label><input type="text" id="in_pass" placeholder="Number" oninput="sync()"></div>
-        <div class="input-group"><label>DOB</label><input type="date" id="in_dob" oninput="sync()"></div>
-        <div class="input-group"><label>Country</label><select id="in_country" onchange="sync()"><option value="Pakistan">Pakistan</option><option value="India">India</option></select></div>
-        <div class="input-group"><label>Company Name</label><input type="text" id="in_comp" placeholder="Irish Co." oninput="sync()"></div>
-        <div class="input-group"><label>Address</label><input type="text" id="in_addr" placeholder="Ireland Address" oninput="sync()"></div>
-        <div class="input-group"><label>Company Phone</label><input type="text" id="in_phone" placeholder="+353..." oninput="sync()"></div>
-        <div class="input-group"><label>Company Email</label><input type="text" id="in_email" placeholder="hr@co.ie" oninput="sync()"></div>
-        <div class="input-group"><label>Role</label><select id="in_cat" onchange="sync()"><option value="General Helper">General Helper</option><option value="Computer Operator">Computer Operator</option></select></div>
+    <div class="header-box">
+        <h1>Letter of Offer</h1>
     </div>
-    <div style="text-align:center"><button class="btn-print" onclick="window.print()">GENERATE OFFICIAL CONTRACT</button></div>
-</div>
 
-<div class="a4-page">
-    <div class="embassy-header">
-        <div class="state-titles">
-            <div class="flag-box"><div class="f-g"></div><div class="f-w"></div><div class="f-o"></div></div>
-            <h2>Government of Ireland</h2>
-            <p>An Roinn Gnóthaí Eachtracha</p>
+    <div class="info-grid">
+        <div class="info-pane">
+            <strong>EMPLOYER (The Company)</strong><br>
+            [Company Name]<br>
+            [NZBN Number]<br>
+            [New Zealand Address]<br>
+            [Email/Phone]
         </div>
-        <div>
-            <svg class="harp-logo" viewBox="0 0 30 40">
-                <path d="M5,5 Q15,0 25,5 L25,35 Q15,40 5,35 Z" fill="none" stroke="currentColor" stroke-width="1"/>
-                <line x1="10" y1="8" x2="10" y2="35" stroke="currentColor"/>
-                <line x1="14" y1="6" x2="14" y2="37" stroke="currentColor"/>
-                <line x1="18" x2="18" y1="6" y2="37" stroke="currentColor"/>
-            </svg>
+        <div class="info-pane">
+            <strong>CANDIDATE (The Client)</strong><br>
+            Name: [Full Name as per Passport]<br>
+            Address: [Street Address, City, Pakistan]<br>
+            Passport No: [Passport Number]
         </div>
     </div>
 
-    <center><h1 style="color: var(--embassy-blue); text-decoration: underline;">CONTRACT OF EMPLOYMENT</h1></center>
+    <p>Date: January 30, 2026</p>
 
-    <h3>I. Employer Particulars</h3>
-    <p>
-        <strong>Registered Entity:</strong> <span id="v_comp">__________</span><br>
-        <strong>Address:</strong> <span id="v_addr">__________</span><br>
-        <strong>Contact:</strong> <span id="v_phone">__________</span> | <span id="v_email">__________</span>
-    </p>
+    <p>Dear [Candidate Name],</p>
+    <p>Following our recent discussions, we are pleased to offer you the position of <strong>Waiter</strong> at <strong>[Company Name]</strong> in New Zealand. This offer is for a fixed-term period of <strong>three (3) years</strong>.</p>
+    
+    <p>This offer is contingent upon you obtaining the necessary work visa from Immigration New Zealand. We look forward to you joining our team.</p>
 
-    <h3>II. Employee Particulars</h3>
-    <p>
-        <strong>Full Legal Name:</strong> <span id="v_name">__________</span><br>
-        <strong>Passport Number:</strong> <span id="v_pass">__________</span><br>
-        <strong>Date of Birth:</strong> <span id="v_dob">__________</span><br>
-        <strong>Nationality:</strong> <span id="v_country">Pakistan</span>
-    </p>
+    <div class="page-break"></div>
 
-    <div class="footer">Embassy of Ireland Standard | Ref: IE-2026-GEP | Page 1</div>
-</div>
-
-<div class="a4-page">
-    <h3>III. Terms of Engagement</h3>
-    <p><strong>1. Position:</strong> The Employee is hired as a <strong><span id="v_cat">General Helper</span></strong>.</p>
-    <p><strong>2. Salary:</strong> The gross annual salary is <strong>€36,605</strong>, conforming to 2026 MAR standards.</p>
-    <p><strong>3. Working Hours:</strong> A standard 39-hour work week applies as per the <em>Organisation of Working Time Act</em>.</p>
-
-    <h3>IV. Statutory Benefits</h3>
-    <p><strong>1. Annual Leave:</strong> 20 days per annum plus 10 Public Holidays.</p>
-    <p><strong>2. Sick Pay:</strong> Entitlement to 5 days of statutory sick pay per calendar year.</p>
-    <p><strong>3. Housing:</strong> The Employer will provide 6 months of accommodation following relocation from <span id="v_country2">Pakistan</span>.</p>
-
-    <div class="footer">Embassy of Ireland Standard | Ref: IE-2026-GEP | Page 2</div>
-</div>
-
-<div class="a4-page">
-    <h3>V. Authorization & Signatures</h3>
-    <p>This agreement is subject to the issuance of a valid Irish Employment Permit.</p>
-
-    <div class="signing-row">
-        <div class="sig-box">
-            Authorized for <span id="v_comp2">[Company]</span>
-            <p><small>Date: ____/____/2026</small></p>
-        </div>
-        <div class="sig-box">
-            Employee: <span id="v_name2">[Client Name]</span>
-            <p><small>As per Passport</small></p>
-        </div>
+    <div class="header-box">
+        <h1>Individual Employment Agreement</h1>
     </div>
 
-    <div style="margin-top: 80px; text-align: center;">
-        <div style="display:inline-block; border: 2px dashed #ddd; padding: 40px; color: #ddd;">
-            OFFICIAL EMBASSY SEAL / COMPANY STAMP
+    <h2>1. Position and Term</h2>
+    <table>
+        <tr><td class="label">Position</td><td>Waiter (ANZSCO 431111)</td></tr>
+        <tr><td class="label">Term Type</td><td>Fixed-Term (3 Years)</td></tr>
+        <tr><td class="label">Reason for Fixed Term</td><td>Alignment with the duration of the 3-year Accredited Employer Work Visa project.</td></tr>
+        <tr><td class="label">Commencement Date</td><td>Subject to Visa Approval (Estimated [Date])</td></tr>
+        <tr><td class="label">Expiry Date</td><td>Three years from Commencement Date</td></tr>
+    </table>
+
+    <h2>2. Remuneration and Hours</h2>
+    <table>
+        <tr><td class="label">Hourly Rate</td><td>$30.00 per hour (Compliant with NZ Median Wage)</td></tr>
+        <tr><td class="label">Guaranteed Hours</td><td>Minimum 30 hours per week (Maximum 40)</td></tr>
+        <tr><td class="label">Roster</td><td>Variable shifts including nights, weekends, and public holidays.</td></tr>
+    </table>
+
+    <h2>3. Duties and Expectations</h2>
+    <p>You will be responsible for food and beverage service, table management, and ensuring a high standard of customer experience. You must comply with all New Zealand Health and Safety at Work Act 2015 regulations.</p>
+
+    <h2>4. Leave and Benefits</h2>
+    <ul>
+        <li><strong>Annual Leave:</strong> 4 weeks per annum (Holidays Act 2003).</li>
+        <li><strong>Sick Leave:</strong> 10 days per annum after 6 months of service.</li>
+        <li><strong>Public Holidays:</strong> "Time and a half" pay plus a compensatory day off if worked.</li>
+    </ul>
+
+    <h2>5. Termination</h2>
+    <p>Either party may terminate this agreement by providing four (4) weeks' notice in writing. In cases of serious misconduct, the Employer may terminate employment without notice.</p>
+
+    <h2>6. Declaration & Signatures</h2>
+    <p>I, <strong>[Candidate Name]</strong>, confirm I have read this agreement, understand the terms (including the reason for the fixed term), and have been advised of my right to seek independent legal advice in either New Zealand or Pakistan before signing.</p>
+
+    <div class="signature-section">
+        <div style="display: inline-block; width: 45%;">
+            <div class="sig-line"></div>
+            <p>Signed for the Employer</p>
+            <p>Date: ________________</p>
         </div>
+        <div style="display: inline-block; width: 45%;">
+            <div class="sig-line"></div>
+            <p>Signed by the Employee</p>
+            <p>Date: ________________</p>
+        </div>
+        <div class="stamp-box">Company Stamp</div>
     </div>
 
-    <div class="footer">Embassy of Ireland Standard | Ref: IE-2026-GEP | Page 3</div>
-</div>
-
-<script>
-    function sync() {
-        const ids = {
-            'in_name': ['v_name', 'v_name2'],
-            'in_pass': ['v_pass'],
-            'in_dob': ['v_dob'],
-            'in_country': ['v_country', 'v_country2'],
-            'in_comp': ['v_comp', 'v_comp2'],
-            'in_addr': ['v_addr'],
-            'in_phone': ['v_phone'],
-            'in_email': ['v_email'],
-            'in_cat': ['v_cat']
-        };
-        for(let key in ids) {
-            let val = document.getElementById(key).value || "__________";
-            ids[key].forEach(span => document.getElementById(span).innerText = val);
-        }
-    }
-</script>
 </body>
 </html>
