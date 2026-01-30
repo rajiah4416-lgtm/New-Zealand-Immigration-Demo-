@@ -2,103 +2,185 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Employment Offer & Agreement - Waiter</title>
+    <title>NZ Immigration - AEWV Offer & Agreement</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.5; color: #222; margin: 50px; font-size: 14px; }
+        :root { --nz-blue: #00247d; --nz-red: #cc142b; --nz-silver: #cccccc; }
+        body { font-family: 'Helvetica', 'Arial', sans-serif; margin: 0; background: #f0f2f5; color: #222; }
+        
+        /* Interactive Input Panel */
+        .no-print { background: #fff; padding: 25px; border-bottom: 5px solid var(--nz-blue); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .panel-title { color: var(--nz-blue); margin-top: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; max-width: 1400px; margin: 0 auto; }
+        .input-group { display: flex; flex-direction: column; }
+        label { font-size: 11px; font-weight: bold; color: #555; text-transform: uppercase; margin-bottom: 4px; }
+        input, select { padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
+        .btn-download { padding: 15px 40px; background: var(--nz-blue); color: white; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; font-size: 16px; margin-top: 20px; transition: 0.3s; }
+        .btn-download:hover { background: #001a5a; }
+
+        /* A4 Page Formatting */
+        .a4-page {
+            width: 210mm; min-height: 297mm; padding: 25mm; margin: 20px auto;
+            background: white; box-shadow: 0 0 15px rgba(0,0,0,0.1); 
+            box-sizing: border-box; line-height: 1.6; position: relative;
+        }
         .page-break { page-break-after: always; }
-        .header-box { border-bottom: 3px solid #004b91; padding-bottom: 10px; margin-bottom: 20px; }
-        h1 { color: #004b91; text-transform: uppercase; font-size: 22px; margin: 0; }
-        h2 { border-left: 5px solid #004b91; padding-left: 10px; font-size: 18px; margin-top: 30px; background: #f4f4f4; }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-        .info-pane { border: 1px solid #ccc; padding: 15px; border-radius: 5px; }
+
+        /* New Zealand Official Branding */
+        .nz-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--nz-blue); padding-bottom: 15px; margin-bottom: 30px; }
+        .nz-flag { width: 80px; height: 40px; box-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
+        .nz-govt-text { text-align: right; line-height: 1.2; }
+        .nz-govt-text strong { color: var(--nz-blue); font-size: 14px; }
+        .nz-govt-text p { margin: 0; font-size: 11px; color: #666; }
+
+        h1 { color: var(--nz-blue); text-transform: uppercase; font-size: 22px; text-align: center; margin: 20px 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        h2 { border-left: 6px solid var(--nz-red); padding-left: 12px; font-size: 16px; margin-top: 25px; color: var(--nz-blue); background: #f9f9f9; padding-top: 6px; padding-bottom: 6px; }
+        
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        td { padding: 8px; border: 1px solid #eee; vertical-align: top; }
-        .label { font-weight: bold; width: 40%; background: #fafafa; }
-        .signature-section { margin-top: 40px; }
-        .sig-line { border-top: 1px solid #000; margin-top: 50px; width: 250px; display: inline-block; }
-        .stamp-box { border: 2px dashed #ccc; width: 150px; height: 100px; text-align: center; line-height: 100px; color: #ccc; float: right; }
+        td { padding: 10px; border: 1px solid #eee; vertical-align: top; font-size: 13px; }
+        .label { font-weight: bold; width: 35%; background: #fcfcfc; color: #333; }
+
+        .footer { position: absolute; bottom: 15mm; left: 25mm; right: 25mm; text-align: center; font-size: 9pt; color: #999; border-top: 1px solid #eee; padding-top: 8px; }
+        .sig-section { margin-top: 50px; display: flex; justify-content: space-between; }
+        .sig-box { border-top: 1px solid #000; width: 45%; padding-top: 10px; font-size: 12px; }
+
+        @media print {
+            body { background: white; }
+            .no-print { display: none; }
+            .a4-page { margin: 0; box-shadow: none; page-break-after: always; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="header-box">
-        <h1>Letter of Offer</h1>
+<div class="no-print">
+    <div class="panel-title">
+        <svg class="nz-flag" viewBox="0 0 1200 600">
+            <rect width="1200" height="600" fill="#00247d"/>
+            <g fill="#fff">
+                <rect width="600" height="100" y="250"/><rect width="100" height="600" x="250"/>
+            </g>
+            <path d="M0,0 L600,300 M600,0 L0,300" stroke="#fff" stroke-width="60"/>
+            <path d="M0,0 L600,300 M600,0 L0,300" stroke="#cc142b" stroke-width="40"/>
+            <g fill="#cc142b"><rect width="600" height="60" y="270"/><rect width="60" height="600" x="270"/></g>
+            <g fill="#fff" transform="translate(900, 300)">
+                <circle r="20" cy="-150"/><circle r="20" cy="150"/><circle r="20" cx="-100"/><circle r="15" cx="100" cy="50"/>
+            </g>
+        </svg>
+        NEW ZEALAND IMMIGRATION CONTRACT GENERATOR (2026)
     </div>
-
-    <div class="info-grid">
-        <div class="info-pane">
-            <strong>EMPLOYER (The Company)</strong><br>
-            [Company Name]<br>
-            [NZBN Number]<br>
-            [New Zealand Address]<br>
-            [Email/Phone]
-        </div>
-        <div class="info-pane">
-            <strong>CANDIDATE (The Client)</strong><br>
-            Name: [Full Name as per Passport]<br>
-            Address: [Street Address, City, Pakistan]<br>
-            Passport No: [Passport Number]
-        </div>
-    </div>
-
-    <p>Date: January 30, 2026</p>
-
-    <p>Dear [Candidate Name],</p>
-    <p>Following our recent discussions, we are pleased to offer you the position of <strong>Waiter</strong> at <strong>[Company Name]</strong> in New Zealand. This offer is for a fixed-term period of <strong>three (3) years</strong>.</p>
     
-    <p>This offer is contingent upon you obtaining the necessary work visa from Immigration New Zealand. We look forward to you joining our team.</p>
+    <div class="input-grid">
+        <div class="input-group"><label>Candidate Name</label><input type="text" id="in_name" placeholder="As per Passport" oninput="sync()"></div>
+        <div class="input-group"><label>Passport Number</label><input type="text" id="in_pass" oninput="sync()"></div>
+        <div class="input-group"><label>Country of Origin</label><select id="in_country" onchange="sync()"><option value="Pakistan">Pakistan</option><option value="India">India</option></select></div>
+        <div class="input-group"><label>Employer / Company</label><input type="text" id="in_comp" placeholder="NZ Registered Co." oninput="sync()"></div>
+        <div class="input-group"><label>NZBN / Registration</label><input type="text" id="in_nzbn" placeholder="NZBN Number" oninput="sync()"></div>
+        <div class="input-group"><label>NZ Work Address</label><input type="text" id="in_addr" oninput="sync()"></div>
+        <div class="input-group"><label>Contact Phone</label><input type="text" id="in_phone" oninput="sync()"></div>
+        <div class="input-group"><label>Contact Email</label><input type="text" id="in_email" oninput="sync()"></div>
+        <div class="input-group"><label>Job Title</label><select id="in_role" onchange="sync()"><option value="Waiter">Waiter (ANZSCO 431111)</option><option value="Computer Operator">Computer Operator</option></select></div>
+    </div>
+    <center><button class="btn-download" onclick="window.print()">DOWNLOAD PDF FOR IMMIGRATION</button></center>
+</div>
 
-    <div class="page-break"></div>
-
-    <div class="header-box">
-        <h1>Individual Employment Agreement</h1>
+<div class="a4-page page-break">
+    <div class="nz-header">
+        <svg class="nz-flag" viewBox="0 0 1200 600">
+            <rect width="1200" height="600" fill="#00247d"/><g fill="#fff"><rect width="600" height="100" y="250"/><rect width="100" height="600" x="250"/></g>
+            <path d="M0,0 L600,300 M600,0 L0,300" stroke="#fff" stroke-width="60"/><path d="M0,0 L600,300 M600,0 L0,300" stroke="#cc142b" stroke-width="40"/>
+            <g fill="#cc142b"><rect width="600" height="60" y="270"/><rect width="60" height="600" x="270"/></g>
+        </svg>
+        <div class="nz-govt-text">
+            <strong>Immigration New Zealand</strong>
+            <p>Accredited Employer Work Visa (AEWV)</p>
+            <p>Ref: NZ-2026-INTL</p>
+        </div>
     </div>
 
-    <h2>1. Position and Term</h2>
+    <h1>Letter of Offer</h1>
+
+    <h2>Employer Details</h2>
     <table>
-        <tr><td class="label">Position</td><td>Waiter (ANZSCO 431111)</td></tr>
-        <tr><td class="label">Term Type</td><td>Fixed-Term (3 Years)</td></tr>
-        <tr><td class="label">Reason for Fixed Term</td><td>Alignment with the duration of the 3-year Accredited Employer Work Visa project.</td></tr>
-        <tr><td class="label">Commencement Date</td><td>Subject to Visa Approval (Estimated [Date])</td></tr>
-        <tr><td class="label">Expiry Date</td><td>Three years from Commencement Date</td></tr>
+        <tr><td class="label">Company Name</td><td><span id="v_comp">__________</span></td></tr>
+        <tr><td class="label">NZBN Number</td><td><span id="v_nzbn">__________</span></td></tr>
+        <tr><td class="label">Workplace Address</td><td><span id="v_addr">__________</span></td></tr>
     </table>
 
-    <h2>2. Remuneration and Hours</h2>
+    <h2>Candidate Details</h2>
     <table>
-        <tr><td class="label">Hourly Rate</td><td>$30.00 per hour (Compliant with NZ Median Wage)</td></tr>
-        <tr><td class="label">Guaranteed Hours</td><td>Minimum 30 hours per week (Maximum 40)</td></tr>
-        <tr><td class="label">Roster</td><td>Variable shifts including nights, weekends, and public holidays.</td></tr>
+        <tr><td class="label">Full Legal Name</td><td><span id="v_name">__________</span></td></tr>
+        <tr><td class="label">Passport Number</td><td><span id="v_pass">__________</span></td></tr>
+        <tr><td class="label">Citizenship</td><td><span id="v_country">Pakistan</span></td></tr>
     </table>
 
-    <h2>3. Duties and Expectations</h2>
-    <p>You will be responsible for food and beverage service, table management, and ensuring a high standard of customer experience. You must comply with all New Zealand Health and Safety at Work Act 2015 regulations.</p>
+    <p style="margin-top: 30px;">Date: January 30, 2026</p>
+    <p>We are pleased to offer you the position of <strong><span id="v_role">Waiter</span></strong>. This offer is compliant with New Zealand's median wage requirements for 2026.</p>
 
-    <h2>4. Leave and Benefits</h2>
+    <div class="footer">New Zealand Immigration Service | Letter of Offer | Page 1</div>
+</div>
+
+<div class="a4-page page-break">
+    <h1>Individual Employment Agreement</h1>
+
+    <h2>1. Position and Remuneration</h2>
+    <table>
+        <tr><td class="label">Job Title</td><td><span id="v_role2">Waiter</span></td></tr>
+        <tr><td class="label">Hourly Rate</td><td>$31.61 per hour (2026 Median Wage Compliant)</td></tr>
+        <tr><td class="label">Guaranteed Hours</td><td>Minimum 30 hours per week</td></tr>
+    </table>
+
+    <h2>2. Terms of Employment</h2>
+    <p>This is a <strong>fixed-term agreement for 3 years</strong>, aligned with the duration of the Accredited Employer Work Visa project.</p>
+
+    <h2>3. Leave Entitlements</h2>
     <ul>
         <li><strong>Annual Leave:</strong> 4 weeks per annum (Holidays Act 2003).</li>
         <li><strong>Sick Leave:</strong> 10 days per annum after 6 months of service.</li>
-        <li><strong>Public Holidays:</strong> "Time and a half" pay plus a compensatory day off if worked.</li>
+        <li><strong>Bereavement Leave:</strong> As per NZ Employment law.</li>
     </ul>
 
-    <h2>5. Termination</h2>
-    <p>Either party may terminate this agreement by providing four (4) weeks' notice in writing. In cases of serious misconduct, the Employer may terminate employment without notice.</p>
+    <div class="footer">New Zealand Immigration Service | Employment Agreement | Page 2</div>
+</div>
 
-    <h2>6. Declaration & Signatures</h2>
-    <p>I, <strong>[Candidate Name]</strong>, confirm I have read this agreement, understand the terms (including the reason for the fixed term), and have been advised of my right to seek independent legal advice in either New Zealand or Pakistan before signing.</p>
+<div class="a4-page">
+    <h2>4. Declarations</h2>
+    <p>I, <strong><span id="v_name2">__________</span></strong>, confirm that I have been advised of my right to seek independent legal advice before signing this agreement and that I understand the terms of the fixed-term nature of this role.</p>
 
-    <div class="signature-section">
-        <div style="display: inline-block; width: 45%;">
-            <div class="sig-line"></div>
-            <p>Signed for the Employer</p>
-            <p>Date: ________________</p>
+    <div class="sig-section">
+        <div class="sig-box">
+            Signed for <span id="v_comp2">[Employer]</span>
+            <p style="margin-top: 40px;"><small>Authorized Signature & Date</small></p>
         </div>
-        <div style="display: inline-block; width: 45%;">
-            <div class="sig-line"></div>
-            <p>Signed by the Employee</p>
-            <p>Date: ________________</p>
+        <div class="sig-box">
+            Signed by <span id="v_name3">[Candidate]</span>
+            <p style="margin-top: 40px;"><small>Employee Signature & Date</small></p>
         </div>
-        <div class="stamp-box">Company Stamp</div>
     </div>
 
+    <div style="margin-top: 100px; border: 2px dashed #ccc; padding: 40px; text-align: center; color: #ccc;">
+        PLACE COMPANY STAMP HERE
+    </div>
+
+    <div class="footer">New Zealand Immigration Service | Final Execution | Page 3</div>
+</div>
+
+<script>
+    function sync() {
+        const fields = {
+            'in_name': ['v_name', 'v_name2', 'v_name3'],
+            'in_pass': ['v_pass'],
+            'in_country': ['v_country'],
+            'in_comp': ['v_comp', 'v_comp2'],
+            'in_nzbn': ['v_nzbn'],
+            'in_addr': ['v_addr'],
+            'in_role': ['v_role', 'v_role2']
+        };
+        for(let key in fields) {
+            let val = document.getElementById(key).value || "__________";
+            fields[key].forEach(id => document.getElementById(id).innerText = val);
+        }
+    }
+</script>
+
 </body>
-</html>
+            </html>
