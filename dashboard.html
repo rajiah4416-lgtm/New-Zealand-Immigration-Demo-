@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NZ Immigration & HR Compliance Suite</title>
+    <title>NZ Immigration & HR Compliance Suite - 2026</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root { --nz-blue: #00247d; --nz-black: #000000; --nz-silver: #e1e1e1; }
         body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #34495e; margin: 0; display: flex; }
         
         /* Control Panel */
-        .sidebar { width: 380px; background: #1a1a1a; color: white; padding: 25px; height: 100vh; overflow-y: auto; box-sizing: border-box; position: fixed; border-right: 4px solid var(--nz-blue); }
-        .sidebar h2 { font-size: 14px; color: #27ae60; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .sidebar { width: 380px; background: #1a1a1a; color: white; padding: 25px; height: 100vh; overflow-y: auto; box-sizing: border-box; position: fixed; border-right: 4px solid var(--nz-blue); z-index: 1000; }
+        .sidebar h2 { font-size: 14px; color: #27ae60; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 20px; }
         label { display: block; margin-top: 12px; font-size: 10px; text-transform: uppercase; color: #999; font-weight: bold; }
         input, select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: none; background: #2b2b2b; color: white; font-size: 13px; }
         button { width: 100%; padding: 15px; margin-top: 25px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; text-transform: uppercase; background: var(--nz-blue); color: white; }
@@ -21,12 +22,17 @@
         /* Branding */
         .nz-flag-strip { height: 8px; background: linear-gradient(90deg, #00247d 0%, #cc142d 100%); margin-bottom: 20px; }
         .inz-logo-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; }
-        .inz-logo-box img { height: 60px; }
+        .inz-logo-box img { height: 60px; border: 1px solid #eee; }
+
+        /* QR Code Styling */
+        .qr-section { position: absolute; top: 120px; right: 20mm; text-align: center; }
+        #qrcode { padding: 5px; background: white; border: 1px solid #eee; }
+        .qr-label { font-size: 9px; font-weight: bold; margin-top: 5px; color: #555; }
 
         /* Tables & Content */
         .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
         .data-table td { padding: 10px; border: 1px solid #eee; }
-        .label-cell { background: #f8f9fa; font-weight: bold; width: 30%; }
+        .label-cell { background: #f8f9fa; font-weight: bold; width: 35%; }
         
         .hr-signature-box { margin-top: 50px; border: 1px solid #ddd; padding: 20px; background: #fdfdfd; border-left: 5px solid var(--nz-blue); }
         .status-stamp { border: 3px solid #27ae60; color: #27ae60; padding: 8px; display: inline-block; font-weight: bold; transform: rotate(-5deg); margin-bottom: 20px; text-transform: uppercase; }
@@ -37,7 +43,11 @@
 <body>
 
 <div class="sidebar">
-    <h2>1. Port of Entry Details</h2>
+    <h2>1. NZ Official Reference</h2>
+    <label>NZ Reference Number</label>
+    <input type="text" id="inRef" placeholder="NZ-RES-2026-887" oninput="sync()">
+    
+    <h2>2. Port of Entry</h2>
     <label>Arrival Airport</label>
     <select id="inAirport" oninput="sync()">
         <option value="Auckland International Airport (AKL)">Auckland (AKL)</option>
@@ -47,13 +57,13 @@
     <label>Arrival Date & Time</label>
     <input type="datetime-local" id="inArrivalTime" oninput="sync()">
 
-    <h2>2. HR Reviewer Details</h2>
+    <h2>3. HR Reviewer</h2>
     <label>HR Manager Name</label>
     <input type="text" id="inHRName" placeholder="Sarah Jenkins" oninput="sync()">
     <label>HR Phone Number</label>
     <input type="text" id="inHRPhone" placeholder="+64 9 XXX XXXX" oninput="sync()">
 
-    <h2>3. Client & Company</h2>
+    <h2>4. Client Information</h2>
     <label>Client Full Name</label>
     <input type="text" id="inClName" placeholder="Full Name" oninput="sync()">
     <label>Passport Number</label>
@@ -75,74 +85,81 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" alt="NZ Flag">
         </div>
 
+        <div class="qr-section">
+            <div id="qrcode"></div>
+            <div class="qr-label">NZ OFFICIAL SCAN<br><span class="outRef">REF-ID</span></div>
+        </div>
+
         <div class="status-stamp">Verified Entry</div>
 
-        <h3>VISA GRANT & ENTRY NOTIFICATION</h3>
-        <p>This document confirms that the holder has been granted entry into New Zealand under the specified visa class. Records have been updated in the Ministry of Business, Innovation and Employment (MBIE) database.</p>
+        <h3>VISA GRANT & PORT OF ENTRY RECORD</h3>
+        <p>This document serves as an official record of entry. The QR code above contains the encrypted reference details for verification by authorized agencies and employers.</p>
 
         <table class="data-table">
+            <tr><td class="label-cell">NZ Reference Number</td><td class="outRef" style="font-weight:bold; color:var(--nz-blue);">__________</td></tr>
             <tr><td class="label-cell">Client Name</td><td class="outClName">__________</td></tr>
             <tr><td class="label-cell">Passport No</td><td class="outClPass">__________</td></tr>
-            <tr><td class="label-cell">Visa Type</td><td>Resident Visa (Skilled Migrant Category)</td></tr>
             <tr><td class="label-cell">Port of Entry</td><td class="outAirport">__________</td></tr>
             <tr><td class="label-cell">Arrival Timestamp</td><td class="outArrival">__________</td></tr>
         </table>
 
-        <p style="font-size: 12px; color: #555;"><strong>Note:</strong> The Arrival Timestamp must match the electronic record logged by the Customs officer at the primary inspection line. This document serves as proof of legal entry for HR verification and IRD (Tax) registration purposes.</p>
-
-        
+        <div style="margin-top: 30px; border: 1px solid #eee; padding: 15px; font-size: 11px; line-height: 1.4;">
+            <strong>Officer Notes:</strong> Primary inspection completed. Biometrics matched against NZ Electronic Travel Authority (NZeTA) / Visa database. Entry authorized under the Immigration Act 2009.
+        </div>
 
         <div style="position: absolute; bottom: 20mm; left: 20mm; right: 20mm; font-size: 10px; border-top: 1px solid #eee; padding-top: 10px;">
-            NZBN: 9429000000000 | New Zealand Government | imms.govt.nz
+            NZ Government | Ministry of Business, Innovation and Employment | Case ID: <span class="outRef">REF</span>
         </div>
     </div>
 
     <div class="a4-page">
         <div class="letter-head">
             <h1 class="outCoName" style="margin-bottom:5px;">COMPANY NAME</h1>
-            <p style="font-size: 12px; color: #666;">New Zealand Accredited Employer Operations</p>
+            <p style="font-size: 12px; color: #666;">NZ Accredited Employer | Compliance Division</p>
         </div>
         
         <p style="text-align: right;"><strong>Date:</strong> 01 Feb 2026</p>
 
         <div class="letter-content">
-            <p><strong>TO: NEW ZEALAND IMMIGRATION REVIEW BOARD</strong></p>
-            <p><strong>SUBJECT: HR VERIFICATION OF RESIDENT ARRIVAL</strong></p>
+            <p><strong>TO: IMMIGRATION NEW ZEALAND REVIEW UNIT</strong></p>
+            <p><strong>SUBJECT: INTERNAL HR REVIEW OF RESIDENT ARRIVAL</strong></p>
             
-            <p>This letter serves to confirm that <strong><span class="outClName">Client Name</span></strong> has successfully arrived in New Zealand and has reported to our corporate headquarters following their entry at <span class="outAirport">Airport</span>.</p>
+            <p>Following the arrival of <strong><span class="outClName">Client Name</span></strong> (Ref: <span class="outRef">REF</span>), the Human Resources department of <span class="outCoName">Company</span> has conducted a formal document review.</p>
             
-            <p>Our Human Resources department has reviewed the original passport and the entry notification provided by the Ministry. We confirm that the client is prepared to commence their permanent role as per the employment agreement.</p>
+            <p>The details captured at <span class="outAirport">Airport</span> have been cross-verified with the employment contract on file. We confirm the client has met all initial reporting requirements.</p>
             
             <div class="hr-signature-box">
-                <h4 style="margin-top:0; color:var(--nz-blue);">HR COMPLIANCE REVIEW</h4>
+                <h4 style="margin-top:0; color:var(--nz-blue);">HR MANAGER AUTHORIZATION</h4>
                 <table style="width:100%; font-size:13px; border:none;">
                     <tr>
                         <td style="border:none; width:50%;">
-                            <strong>Reviewing HR Officer:</strong><br>
+                            <strong>Verifying HR Officer:</strong><br>
                             <span class="outHRName">Pending Name</span>
                         </td>
                         <td style="border:none;">
-                            <strong>Contact Number:</strong><br>
+                            <strong>Direct Contact:</strong><br>
                             <span class="outHRPhone">Pending Phone</span>
                         </td>
                     </tr>
                 </table>
                 <br>
-                <div style="border-top: 1px solid #333; width: 200px; margin-top: 20px; padding-top: 5px; font-size: 11px;">
-                    SIGNATURE OF HR MANAGER
+                <div style="border-top: 1.5px solid #333; width: 220px; margin-top: 20px; padding-top: 5px; font-size: 11px;">
+                    HR OFFICIAL STAMP & SIGNATURE
                 </div>
             </div>
-        </div>
-
-        <div style="margin-top: 50px; text-align: center;">
-            <p style="font-size: 11px; color: #999;">Auckland | Wellington | Christchurch | Hamilton</p>
         </div>
     </div>
 </div>
 
 <script>
+    let qrcode = new QRCode(document.getElementById("qrcode"), {
+        width: 100,
+        height: 100
+    });
+
     function sync() {
         const val = {
+            outRef: document.getElementById('inRef').value || 'NZ-REF-PENDING',
             outClName: document.getElementById('inClName').value || 'John Citizen',
             outClPass: document.getElementById('inClPass').value || 'L1234567',
             outCoName: document.getElementById('inCoName').value || 'NZ BUSINESS LTD',
@@ -152,10 +169,18 @@
             outHRPhone: document.getElementById('inHRPhone').value || 'Phone Not Set'
         };
 
+        // Update Text
         for (const [key, value] of Object.entries(val)) {
             document.querySelectorAll('.' + key).forEach(el => el.innerText = value);
         }
+
+        // Update QR Code with the Ref Number and Client Details
+        const qrData = `NZ-IMMIGRATION\nREF: ${val.outRef}\nNAME: ${val.outClName}\nPASS: ${val.outClPass}\nENTRY: ${val.outAirport}`;
+        qrcode.makeCode(qrData);
     }
+
+    // Set default arrival time to now
+    document.getElementById('inArrivalTime').value = new Date().toISOString().slice(0, 16);
     sync();
 </script>
 </body>
