@@ -2,109 +2,140 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Visa Verification Service | Immigration New Zealand</title>
+    <title>RealMe - Login</title>
     <style>
         :root {
+            --realme-red: #d52b1e;
+            --realme-orange: #f45b06;
             --inz-blue: #006272;
-            --nz-black: #000000;
-            --sidebar-blue: #e6f1f3;
+            --govt-black: #000000;
         }
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fff; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background: #fff; }
 
-        /* OFFICIAL GOVT HEADER */
-        .header-top { background: var(--nz-black); color: white; padding: 12px 8%; display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid #f45b06; }
-        .logo-section { display: flex; align-items: center; gap: 12px; }
+        /* --- GLOBAL GOVT HEADER (Flag Fixed) --- */
+        .govt-bar { background: var(--govt-black); color: white; padding: 10px 10%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; }
+        .nz-identity { display: flex; align-items: center; gap: 15px; }
         
-        /* THE NZ FLAG */
-        .nz-flag { width: 30px; height: 15px; background: #00247d; position: relative; border: 1px solid #fff; }
-        .nz-flag::before { content: ""; position: absolute; width: 100%; height: 100%; background: linear-gradient(90deg, transparent 45%, #fff 45%, #fff 55%, transparent 55%), linear-gradient(0deg, transparent 45%, #fff 45%, #fff 55%, transparent 55%); }
-        
-        .fern-img { height: 35px; filter: brightness(0) invert(1); }
-        .govt-label { font-weight: bold; font-size: 1rem; letter-spacing: 1px; }
+        /* CSS New Zealand Flag */
+        .nz-flag { width: 34px; height: 17px; background: #00247d; border: 1px solid #fff; position: relative; }
+        .nz-flag::after { content: "★"; color: #fff; font-size: 5px; position: absolute; right: 2px; top: 2px; }
 
-        /* PORTAL STYLING */
-        .inz-branding { background: var(--inz-blue); padding: 20px 8%; color: white; display: flex; align-items: center; gap: 15px; }
-        .breadcrumb { background: #f4f4f4; padding: 10px 8%; font-size: 0.8rem; border-bottom: 1px solid #ccc; }
+        .nz-identity img { height: 35px; filter: brightness(0) invert(1); }
+        .nz-identity span { font-weight: bold; letter-spacing: 1px; font-size: 0.9rem; }
 
-        .layout { display: flex; min-height: 80vh; padding: 0 8%; }
-        .sidebar { width: 250px; background: var(--sidebar-blue); border-right: 1px solid #bcd2d6; }
-        .nav-item { padding: 12px 20px; color: #005a69; border-bottom: 1px solid #d1e2e5; cursor: pointer; font-size: 0.9rem; }
-        .nav-item.active { background: white; font-weight: bold; border-left: 5px solid var(--inz-blue); }
+        /* --- LOGIN PAGE STYLING --- */
+        .login-wrapper { max-width: 1100px; margin: 60px auto; padding: 0 40px; display: flex; gap: 80px; }
+        .login-left, .login-right { flex: 1; }
+        
+        .back-link { color: #666; font-size: 0.9rem; text-decoration: none; display: flex; align-items: center; gap: 8px; margin-bottom: 40px; }
+        
+        .main-logo { font-size: 3.8rem; font-weight: bold; color: var(--realme-orange); margin: 0; letter-spacing: -2px; }
+        .main-logo span { color: var(--govt-black); }
+        .main-logo sup { font-size: 1.2rem; top: -1.5rem; }
+        
+        h2 { font-size: 2.2rem; font-weight: 300; margin: 20px 0; color: #333; }
+        h2 b { color: var(--realme-red); font-weight: 700; }
 
-        .form-content { flex: 1; padding: 40px; }
-        h1 { color: #005a69; font-size: 1.7rem; border-bottom: 2px solid #005a69; padding-bottom: 10px; margin-top: 0; }
+        .form-group { margin-bottom: 20px; }
+        .input-box { width: 100%; padding: 18px; background: #f2f2f2; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
         
-        .visa-table { width: 100%; border-spacing: 0 15px; }
-        .visa-table label { font-weight: bold; font-size: 0.9rem; color: #444; }
-        .visa-table input, .visa-table select { width: 320px; padding: 8px; border: 1px solid #888; }
-        
-        .upload-section { margin-top: 30px; padding: 20px; border: 2px dashed var(--inz-blue); background: #f9f9f9; width: fit-content; }
-        .btn-check { background: var(--inz-blue); color: white; border: none; padding: 12px 30px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        .btn-pill { padding: 14px 40px; border-radius: 50px; font-weight: bold; font-size: 1.1rem; border: none; cursor: pointer; display: flex; align-items: center; gap: 10px; color: white; transition: 0.3s; }
+        .btn-login { background: var(--realme-red); }
+        .btn-create { background: var(--realme-red); border: 2px solid var(--realme-red); }
+        .r-icon { background: white; color: var(--realme-red); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-style: normal; }
+
+        .forgot-links { color: var(--realme-red); font-weight: bold; text-decoration: none; font-size: 0.9rem; margin-top: 20px; display: block; }
+
+        /* --- FOOTER --- */
+        .realme-footer { background: var(--realme-red); color: white; padding: 40px 10%; margin-top: 100px; }
+        .footer-links { display: flex; gap: 30px; margin-bottom: 30px; font-weight: bold; font-size: 0.9rem; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.3); padding-top: 20px; font-size: 0.85rem; }
+
+        /* --- DASHBOARD (Hidden initially) --- */
+        #dashboard { display: none; }
     </style>
 </head>
 <body>
 
-<div class="header-top">
-    <div class="logo-section">
-        <div class="nz-flag"></div>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" class="fern-img">
-        <span class="govt-label">NEW ZEALAND GOVERNMENT</span>
+<div id="login-screen">
+    <div class="govt-bar">
+        <div class="nz-identity">
+            <div class="nz-flag"></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" alt="Fern">
+            <span>NEW ZEALAND GOVERNMENT</span>
+        </div>
+        <div style="font-size: 0.8rem;">English | Māori | 中文</div>
+    </div>
+
+    <div class="login-wrapper">
+        <div class="login-left">
+            <a href="#" class="back-link">← Go back to Immigration New Zealand</a>
+            <h1 class="main-logo">Real<span>Me</span><sup>®</sup></h1>
+            <p style="color:var(--realme-red); font-weight:bold; margin-top:-5px;">Tēnei Au</p>
+            
+            <h2>Log in with <b>RealMe</b></h2>
+            <p>You've been redirected here so you can log in with RealMe</p>
+
+            <div class="form-group">
+                <input type="text" class="input-box" placeholder="Username" id="userIn">
+            </div>
+            <div class="form-group">
+                <input type="password" class="input-box" placeholder="Password">
+            </div>
+
+            <button class="btn-pill btn-login" onclick="showProcessor()">
+                <i class="r-icon">r</i> Log in
+            </button>
+            <a href="#" class="forgot-links">Forgot Username or Forgot Password?</a>
+        </div>
+
+        <div class="login-right">
+            <h2 style="margin-top: 105px;">Create a <b>RealMe</b> login</h2>
+            <p>To access this service you need a RealMe login.</p>
+            <p style="font-size: 0.9rem; color: #555; line-height: 1.6;">You'll be able to access a range of services with a single username and password. RealMe is designed to protect your privacy and security.</p>
+            
+            <button class="btn-pill btn-create" style="margin-top: 30px;">
+                <span style="border: 2px solid white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 1rem;">→</span> 
+                Create a RealMe login
+            </button>
+        </div>
+    </div>
+
+    <footer class="realme-footer">
+        <div class="footer-links">
+            <span>Help & contact us</span>
+            <span>Terms of use</span>
+            <span>Privacy</span>
+            <span>About this site</span>
+        </div>
+        <div class="footer-bottom">
+            © New Zealand Government.
+        </div>
+    </footer>
+</div>
+
+<div id="processor" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.9); z-index:2000; text-align:center; padding-top:200px;">
+    <h1 style="color:var(--inz-blue);">Visa Officer Processing...</h1>
+    <p>Generating Application ID: VV02119875</p>
+    <p>Uploading eVisa PDF Document...</p>
+    <div style="width: 200px; height: 10px; background: #eee; margin: 20px auto; border-radius: 5px; overflow: hidden;">
+        <div id="bar" style="width: 0%; height: 100%; background: var(--inz-blue); transition: 2s;"></div>
     </div>
 </div>
 
-<div class="inz-branding">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" height="45" style="filter: brightness(0) invert(1);">
-    <span style="font-size: 1.8rem; font-weight: bold;">IMMIGRATION NEW ZEALAND</span>
-</div>
-
-<div class="breadcrumb">Home > VisaView > Visa Verification Enquiry</div>
-
-<div class="layout">
-    <nav class="sidebar">
-        <div style="padding: 15px 20px; font-weight: bold; color: #005a69;">VisaView</div>
-        <div class="nav-item">Register Organisation</div>
-        <div class="nav-item active">Verify Visa Record</div>
-        <div class="nav-item">My Account</div>
-    </nav>
-
-    <main class="form-content">
-        <h1>Visa Verification Enquiry</h1>
-        <p style="font-size: 0.85rem; color: #555;">Enter the details exactly as they appear in the visa holder's current passport.</p>
-
-        <form id="visaForm">
-            <table class="visa-table">
-                <tr><td><label>Family Name *</label></td><td><input type="text" id="vName" required></td></tr>
-                <tr><td><label>Passport Number *</label></td><td><input type="text" id="vPass" required></td></tr>
-                <tr><td><label>Date of Birth *</label></td><td><input type="text" placeholder="dd/mm/yyyy" required></td></tr>
-                <tr><td><label>Visa Start Date *</label></td><td><input type="text" placeholder="dd/mm/yyyy" required></td></tr>
-            </table>
-
-            <div class="upload-section">
-                <label style="display:block; margin-bottom:10px; font-weight:bold;">Upload Visa PDF (for Processor):</label>
-                <input type="file" id="vFile" accept=".pdf">
-            </div>
-
-            <div style="margin: 20px 0; font-size: 0.85rem;">
-                <input type="checkbox" required> The visa holder has consented to this check.
-            </div>
-
-            <button type="submit" class="btn-check">Check Visa</button>
-        </form>
-    </main>
-</div>
-
 <script>
-    document.getElementById('visaForm').onsubmit = function(e) {
-        e.preventDefault();
-        const name = document.getElementById('vName').value;
-        const file = document.getElementById('vFile').files[0];
+    function showProcessor() {
+        const user = document.getElementById('userIn').value;
+        if(!user) { alert("Please enter username"); return; }
         
-        if (file) {
-            alert("PROCESSING: Visa record for " + name + " and the PDF document have been sent to the Processor.");
-        } else {
-            alert("Please upload the Visa PDF to continue.");
-        }
-    };
+        document.getElementById('processor').style.display = 'block';
+        setTimeout(() => { document.getElementById('bar').style.width = '100%'; }, 100);
+        
+        setTimeout(() => {
+            alert("SUCCESS: Visa for " + user + " has been issued by the processor.");
+            window.location.reload(); // Returns to login for demo safety
+        }, 2500);
+    }
 </script>
 
 </body>
