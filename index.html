@@ -6,167 +6,162 @@
     <title>RealMe - Login | Immigration New Zealand</title>
     <style>
         :root {
-            --realme-orange: #e1521d;
-            --inz-blue: #00a9ce;
-            --sidebar-blue: #e8f4f7;
-            --text-grey: #555;
+            --realme-orange: #f45b06;
+            --inz-blue: #006272;
+            --nz-black: #000000;
+            --light-blue-bg: #e6f1f3;
         }
-        body { font-family: 'Open Sans', Arial, sans-serif; margin: 0; padding: 0; background: #fff; color: #333; }
-        
-        /* PAGE 1: REALME LOGIN STYLING */
-        #realmeContainer { max-width: 480px; margin: 0 auto; padding: 20px; text-align: left; }
-        .header-black { background: #000; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .back-link { padding: 15px 20px; font-size: 0.9rem; color: #666; display: flex; align-items: center; }
-        .realme-logo-text { font-size: 2.8rem; font-weight: bold; margin: 20px 0; }
-        .orange-text { color: var(--realme-orange); }
-        .input-pill { width: 100%; padding: 18px; margin: 10px 0; border: 1px solid #ccc; border-radius: 12px; font-size: 1rem; box-sizing: border-box; background: #f9f9f9; }
-        .realme-submit { background: var(--realme-orange); color: white; border: none; padding: 16px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .realme-submit i { background: white; color: var(--realme-orange); border-radius: 50%; width: 24px; height: 24px; display: inline-block; text-align: center; font-style: normal; line-height: 24px; font-size: 0.9rem; }
-        .footer-orange { background: var(--realme-orange); color: white; padding: 30px 20px; margin-top: 40px; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fff; }
 
-        /* PAGE 2: INZ VISAVIEW STYLING */
-        .inz-top-nav { background: var(--inz-blue); padding: 12px 5%; display: flex; align-items: center; border-top: 4px solid #000; }
-        .breadcrumb { background: #f2f2f2; padding: 8px 5%; font-size: 11px; color: #666; border-bottom: 1px solid #ddd; }
-        .visa-container { display: flex; min-height: 80vh; }
-        .visa-sidebar { width: 230px; background: var(--sidebar-blue); padding: 20px; border-right: 1px solid #cce4e9; }
-        .visa-sidebar h3 { color: #007ba1; font-size: 14px; margin-top: 0; }
-        .visa-sidebar ul { list-style: none; padding: 0; margin: 0; }
-        .visa-sidebar li { font-size: 12px; color: #007ba1; padding: 8px 0; border-bottom: 1px solid #d4ebf0; cursor: pointer; }
-        .visa-sidebar li.active { color: #333; font-weight: bold; }
-        .visa-content { flex: 1; padding: 30px 40px; }
-        .visa-content h1 { color: #007ba1; font-size: 1.6rem; font-weight: normal; margin-top: 0; }
+        /* HEADER WITH FLAG & FERN */
+        .govt-header { background: var(--nz-black); color: white; padding: 12px 10%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--realme-orange); }
+        .logo-group { display: flex; align-items: center; gap: 15px; }
+        .silver-fern { height: 35px; filter: brightness(0) invert(1); }
+        .nz-flag-icon { width: 25px; height: 15px; background: #00247d; position: relative; border: 1px solid #555; } /* Simplified Flag Graphic */
         
-        /* FORM TABLE */
-        .visa-table { width: 100%; border-spacing: 0 10px; }
-        .visa-table td:first-child { width: 220px; font-size: 0.85rem; }
-        .visa-table input, .visa-table select { padding: 4px; border: 1px solid #aaa; width: 280px; }
-        .required-star { color: #d00; font-weight: bold; }
-        .btn-check-visa { background: #007ba1; color: white; border: 1px solid #005f7a; padding: 6px 15px; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
+        /* REALME LOGIN PAGE */
+        .login-container { max-width: 420px; margin: 50px auto; padding: 0 20px; }
+        .realme-logo { color: var(--realme-orange); font-size: 2.8rem; font-weight: bold; margin-bottom: 5px; }
+        .realme-logo span { color: var(--nz-black); }
+        .sub-text { color: #444; margin-bottom: 30px; font-size: 1.1rem; }
         
-        /* ADMIN PANEL */
-        #adminUpload { position: fixed; bottom: 20px; right: 20px; background: #fff; border: 2px solid var(--realme-orange); padding: 15px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 300px; display: none; }
+        .radio-group { margin-bottom: 25px; }
+        .radio-group label { display: block; margin-bottom: 12px; cursor: pointer; font-size: 1rem; }
+
+        .input-field { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #666; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
+        .input-field.pass { background: #f2f2f2; border: 1px solid #ccc; }
+
+        .btn-realme { background: var(--realme-orange); color: white; border: none; padding: 16px; width: 100%; border-radius: 30px; font-weight: bold; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-realme .r-circle { background: white; color: var(--realme-orange); border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 0.9rem; }
+
+        /* VISA VERIFICATION PAGE (INZ STYLE) */
+        .inz-banner { background: var(--inz-blue); padding: 15px 10%; color: white; display: flex; align-items: center; gap: 20px; }
+        .breadcrumb { background: #f3f3f3; padding: 8px 10%; font-size: 0.75rem; color: #555; border-bottom: 1px solid #ddd; }
+        .main-content { display: flex; min-height: 80vh; padding: 0 10%; }
+        .inz-sidebar { width: 240px; background: var(--light-blue-bg); border-right: 1px solid #bed2d6; padding: 20px 0; }
+        .inz-sidebar ul { list-style: none; padding: 0; }
+        .inz-sidebar li { padding: 10px 20px; color: #005a69; border-bottom: 1px solid #d1e2e5; font-size: 0.85rem; cursor: pointer; }
+        .inz-sidebar li.active { background: white; font-weight: bold; color: #333; border-left: 4px solid var(--inz-blue); }
+
+        .form-area { flex: 1; padding: 30px 40px; }
+        .form-area h1 { color: #005a69; font-size: 1.6rem; border-bottom: 2px solid #005a69; padding-bottom: 10px; }
+        
+        table.visa-form { width: 100%; margin-top: 20px; border-spacing: 0 12px; }
+        table.visa-form td:first-child { width: 200px; font-size: 0.9rem; font-weight: bold; }
+        table.visa-form input, table.visa-form select { width: 300px; padding: 6px; border: 1px solid #888; }
+        
+        /* ADMIN TOOLS */
+        #adminTools { position: fixed; bottom: 0; right: 0; background: #333; color: white; padding: 10px; font-size: 0.7rem; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div id="realmeWrapper">
-    <div class="header-black">
-        <span style="color:white; font-weight:bold;">RealMe <span style="font-weight:normal; font-size:0.8rem;">Tēnei Au</span></span>
-        <span style="color:white; font-size:0.9rem;">NEW ZEALAND <span style="font-weight:normal">IMMIGRATION</span></span>
+<div id="realmePage">
+    <div class="govt-header">
+        <div class="logo-group">
+            <div class="nz-flag-icon"></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" class="silver-fern" alt="Silver Fern">
+            <span style="font-size: 1.1rem; font-weight: bold; letter-spacing: 1px;">NEW ZEALAND GOVERNMENT</span>
+        </div>
     </div>
-    <div class="back-link">← Go back to the Ministry of Business, Innovation and Employment</div>
     
-    <div id="realmeContainer">
-        <div class="realme-logo-text">Log in with <span class="orange-text">RealMe</span></div>
-        <p style="margin-bottom:25px;">To access this service you need a RealMe login.</p>
-        
-        <label style="display:block; margin-bottom:10px;"><input type="radio" name="acc" checked> I have an existing RealMe login</label>
-        <label style="display:block; margin-bottom:25px;"><input type="radio" name="acc"> I need to create a login</label>
+    <div class="login-container">
+        <div class="realme-logo">Real<span>Me</span><sup>®</sup></div>
+        <div class="sub-text">Log in with RealMe</div>
+        <p style="font-size: 0.9rem; margin-bottom: 20px;">To access this service you need a RealMe login.</p>
 
-        <input type="text" class="input-pill" placeholder="Username" id="userIn">
-        <input type="password" class="input-pill" placeholder="Password" id="passIn" style="background:#eeeeee;">
-        
-        <button class="realme-submit" onclick="login()"><i>r</i> Log in</button>
-        
-        <p style="text-align:center; margin-top:30px; font-weight:bold;" class="orange-text">Forgot Username or Forgot Password?</p>
-    </div>
+        <div class="radio-group">
+            <label><input type="radio" name="acc" checked> I have an existing RealMe login</label>
+            <label><input type="radio" name="acc"> I need to create a login</label>
+        </div>
 
-    <div class="footer-orange">
-        <p>Help & contact us</p>
-        <p>Terms of use</p>
-        <p>Privacy</p>
-        <p>About this site</p>
-        <hr style="border:0; border-top:1px solid rgba(255,255,255,0.3); margin:20px 0;">
-        <p>© New Zealand Government.</p>
+        <input type="text" class="input-field" placeholder="Username">
+        <input type="password" class="input-field pass" placeholder="Password">
+
+        <button class="btn-realme" onclick="goToVisa()">
+            <span class="r-circle">r</span> Log in
+        </button>
+        
+        <p style="text-align: center; margin-top: 25px; color: var(--realme-orange); font-weight: bold; font-size: 0.9rem; cursor: pointer;">Forgot Username or Forgot Password?</p>
     </div>
 </div>
 
-<div id="visaViewWrapper" style="display:none;">
-    <div class="inz-top-nav">
-        <img src="https://www.immigration.govt.nz/assets/logos/logo-immigration-nz-white.svg" height="45" alt="Immigration NZ">
+<div id="inzPage" style="display:none;">
+    <div class="inz-banner">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" height="40" style="filter: brightness(0) invert(1);">
+        <span style="font-size: 1.5rem; font-weight: bold; letter-spacing: 1px;">IMMIGRATION NEW ZEALAND</span>
     </div>
-    <div class="breadcrumb">🏠 Home > VisaView > Visa Verification Enquiry</div>
+    <div class="breadcrumb">Home > VisaView > Visa Verification Enquiry</div>
 
-    <div class="visa-container">
-        <nav class="visa-sidebar">
-            <h3>VisaView</h3>
+    <div class="main-content">
+        <nav class="inz-sidebar">
+            <div style="padding: 10px 20px; font-weight: bold; color: #005a69;">VisaView</div>
             <ul>
-                <li>▶ Register Organisation</li>
-                <li class="active">▶ Verify Visa Record</li>
-                <li>▶ My Visa Verification Service Account</li>
+                <li>Register Organisation</li>
+                <li class="active">Verify Visa Record</li>
+                <li>My Visa Verification Service Account</li>
             </ul>
-            <button onclick="toggleAdmin()" style="margin-top:50px; border:none; background:none; color:var(--realme-orange); cursor:pointer;">[Staff: Upload Client]</button>
         </nav>
 
-        <main class="visa-content">
+        <section class="form-area">
             <h1>Visa Verification Enquiry</h1>
-            <p style="font-size:0.8rem; margin-bottom:20px;">Enter the details of the visa to be verified.<br>Please enter these details exactly as they appear in the visa holder's current passport.</p>
+            <p style="font-size: 0.85rem; color: #555;">Enter the details exactly as they appear in the visa holder's current passport.</p>
             
-            <form id="visaForm">
-                <table class="visa-table">
-                    <tr><td>Family Name <span class="required-star">*</span></td><td><input type="text" id="vFamily" required></td></tr>
-                    <tr><td>Passport Nationality <span class="required-star">*</span></td><td><select id="vNat"><option>Select...</option><option>China</option><option>India</option><option>Philippines</option></select></td></tr>
-                    <tr><td>Passport Number <span class="required-star">*</span></td><td><input type="text" id="vPass" required></td></tr>
-                    <tr><td>Date of Birth <span class="required-star">*</span> (dd/mm/yy)</td><td><input type="text" id="vDob" required></td></tr>
-                    <tr><td>Gender <span class="required-star">*</span></td><td><select><option>Select</option><option>Male</option><option>Female</option></select></td></tr>
-                    <tr><td>Visa Start Date <span class="required-star">*</span> (dd/mm/yy)</td><td><input type="text" id="vStart" required></td></tr>
+            <form id="visaInquiry">
+                <table class="visa-form">
+                    <tr><td>Family Name *</td><td><input type="text" id="vFamily" required></td></tr>
+                    <tr><td>Passport Nationality *</td><td><select id="vNat"><option>Select Nationality...</option><option>China</option><option>India</option><option>United Kingdom</option></select></td></tr>
+                    <tr><td>Passport Number *</td><td><input type="text" id="vPass" required></td></tr>
+                    <tr><td>Date of Birth *</td><td><input type="text" placeholder="dd/mm/yyyy" required></td></tr>
+                    <tr><td>Gender *</td><td><select><option>Select</option><option>Male</option><option>Female</option></select></td></tr>
+                    <tr><td>Visa Start Date *</td><td><input type="text" placeholder="dd/mm/yyyy" required></td></tr>
                 </table>
-                <div style="margin: 20px 0;">
-                    <input type="checkbox" required id="cons"> <span style="font-size:0.8rem;">The visa holder has consented to this check.</span>
+                <div style="margin: 25px 0;">
+                    <input type="checkbox" required> <span style="font-size: 0.85rem;">The visa holder has consented to this check.</span>
                 </div>
-                <button type="submit" class="btn-check-visa">Check Visa</button>
+                <button type="submit" style="background: var(--inz-blue); color: white; border: 1px solid #004d5a; padding: 10px 25px; font-weight: bold; cursor: pointer;">Check Visa</button>
             </form>
-        </main>
+        </section>
     </div>
 </div>
 
-<div id="adminUpload">
-    <h4 style="margin-top:0;">Client Management</h4>
-    <label style="font-size:0.7rem;">Client Full Name</label>
-    <input type="text" id="dbName" style="width:100%; margin-bottom:10px;">
-    <label style="font-size:0.7rem;">Passport Number</label>
-    <input type="text" id="dbPass" style="width:100%; margin-bottom:10px;">
-    <label style="font-size:0.7rem;">Upload Official PDF</label>
-    <input type="file" style="margin-bottom:15px;">
-    <button onclick="saveToDB()" style="width:100%; background:black; color:white; padding:5px; cursor:pointer;">Save Client to Portal</button>
+<div id="adminTools" onclick="document.getElementById('uploadUI').style.display='block'">Staff: Client Upload</div>
+<div id="uploadUI" style="display:none; position:fixed; top:20%; left:30%; background:white; border:5px solid var(--inz-blue); padding:30px; z-index:100; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+    <h3>Upload Client Visa (PDF)</h3>
+    <input type="text" id="cName" placeholder="Client Full Name" style="width:100%; margin-bottom:10px;"><br>
+    <input type="text" id="cPass" placeholder="Passport Number" style="width:100%; margin-bottom:10px;"><br>
+    <input type="file" id="cFile" style="margin-bottom:20px;"><br>
+    <button onclick="saveClient()" style="background:black; color:white; padding:10px; width:100%;">Save to Regional Database</button>
+    <button onclick="this.parentElement.style.display='none'" style="margin-top:10px; border:none; background:none; cursor:pointer; color:red;">Cancel</button>
 </div>
 
 <script>
-    // Logic to switch pages
-    function login() {
-        document.getElementById('realmeWrapper').style.display = 'none';
-        document.getElementById('visaViewWrapper').style.display = 'block';
+    function goToVisa() {
+        document.getElementById('realmePage').style.display = 'none';
+        document.getElementById('inzPage').style.display = 'block';
     }
 
-    function toggleAdmin() {
-        var x = document.getElementById('adminUpload');
-        x.style.display = (x.style.display === 'block') ? 'none' : 'block';
-    }
-
-    // Temporary data store
-    const database = [];
-
-    function saveToDB() {
-        const name = document.getElementById('dbName').value;
-        const pass = document.getElementById('dbPass').value;
+    const localDB = [];
+    function saveClient() {
+        const name = document.getElementById('cName').value;
+        const pass = document.getElementById('cPass').value;
         if(name && pass) {
-            database.push({name: name, passport: pass});
-            alert("Client " + name + " saved to Regional Website Database.");
-            toggleAdmin();
+            localDB.push({name, pass});
+            alert("SUCCESS: Client " + name + " and Visa PDF have been uploaded.");
+            document.getElementById('uploadUI').style.display = 'none';
         }
     }
 
-    document.getElementById('visaForm').onsubmit = function(e) {
+    document.getElementById('visaInquiry').onsubmit = function(e) {
         e.preventDefault();
-        const searchPass = document.getElementById('vPass').value;
-        const found = database.find(c => c.passport === searchPass);
-        
+        const search = document.getElementById('vPass').value;
+        const found = localDB.find(c => c.pass === search);
         if(found) {
-            alert("RECORD FOUND: Visa is CURRENT. Authorized for study and work. PDF copy available for download.");
+            alert("MATCH FOUND: Visa for " + found.name + " is CURRENT. You may download the PDF.");
         } else {
-            alert("NO MATCH: The details provided do not match our records.");
+            alert("ERROR: No matching record found. Please verify details.");
         }
-    }
+    };
 </script>
 
 </body>
