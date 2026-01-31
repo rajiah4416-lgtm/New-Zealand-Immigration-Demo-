@@ -1,71 +1,152 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NZ Document Upload | HR Portal</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .upload-area {
-            border: 2px dashed var(--nz-blue);
-            padding: 40px;
-            text-align: center;
-            border-radius: 10px;
-            background: #f9f9f9;
-            margin-bottom: 20px;
-            cursor: pointer;
-        }
-        .upload-area:hover { background: #f0f7ff; }
-        .file-list { margin-top: 20px; text-align: left; }
-        .file-item { 
-            background: #fff; border: 1px solid #ddd; 
-            padding: 10px; margin-bottom: 5px; border-radius: 4px;
-            display: flex; justify-content: space-between;
-        }
-        .status-tag { color: green; font-weight: bold; font-size: 0.8rem; }
-    </style>
-</head>
-<body>
+/**
+ * scripts.js
+ * Logic for New Zealand Visa Verification Portal
+ * Handles Login, Navigation, Client Storage, and PDF Display
+ */
 
-<div class="container">
-    <h2>Step 2: Document Verification</h2>
-    <div class="info-box">
-        <strong>Mandatory for 3-Year Permit:</strong> Please upload the candidate's Passport copy and the AEWV Job Check approval. This ensures the <strong>one-way ticket</strong> and <strong>accommodation</strong> clauses match the visa requirements.
-    </div>
+// Global State
+let clientList = [];
 
-    <div class="section">
-        <h3>Required Documentation</h3>
-        <p>Accepted formats: PDF, JPG, PNG (Max 5MB)</p>
-        
-        <div class="upload-area" id="dropZone" onclick="document.getElementById('fileInput').click()">
-            <p>Drag & Drop files here or <strong>Click to Browse</strong></p>
-            <input type="file" id="fileInput" style="display:none" multiple onchange="handleFiles(this.files)">
-        </div>
+/**
+ * LOGIN LOGIC
+ * Replicates the transition from the RealMe mobile authentication screen
+ */
+function handleLogin() {
+    const user = document.getElementById('user').value;
+    const pass = document.getElementById('pass').value;
 
-        <div id="fileList" class="file-list">
-            </div>
-    </div>
-
-    <div class="grid">
-        <button class="btn" style="background: #666;" onclick="window.location.href='index.html'">Back</button>
-        <button class="btn" onclick="window.location.href='dashboard.html'">Continue to Generator &rarr;</button>
-    </div>
-</div>
-
-<script>
-    function handleFiles(files) {
-        const list = document.getElementById('fileList');
-        for (let i = 0; i < files.length; i++) {
-            const item = document.createElement('div');
-            item.className = 'file-item';
-            item.innerHTML = `
-                <span>📄 ${files[i].name}</span>
-                <span class="status-tag">Ready to Process ✓</span>
-            `;
-            list.appendChild(item);
-        }
+    if (user.length > 0 && pass.length > 0) {
+        // Hide RealMe Login Section
+        document.getElementById('loginSection').classList.add('hidden');
+        // Show VisaView Enquiry Section
+        document.getElementById('visaViewSection').classList.remove('hidden');
+        window.scrollTo(0, 0);
+    } else {
+        alert("Please enter a valid RealMe Username and Password.");
     }
-</script>
+}
 
-</body>
-</html
+/**
+ * NAVIGATION LOGIC
+ * Switches between the Enquiry Form and the Client Management Dashboard
+ */
+function showSection(sectionId) {
+    const sections = ['loginSection', 'visaViewSection', 'dashboardSection', 'resultSection'];
+    sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+    });
+    
+    document.getElementById(sectionId).classList.remove('hidden');
+    
+    if (sectionId === 'dashboardSection') {
+        updateClientTable();
+    }
+}
+
+/**
+ * SAVING CLIENT INFO
+ * Captures data from the VisaView form and stores it in the management list
+ */
+function processVisaEnquiry() {
+    const consent = document.getElementById('v_con').checked;
+    
+    if (!consent) {
+        alert("The visa holder must consent to this check.");
+        return;
+    }
+
+    const clientData = {
+        id: Date.now(),
+        familyName: document.getElementById('v_name').value.toUpperCase(),
+        nationality: document.getElementById('v_nat').value,
+        passport: document.getElementById('v_num').value.toUpperCase(),
+        dob: document.getElementById('v_dob').value,
+        gender: document.getElementById('v_gen').value,
+        expiryDate: "12 DEC 2026", // Default for demo
+        status: "VALID / ACTIVE"
+    };
+
+    // Save to local list
+    clientList.push(clientData);
+    
+    // Auto-navigate to Dashboard to show the result
+    showSection('dashboardSection');
+}
+
+/**
+ * CLIENT MANAGEMENT TABLE
+ * Dynamically updates the dashboard with saved client information
+ */
+function updateClientTable() {
+    const tableBody = document.getElementById('clientTable');
+    if (!tableBody) return;
+
+    tableBody.innerHTML = '';
+
+    clientList.forEach(client => {
+        const row = `
+            <tr class="border-b hover:bg-orange-50 transition">
+                <td class="p-4 font-bold text-gray-800">${client.familyName}</td>
+                <td class="p-4">${client.passport}</td>
+                <td class="p-4">
+                    <span class="text-green-600 font-black italic">${client.status}</span>
+                </td>
+                <td class="p-4">
+                    <button onclick="viewCertificate(${client.id})" class="bg-[#00a0d2] text-white px-3 py-1 rounded text-xs font-bold">
+                        VIEW PDF
+                    </button>
+                </td>
+            </tr>
+        `;
+        tableBody.insertAdjacentHTML('beforeend', row);
+    });
+}
+
+/**
+ * SHOWING UPLOADED / GENERATED PDF
+ * Prepares the result screen with the specific client details
+ */
+function viewCertificate(clientId) {
+    const client = clientList.find(c => c.id === clientId);
+    if (!client) return;
+
+    // Populate result section
+    document.getElementById('res_name').innerText = client.familyName;
+    document.getElementById('res_passport').innerText = client.passport;
+    document.getElementById('res_status').innerText = client.status;
+    
+    showSection('resultSection');
+}
+
+/**
+ * PDF GENERATION
+ * Creates an official-style PDF document for the client
+ */
+function downloadOfficialPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const name = document.getElementById('res_name').innerText;
+    const passport = document.getElementById('res_passport').innerText;
+
+    // Header Blue Bar
+    doc.setFillColor(0, 160, 210); // VisaView Blue
+    doc.rect(0, 0, 210, 30, 'F');
+    
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(18);
+    doc.text("IMMIGRATION NEW ZEALAND", 105, 20, { align: "center" });
+
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(12);
+    doc.text("VISA VERIFICATION RECORD", 20, 50);
+    doc.line(20, 52, 190, 52);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`NAME: ${name}`, 20, 70);
+    doc.text(`PASSPORT NO: ${passport}`, 20, 85);
+    doc.text(`STATUS: VALID / ACTIVE`, 20, 100);
+    doc.text(`EXPIRY DATE: 12 DECEMBER 2026`, 20, 115);
+
+    doc.save(`NZ_Visa_Record_${name}.pdf`);
+}
