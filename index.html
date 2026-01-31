@@ -1,47 +1,84 @@
-<div style="font-family: Arial, sans-serif; margin-top: 50px;">
-    <h2 style="color: #333; font-size: 1.5rem; margin-bottom: 5px;">Issued visas</h2>
-    <p style="font-size: 0.85rem; color: #555; margin-bottom: 20px;">
-        Dates displayed for multiple entry visas may not be up to date. Select Download eVisa to view visa travel conditions. Use the Options dropdown to share your visa or to view and apply for a variation of conditions.
-    </p>
-
-    <div style="border: 1px solid #dcdcdc; border-top: 4px solid #006272;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Immigration Online - My Visas</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fff; }
+        .header { background-color: #000; color: #fff; padding: 15px 5%; display: flex; align-items: center; justify-content: space-between; }
+        .nav-tabs { background-color: #f3f3f3; display: flex; padding: 0 5%; border-bottom: 1px solid #ccc; }
+        .tab { padding: 15px 20px; font-size: 0.9rem; cursor: pointer; color: #333; }
+        .tab.active { font-weight: bold; border-bottom: 4px solid #006272; }
         
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background-color: #f9f9f9; border-bottom: 1px solid #dcdcdc;">
-            <div style="color: #006272; font-weight: bold; font-size: 0.9rem; display: flex; align-items: center; cursor: pointer;">
-                <span style="font-size: 1.2rem; margin-right: 8px;">▦</span> All Visas <span style="margin-left: 5px; font-size: 0.7rem;">▼</span>
-            </div>
-            <div style="display: flex; gap: 0;">
-                <input type="text" placeholder="Search" style="padding: 6px 12px; border: 1px solid #ccc; width: 180px; font-size: 0.85rem;">
-                <button style="background: #eee; border: 1px solid #ccc; border-left: none; padding: 6px 10px; cursor: pointer;">🔍</button>
+        .main-content { padding: 30px 5%; }
+        h2 { color: #333; font-size: 1.5rem; margin-bottom: 5px; }
+        .sub-text { font-size: 0.85rem; color: #555; margin-bottom: 20px; }
+
+        /* Issued Visas Table Styling */
+        .table-container { border: 1px solid #dcdcdc; border-top: 4px solid #006272; margin-top: 20px; }
+        .filter-bar { background-color: #f9f9f9; padding: 10px 15px; display: flex; justify-content: space-between; border-bottom: 1px solid #dcdcdc; }
+        .all-visas-btn { color: #006272; font-weight: bold; display: flex; align-items: center; font-size: 0.9rem; }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 12px; font-size: 0.85rem; background: #fff; border-bottom: 1px solid #dcdcdc; border-right: 1px solid #eee; }
+        td { padding: 15px 12px; font-size: 0.85rem; border-bottom: 1px solid #eee; border-right: 1px solid #eee; }
+        .download-link { color: #006272; text-decoration: underline; font-weight: 500; cursor: pointer; }
+        .options-select { padding: 4px; border: 1px solid #ccc; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div style="display:flex; align-items:center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" height="30" style="filter:invert(1); margin-right:10px;">
+        <span style="font-weight:bold; letter-spacing:1px;">NEW ZEALAND IMMIGRATION</span>
+    </div>
+    <div style="font-size: 0.8rem;">LOG OUT</div>
+</div>
+
+<div class="nav-tabs">
+    <div class="tab">My dashboard</div>
+    <div class="tab active">My visas</div>
+    <div class="tab">Employ migrants</div>
+    <div class="tab">My sponsorships</div>
+</div>
+
+<div class="main-content">
+    <h2>Issued visas</h2>
+    <p class="sub-text">Dates displayed for multiple entry visas may not be up to date. Select Download eVisa to view visa travel conditions. Use the Options dropdown to share your visa or to view and apply for a variation of conditions.</p>
+
+    <div class="table-container">
+        <div class="filter-bar">
+            <div class="all-visas-btn">▦ All Visas ▼</div>
+            <div>
+                <input type="text" placeholder="Search" style="padding:5px; border:1px solid #ccc;">
+                <button style="padding:5px; background:#eee; border:1px solid #ccc; border-left:none;">🔍</button>
             </div>
         </div>
 
-        <table style="width: 100%; border-collapse: collapse; background: white;">
+        <table>
             <thead>
-                <tr style="border-bottom: 1px solid #dcdcdc; text-align: left; background-color: #ffffff;">
-                    <th style="padding: 15px; font-size: 0.85rem; color: #333; border-right: 1px solid #eee;">Visa holder</th>
-                    <th style="padding: 15px; font-size: 0.85rem; color: #333; border-right: 1px solid #eee;">Application ID</th>
-                    <th style="padding: 15px; font-size: 0.85rem; color: #333; border-right: 1px solid #eee;">Visa category</th>
-                    <th style="padding: 15px; font-size: 0.85rem; color: #333; border-right: 1px solid #eee;">Issue date</th>
-                    <th style="padding: 15px; font-size: 0.85rem; color: #333; border-right: 1px solid #eee;">Entry type</th>
-                    <th style="padding: 15px; font-size: 0.85rem; color: #333; border-right: 1px solid #eee;">Download visa</th>
-                    <th style="padding: 15px; font-size: 0.85rem; color: #333;">Options</th>
+                <tr>
+                    <th>Visa holder</th>
+                    <th>Application ID</th>
+                    <th>Visa category</th>
+                    <th>Issue date</th>
+                    <th>Entry type</th>
+                    <th>Download visa</th>
+                    <th>Options</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 15px; font-size: 0.85rem; font-weight: bold;">John Doe</td>
-                    <td style="padding: 15px; font-size: 0.85rem;">VV02119875</td>
-                    <td style="padding: 15px; font-size: 0.85rem;">Visitor Visa - General</td>
-                    <td style="padding: 15px; font-size: 0.85rem;">01 Feb 2026</td>
-                    <td style="padding: 15px; font-size: 0.85rem;">Multiple</td>
-                    <td style="padding: 15px; font-size: 0.85rem; text-align: center;">
-                        <a href="#" style="color: #006272; text-decoration: underline; font-weight: 500;">Download eVisa</a>
-                    </td>
-                    <td style="padding: 15px; font-size: 0.85rem;">
-                        <select style="padding: 4px 8px; font-size: 0.8rem; border: 1px solid #ccc; background: white;">
+            <tbody id="visa-entries">
+                <tr>
+                    <td style="font-weight:bold;">John Doe</td>
+                    <td>VV02119875</td>
+                    <td>Visitor Visa - General</td>
+                    <td>01 Feb 2026</td>
+                    <td>Multiple</td>
+                    <td style="text-align:center;"><span class="download-link">Download eVisa</span></td>
+                    <td>
+                        <select class="options-select">
                             <option>Select</option>
-                            <option>View variation</option>
                             <option>Share visa</option>
                         </select>
                     </td>
@@ -50,3 +87,6 @@
         </table>
     </div>
 </div>
+
+</body>
+</html>
