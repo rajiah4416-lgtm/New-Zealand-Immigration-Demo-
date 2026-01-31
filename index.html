@@ -1,195 +1,196 @@
-mport React, { useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Upload, Loader2, FileText, X } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa Verification Service | Immigration New Zealand</title>
+    <style>
+        :root {
+            --nz-black: #000000;
+            --realme-orange: #f45b06;
+            --inz-blue: #006272;
+            --sidebar-bg: #e6f1f3;
+            --border-color: #dcdcdc;
+        }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #ffffff; color: #333; }
 
-export default function DocumentUpload({ employeeId, open, onClose, onSuccess }) {
-  const [isUploading, setIsUploading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [formData, setFormData] = useState({
-    document_type: '',
-    document_name: '',
-    expiry_date: '',
-    issue_date: '',
-    document_number: '',
-    notes: ''
-  });
+        /* --- OFFICIAL NZ GOVT HEADER --- */
+        .govt-top-bar { background: var(--nz-black); color: white; padding: 10px 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--realme-orange); }
+        .nz-identity { display: flex; align-items: center; gap: 12px; }
+        .nz-flag { width: 30px; height: 15px; background: #00247d; border: 1px solid #fff; position: relative; } /* CSS Flag Placeholder */
+        .fern-icon { height: 30px; filter: brightness(0) invert(1); }
+        .govt-text { font-weight: bold; font-size: 1rem; letter-spacing: 1px; }
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-      if (!formData.document_name) {
-        setFormData(prev => ({ ...prev, document_name: file.name }));
-      }
-    }
-  };
-
-  const handleChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!selectedFile || !formData.document_type) return;
-
-    setIsUploading(true);
-    
-    const { file_url } = await base44.integrations.Core.UploadFile({ file: selectedFile });
-    
-    await base44.entities.VisaDocument.create({
-      employee_id: employeeId,
-      file_url,
-      ...formData
-    });
-
-    setIsUploading(false);
-    setSelectedFile(null);
-    setFormData({
-      document_type: '',
-      document_name: '',
-      expiry_date: '',
-      issue_date: '',
-      document_number: '',
-      notes: ''
-    });
-    onSuccess();
-    onClose();
-  };
-
-  const resetAndClose = () => {
-    setSelectedFile(null);
-    setFormData({
-      document_type: '',
-      document_name: '',
-      expiry_date: '',
-      issue_date: '',
-      document_number: '',
-      notes: ''
-    });
-    onClose();
-  };
-
-  return (
-    <Dialog open={open} onOpenChange={resetAndClose}>
-      <DialogContent className="max-w-lg">
-        <DialogHeader>
-          <DialogTitle>Upload Visa Document</DialogTitle>
-        </DialogHeader>
+        /* --- REALME LOGIN SECTION --- */
+        #realmeContainer { max-width: 440px; margin: 60px auto; padding: 0 20px; }
+        .realme-brand { font-size: 3rem; font-weight: bold; color: var(--realme-orange); margin-bottom: 5px; }
+        .realme-brand span { color: var(--nz-black); }
+        .realme-title { font-size: 1.5rem; margin-bottom: 30px; }
         
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label>Document File *</Label>
-            {!selectedFile ? (
-              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors">
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <Upload className="w-8 h-8 mb-2 text-gray-400" />
-                  <p className="text-sm text-gray-500">Click to upload document</p>
-                  <p className="text-xs text-gray-400">PDF files only, up to 10MB</p>
+        .login-card { background: white; }
+        .input-pill { width: 100%; padding: 16px; margin-bottom: 12px; border: 1px solid #767676; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
+        .input-pill.password { background: #f2f2f2; border: 1px solid #ccc; }
+        
+        .btn-realme { background: var(--realme-orange); color: white; border: none; padding: 18px; width: 100%; border-radius: 35px; font-weight: bold; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; transition: 0.2s; }
+        .btn-realme:hover { background: #d44d05; }
+        .r-logo { background: white; color: var(--realme-orange); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 0.9rem; }
+
+        /* --- VISA VIEW PORTAL SECTION --- */
+        #inzPortal { display: none; }
+        .inz-header { background: var(--inz-blue); color: white; padding: 20px 8%; display: flex; align-items: center; gap: 15px; }
+        .breadcrumb { background: #f4f4f4; padding: 10px 8%; font-size: 0.8rem; color: #666; border-bottom: 1px solid var(--border-color); }
+        
+        .portal-layout { display: flex; min-height: 80vh; padding: 0 8%; }
+        .sidebar { width: 250px; background: var(--sidebar-bg); border-right: 1px solid #bcd2d6; padding-top: 20px; }
+        .sidebar-item { padding: 12px 20px; font-size: 0.9rem; color: #005a69; border-bottom: 1px solid #d1e2e5; cursor: pointer; }
+        .sidebar-item.active { background: white; font-weight: bold; border-left: 5px solid var(--inz-blue); color: #333; }
+
+        .content-body { flex: 1; padding: 40px; }
+        .content-body h1 { color: #005a69; font-size: 1.8rem; border-bottom: 2px solid #005a69; padding-bottom: 10px; margin-top: 0; }
+        
+        .visa-form-grid { width: 100%; border-spacing: 0 15px; }
+        .visa-form-grid label { font-size: 0.9rem; font-weight: bold; color: #444; }
+        .visa-form-grid input, .visa-form-grid select { width: 100%; max-width: 350px; padding: 8px; border: 1px solid #888; border-radius: 2px; }
+        .required { color: #d00; margin-left: 3px; }
+
+        .btn-check-visa { background: var(--inz-blue); color: white; border: 1px solid #004d5a; padding: 10px 30px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
+
+        /* --- STAFF UPLOAD OVERLAY --- */
+        #staffPanel { position: fixed; bottom: 20px; right: 20px; background: #333; color: white; padding: 15px; border-radius: 8px; cursor: pointer; z-index: 1000; }
+        #uploadModal { display: none; position: fixed; top: 15%; left: 30%; width: 40%; background: white; border: 4px solid var(--inz-blue); padding: 30px; z-index: 1001; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body>
+
+<div class="govt-top-bar">
+    <div class="nz-identity">
+        <div class="nz-flag"></div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" class="fern-icon" alt="Fern">
+        <span class="govt-text">NEW ZEALAND GOVERNMENT</span>
+    </div>
+    <div style="font-size: 0.8rem;">English | 中文</div>
+</div>
+
+<div id="realmePage">
+    <div id="realmeContainer">
+        <div class="realme-brand">Real<span>Me</span><sup>®</sup></div>
+        <div class="realme-title">Log in with RealMe</div>
+        <p style="font-size: 0.95rem; margin-bottom: 25px;">To access this service you need a RealMe login.</p>
+
+        <div style="margin-bottom: 25px;">
+            <label style="display:block; margin-bottom:12px;"><input type="radio" name="acc" checked> I have an existing RealMe login</label>
+            <label style="display:block;"><input type="radio" name="acc"> I need to create a login</label>
+        </div>
+
+        <input type="text" class="input-pill" placeholder="Username">
+        <input type="password" class="input-pill password" placeholder="Password">
+
+        <button class="btn-realme" onclick="handleLogin()">
+            <span class="r-logo">r</span> Log in
+        </button>
+
+        <p style="text-align: center; color: var(--realme-orange); font-weight: bold; margin-top: 30px; font-size: 0.9rem; cursor: pointer;">Forgot Username or Forgot Password?</p>
+    </div>
+</div>
+
+<div id="inzPortal">
+    <div class="inz-header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" height="40" style="filter: brightness(0) invert(1);">
+        <span style="font-size: 1.6rem; font-weight: bold; letter-spacing: 1px;">IMMIGRATION NEW ZEALAND</span>
+    </div>
+    <div class="breadcrumb">Home > VisaView > Visa Verification Enquiry</div>
+
+    <div class="portal-layout">
+        <nav class="sidebar">
+            <div style="padding: 10px 20px; font-weight: bold; color: #005a69; font-size: 1.1rem;">VisaView</div>
+            <div class="sidebar-item">Register Organisation</div>
+            <div class="sidebar-item active">Verify Visa Record</div>
+            <div class="sidebar-item">My Visa Verification Service Account</div>
+        </nav>
+
+        <main class="content-body">
+            <h1>Visa Verification Enquiry</h1>
+            <p style="font-size: 0.85rem; color: #555; margin-bottom: 25px;">Enter the details of the visa to be verified exactly as they appear in the visa holder's current passport.</p>
+
+            <form id="verificationForm">
+                <table class="visa-form-grid">
+                    <tr><td><label>Family Name<span class="required">*</span></label></td><td><input type="text" id="vFamily" required></td></tr>
+                    <tr><td><label>Passport Nationality<span class="required">*</span></label></td><td>
+                        <select id="vNat">
+                            <option value="">Select Nationality...</option>
+                            <option>China</option>
+                            <option>India</option>
+                            <option>Philippines</option>
+                        </select>
+                    </td></tr>
+                    <tr><td><label>Passport Number<span class="required">*</span></label></td><td><input type="text" id="vPass" required></td></tr>
+                    <tr><td><label>Date of Birth<span class="required">*</span> (dd/mm/yyyy)</label></td><td><input type="text" placeholder="dd/mm/yyyy" required></td></tr>
+                    <tr><td><label>Gender<span class="required">*</span></label></td><td><select><option>Select</option><option>Male</option><option>Female</option></select></td></tr>
+                    <tr><td><label>Visa Start Date<span class="required">*</span> (dd/mm/yyyy)</label></td><td><input type="text" placeholder="dd/mm/yyyy" required></td></tr>
+                </table>
+
+                <div style="margin: 25px 0;">
+                    <input type="checkbox" required> <span style="font-size: 0.85rem;">The visa holder has consented to this check.</span>
                 </div>
-                <input 
-                  type="file" 
-                  className="hidden" 
-                  accept=".pdf,application/pdf"
-                  onChange={handleFileChange}
-                />
-              </label>
-            ) : (
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <div className="flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-blue-600" />
-                  <span className="text-sm truncate max-w-[200px]">{selectedFile.name}</span>
-                </div>
-                <Button 
-                  type="button" 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={() => setSelectedFile(null)}
-                >
-                  <X className="w-4 h-4" />
-                </Button>
-              </div>
-            )}
-          </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="document_type">Document Type *</Label>
-            <Select value={formData.document_type} onValueChange={(v) => handleChange('document_type', v)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="visa">Visa</SelectItem>
-                <SelectItem value="work_permit">Work Permit</SelectItem>
-                <SelectItem value="passport">Passport</SelectItem>
-                <SelectItem value="residence_permit">Residence Permit</SelectItem>
-                <SelectItem value="other">Other</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+                <button type="submit" class="btn-check-visa">Check Visa</button>
+            </form>
+        </main>
+    </div>
+</div>
 
-          <div className="space-y-2">
-            <Label htmlFor="document_name">Document Name</Label>
-            <Input
-              value={formData.document_name}
-              onChange={(e) => handleChange('document_name', e.target.value)}
-              placeholder="e.g., Work Visa 2024"
-            />
-          </div>
+<div id="staffPanel" onclick="document.getElementById('uploadModal').style.display='block'">
+    🛡️ Staff: Upload Client Visa
+</div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="issue_date">Issue Date</Label>
-              <Input
-                type="date"
-                value={formData.issue_date}
-                onChange={(e) => handleChange('issue_date', e.target.value)}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="expiry_date">Expiry Date</Label>
-              <Input
-                type="date"
-                value={formData.expiry_date}
-                onChange={(e) => handleChange('expiry_date', e.target.value)}
-              />
-            </div>
-          </div>
+<div id="uploadModal">
+    <h2 style="color:var(--inz-blue); margin-top:0;">Staff: Secure Client Upload</h2>
+    <label>Full Name</label><br>
+    <input type="text" id="dbName" style="width:100%; padding:10px; margin-bottom:15px;"><br>
+    <label>Passport Number</label><br>
+    <input type="text" id="dbPass" style="width:100%; padding:10px; margin-bottom:15px;"><br>
+    <label>Visa PDF Document</label><br>
+    <input type="file" id="dbFile" style="margin-bottom:20px;"><br>
+    
+    <button onclick="saveToLocalDB()" style="background:var(--inz-blue); color:white; border:none; padding:12px; width:100%; cursor:pointer;">Upload to Portal</button>
+    <button onclick="document.getElementById('uploadModal').style.display='none'" style="background:none; border:none; color:red; cursor:pointer; width:100%; margin-top:10px;">Close</button>
+</div>
 
-          <div className="space-y-2">
-            <Label htmlFor="document_number">Document/Reference Number</Label>
-            <Input
-              value={formData.document_number}
-              onChange={(e) => handleChange('document_number', e.target.value)}
-            />
-          </div>
+<script>
+    // Navigation
+    function handleLogin() {
+        document.getElementById('realmePage').style.display = 'none';
+        document.getElementById('inzPortal').style.display = 'block';
+    }
 
-          <div className="space-y-2">
-            <Label htmlFor="notes">Notes</Label>
-            <Textarea
-              value={formData.notes}
-              onChange={(e) => handleChange('notes', e.target.value)}
-              placeholder="Additional notes about this document"
-              rows={2}
-            />
-          </div>
+    // Local Storage Data (Simulating a database)
+    const clientDatabase = [];
 
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={resetAndClose}>
-              Cancel
-            </Button>
-            <Button type="submit" disabled={isUploading || !selectedFile || !formData.document_type}>
-              {isUploading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              Upload Document
-            </Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
-  );
-}
+    function saveToLocalDB() {
+        const name = document.getElementById('dbName').value;
+        const pass = document.getElementById('dbPass').value;
+        if(name && pass) {
+            clientDatabase.push({ name, pass });
+            alert("SUCCESS: Client " + name + " and Visa Document saved to Regional System.");
+            document.getElementById('uploadModal').style.display = 'none';
+        } else {
+            alert("Please fill in all details.");
+        }
+    }
+
+    // Form Search
+    document.getElementById('verificationForm').onsubmit = function(e) {
+        e.preventDefault();
+        const searchPass = document.getElementById('vPass').value;
+        const found = clientDatabase.find(c => c.pass === searchPass);
+
+        if(found) {
+            alert("VERIFICATION SUCCESSFUL: A matching visa record for " + found.name + " was found. Status: CURRENT.");
+        } else {
+            alert("NO MATCH FOUND: Please ensure the Passport Number and details are entered exactly as they appear in the passport.");
+        }
+    };
+</script>
+
+</body>
+</html>
