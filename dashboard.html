@@ -1,228 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Albania Official Work Contract - 2026</title>
+    <title>Bank Statement Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        @page { size: A4; margin: 0; }
-        :root { --al-red: #e41e20; --al-black: #000000; --al-gold: #c5a059; }
-        
-        body { font-family: 'Times New Roman', serif; margin: 0; padding: 0; background: #2c3e50; color: #333; }
-
-        /* SIDEBAR CONTROLS */
-        .sidebar { 
-            position: fixed; left: 0; top: 0; width: 340px; height: 100%; 
-            background: #1a1a1b; color: white; padding: 20px; box-sizing: border-box;
-            z-index: 100; font-family: Arial, sans-serif; overflow-y: auto;
-            border-right: 5px solid var(--al-red);
-        }
-        .sidebar h3 { color: var(--al-red); font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 20px; }
-        .sidebar label { font-size: 10px; text-transform: uppercase; color: #999; display: block; margin-top: 8px; font-weight: bold; }
-        .sidebar input, .sidebar select { width: 100%; margin-bottom: 5px; padding: 8px; border-radius: 4px; border: none; background: #2d2d2d; color: white; font-size: 13px; }
-        .btn-generate { width: 100%; padding: 15px; background: var(--al-red); color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 20px; text-transform: uppercase; }
-
-        /* A4 PAGE DESIGN */
-        .page { 
-            width: 210mm; min-height: 296mm; padding: 20mm 25mm; 
-            margin: 20px auto 20px 370px; background: white; 
-            position: relative; page-break-after: always; box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        }
-
-        .header-container { display: flex; align-items: center; border-bottom: 3px solid var(--al-black); padding-bottom: 15px; margin-bottom: 20px; }
-        .flag-wrapper { flex: 0 0 80px; margin-right: 20px; text-align: center; }
-        .al-flag { width: 80px; height: auto; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3)); }
-        .header-text { flex-grow: 1; }
-        .header-text h1 { margin: 0; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
-        .header-text p { margin: 0; color: var(--al-red); font-weight: bold; font-size: 12px; }
-        
-        .ref-badge { background: #000; color: #fff; padding: 5px 10px; font-family: Arial; font-size: 11px; float: right; margin-top: -10px; }
-
-        h2 { font-family: Arial; font-size: 13px; color: white; background: var(--al-black); padding: 6px 12px; margin-top: 20px; text-transform: uppercase; display: block; border-left: 5px solid var(--al-red); }
-        p, li { font-size: 13.5px; line-height: 1.6; text-align: justify; }
-        
-        .data-table { width: 100%; border-collapse: collapse; margin: 10px 0; }
-        .data-table td { border: 1px solid #ddd; padding: 8px; font-size: 13px; }
-        .label { background: #f4f4f4; font-weight: bold; width: 35%; }
-
-        .benefit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
-        .benefit-box { border: 1px solid #eee; padding: 12px; background: #fafafa; border-top: 2px solid var(--al-red); }
-        .benefit-title { font-weight: bold; color: #000; font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 5px; border-bottom: 1px solid #ddd; }
-
-        .footer { position: absolute; bottom: 15mm; left: 25mm; right: 25mm; text-align: center; font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 10px; }
-
-        @media print { 
-            .sidebar { display: none; } 
-            .page { margin: 0; box-shadow: none; } 
-            body { background: white; } 
-        }
+        /* Styles to mimic a bank layout */
+        #statement { width: 800px; padding: 40px; background: white; font-family: Arial; }
+        .header { border-bottom: 2px solid #000; display: flex; justify-content: space-between; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { background: #f2f2f2; border: 1px solid #ddd; padding: 8px; text-align: left; }
+        td { border: 1px solid #ddd; padding: 8px; font-size: 12px; }
+        .credit { color: green; }
+        .debit { color: red; }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <h3>Immigration Details</h3>
-        <label>Ref #</label>
-        <input type="text" id="inRef" placeholder="AL-MIG-2026-XXXX" oninput="sync()">
-        <label>Contract Execution Date</label>
-        <input type="date" id="inDate" oninput="sync()">
-
-        <h3>Employer</h3>
-        <input type="text" id="inCo" placeholder="Restaurant/Company Name" oninput="sync()">
-        <input type="text" id="inCoAddr" placeholder="Work Address" oninput="sync()">
-        <input type="text" id="inCoNum" placeholder="NUIS Number" oninput="sync()">
-        <input type="text" id="inCoPhone" placeholder="Company Phone Number" oninput="sync()">
-
-        <h3>Employee</h3>
-        <input type="text" id="inName" placeholder="Full Name" oninput="sync()">
-        <label>Date of Birth</label>
-        <input type="date" id="inDOB" oninput="sync()">
-        <input type="text" id="inPass" placeholder="Passport Number" oninput="sync()">
-        <input type="text" id="inCountry" placeholder="Country of Origin" oninput="sync()">
-
-        <h3>Work Terms</h3>
-        <label>Job Joining Date</label>
-        <input type="date" id="inJoinDate" oninput="sync()">
-        <label>Monthly Salary (ALL)</label>
-        <input type="number" id="inSalary" placeholder="e.g. 60000" oninput="sync()">
-        <label>Role</label>
-        <select id="inCat" onchange="sync()">
-            <option value="Waiter (Kamarier)">Waiter (Kamarier)</option>
-            <option value="Chef de Partie">Chef de Partie</option>
-            <option value="Restaurant Supervisor">Restaurant Supervisor</option>
-            <option value="Kitchen Assistant">Kitchen Assistant</option>
-        </select>
-
-        <button class="btn-generate" onclick="window.print()">Print Contract PDF</button>
-    </div>
-
-    <div class="page">
-        <div class="ref-badge">OFFICIAL DOCUMENT: <span id="outRef">________</span></div>
-        <div class="header-container">
-            <div class="flag-wrapper">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
+    <div id="statement">
+        <div class="header">
+            <div>
+                <h1>COMMERCIAL BANK LTD</h1>
+                <p>Branch Code: 0123 | Karachi, Pakistan</p>
             </div>
-            <div class="header-text">
-                <h1 class="outCo">COMPANY NAME</h1>
-                <p>REPUBLIC OF ALBANIA • LABOR & IMMIGRATION COMPLIANCE</p>
+            <div style="text-align: right;">
+                <p><strong>Account Title:</strong> <span id="outName">John Doe</span></p>
+                <p><strong>IBAN:</strong> PK00 BANK 0000 1234 5678 90</p>
             </div>
         </div>
 
-        <p style="text-align: right;"><strong>Date of Execution:</strong> <span class="outDate">__________</span></p>
-
-        <h3 style="text-align: center; text-decoration: underline; margin-bottom: 25px;">INDIVIDUAL CONTRACT OF EMPLOYMENT (NR. 2026/L-UN)</h3>
-        
-        <p>This Contract is entered into in accordance with the <strong>Albanian Labour Code (Law No. 7961)</strong> and the <strong>Law on Foreigners</strong> for the purpose of obtaining a Unique Permit for work and residence.</p>
-
-        <h2>1. Parties to the Agreement</h2>
-        <table class="data-table">
-            <tr><td class="label">The Employer</td><td class="outCo">__________</td></tr>
-            <tr><td class="label">NUIS / Phone</td><td><span class="outCoNum">__________</span> / <span class="outCoPhone">__________</span></td></tr>
-            <tr><td class="label">The Employee</td><td class="outName">__________</td></tr>
-            <tr><td class="label">Date of Birth</td><td class="outDOB">__________</td></tr>
-            <tr><td class="label">Passport / Nationality</td><td><span class="outPass">__________</span> (<span class="outCountry">__________</span>)</td></tr>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Withdrawals (PKR)</th>
+                    <th>Deposits (PKR)</th>
+                    <th>Balance (PKR)</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                </tbody>
         </table>
-
-        <h2>2. Position & Commencement</h2>
-        <p>The Employee is engaged as a <strong><span class="outCat">Waiter</span></strong>. 
-        The official employment and duties are scheduled to commence on <strong><span class="outJoinDate">__________</span></strong>.
-        The standard working schedule consists of <strong>8 hours per day</strong>, totaling 40 hours per week.</p>
-
-        <h2>3. Remuneration & Banking</h2>
-        <p>The Employer shall pay a monthly gross salary of:</p>
-        <div style="background: #f4f4f4; border: 1px solid #000; padding: 15px; text-align: center; font-weight: bold; font-size: 18px;">
-            Lek <span class="outSalary">0.00</span> (ALL)
-        </div>
-        <p><strong>Payment Method:</strong> Salary will be paid via bank transfer. The Employer will facilitate the opening of a <strong>Bank Account in the Employee's name</strong> upon arrival.</p>
-
-        <div class="footer">Confidential - Republic of Albania Employment Standard | Page 1 of 3</div>
     </div>
 
-    <div class="page">
-        <h2>4. Professional Conduct & Policy</h2>
-        <p>The Employee agrees to adhere to the following Company Policies:</p>
-        <ul>
-            <li><strong>Uniform Code:</strong> The Employee is required to wear the official <strong>Company Uniform</strong> during working hours.</li>
-            <li><strong>Managerial Authority:</strong> The Employee must follow professional instructions issued by the assigned Manager.</li>
-            <li><strong>Privacy & Confidentiality:</strong> All internal company procedures and guest information remain strictly confidential.</li>
-            <li><strong>Punctuality:</strong> Strict time limits for breaks and tasks must be observed as per the daily schedule.</li>
-        </ul>
-
-        <h2>5. Benefits & Provisions</h2>
-        <div class="benefit-grid">
-            <div class="benefit-box">
-                <span class="benefit-title">Accommodation</span>
-                Free housing including utilities (Water/Electricity) provided by the Company.
-            </div>
-            <div class="benefit-box">
-                <span class="benefit-title">Meals</span>
-                Three (3) complimentary meals provided daily during work shifts.
-            </div>
-            <div class="benefit-box">
-                <span class="benefit-title">Air Travel</span>
-                One-way ticket from <span class="outCountry">Country</span> to Albania provided at start.
-            </div>
-            <div class="benefit-box">
-                <span class="benefit-title">Health Insurance</span>
-                Full coverage under Albanian Social Security (Sigurimet Shoqërore).
-            </div>
-        </div>
-
-        <h2>6. Annual Leave & Vacation</h2>
-        <p>After completion of the first year of service, the Employee is entitled to <strong>Paid Annual Leave</strong>. For the upcoming vacation period, the Company will provide a <strong>One-Way flight ticket</strong> as part of the benefit package.</p>
-
-        <div class="footer">Confidential - Republic of Albania Employment Standard | Page 2 of 3</div>
-    </div>
-
-    <div class="page">
-        <h2>7. Duration & Probation</h2>
-        <p>This contract is valid for a period of one (1) year, renewable upon mutual agreement. A 90-day probation period applies from the Joining Date: <span class="outJoinDate">__________</span>.</p>
-
-        <h2>8. Legal Declarations</h2>
-        <p>Both parties agree that this contract is subject to the laws of the Republic of Albania. Any disputes shall be settled by the District Court of Tirana.</p>
-
-        <div style="margin-top: 100px; display: flex; justify-content: space-between;">
-            <div style="width: 45%; border-top: 1.5px solid #000; padding-top: 10px; text-align: center;">
-                <strong style="font-size: 12px;">AUTHORIZED SIGNATORY</strong><br>
-                <em class="outCo" style="font-size: 11px;">[Company Stamp]</em>
-            </div>
-            <div style="width: 45%; border-top: 1.5px solid #000; padding-top: 10px; text-align: center;">
-                <strong style="font-size: 12px;">EMPLOYEE SIGNATURE</strong><br>
-                <em class="outName" style="font-size: 11px;">[Client Name]</em>
-            </div>
-        </div>
-
-        <div style="margin-top: 100px; text-align: center; border: 1px dashed #aaa; padding: 40px; color: #aaa; border-radius: 10px;">
-            OFFICIAL STAMP OF THE NATIONAL EMPLOYMENT AGENCY (AKPA)<br>
-            & IMMIGRATION DIRECTORATE
-        </div>
-
-        <div class="footer">Confidential - Republic of Albania Employment Standard | Page 3 of 3</div>
-    </div>
+    <button onclick="generatePDF()">Download PDF</button>
 
     <script>
-        function sync() {
-            const vals = {
-                'outRef': document.getElementById('inRef').value || 'AL-MIG-2026-PENDING',
-                'outDate': document.getElementById('inDate').value || '__________',
-                'outCo': document.getElementById('inCo').value || 'COMPANY NAME',
-                'outCoNum': document.getElementById('inCoNum').value || 'NUIS NO.',
-                'outCoPhone': document.getElementById('inCoPhone').value || 'PHONE NO.',
-                'outName': document.getElementById('inName').value || 'CLIENT NAME',
-                'outDOB': document.getElementById('inDOB').value || '__________',
-                'outPass': document.getElementById('inPass').value || 'PASSPORT NO.',
-                'outCountry': document.getElementById('inCountry').value || 'COUNTRY',
-                'outJoinDate': document.getElementById('inJoinDate').value || '__________',
-                'outSalary': document.getElementById('inSalary').value || '0.00',
-                'outCat': document.getElementById('inCat').value
-            };
+        // Sample data for 4 months
+        const transactions = [
+            { date: "2025-10-01", desc: "Opening Balance", debit: 0, credit: 0, balance: 150000 },
+            { date: "2025-11-05", desc: "Salary Transfer", debit: 0, credit: 85000, balance: 235000 },
+            { date: "2025-12-12", desc: "ATM Withdrawal", debit: 20000, credit: 0, balance: 215000 },
+            { date: "2026-01-15", desc: "Utility Bill Pay", debit: 12000, credit: 0, balance: 203000 }
+        ];
 
-            for (const [id, value] of Object.entries(vals)) {
-                document.querySelectorAll('.' + id).forEach(el => el.innerText = value);
-                if (document.getElementById(id)) document.getElementById(id).innerText = value;
-            }
+        function loadTable() {
+            const body = document.getElementById('tableBody');
+            transactions.forEach(t => {
+                body.innerHTML += `
+                    <tr>
+                        <td>${t.date}</td>
+                        <td>${t.desc}</td>
+                        <td class="debit">${t.debit > 0 ? t.debit.toLocaleString() : '-'}</td>
+                        <td class="credit">${t.credit > 0 ? t.credit.toLocaleString() : '-'}</td>
+                        <td>${t.balance.toLocaleString()}</td>
+                    </tr>`;
+            });
         }
-        document.getElementById('inDate').valueAsDate = new Date();
-        sync();
+
+        async function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'pt', 'a4');
+            const element = document.querySelector("#statement");
+
+            await html2canvas(element).then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                doc.addImage(imgData, 'PNG', 20, 20, 550, 0);
+                doc.save("Bank_Statement.pdf");
+            });
+        }
+
+        loadTable();
     </script>
 </body>
 </html>
