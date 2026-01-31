@@ -2,53 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Albania Waiter Employment Contract</title>
+    <title>Albania Official Work Contract</title>
     <style>
         @page { size: A4; margin: 0; }
-        :root { --al-red: #e41e20; --al-black: #000000; --soft-gray: #f4f4f4; }
+        :root { --al-red: #e41e20; --al-black: #000000; }
         
-        body { font-family: 'Times New Roman', serif; margin: 0; padding: 0; background: #333; color: #333; }
+        body { font-family: 'Times New Roman', serif; margin: 0; padding: 0; background: #2c3e50; color: #333; }
 
         /* SIDEBAR CONTROLS */
         .sidebar { 
-            position: fixed; left: 0; top: 0; width: 320px; height: 100%; 
-            background: #1e1e1e; color: white; padding: 20px; box-sizing: border-box;
-            z-index: 100; font-family: 'Segoe UI', Arial, sans-serif; overflow-y: auto;
-            border-right: 4px solid var(--al-red);
+            position: fixed; left: 0; top: 0; width: 340px; height: 100%; 
+            background: #1a1a1b; color: white; padding: 20px; box-sizing: border-box;
+            z-index: 100; font-family: Arial, sans-serif; overflow-y: auto;
+            border-right: 5px solid var(--al-red);
         }
-        .sidebar h3 { color: var(--al-red); font-size: 18px; margin-bottom: 20px; border-bottom: 1px solid #444; padding-bottom: 10px; }
-        .sidebar label { font-size: 10px; text-transform: uppercase; color: #aaa; display: block; margin-top: 12px; font-weight: bold; }
-        .sidebar input, .sidebar select { width: 100%; margin-bottom: 5px; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #2d2d2d; color: white; font-size: 13px; }
-        .btn-generate { width: 100%; padding: 15px; background: var(--al-red); color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 25px; font-size: 14px; text-transform: uppercase; }
-        .btn-generate:hover { background: #b31719; }
+        .sidebar h3 { color: var(--al-red); font-size: 16px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .sidebar label { font-size: 10px; text-transform: uppercase; color: #999; display: block; margin-top: 10px; font-weight: bold; }
+        .sidebar input, .sidebar select { width: 100%; margin-bottom: 5px; padding: 10px; border-radius: 4px; border: none; background: #2d2d2d; color: white; font-size: 13px; }
+        .btn-generate { width: 100%; padding: 15px; background: var(--al-red); color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 20px; text-transform: uppercase; }
 
         /* A4 PAGE DESIGN */
         .page { 
             width: 210mm; min-height: 296mm; padding: 20mm 25mm; 
-            margin: 20px auto 20px 350px; background: white; 
-            position: relative; page-break-after: always; box-shadow: 0 0 25px rgba(0,0,0,0.4);
+            margin: 20px auto 20px 370px; background: white; 
+            position: relative; page-break-after: always; box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
-        /* HEADER & FLAG */
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--al-black); padding-bottom: 15px; margin-bottom: 25px; }
-        .al-flag { width: 60px; height: auto; }
-        .contract-title-area h1 { margin: 0; font-size: 20px; color: var(--al-black); font-family: Arial, sans-serif; letter-spacing: 1px; }
-        .contract-title-area p { margin: 0; font-size: 12px; color: var(--al-red); font-weight: bold; }
+        /* IMMIGRATION HEADER */
+        .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
+        .al-flag-box { text-align: center; }
+        .al-flag { width: 70px; height: auto; display: block; margin-bottom: 5px; }
+        .ref-no { font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; color: #000; border: 1px solid #000; padding: 4px 8px; }
+        
+        .co-info h1 { margin: 0; font-size: 22px; color: var(--al-black); font-family: Arial, sans-serif; }
+        .co-info p { margin: 0; font-size: 11px; color: var(--al-red); font-weight: bold; }
 
-        /* BODY TEXT */
-        h2 { font-family: Arial; font-size: 14px; color: white; background: var(--al-black); padding: 8px 12px; margin-top: 25px; text-transform: uppercase; display: inline-block; }
-        p, li { font-size: 14.5px; line-height: 1.6; text-align: justify; }
+        h2 { font-family: Arial; font-size: 14px; color: white; background: var(--al-black); padding: 6px 12px; margin-top: 20px; text-transform: uppercase; display: inline-block; }
+        p, li { font-size: 14px; line-height: 1.5; text-align: justify; }
         .data-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-        .data-table td { border: 1px solid #eee; padding: 10px; font-size: 14px; }
-        .label { background: #fcfcfc; font-weight: bold; width: 38%; color: #555; }
+        .data-table td { border: 1px solid #eee; padding: 8px; font-size: 13px; }
+        .label { background: #f9f9f9; font-weight: bold; width: 35%; }
 
-        /* FOOTER */
-        .footer { position: absolute; bottom: 15mm; left: 0; width: 100%; text-align: center; border-top: 1px solid #eee; padding-top: 10px; margin: 0 25mm; width: calc(100% - 50mm); }
-        .footer-text { font-size: 10px; color: #999; text-transform: uppercase; }
+        .benefit-box { border: 1px solid #ddd; padding: 15px; margin: 10px 0; background: #fcfcfc; }
+        .benefit-title { font-weight: bold; color: var(--al-red); font-size: 13px; text-transform: uppercase; display: block; margin-bottom: 5px; }
+
+        .footer { position: absolute; bottom: 15mm; left: 25mm; right: 25mm; text-align: center; font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 10px; }
 
         @media print { 
             .sidebar { display: none; } 
-            .page { margin: 0; box-shadow: none; border: none; } 
+            .page { margin: 0; box-shadow: none; } 
             body { background: white; } 
         }
     </style>
@@ -56,156 +58,140 @@
 <body>
 
     <div class="sidebar">
-        <h3>Contract Input</h3>
+        <h3>Immigration Reference</h3>
+        <label>Immigration Ref #</label>
+        <input type="text" id="inRef" placeholder="e.g. AL-MIG-2026-882" oninput="sync()">
         
         <label>Letter Issue Date</label>
         <input type="date" id="inDate" oninput="sync()">
 
-        <label>Company (Restaurant) Name</label>
-        <input type="text" id="inCo" placeholder="e.g. Tirana Sky Restaurant" oninput="sync()">
-        
-        <label>Company Address</label>
-        <input type="text" id="inCoAddr" placeholder="Street, City, Albania" oninput="sync()">
+        <h3>Company Details</h3>
+        <input type="text" id="inCo" placeholder="Restaurant Name" oninput="sync()">
+        <input type="text" id="inCoAddr" placeholder="Work Address in Albania" oninput="sync()">
+        <input type="text" id="inCoNum" placeholder="NUIS Number" oninput="sync()">
 
-        <label>Company Number (NUIS)</label>
-        <input type="text" id="inCoNum" placeholder="L12345678A" oninput="sync()">
-
-        <hr style="border: 0; border-top: 1px solid #444; margin: 20px 0;">
-
-        <label>Employee (Client) Name</label>
-        <input type="text" id="inName" placeholder="Full name as per passport" oninput="sync()">
-
-        <label>Client Date of Birth</label>
+        <h3>Client Details</h3>
+        <input type="text" id="inName" placeholder="Full Name" oninput="sync()">
         <input type="date" id="inDob" oninput="sync()">
-
-        <label>Client Passport No.</label>
         <input type="text" id="inPass" placeholder="Passport Number" oninput="sync()">
+        <input type="text" id="inCountry" placeholder="Country of Origin" oninput="sync()">
 
-        <label>Client Country</label>
-        <input type="text" id="inCountry" placeholder="e.g. Pakistan / India" oninput="sync()">
-
-        <label>Salary (Monthly ALL)</label>
-        <input type="text" id="inSalary" placeholder="e.g. 65,000" oninput="sync()">
-
-        <label>Job Category</label>
+        <h3>Salary & Role</h3>
+        <input type="text" id="inSalary" placeholder="Monthly Salary (ALL)" oninput="sync()">
         <select id="inCat" onchange="sync()">
             <option value="Waiter (Kamarier)">Waiter (Kamarier)</option>
-            <option value="Head Waiter">Head Waiter</option>
-            <option value="Kitchen Helper">Kitchen Helper</option>
+            <option value="Chef de Partie">Chef de Partie</option>
+            <option value="Restaurant Supervisor">Restaurant Supervisor</option>
         </select>
 
-        <button class="btn-generate" onclick="window.print()">Download PDF Agreement</button>
+        <button class="btn-generate" onclick="window.print()">Download Immigration PDF</button>
     </div>
 
     <div class="page">
         <div class="header">
-            <div class="contract-title-area">
+            <div class="co-info">
                 <h1 class="outCo">COMPANY NAME</h1>
-                <p>REPUBLIC OF ALBANIA - LABOR CODE COMPLIANT</p>
+                <p>EMPLOYMENT CONTRACT FOR FOREIGN CITIZENS</p>
             </div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
+            <div class="al-flag-box">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
+                <div class="ref-no">REF: <span id="outRef">________</span></div>
+            </div>
         </div>
 
-        <p style="text-align: right;"><strong>Date:</strong> <span id="outDate">__________</span></p>
-        
-        <h1 style="text-align: center; font-size: 22px; text-transform: uppercase;">Employment Offer & Agreement</h1>
-        
-        <p>This document serves as an official individual employment contract according to <strong>Law No. 7961 "The Labor Code of the Republic of Albania"</strong>.</p>
+        <p style="text-align: right;"><strong>Issue Date:</strong> <span class="outDate">__________</span></p>
 
-        <h2>I. The Employer</h2>
+        <h1 style="text-align: center; font-size: 18px; text-decoration: underline;">CONTRACT OF EMPLOYMENT</h1>
+        
+        <p>This agreement is submitted to the <strong>Albanian National Agency for Employment and Skills (AKPA)</strong> and <strong>Immigration Authorities</strong> for the purpose of a Work Permit application.</p>
+
+        <h2>1. Employer Information</h2>
         <table class="data-table">
-            <tr><td class="label">Legal Entity Name</td><td class="outCo">__________</td></tr>
-            <tr><td class="label">Business Address (Albania)</td><td class="outCoAddr">__________</td></tr>
-            <tr><td class="label">NUIS/Registration No.</td><td id="outCoNum">__________</td></tr>
+            <tr><td class="label">Legal Name</td><td class="outCo">__________</td></tr>
+            <tr><td class="label">NUIS Number</td><td class="outCoNum">__________</td></tr>
+            <tr><td class="label">Workplace Address</td><td class="outCoAddr">__________</td></tr>
         </table>
 
-        <h2>II. The Employee (Client)</h2>
+        <h2>2. Employee Information</h2>
         <table class="data-table">
-            <tr><td class="label">Full Legal Name</td><td class="outName">__________</td></tr>
-            <tr><td class="label">Date of Birth</td><td id="outDob">__________</td></tr>
+            <tr><td class="label">Full Name</td><td class="outName">__________</td></tr>
+            <tr><td class="label">Date of Birth</td><td class="outDob">__________</td></tr>
             <tr><td class="label">Passport Number</td><td class="outPass">__________</td></tr>
-            <tr><td class="label">Nationality / Country</td><td class="outCountry">__________</td></tr>
+            <tr><td class="label">Country</td><td class="outCountry">__________</td></tr>
         </table>
 
-        <h2>III. Position & Category</h2>
-        <p>The Employee is engaged in the professional category of: <strong><span class="outCat">Waiter (Kamarier)</span></strong>.</p>
+        <h2>3. Position</h2>
+        <p>The employee is hired as: <strong><span class="outCat">Waiter</span></strong>.</p>
 
-        <div class="footer">
-            <span class="footer-text">Official Agreement | <span class="outCo">CO</span> | Page 1 of 3</span>
-        </div>
+        <div class="footer">Albania Immigration Compliance | Page 1 of 3</div>
     </div>
 
     <div class="page">
-        <div class="header">
-            <div class="contract-title-area">
-                <h1 class="outCo">COMPANY NAME</h1>
-            </div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
+        <h2>4. Salary & Remuneration</h2>
+        <p>The monthly gross salary for this position is fixed at:</p>
+        <div style="background: #fdfdfd; border: 2px solid #000; padding: 20px; text-align: center; margin: 15px 0;">
+            <strong style="font-size: 24px;">Lek <span class="outSalary">0.00</span> (ALL)</strong>
         </div>
 
-        <h2>IV. Remuneration (Salary)</h2>
-        <p>The Employer shall compensate the Employee with a monthly gross salary. This amount is subject to statutory deductions for social and health insurance as per Albanian law.</p>
-        
-        <div style="border: 2px solid var(--al-red); padding: 25px; text-align: center; margin: 30px 0; background: #fffcfc;">
-            <span style="font-size: 11px; color: #666; font-weight: bold;">OFFICIAL MONTHLY GROSS SALARY</span><br>
-            <strong style="font-size: 28px; color: var(--al-black);">Lek <span class="outSalary">0.00</span> (ALL)</strong>
+        <h2>5. Company Provided Benefits</h2>
+        <p>The Employer guarantees the following provisions for the duration of the 2026 contract term:</p>
+
+        <div class="benefit-box">
+            <span class="benefit-title">A. Accommodation (Akomodimi)</span>
+            The Company shall provide safe and suitable housing at no cost to the Employee. This includes utilities (electricity and water) for the duration of the employment.
         </div>
 
-        <h2>V. Working Hours & Schedule</h2>
-        <p>The standard work week consists of 40 hours. Given the nature of the hospitality sector, the Employee agrees to a variable shift roster. Overtime work will be compensated at the legal rate of 125% of the base hourly wage or with equivalent time off, as per Article 91 of the Labor Code.</p>
-
-        <h2>VI. Probationary Period</h2>
-        <p>In accordance with Article 31, a probationary period of <strong>3 (three) months</strong> is applied. During this period, either party may terminate this agreement with a 5-day written notice.</p>
-
-        <div class="footer">
-            <span class="footer-text">Official Agreement | <span class="outCo">CO</span> | Page 2 of 3</span>
+        <div class="benefit-box">
+            <span class="benefit-title">B. Transportation & Flight Ticket</span>
+            The Company provides one (1) economy-class air ticket from <span class="outCountry">Country</span> to Tirana, Albania. Furthermore, a return ticket will be provided upon completion of the contract.
         </div>
+
+        <div class="benefit-box">
+            <span class="benefit-title">C. Medical Coverage</span>
+            The Employee will be registered under the Albanian Social & Health Insurance system. The Company also provides additional emergency medical support for workplace-related incidents.
+        </div>
+
+        <div class="benefit-box">
+            <span class="benefit-title">D. Food Provision</span>
+            The Employee is entitled to three (3) complimentary meals per day during working hours, provided by the restaurant’s kitchen.
+        </div>
+
+        <div class="footer">Albania Immigration Compliance | Page 2 of 3</div>
     </div>
 
     <div class="page">
-        <div class="header">
-            <div class="contract-title-area">
-                <h1 class="outCo">COMPANY NAME</h1>
+        <h2>6. Terms of Termination</h2>
+        <p>Notice periods are governed by the Albanian Labor Code. A 3-month probation period applies during which 5 days' notice is required for termination.</p>
+
+        <h2>7. Final Agreement</h2>
+        <p>This contract is legally binding upon the issuance of the Unique Permit (Leje e Unifikuar) by the Republic of Albania.</p>
+
+        <div style="margin-top: 80px; display: flex; justify-content: space-between;">
+            <div style="width: 45%; border-top: 2px solid #000; padding-top: 10px; text-align: center;">
+                <strong>Employer Stamp/Signature</strong>
+                <br><br><br><br>
+                <span class="outCo" style="font-size: 11px;">[Company Name]</span>
             </div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg" class="al-flag">
-        </div>
-
-        <h2>VII. Leave Entitlements</h2>
-        <p><strong>7.1 Annual Leave:</strong> The Employee is entitled to 28 calendar days of paid annual leave.</p>
-        <p><strong>7.2 Sick Leave:</strong> The first 14 days of medically certified illness are paid by the Employer at 80% of the wage.</p>
-
-        <h2>VIII. Execution & Signatures</h2>
-        <p>This contract is drawn up in two identical copies, one for each party. By signing, the Employee confirms they have read and understood all internal regulations of the establishment.</p>
-
-        <div style="margin-top: 100px; display: flex; justify-content: space-between;">
-            <div style="width: 45%; border-top: 2px solid #000; padding-top: 15px; text-align: center;">
-                <strong>FOR THE EMPLOYER</strong><br>
-                <small>(Authorized Seal & Signature)</small><br><br>
-                <span class="outCo" style="font-size: 11px;">COMPANY</span>
-            </div>
-            <div style="width: 45%; border-top: 2px solid #000; padding-top: 15px; text-align: center;">
-                <strong>THE EMPLOYEE</strong><br>
-                <small>(Signature as per Passport)</small><br><br>
-                <span class="outName" style="font-size: 11px;">NAME</span>
+            <div style="width: 45%; border-top: 2px solid #000; padding-top: 10px; text-align: center;">
+                <strong>Employee Signature</strong>
+                <br><br><br><br>
+                <span class="outName" style="font-size: 11px;">[Client Name]</span>
             </div>
         </div>
 
-        <div style="margin-top: 80px; text-align: center;">
-            <div style="display:inline-block; border: 1px dashed #ccc; padding: 40px; color: #eee; font-family: Arial;">
-                OFFICIAL BUSINESS STAMP
-            </div>
+        <div style="margin-top: 80px; text-align: center; border: 1px dashed #ccc; padding: 30px; color: #ccc;">
+            NOTARY SEAL / IMMIGRATION STAMP AREA
         </div>
 
-        <div class="footer">
-            <span class="footer-text">Official Agreement | <span class="outCo">CO</span> | Page 3 of 3</span>
-        </div>
+        <div class="footer">Albania Immigration Compliance | Page 3 of 3</div>
     </div>
 
     <script>
         function sync() {
             const vals = {
+                'outRef': document.getElementById('inRef').value || '________',
                 'outDate': document.getElementById('inDate').value || '__________',
-                'outCo': document.getElementById('inCo').value || 'RESTAURANT NAME',
+                'outCo': document.getElementById('inCo').value || 'COMPANY NAME',
                 'outCoAddr': document.getElementById('inCoAddr').value || 'ADDRESS, ALBANIA',
                 'outCoNum': document.getElementById('inCoNum').value || 'NUIS NO.',
                 'outName': document.getElementById('inName').value || 'CLIENT NAME',
@@ -217,13 +203,10 @@
             };
 
             for (const [id, value] of Object.entries(vals)) {
-                if (id.startsWith('out')) {
-                    document.querySelectorAll('.' + id).forEach(el => el.innerText = value);
-                    if (document.getElementById(id)) document.getElementById(id).innerText = value;
-                }
+                document.querySelectorAll('.' + id).forEach(el => el.innerText = value);
+                if (document.getElementById(id)) document.getElementById(id).innerText = value;
             }
         }
-        // Set default date
         document.getElementById('inDate').valueAsDate = new Date();
         sync();
     </script>
