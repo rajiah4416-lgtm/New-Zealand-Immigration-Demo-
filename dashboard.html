@@ -2,197 +2,161 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bank Statement Pro - 2026</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <title>NZ Immigration & HR Compliance Suite</title>
     <style>
-        :root { --pk-green: #006747; --soft-grey: #f8f9fa; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #34495e; margin: 0; display: flex; }
+        :root { --nz-blue: #00247d; --nz-black: #000000; --nz-silver: #e1e1e1; }
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #34495e; margin: 0; display: flex; }
         
-        /* Input Panel */
-        .controls { width: 400px; height: 100vh; background: #2c3e50; color: white; padding: 20px; overflow-y: auto; box-sizing: border-box; }
-        .controls h2 { color: #27ae60; font-size: 18px; border-bottom: 1px solid #555; padding-bottom: 10px; }
-        label { display: block; margin-top: 15px; font-size: 11px; text-transform: uppercase; color: #bdc3c7; }
-        input, select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 4px; border: none; }
-        .btn-add { background: #27ae60; color: white; margin-top: 20px; cursor: pointer; font-weight: bold; }
-        .btn-download { background: #e67e22; color: white; margin-top: 10px; cursor: pointer; font-weight: bold; }
+        /* Control Panel */
+        .sidebar { width: 380px; background: #1a1a1a; color: white; padding: 25px; height: 100vh; overflow-y: auto; box-sizing: border-box; position: fixed; border-right: 4px solid var(--nz-blue); }
+        .sidebar h2 { font-size: 14px; color: #27ae60; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        label { display: block; margin-top: 12px; font-size: 10px; text-transform: uppercase; color: #999; font-weight: bold; }
+        input, select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: none; background: #2b2b2b; color: white; font-size: 13px; }
+        button { width: 100%; padding: 15px; margin-top: 25px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; text-transform: uppercase; background: var(--nz-blue); color: white; }
 
-        /* PDF Page */
-        .pdf-container { flex-grow: 1; display: flex; justify-content: center; padding: 40px; }
-        #statement-page { width: 210mm; min-height: 297mm; background: white; padding: 20mm; box-sizing: border-box; box-shadow: 0 0 20px rgba(0,0,0,0.5); position: relative; }
+        /* Document Preview */
+        .preview-area { margin-left: 380px; padding: 40px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 50px; }
+        .a4-page { width: 210mm; min-height: 297mm; background: white; padding: 20mm; box-shadow: 0 0 20px rgba(0,0,0,0.4); box-sizing: border-box; color: #333; position: relative; }
+
+        /* Branding */
+        .nz-flag-strip { height: 8px; background: linear-gradient(90deg, #00247d 0%, #cc142d 100%); margin-bottom: 20px; }
+        .inz-logo-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; }
+        .inz-logo-box img { height: 60px; }
+
+        /* Tables & Content */
+        .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
+        .data-table td { padding: 10px; border: 1px solid #eee; }
+        .label-cell { background: #f8f9fa; font-weight: bold; width: 30%; }
         
-        .bank-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--pk-green); padding-bottom: 20px; }
-        .bank-logo { color: var(--pk-green); font-weight: bold; font-size: 28px; }
-        
-        .account-info { margin: 20px 0; display: grid; grid-template-columns: 1fr 1fr; font-size: 13px; line-height: 1.6; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
-        th { background: var(--pk-green); color: white; padding: 10px; text-align: left; }
-        td { border-bottom: 1px solid #eee; padding: 10px; vertical-align: top; }
-        
-        .type-tag { font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; }
-        .deposit-bg { background: #d4edda; color: #155724; }
-        .withdraw-bg { background: #f8d7da; color: #721c24; }
-        
-        .amount { text-align: right; font-family: 'Courier New', monospace; }
-        .footer-note { position: absolute; bottom: 20mm; font-size: 10px; color: #7f8c8d; border-top: 1px solid #eee; width: 80%; padding-top: 10px; }
+        .hr-signature-box { margin-top: 50px; border: 1px solid #ddd; padding: 20px; background: #fdfdfd; border-left: 5px solid var(--nz-blue); }
+        .status-stamp { border: 3px solid #27ae60; color: #27ae60; padding: 8px; display: inline-block; font-weight: bold; transform: rotate(-5deg); margin-bottom: 20px; text-transform: uppercase; }
+
+        @media print { .sidebar { display: none; } .preview-area { margin: 0; padding: 0; } .a4-page { box-shadow: none; margin: 0; } }
     </style>
 </head>
 <body>
 
-<div class="controls">
-    <h2>Account Settings</h2>
-    <label>Account Title</label>
-    <input type="text" id="accTitle" placeholder="e.g. Muhammad Ahmed" oninput="updateHeader()">
-    <label>Opening Balance (PKR)</label>
-    <input type="number" id="openBalance" value="100000" oninput="updateHeader()">
-
-    <h2>Add Transaction</h2>
-    <label>Date</label>
-    <input type="date" id="tDate">
-    <label>Type</label>
-    <select id="tType">
-        <option value="Deposit">Deposit (Inward)</option>
-        <option value="Transfer">Transfer (Outward)</option>
-        <option value="Withdrawal">Cash Withdrawal</option>
+<div class="sidebar">
+    <h2>1. Port of Entry Details</h2>
+    <label>Arrival Airport</label>
+    <select id="inAirport" oninput="sync()">
+        <option value="Auckland International Airport (AKL)">Auckland (AKL)</option>
+        <option value="Christchurch International Airport (CHC)">Christchurch (CHC)</option>
+        <option value="Wellington International Airport (WLG)">Wellington (WLG)</option>
     </select>
-    <label>Remitter / Recipient Name</label>
-    <input type="text" id="tName" placeholder="Name of sender or receiver">
-    <label>Description</label>
-    <input type="text" id="tDesc" placeholder="e.g. Freelance Payment">
-    <label>Amount (PKR)</label>
-    <input type="number" id="tAmount" placeholder="0.00">
-    
-    <button class="btn-add" onclick="addTransaction()">Add to Statement</button>
-    <button class="btn-download" onclick="downloadPDF()">Download PDF Statement</button>
+    <label>Arrival Date & Time</label>
+    <input type="datetime-local" id="inArrivalTime" oninput="sync()">
+
+    <h2>2. HR Reviewer Details</h2>
+    <label>HR Manager Name</label>
+    <input type="text" id="inHRName" placeholder="Sarah Jenkins" oninput="sync()">
+    <label>HR Phone Number</label>
+    <input type="text" id="inHRPhone" placeholder="+64 9 XXX XXXX" oninput="sync()">
+
+    <h2>3. Client & Company</h2>
+    <label>Client Full Name</label>
+    <input type="text" id="inClName" placeholder="Full Name" oninput="sync()">
+    <label>Passport Number</label>
+    <input type="text" id="inClPass" placeholder="Number" oninput="sync()">
+    <label>Company Name</label>
+    <input type="text" id="inCoName" placeholder="NZ Business Name" oninput="sync()">
+
+    <button onclick="window.print()">Generate Final Documents</button>
 </div>
 
-<div class="pdf-container">
-    <div id="statement-page">
-        <div class="bank-header">
-            <div class="bank-logo">PAKISTAN NATIONAL BANK</div>
-            <div style="text-align: right; font-size: 12px;">
-                <strong>Statement Period:</strong><br>
-                Oct 2025 - Jan 2026
-            </div>
-        </div>
-
-        <div class="account-info">
+<div class="preview-area">
+    <div class="a4-page">
+        <div class="nz-flag-strip"></div>
+        <div class="inz-logo-box">
             <div>
-                <strong>Account Holder:</strong> <span id="outName">Client Name</span><br>
-                <strong>Address:</strong> DHA Phase VI, Karachi, Pakistan<br>
-                <strong>Currency:</strong> PKR
+                <h2 style="margin:0; color:var(--nz-blue);">IMMIGRATION</h2>
+                <h3 style="margin:0; font-weight:normal; letter-spacing:2px;">NEW ZEALAND</h3>
             </div>
-            <div style="text-align: right;">
-                <strong>Account No:</strong> 0012-998833-01-0<br>
-                <strong>IBAN:</strong> PK00 PNBK 0000 0012 9988 3301<br>
-                <strong>Opening Balance:</strong> <span id="outOpen">100,000.00</span>
-            </div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" alt="NZ Flag">
         </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Description & Party</th>
-                    <th>Withdrawal</th>
-                    <th>Deposit</th>
-                    <th>Balance</th>
-                </tr>
-            </thead>
-            <tbody id="statementBody">
-                </tbody>
+        <div class="status-stamp">Verified Entry</div>
+
+        <h3>VISA GRANT & ENTRY NOTIFICATION</h3>
+        <p>This document confirms that the holder has been granted entry into New Zealand under the specified visa class. Records have been updated in the Ministry of Business, Innovation and Employment (MBIE) database.</p>
+
+        <table class="data-table">
+            <tr><td class="label-cell">Client Name</td><td class="outClName">__________</td></tr>
+            <tr><td class="label-cell">Passport No</td><td class="outClPass">__________</td></tr>
+            <tr><td class="label-cell">Visa Type</td><td>Resident Visa (Skilled Migrant Category)</td></tr>
+            <tr><td class="label-cell">Port of Entry</td><td class="outAirport">__________</td></tr>
+            <tr><td class="label-cell">Arrival Timestamp</td><td class="outArrival">__________</td></tr>
         </table>
 
-        <div class="footer-note">
-            This is a computer-generated statement and does not require a signature. For any discrepancies, please contact your home branch within 15 days.
+        <p style="font-size: 12px; color: #555;"><strong>Note:</strong> The Arrival Timestamp must match the electronic record logged by the Customs officer at the primary inspection line. This document serves as proof of legal entry for HR verification and IRD (Tax) registration purposes.</p>
+
+        
+
+        <div style="position: absolute; bottom: 20mm; left: 20mm; right: 20mm; font-size: 10px; border-top: 1px solid #eee; padding-top: 10px;">
+            NZBN: 9429000000000 | New Zealand Government | imms.govt.nz
+        </div>
+    </div>
+
+    <div class="a4-page">
+        <div class="letter-head">
+            <h1 class="outCoName" style="margin-bottom:5px;">COMPANY NAME</h1>
+            <p style="font-size: 12px; color: #666;">New Zealand Accredited Employer Operations</p>
+        </div>
+        
+        <p style="text-align: right;"><strong>Date:</strong> 01 Feb 2026</p>
+
+        <div class="letter-content">
+            <p><strong>TO: NEW ZEALAND IMMIGRATION REVIEW BOARD</strong></p>
+            <p><strong>SUBJECT: HR VERIFICATION OF RESIDENT ARRIVAL</strong></p>
+            
+            <p>This letter serves to confirm that <strong><span class="outClName">Client Name</span></strong> has successfully arrived in New Zealand and has reported to our corporate headquarters following their entry at <span class="outAirport">Airport</span>.</p>
+            
+            <p>Our Human Resources department has reviewed the original passport and the entry notification provided by the Ministry. We confirm that the client is prepared to commence their permanent role as per the employment agreement.</p>
+            
+            <div class="hr-signature-box">
+                <h4 style="margin-top:0; color:var(--nz-blue);">HR COMPLIANCE REVIEW</h4>
+                <table style="width:100%; font-size:13px; border:none;">
+                    <tr>
+                        <td style="border:none; width:50%;">
+                            <strong>Reviewing HR Officer:</strong><br>
+                            <span class="outHRName">Pending Name</span>
+                        </td>
+                        <td style="border:none;">
+                            <strong>Contact Number:</strong><br>
+                            <span class="outHRPhone">Pending Phone</span>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <div style="border-top: 1px solid #333; width: 200px; margin-top: 20px; padding-top: 5px; font-size: 11px;">
+                    SIGNATURE OF HR MANAGER
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 50px; text-align: center;">
+            <p style="font-size: 11px; color: #999;">Auckland | Wellington | Christchurch | Hamilton</p>
         </div>
     </div>
 </div>
 
 <script>
-    let currentBalance = 0;
-
-    function updateHeader() {
-        document.getElementById('outName').innerText = document.getElementById('accTitle').value || "Client Name";
-        const open = parseFloat(document.getElementById('openBalance').value) || 0;
-        document.getElementById('outOpen').innerText = open.toLocaleString(undefined, {minimumFractionDigits: 2});
-        refreshTable();
-    }
-
-    let transactions = [];
-
-    function addTransaction() {
-        const entry = {
-            date: document.getElementById('tDate').value,
-            type: document.getElementById('tType').value,
-            name: document.getElementById('tName').value,
-            desc: document.getElementById('tDesc').value,
-            amount: parseFloat(document.getElementById('tAmount').value) || 0
+    function sync() {
+        const val = {
+            outClName: document.getElementById('inClName').value || 'John Citizen',
+            outClPass: document.getElementById('inClPass').value || 'L1234567',
+            outCoName: document.getElementById('inCoName').value || 'NZ BUSINESS LTD',
+            outAirport: document.getElementById('inAirport').value,
+            outArrival: document.getElementById('inArrivalTime').value.replace('T', ' '),
+            outHRName: document.getElementById('inHRName').value || 'Name Not Set',
+            outHRPhone: document.getElementById('inHRPhone').value || 'Phone Not Set'
         };
 
-        if(!entry.date || entry.amount <= 0) {
-            alert("Please enter a valid date and amount");
-            return;
+        for (const [key, value] of Object.entries(val)) {
+            document.querySelectorAll('.' + key).forEach(el => el.innerText = value);
         }
-
-        transactions.push(entry);
-        // Sort by date automatically
-        transactions.sort((a, b) => new Date(a.date) - new Date(b.date));
-        refreshTable();
     }
-
-    function refreshTable() {
-        const body = document.getElementById('statementBody');
-        body.innerHTML = "";
-        let runningBalance = parseFloat(document.getElementById('openBalance').value) || 0;
-
-        transactions.forEach(t => {
-            let dr = 0, cr = 0;
-            if(t.type === "Deposit") {
-                cr = t.amount;
-                runningBalance += cr;
-            } else {
-                dr = t.amount;
-                runningBalance -= dr;
-            }
-
-            const badgeClass = t.type === "Deposit" ? "deposit-bg" : "withdraw-bg";
-
-            body.innerHTML += `
-                <tr>
-                    <td>${t.date}</td>
-                    <td>
-                        <span class="type-tag ${badgeClass}">${t.type}</span><br>
-                        <strong>${t.name}</strong><br>
-                        <small style="color:#666">${t.desc}</small>
-                    </td>
-                    <td class="amount">${dr > 0 ? dr.toLocaleString(undefined, {minimumFractionDigits: 2}) : '-'}</td>
-                    <td class="amount">${cr > 0 ? cr.toLocaleString(undefined, {minimumFractionDigits: 2}) : '-'}</td>
-                    <td class="amount"><strong>${runningBalance.toLocaleString(undefined, {minimumFractionDigits: 2})}</strong></td>
-                </tr>
-            `;
-        });
-    }
-
-    async function downloadPDF() {
-        const { jsPDF } = window.jspdf;
-        const element = document.getElementById('statement-page');
-        
-        html2canvas(element, { scale: 2 }).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const imgProps = pdf.getImageProperties(imgData);
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-            
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save("Pak_Bank_Statement.pdf");
-        });
-    }
-
-    updateHeader();
+    sync();
 </script>
-
 </body>
-    </html>
+</html>
