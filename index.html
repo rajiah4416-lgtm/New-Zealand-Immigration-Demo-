@@ -3,141 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visa Verification Service | Immigration New Zealand</title>
+    <title>Visa Verification Service - Immigration NZ</title>
     <style>
         :root {
-            --nz-black: #000000;
-            --nz-blue: #00529B;
-            --nz-grey: #f2f2f2;
-            --nz-border: #dcdcdc;
+            --realme-orange: #f45b06;
+            --inz-blue: #00a9ce;
+            --inz-dark: #000000;
+            --bg-grey: #f4f4f4;
+            --border: #cccccc;
         }
-        body { font-family: Arial, Helvetica, sans-serif; margin: 0; background-color: #fff; color: #333; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fff; color: #333; }
         
-        /* Header mimicry */
-        .top-bar { background: var(--nz-black); color: white; padding: 15px 10% ; display: flex; justify-content: space-between; align-items: center; }
-        .logo-text { font-size: 1.4rem; font-weight: bold; letter-spacing: -1px; }
+        /* RealMe Login Styling */
+        .realme-header { background: #000; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .login-box { max-width: 450px; margin: 40px auto; padding: 20px; }
+        .realme-title { color: var(--realme-orange); font-size: 2.5rem; font-weight: bold; margin-bottom: 20px; }
+        .realme-btn { background: var(--realme-orange); color: white; border: none; padding: 15px; width: 100%; border-radius: 25px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         
-        .nav-path { background: var(--nz-grey); padding: 10px 10%; font-size: 0.8rem; border-bottom: 1px solid var(--nz-border); }
-
-        .main-container { padding: 40px 10%; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
-
-        .verification-card { border: 1px solid var(--nz-border); padding: 30px; border-radius: 4px; }
-        h1 { font-size: 1.8rem; border-bottom: 3px solid var(--nz-black); padding-bottom: 10px; margin-top: 0; }
-
-        label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.9rem; }
-        input, select { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #999; border-radius: 2px; box-sizing: border-box; }
+        /* Immigration NZ Styling */
+        .inz-header { background: var(--inz-blue); padding: 10px 5%; color: white; display: flex; align-items: center; }
+        .inz-sub-nav { background: #eee; padding: 5px 5%; border-bottom: 1px solid #ccc; font-size: 0.8rem; }
+        .main-layout { display: flex; min-height: 80vh; }
+        .sidebar { width: 200px; background: #e6f7fa; border-right: 1px solid #abdce5; padding: 20px; font-size: 0.85rem; }
+        .sidebar ul { list-style: none; padding: 0; color: #006680; }
+        .sidebar li { margin-bottom: 10px; cursor: pointer; border-bottom: 1px solid #c8e9f0; padding-bottom: 5px; }
+        .content-area { flex: 1; padding: 30px 5%; }
         
-        .disclaimer-box { background: #f9f9f9; border-left: 5px solid var(--nz-blue); padding: 15px; font-size: 0.85rem; margin-bottom: 20px; }
+        /* Form Styling */
+        h1 { color: #007ba1; font-size: 1.5rem; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+        .form-row { display: flex; margin-bottom: 10px; align-items: center; }
+        .form-row label { width: 200px; font-size: 0.9rem; color: #444; }
+        .form-row input, .form-row select { padding: 5px; border: 1px solid #999; width: 250px; }
+        .required { color: red; margin-left: 3px; }
+        .btn-check { background: #007ba1; color: white; border: none; padding: 8px 20px; font-weight: bold; cursor: pointer; margin-left: 200px; }
 
-        .btn-check { background: var(--nz-black); color: white; border: none; padding: 12px 30px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
-        .btn-check:hover { background: #333; }
-
-        .sidebar { font-size: 0.9rem; line-height: 1.5; }
-        .sidebar h3 { border-bottom: 1px solid var(--nz-border); padding-bottom: 5px; }
-
-        /* Admin Upload View (Hidden by default) */
-        #adminPanel { display: none; background: #fffde7; border: 2px dashed #fbc02d; padding: 20px; margin-top: 20px; }
+        /* Admin/Staff Panel */
+        #staffPanel { border: 2px dashed var(--realme-orange); background: #fffcf5; padding: 20px; margin-top: 20px; display: none; }
     </style>
 </head>
 <body>
 
-<div class="top-bar">
-    <div class="logo-text">NEW ZEALAND <span style="font-weight:normal;">IMMIGRATION</span></div>
-    <div style="font-size: 0.8rem;">Logged in as: Staff_User | <a href="#" style="color:white;">Logout</a></div>
+<div id="loginPage">
+    <div class="realme-header">
+        <img src="https://upload.wikimedia.org/wikipedia/en/2/2f/RealMe_logo.png" alt="RealMe" height="40" onerror="this.style.display='none'">
+        <span style="color:white; font-weight:bold; font-size: 1.2rem;">NEW ZEALAND <span style="font-weight:normal">IMMIGRATION</span></span>
+    </div>
+    <div class="login-box">
+        <div class="realme-title">Log in with <span style="color:var(--realme-orange)">RealMe</span></div>
+        <p>To access this service you need a RealMe login.</p>
+        <div style="margin-bottom: 20px;">
+            <label><input type="radio" name="m" checked> I have an existing RealMe login</label><br>
+            <label><input type="radio" name="m"> I need to create a login</label>
+        </div>
+        <input type="text" placeholder="Username" style="width:100%; padding:15px; margin-bottom:15px; border: 2px solid #000; border-radius: 15px;">
+        <input type="password" placeholder="Password" style="width:100%; padding:15px; margin-bottom:20px; border: 2px solid #ccc; border-radius: 15px; background: #eee;">
+        
+        <button class="realme-btn" onclick="showVisaView()">Log in</button>
+        <p style="text-align:center; color:var(--realme-orange); font-weight:bold; margin-top:20px;">Forgot Username or Forgot Password?</p>
+    </div>
 </div>
 
-<div class="nav-path">Home > Visas > Check Visa Status > Verification</div>
-
-<div class="main-container">
-    <div class="content">
-        <h1>Visa Verification Enquiry</h1>
-        
-        <div class="disclaimer-box">
-            <strong>Privacy Act Statement:</strong> This tool is only to be used for verifying the entitlement of a person to work or study in New Zealand. You must have the written consent of the visa holder.
-        </div>
-
-        <div class="verification-card">
-            <form id="visaForm">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div>
-                        <label>Family Name / Surname *</label>
-                        <input type="text" id="lastName" required>
-                    </div>
-                    <div>
-                        <label>Given Name(s)</label>
-                        <input type="text" id="firstName">
-                    </div>
-                </div>
-
-                <label>Passport Nationality *</label>
-                <select id="nationality" required>
-                    <option value="">-- Select Country --</option>
-                    <option>India</option>
-                    <option>China</option>
-                    <option>United Kingdom</option>
-                    <option>Philippines</option>
-                    </select>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div>
-                        <label>Passport Number *</label>
-                        <input type="text" id="passportNum" required>
-                    </div>
-                    <div>
-                        <label>Date of Birth *</label>
-                        <input type="date" id="dob" required>
-                    </div>
-                </div>
-
-                <label>Visa Start Date (DD/MM/YYYY)</label>
-                <input type="date" id="visaStart">
-
-                <div style="margin-bottom: 20px;">
-                    <input type="checkbox" id="consent" style="width: auto; margin-right: 10px;" required>
-                    <span style="font-size: 0.85rem;">I confirm that I have the consent of the visa holder to perform this check.</span>
-                </div>
-
-                <button type="submit" class="btn-check">Check Visa Status</button>
-            </form>
-        </div>
-
-        <button onclick="toggleAdmin()" style="margin-top: 20px; background: none; border: 1px solid #ccc; cursor: pointer; font-size: 0.7rem;">Staff Management Tool</button>
-        
-        <div id="adminPanel">
-            <h3>Staff: Upload Client PDF & Data</h3>
-            <label>Full Name</label>
-            <input type="text" id="adminName">
-            <label>Attach Official NZ Visa PDF</label>
-            <input type="file" id="adminFile" accept=".pdf">
-            <button onclick="saveClient()" class="btn-check" style="background: var(--nz-blue);">Upload to Portal</button>
-        </div>
+<div id="visaViewPage" style="display:none;">
+    <div class="inz-header">
+        <span style="font-weight:bold; font-size: 1.4rem;">IMMIGRATION <span style="font-weight:normal">NEW ZEALAND</span></span>
     </div>
+    <div class="inz-sub-nav">Home > VisaView > Visa Verification Enquiry</div>
+    
+    <div class="main-layout">
+        <div class="sidebar">
+            <h3 style="color:#006680; font-size:1rem;">VisaView</h3>
+            <ul>
+                <li>Register Organisation</li>
+                <li style="font-weight:bold;">Verify Visa Record</li>
+                <li>My Visa Verification Service Account</li>
+                <li onclick="toggleStaff()" style="color:var(--realme-orange); margin-top:50px;">Staff: Upload Client Data</li>
+            </ul>
+        </div>
+        
+        <div class="content-area">
+            <h1>Visa Verification Enquiry</h1>
+            <p style="font-size:0.85rem;">Please enter these details exactly as they appear in the visa holder's current passport.</p>
+            
+            <form id="enquiryForm">
+                <div class="form-row"><label>Family Name<span class="required">*</span></label><input type="text" id="vFamily" required></div>
+                <div class="form-row"><label>Passport Nationality<span class="required">*</span></label><select id="vNat"><option>Select Nationality</option></select></div>
+                <div class="form-row"><label>Passport Number<span class="required">*</span></label><input type="text" id="vPass" required></div>
+                <div class="form-row"><label>Date of Birth<span class="required">*</span></label><input type="text" placeholder="dd/mm/yy" required></div>
+                <div class="form-row"><label>Gender<span class="required">*</span></label><select><option>Select</option><option>Male</option><option>Female</option></select></div>
+                <div class="form-row"><label>Visa Start Date<span class="required">*</span></label><input type="text" placeholder="dd/mm/yy" required></div>
+                
+                <div style="margin: 20px 0 20px 200px; font-size: 0.85rem;">
+                    <input type="checkbox" required> The visa holder has consented to this check.
+                </div>
+                
+                <button type="submit" class="btn-check">Check Visa</button>
+            </form>
 
-    <div class="sidebar">
-        <h3>Help & Resources</h3>
-        <p>If the details provided do not match our records exactly, the verification will fail.</p>
-        <p><strong>Note:</strong> Passports must be current. If the user has a new passport, the visa must be transferred before it will show here.</p>
+            <div id="staffPanel">
+                <h3>Staff: Add Client to Local Database</h3>
+                <div class="form-row"><label>Client Name</label><input type="text" id="clientName"></div>
+                <div class="form-row"><label>Client Passport</label><input type="text" id="clientPassport"></div>
+                <div class="form-row"><label>Upload Visa PDF</label><input type="file" id="clientPDF"></div>
+                <button onclick="saveClient()" class="btn-check" style="background:var(--realme-orange); margin:10px 0 0 0;">Save Record</button>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-    function toggleAdmin() {
-        var x = document.getElementById("adminPanel");
-        x.style.display = (x.style.display === "none") ? "block" : "none";
+    function showVisaView() {
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('visaViewPage').style.display = 'block';
+    }
+
+    function toggleStaff() {
+        var p = document.getElementById('staffPanel');
+        p.style.display = p.style.display === 'none' ? 'block' : 'none';
     }
 
     function saveClient() {
-        const name = document.getElementById('adminName').value;
-        const file = document.getElementById('adminFile').files[0];
-        if(!name || !file) return alert("Please fill all fields");
-        
-        alert("Success: " + name + "'s Visa PDF has been uploaded to the regional server database.");
-        document.getElementById("adminPanel").style.display = "none";
+        const name = document.getElementById('clientName').value;
+        const pass = document.getElementById('clientPassport').value;
+        if(!name || !pass) { alert("Please fill details"); return; }
+        alert("Client " + name + " has been registered. PDF linked successfully.");
+        document.getElementById('staffPanel').style.display = 'none';
     }
 
-    document.getElementById('visaForm').onsubmit = function(e) {
+    document.getElementById('enquiryForm').onsubmit = function(e) {
         e.preventDefault();
-        alert("Searching Immigration New Zealand records... No match found for the provided details. Please check the Passport Number.");
+        alert("Verification successful. Matching record found for passport: " + document.getElementById('vPass').value);
     };
 </script>
 
