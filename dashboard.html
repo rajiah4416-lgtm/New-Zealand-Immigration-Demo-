@@ -1,190 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agency Portal | Management System</title>
+<header style="background-color: #000; color: #fff; padding: 20px;">
+    <img src="silver-fern.png" alt="NZ Immigration Logo" style="height: 40px;">
+</header>
 
-<style>
-  :root { --primary: #003366; --secondary: #e05a20; --bg: #fafafa; --white: #ffffff; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 0; }
-  header { background: var(--primary); color: white; text-align: center; padding: 20px; font-size: 1.5rem; font-weight: bold; }
-  .container { max-width: 600px; margin: 40px auto; padding: 25px; background: var(--white); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-  input, select, button { width: 100%; margin: 10px 0; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
-  button { background: var(--secondary); border: none; color: white; cursor: pointer; font-weight: bold; transition: 0.3s; }
-  button:hover { background: #c6531a; }
-  .secondary-btn { background: #666; margin-top: 10px; }
-  .footer { text-align: center; padding: 20px; color: #666; font-size: 0.9rem; }
+<nav style="background-color: #f4f4f4; border-bottom: 1px solid #ccc;">
+    <ul style="display: flex; list-style: none; padding: 10px 5%;">
+        <li style="margin-right: 20px; font-weight: bold;">My dashboard</li>
+        <li style="margin-right: 20px;">My visas</li>
+        <li style="margin-right: 20px;">Employ migrants</li>
+        <li>My sponsorships</li>
+    </ul>
+</nav>
 
-  /* Dashboard Layout */
-  .dashboard-container { display: flex; min-height: 80vh; }
-  .nav-menu { width: 220px; background: var(--primary); padding: 20px; color: white; }
-  .nav-menu ul { list-style: none; padding: 0; }
-  .nav-menu li { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; }
-  .nav-menu li:hover { color: var(--secondary); }
-  .dashboard-content { flex-grow: 1; padding: 30px; }
-  
-  /* Table Styling for Client List */
-  table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
-  th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-  th { background-color: #f2f2f2; }
-  .status-badge { padding: 5px 10px; border-radius: 12px; font-size: 0.8rem; background: #d4edda; color: #155724; }
-</style>
-</head>
-<body>
-
-<header>Agency Management Portal</header>
-
-<div id="mainContent">
-  
-  <div id="loginPage" class="container">
-    <form id="loginForm">
-      <h2 style="text-align: center;">Staff Login</h2>
-      <input type="text" id="username" placeholder="Username" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button type="submit">Access System</button>
-    </form>
-  </div>
-
-  <div id="dashboardPage" style="display:none;">
-    <div class="dashboard-container">
-      <nav class="nav-menu">
-        <h3>Menu</h3>
-        <ul>
-          <li onclick="showSection('homeSection')">🏠 Dashboard Home</li>
-          <li onclick="showSection('uploadSection')">📤 Upload Client Data</li>
-          <li onclick="showSection('listSection')">👥 View Saved Clients</li>
-          <li onclick="showSection('visaSection')">🔍 Visa Verification</li>
-          <li onclick="logout()" style="color: #ffb3b3;">🚪 Logout</li>
-        </ul>
-      </nav>
-
-      <section class="dashboard-content">
-        <div id="homeSection" class="section">
-          <h2>Welcome back, Administrator</h2>
-          <p>Use the sidebar to manage client files, upload new visa PDFs, or run a verification check.</p>
+<main style="padding: 30px 5%;">
+    <div style="background-color: #d00000; color: #fff; padding: 20px; border-radius: 4px; display: flex; align-items: center; margin-bottom: 20px;">
+        <span style="font-size: 2rem; margin-right: 15px;">!</span>
+        <div>
+            <strong>APPLICATION SYSTEM ISSUE</strong><br>
+            If you started an application before 7 December 2025 and are having trouble submitting it...
         </div>
-
-        <div id="uploadSection" class="section" style="display:none;">
-          <h2>Upload Client Information & Visa</h2>
-          <div style="background: #f9f9f9; padding: 20px; border-radius: 8px;">
-            <form id="uploadForm">
-              <label>Client Full Name</label>
-              <input type="text" id="cName" placeholder="e.g. John Doe" required>
-              
-              <label>Passport Number</label>
-              <input type="text" id="cPassport" placeholder="e.g. L1234567" required>
-              
-              <label>Visa Type</label>
-              <select id="cType">
-                <option value="Work">Work Visa</option>
-                <option value="Visitor">Visitor Visa</option>
-                <option value="Student">Student Visa</option>
-              </select>
-
-              <label>Upload Visa PDF</label>
-              <input type="file" id="cFile" accept="application/pdf" required>
-              
-              <button type="submit">Save to Database</button>
-            </form>
-          </div>
-        </div>
-
-        <div id="listSection" class="section" style="display:none;">
-          <h2>Saved Clients</h2>
-          <table id="clientTable">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Passport</th>
-                <th>Type</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="clientTableBody">
-              </tbody>
-          </table>
-        </div>
-
-        <div id="visaSection" class="section" style="display:none;">
-            <div class="container" style="margin: 0; max-width: 100%;">
-                <h2>Visa Verification Enquiry</h2>
-                <form id="visaForm">
-                    <input type="text" placeholder="Family Name" required>
-                    <input type="text" placeholder="Passport Number" required>
-                    <input type="date" title="DOB" required>
-                    <button type="submit">Search Records</button>
-                </form>
-            </div>
-        </div>
-
-      </section>
     </div>
-  </div>
-</div>
 
-<div class="footer">© 2026 Agency Management System | Secure Access</div>
-
-<script>
-  // Navigation Logic
-  function showSection(sectionId) {
-    document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-    document.getElementById(sectionId).style.display = 'block';
-  }
-
-  function logout() {
-    document.getElementById('dashboardPage').style.display = 'none';
-    document.getElementById('loginPage').style.display = 'block';
-  }
-
-  // Handle Login
-  document.getElementById("loginForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    document.getElementById('loginPage').style.display = 'none';
-    document.getElementById('dashboardPage').style.display = 'block';
-    showSection('homeSection');
-  });
-
-  // Handle Client Upload
-  const clients = [];
-  document.getElementById("uploadForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+    <h1>Welcome to Immigration Online</h1>
     
-    const newClient = {
-      name: document.getElementById('cName').value,
-      passport: document.getElementById('cPassport').value,
-      type: document.getElementById('cType').value,
-      fileName: document.getElementById('cFile').files[0].name
-    };
+    <div style="background-color: #f9f9f9; padding: 15px; border-left: 5px solid #006272;">
+        My sharing ID is: <strong>CSC-N7ROK4-2024-1136147</strong>
+    </div>
 
-    clients.push(newClient);
-    updateClientTable();
-    alert("Client Data and PDF reference saved successfully!");
-    this.reset();
-    showSection('listSection');
-  });
-
-  function updateClientTable() {
-    const tbody = document.getElementById('clientTableBody');
-    tbody.innerHTML = "";
-    clients.forEach(c => {
-      tbody.innerHTML += `
-        <tr>
-          <td>${c.name}</td>
-          <td>${c.passport}</td>
-          <td>${c.type}</td>
-          <td><span class="status-badge">Active</span></td>
-          <td><button style="padding:5px; font-size:0.8rem;">View PDF</button></td>
-        </tr>`;
-    });
-  }
-
-  document.getElementById("visaForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      alert("Searching secure database for matching visa records...");
-  });
-</script>
-
-</body>
-</html>
+    <section style="margin-top: 40px;">
+        <h3>My visas</h3>
+        <p>Apply for and manage your individual applications.</p>
+        <button style="background-color: #006272; color: #fff; padding: 10px 20px; border: none; font-weight: bold;">MY VISAS</button>
+    </section>
+</main>
