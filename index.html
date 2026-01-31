@@ -2,34 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NZ Immigration & Corporate Responsibility Suite</title>
+    <title>NZ Immigration & HR Sponsorship Suite</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        :root { --nz-blue: #00247d; --nz-red: #cc142d; --nz-black: #1a1a1a; }
+        :root { --nz-blue: #00247d; --nz-black: #1a1a1a; }
         body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #2c3e50; margin: 0; display: flex; }
         
-        /* Sidebar Navigation */
         .sidebar { width: 380px; background: #1a1a1a; color: white; padding: 25px; height: 100vh; overflow-y: auto; box-sizing: border-box; position: fixed; border-right: 4px solid var(--nz-blue); z-index: 1000; }
         .sidebar h2 { font-size: 13px; color: #27ae60; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 20px; }
         label { display: block; margin-top: 10px; font-size: 10px; text-transform: uppercase; color: #999; }
         input, select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 4px; border: none; background: #2b2b2b; color: white; font-size: 13px; }
         button { width: 100%; padding: 15px; margin-top: 25px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; background: var(--nz-blue); color: white; }
 
-        /* Preview Pages */
         .preview-area { margin-left: 380px; padding: 40px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 40px; }
         .a4-page { width: 210mm; min-height: 297mm; background: white; padding: 20mm; box-shadow: 0 0 20px rgba(0,0,0,0.4); box-sizing: border-box; color: #333; position: relative; }
 
-        .nz-header { border-bottom: 3px solid var(--nz-black); display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; margin-bottom: 20px; }
+        .nz-header { border-bottom: 2px solid var(--nz-black); padding-bottom: 10px; margin-bottom: 20px; }
         .data-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 12.5px; }
         .data-table td { padding: 8px; border: 1px solid #eee; }
         .label-cell { background: #f4f4f4; font-weight: bold; width: 35%; }
 
-        .qr-box { text-align: center; }
+        .qr-box { text-align: center; margin-top: 10px; }
         .qr-box div { margin: 0 auto; }
-        .qr-sub { font-size: 8px; margin-top: 4px; font-weight: bold; color: #555; }
-
-        .responsibility-clause { background: #fff9f9; border: 1px solid #ffcccc; padding: 15px; font-size: 12px; margin: 20px 0; border-left: 5px solid var(--nz-red); }
-        .hr-footer-box { margin-top: 40px; display: flex; border: 1px solid #ddd; padding: 15px; background: #fcfcfc; }
+        
+        .hr-verification-box { margin-top: 40px; border: 1px solid #ddd; padding: 20px; display: flex; justify-content: space-between; align-items: center; background: #f9f9f9; }
 
         @media print { .sidebar { display: none; } .preview-area { margin: 0; } .a4-page { box-shadow: none; margin: 0; } }
     </style>
@@ -37,141 +33,111 @@
 <body>
 
 <div class="sidebar">
-    <h2>Client Personal Details</h2>
+    <h2>1. Personal & Visa</h2>
     <label>Full Name</label>
-    <input type="text" id="inClName" placeholder="Full Name" oninput="sync()">
+    <input type="text" id="inClName" placeholder="John Citizen" oninput="sync()">
     <label>Date of Birth</label>
     <input type="date" id="inDOB" oninput="sync()">
     <label>Passport Number</label>
-    <input type="text" id="inClPass" placeholder="PK-XXXXXX" oninput="sync()">
-
-    <h2>Employment & Visa</h2>
+    <input type="text" id="inClPass" placeholder="PK-123456" oninput="sync()">
+    <label>NZ Immigration Ref #</label>
+    <input type="text" id="inRef" placeholder="NZ-RES-2026-001" oninput="sync()">
     <label>Job Title</label>
-    <input type="text" id="inJob" placeholder="e.g. Senior Project Manager" oninput="sync()">
-    <label>Visa Class</label>
-    <select id="inVisa" oninput="sync()">
-        <option value="Accredited Employer Work Visa">Accredited Employer Work Visa</option>
-        <option value="Skilled Resident Visa">Skilled Resident Visa</option>
-        <option value="Green List Straight to Residence">Green List Straight to Residence</option>
-    </select>
-    <label>NZ Reference #</label>
-    <input type="text" id="inRef" placeholder="NZ-2026-XXXX" oninput="sync()">
+    <input type="text" id="inJob" placeholder="Senior Engineer" oninput="sync()">
 
-    <h2>Travel & HR</h2>
-    <label>Arrival Airport (NZ)</label>
-    <select id="inAirport" oninput="sync()">
-        <option value="Auckland International (AKL)">Auckland (AKL)</option>
-        <option value="Christchurch International (CHC)">Christchurch (CHC)</option>
+    <h2>2. Flight Details</h2>
+    <label>Depart from Pakistan</label>
+    <select id="inDepartCity" oninput="sync()">
+        <option value="Islamabad Intl (ISB)">Islamabad (ISB)</option>
+        <option value="Lahore Allama Iqbal (LHE)">Lahore (LHE)</option>
+        <option value="Karachi Jinnah Intl (KHI)">Karachi (KHI)</option>
     </select>
+    <label>Arrival Airport (NZ)</label>
+    <select id="inArriveCity" oninput="sync()">
+        <option value="Auckland International (AKL)">Auckland (AKL)</option>
+        <option value="Christchurch Intl (CHC)">Christchurch (CHC)</option>
+    </select>
+    <label>Arrival Date in NZ</label>
+    <input type="date" id="inArriveDate" oninput="sync()">
+
+    <h2>3. HR Verification</h2>
     <label>HR Manager Name</label>
-    <input type="text" id="inHRName" placeholder="Manager Name" oninput="sync()">
-    <label>HR Phone Number</label>
+    <input type="text" id="inHRName" placeholder="Name" oninput="sync()">
+    <label>HR Contact Phone</label>
     <input type="text" id="inHRPhone" placeholder="+64 XX XXX XXXX" oninput="sync()">
 
-    <button onclick="window.print()">Print Official Suite</button>
+    <button onclick="window.print()">Print PR Documents</button>
 </div>
 
 <div class="preview-area">
     <div class="a4-page">
         <div class="nz-header">
+            <h2 style="margin:0; color:var(--nz-blue);">NEW ZEALAND IMMIGRATION</h2>
+            <p style="margin:0; font-size:12px;">Port of Entry: <span class="outArriveCity">Auckland</span></p>
+        </div>
+
+        <h3>OFFICIAL ARRIVAL & PERMIT RECORD</h3>
+        <table class="data-table">
+            <tr><td class="label-cell">NZ Immigration Ref</td><td id="outRef" style="font-weight:bold;">REF-PENDING</td></tr>
+            <tr><td class="label-cell">Full Name</td><td class="outClName">Client Name</td></tr>
+            <tr><td class="label-cell">Date of Birth</td><td class="outDOB">YYYY-MM-DD</td></tr>
+            <tr><td class="label-cell">Passport No.</td><td class="outClPass">PK-000000</td></tr>
+            <tr><td class="label-cell">Origin</td><td><span class="outDepartCity">Islamabad</span>, Pakistan</td></tr>
+            <tr><td class="label-cell">Arrival Date (NZ)</td><td class="outArriveDate">YYYY-MM-DD</td></tr>
+        </table>
+
+        <h3>WORK PERMIT & SPONSORSHIP</h3>
+        <table class="data-table">
+            <tr><td class="label-cell">Visa Class</td><td>Accredited Employer Work Visa / Resident Path</td></tr>
+            <tr><td class="label-cell">Designated Job</td><td class="outJob">Position Title</td></tr>
+            <tr><td class="label-cell">Employer Status</td><td>Fully Sponsored / Company Responsible</td></tr>
+        </table>
+
+        <div style="margin-top:20px; padding:15px; border:1px solid #ddd; background:#f9f9f9; font-size:12px;">
+            <strong>LEGAL NOTICE:</strong> The sponsoring company takes full legal and financial responsibility for the employee’s visa maintenance and employment as specified under the Immigration Act 2009.
+        </div>
+
+        <div class="hr-verification-box">
             <div>
-                <h2 style="margin:0; color:var(--nz-blue);">NEW ZEALAND IMMIGRATION</h2>
-                <small>PORT OF ENTRY & VISA VALIDATION RECORD</small>
+                <h4 style="margin:0 0 10px 0; color:var(--nz-blue);">HR MANAGER AUTHORIZATION</h4>
+                <p style="font-size:13px; margin:2px 0;"><strong>Officer:</strong> <span class="outHRName">Pending</span></p>
+                <p style="font-size:13px; margin:2px 0;"><strong>Phone:</strong> <span class="outHRPhone">Pending</span></p>
+                <div style="border-top:1px solid #000; width:150px; margin-top:20px; font-size:10px;">SIGNATURE</div>
             </div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" height="40">
-        </div>
-
-        <div style="position: absolute; top: 120px; right: 20mm;" class="qr-box">
-            <div id="qrImmigration"></div>
-            <div class="qr-sub">IMMIGRATION REF: <span class="outRef">REF</span></div>
-        </div>
-
-        <h3>ARRIVAL DATA SUMMARY</h3>
-        <table class="data-table">
-            <tr><td class="label-cell">Reference Number</td><td class="outRef">REF</td></tr>
-            <tr><td class="label-cell">Full Name</td><td class="outClName">CLIENT</td></tr>
-            <tr><td class="label-cell">Date of Birth</td><td class="outDOB">00-00-0000</td></tr>
-            <tr><td class="label-cell">Passport No.</td><td class="outClPass">PASS</td></tr>
-            <tr><td class="label-cell">Route</td><td><strong>Pakistan (ISB/KHI)</strong> ➔ <strong>New Zealand</strong></td></tr>
-            <tr><td class="label-cell">Port of Arrival</td><td class="outAirport">AIRPORT</td></tr>
-        </table>
-
-        <h3>WORK PERMIT STATUS</h3>
-        <table class="data-table">
-            <tr><td class="label-cell">Visa Class</td><td class="outVisa">VISA</td></tr>
-            <tr><td class="label-cell">Designated Job</td><td class="outJob">JOB</td></tr>
-            <tr><td class="label-cell">Work Status</td><td><strong>AUTHORIZED: Full-Time Employment</strong></td></tr>
-        </table>
-
-        <div class="responsibility-clause">
-            <strong>EMPLOYER RESPONSIBILITY DECLARATION:</strong><br>
-            The sponsoring employer, as listed in the HR Verification document, assumes full legal responsibility for the maintenance of the visa status, the provision of the designated job, and the repatriation of the client if required under the Immigration Act 2009.
-        </div>
-
-        <div style="margin-top: 100px; font-size: 11px; text-align: center; border-top: 1px solid #eee; padding-top: 10px;">
-            NZBN: 94290000 | MBIE Case Record | Electronic Visa Verified
-        </div>
-    </div>
-
-    <div class="a4-page">
-        <div class="nz-header">
-            <h2 id="outCoName" style="margin:0;">CORPORATE HR COMPLIANCE</h2>
-            <small>INTERNAL REVIEW & SPONSORSHIP</small>
-        </div>
-
-        <p><strong>DATE:</strong> 01 February 2026</p>
-        <p><strong>TO:</strong> Immigration New Zealand / Port of Entry Review Unit</p>
-
-        <p>Following the arrival of <span class="outClName">Client</span> from Pakistan, our company confirms the commencement of their professional duties as <span class="outJob">Job</span>. We formally declare that all visa sponsorship responsibilities are actively managed by our Human Resources department.</p>
-
-        <div class="hr-footer-box">
-            <div style="flex: 1;">
-                <h4 style="margin-top:0; color:var(--nz-blue);">HR MANAGER DETAILS</h4>
-                <p style="font-size: 13px; margin: 5px 0;"><strong>Name:</strong> <span class="outHRName">NAME</span></p>
-                <p style="font-size: 13px; margin: 5px 0;"><strong>Phone:</strong> <span class="outHRPhone">PHONE</span></p>
-                <p style="font-size: 11px; color: #666; margin-top: 15px;"><em>"I hereby verify the arrival of the client and the validity of the job offer."</em></p>
-                <div style="border-top: 1px solid #000; width: 150px; margin-top: 20px; font-size: 10px;">SIGNATURE</div>
+            <div class="qr-box">
+                <div id="hrQRCode"></div>
+                <div style="font-size:8px; margin-top:5px; font-weight:bold;">HR SECURE VERIFICATION</div>
             </div>
-            <div class="qr-box" style="width: 120px; border-left: 1px solid #eee; padding-left: 10px;">
-                <div id="qrHR"></div>
-                <div class="qr-sub">HR VERIFICATION<br>SECURE LOG</div>
-            </div>
-        </div>
-
-        <div style="margin-top: 30px; padding: 20px; border: 1px dashed #aaa; text-align: center; color: #aaa;">
-            COMPANY OFFICIAL STAMP
         </div>
     </div>
 </div>
 
 <script>
-    let qrImms = new QRCode(document.getElementById("qrImmigration"), { width: 90, height: 90 });
-    let qrHR = new QRCode(document.getElementById("qrHR"), { width: 90, height: 90 });
+    let hrQR = new QRCode(document.getElementById("hrQRCode"), { width: 100, height: 100 });
 
     function sync() {
         const val = {
-            outClName: document.getElementById('inClName').value || 'John Doe',
+            outClName: document.getElementById('inClName').value || 'John Citizen',
             outDOB: document.getElementById('inDOB').value || 'YYYY-MM-DD',
-            outClPass: document.getElementById('inClPass').value || 'PK-000000',
-            outJob: document.getElementById('inJob').value || 'Specialist Role',
-            outVisa: document.getElementById('inVisa').value,
-            outRef: document.getElementById('inRef').value || 'NZ-REF-PENDING',
-            outAirport: document.getElementById('inAirport').value,
+            outClPass: document.getElementById('inClPass').value || 'PK-123456',
+            outJob: document.getElementById('inJob').value || 'Job Title',
+            outRef: document.getElementById('inRef').value || 'NZ-REF-XXXX',
+            outDepartCity: document.getElementById('inDepartCity').value,
+            outArriveCity: document.getElementById('inArriveCity').value,
+            outArriveDate: document.getElementById('inArriveDate').value || 'YYYY-MM-DD',
             outHRName: document.getElementById('inHRName').value || 'HR Manager',
-            outHRPhone: document.getElementById('inHRPhone').value || 'Contact Number'
+            outHRPhone: document.getElementById('inHRPhone').value || 'Phone Number'
         };
 
+        document.getElementById('outRef').innerText = val.outRef;
         for (const [key, value] of Object.entries(val)) {
             document.querySelectorAll('.' + key).forEach(el => el.innerText = value);
         }
 
-        // QR 1: Immigration Data
-        qrImms.makeCode(`NZ-GOV-IMMS|REF:${val.outRef}|PASS:${val.outClPass}|DOB:${val.outDOB}`);
-        
-        // QR 2: HR Verification Data
-        qrHR.makeCode(`COMPANY-HR-VERIFY|MGR:${val.outHRName}|TEL:${val.outHRPhone}|CLIENT:${val.outClName}`);
+        // Generate QR for HR specifically
+        const qrContent = `HR-VERIFY|MGR:${val.outHRName}|REF:${val.outRef}|CLIENT:${val.outClName}`;
+        hrQR.makeCode(qrContent);
     }
-
     sync();
 </script>
 </body>
