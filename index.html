@@ -2,91 +2,110 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Immigration Online - My Visas</title>
+    <title>Visa Verification Service | Immigration New Zealand</title>
     <style>
+        :root {
+            --inz-blue: #006272;
+            --nz-black: #000000;
+            --sidebar-blue: #e6f1f3;
+        }
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fff; }
-        .header { background-color: #000; color: #fff; padding: 15px 5%; display: flex; align-items: center; justify-content: space-between; }
-        .nav-tabs { background-color: #f3f3f3; display: flex; padding: 0 5%; border-bottom: 1px solid #ccc; }
-        .tab { padding: 15px 20px; font-size: 0.9rem; cursor: pointer; color: #333; }
-        .tab.active { font-weight: bold; border-bottom: 4px solid #006272; }
-        
-        .main-content { padding: 30px 5%; }
-        h2 { color: #333; font-size: 1.5rem; margin-bottom: 5px; }
-        .sub-text { font-size: 0.85rem; color: #555; margin-bottom: 20px; }
 
-        /* Issued Visas Table Styling */
-        .table-container { border: 1px solid #dcdcdc; border-top: 4px solid #006272; margin-top: 20px; }
-        .filter-bar { background-color: #f9f9f9; padding: 10px 15px; display: flex; justify-content: space-between; border-bottom: 1px solid #dcdcdc; }
-        .all-visas-btn { color: #006272; font-weight: bold; display: flex; align-items: center; font-size: 0.9rem; }
+        /* OFFICIAL GOVT HEADER */
+        .header-top { background: var(--nz-black); color: white; padding: 12px 8%; display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid #f45b06; }
+        .logo-section { display: flex; align-items: center; gap: 12px; }
         
-        table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 12px; font-size: 0.85rem; background: #fff; border-bottom: 1px solid #dcdcdc; border-right: 1px solid #eee; }
-        td { padding: 15px 12px; font-size: 0.85rem; border-bottom: 1px solid #eee; border-right: 1px solid #eee; }
-        .download-link { color: #006272; text-decoration: underline; font-weight: 500; cursor: pointer; }
-        .options-select { padding: 4px; border: 1px solid #ccc; font-size: 0.8rem; }
+        /* THE NZ FLAG */
+        .nz-flag { width: 30px; height: 15px; background: #00247d; position: relative; border: 1px solid #fff; }
+        .nz-flag::before { content: ""; position: absolute; width: 100%; height: 100%; background: linear-gradient(90deg, transparent 45%, #fff 45%, #fff 55%, transparent 55%), linear-gradient(0deg, transparent 45%, #fff 45%, #fff 55%, transparent 55%); }
+        
+        .fern-img { height: 35px; filter: brightness(0) invert(1); }
+        .govt-label { font-weight: bold; font-size: 1rem; letter-spacing: 1px; }
+
+        /* PORTAL STYLING */
+        .inz-branding { background: var(--inz-blue); padding: 20px 8%; color: white; display: flex; align-items: center; gap: 15px; }
+        .breadcrumb { background: #f4f4f4; padding: 10px 8%; font-size: 0.8rem; border-bottom: 1px solid #ccc; }
+
+        .layout { display: flex; min-height: 80vh; padding: 0 8%; }
+        .sidebar { width: 250px; background: var(--sidebar-blue); border-right: 1px solid #bcd2d6; }
+        .nav-item { padding: 12px 20px; color: #005a69; border-bottom: 1px solid #d1e2e5; cursor: pointer; font-size: 0.9rem; }
+        .nav-item.active { background: white; font-weight: bold; border-left: 5px solid var(--inz-blue); }
+
+        .form-content { flex: 1; padding: 40px; }
+        h1 { color: #005a69; font-size: 1.7rem; border-bottom: 2px solid #005a69; padding-bottom: 10px; margin-top: 0; }
+        
+        .visa-table { width: 100%; border-spacing: 0 15px; }
+        .visa-table label { font-weight: bold; font-size: 0.9rem; color: #444; }
+        .visa-table input, .visa-table select { width: 320px; padding: 8px; border: 1px solid #888; }
+        
+        .upload-section { margin-top: 30px; padding: 20px; border: 2px dashed var(--inz-blue); background: #f9f9f9; width: fit-content; }
+        .btn-check { background: var(--inz-blue); color: white; border: none; padding: 12px 30px; font-weight: bold; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <div style="display:flex; align-items:center;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" height="30" style="filter:invert(1); margin-right:10px;">
-        <span style="font-weight:bold; letter-spacing:1px;">NEW ZEALAND IMMIGRATION</span>
+<div class="header-top">
+    <div class="logo-section">
+        <div class="nz-flag"></div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" class="fern-img">
+        <span class="govt-label">NEW ZEALAND GOVERNMENT</span>
     </div>
-    <div style="font-size: 0.8rem;">LOG OUT</div>
 </div>
 
-<div class="nav-tabs">
-    <div class="tab">My dashboard</div>
-    <div class="tab active">My visas</div>
-    <div class="tab">Employ migrants</div>
-    <div class="tab">My sponsorships</div>
+<div class="inz-branding">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" height="45" style="filter: brightness(0) invert(1);">
+    <span style="font-size: 1.8rem; font-weight: bold;">IMMIGRATION NEW ZEALAND</span>
 </div>
 
-<div class="main-content">
-    <h2>Issued visas</h2>
-    <p class="sub-text">Dates displayed for multiple entry visas may not be up to date. Select Download eVisa to view visa travel conditions. Use the Options dropdown to share your visa or to view and apply for a variation of conditions.</p>
+<div class="breadcrumb">Home > VisaView > Visa Verification Enquiry</div>
 
-    <div class="table-container">
-        <div class="filter-bar">
-            <div class="all-visas-btn">▦ All Visas ▼</div>
-            <div>
-                <input type="text" placeholder="Search" style="padding:5px; border:1px solid #ccc;">
-                <button style="padding:5px; background:#eee; border:1px solid #ccc; border-left:none;">🔍</button>
+<div class="layout">
+    <nav class="sidebar">
+        <div style="padding: 15px 20px; font-weight: bold; color: #005a69;">VisaView</div>
+        <div class="nav-item">Register Organisation</div>
+        <div class="nav-item active">Verify Visa Record</div>
+        <div class="nav-item">My Account</div>
+    </nav>
+
+    <main class="form-content">
+        <h1>Visa Verification Enquiry</h1>
+        <p style="font-size: 0.85rem; color: #555;">Enter the details exactly as they appear in the visa holder's current passport.</p>
+
+        <form id="visaForm">
+            <table class="visa-table">
+                <tr><td><label>Family Name *</label></td><td><input type="text" id="vName" required></td></tr>
+                <tr><td><label>Passport Number *</label></td><td><input type="text" id="vPass" required></td></tr>
+                <tr><td><label>Date of Birth *</label></td><td><input type="text" placeholder="dd/mm/yyyy" required></td></tr>
+                <tr><td><label>Visa Start Date *</label></td><td><input type="text" placeholder="dd/mm/yyyy" required></td></tr>
+            </table>
+
+            <div class="upload-section">
+                <label style="display:block; margin-bottom:10px; font-weight:bold;">Upload Visa PDF (for Processor):</label>
+                <input type="file" id="vFile" accept=".pdf">
             </div>
-        </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Visa holder</th>
-                    <th>Application ID</th>
-                    <th>Visa category</th>
-                    <th>Issue date</th>
-                    <th>Entry type</th>
-                    <th>Download visa</th>
-                    <th>Options</th>
-                </tr>
-            </thead>
-            <tbody id="visa-entries">
-                <tr>
-                    <td style="font-weight:bold;">John Doe</td>
-                    <td>VV02119875</td>
-                    <td>Visitor Visa - General</td>
-                    <td>01 Feb 2026</td>
-                    <td>Multiple</td>
-                    <td style="text-align:center;"><span class="download-link">Download eVisa</span></td>
-                    <td>
-                        <select class="options-select">
-                            <option>Select</option>
-                            <option>Share visa</option>
-                        </select>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+            <div style="margin: 20px 0; font-size: 0.85rem;">
+                <input type="checkbox" required> The visa holder has consented to this check.
+            </div>
+
+            <button type="submit" class="btn-check">Check Visa</button>
+        </form>
+    </main>
 </div>
+
+<script>
+    document.getElementById('visaForm').onsubmit = function(e) {
+        e.preventDefault();
+        const name = document.getElementById('vName').value;
+        const file = document.getElementById('vFile').files[0];
+        
+        if (file) {
+            alert("PROCESSING: Visa record for " + name + " and the PDF document have been sent to the Processor.");
+        } else {
+            alert("Please upload the Visa PDF to continue.");
+        }
+    };
+</script>
 
 </body>
 </html>
