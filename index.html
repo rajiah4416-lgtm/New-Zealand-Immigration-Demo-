@@ -3,6 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RealMe Login & Visa View</title>
+    <style>
+        :root {
+            --realme-orange: #E64415;
+            --govt-black: #000000;
+            --immig-blue: #004d71;
+            --immig-teal: #009688;
+        }
+
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #ffffff; overflow-x: hidden; }
+
+        /* --- SHARED HEADER --- */
+        .header-black { 
+            background-color: var(--govt-black); 
+            padding: 12px 8%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo-main { color: var(--realme-orange); font-size: 2rem; font-weight: bold; margin: 0; }
+        .logo-main span { color: #ffffff; }
+        .nz-gov-identity { display: flex; align-items: center; gap: 10px; color: white; font-weight: bold; font-size: 0.9rem; }
+        .nz-fern-white { height: 35px; filter: brightness(0) invert(1); }
+
+        /* --- PAGE 1: REALME LOGIN --- */
+        #loginPage { display: block; }
+        .nav-bar { padding: 18px 8%; background-color: #f4f4f4; border-bottom: 1px solid #ddd; font-size: 0.9rem; }
+        .main-container { display: grid; grid-template-columns: 1fr 1fr; max-width: 1200px; margin: 50px auto; padding: 0 8%; gap: 80px; }
+        .heading-orange { color: var(--realme-orange); font-size: 2.5rem; margin-bottom: 20px; }
+        .input-box { width: 100%; padding: 15px; background-color: #f1f1f1; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 15px; }
+        .btn-login { background-color: var(--realme-orange); color: white; border: none; padding: 15px 40px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+        .footer-orange { background-color: var(--realme-orange); color: white; padding: 40px 8%; margin-top: 50px; }
+
+        /* --- PAGE 2: VISA VIEW --- */
+        #visaPage { display: none; }
+        .visa-header { background: var(--immig-blue); color: white; padding: 20px 8%; }
+        .visa-container { max-width: 1200px; margin: 40px auto; padding: 0 8%; }
+        .visa-card { border: 1px solid #ddd; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .visa-status { color: var(--immig-teal); font-weight: bold; font-size: 1.2rem; }
+        .visa-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .visa-table td { padding: 12px 0; border-bottom: 1px solid #eee; }
+        .label { font-weight: bold; color: #555; width: 200px; }
+    </style>
+</head>
+<body>
+
+<div id="loginPage">
+    <header class="header-black">
+        <div class="logo-main">r <span>RealMe<sup>®</sup></span></div>
+        <div class="nz-gov-identity">
+            <span>NEW ZEALAND GOVERNMENT</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" class="nz-fern-white">
+        </div>
+    </header>
+
+    <div class="nav-bar">← Go back to <b>New Zealand Immigration</b></div>
+
+    <div class="main-container">
+        <div>
+            <h1 class="heading-orange">Log in with <b>RealMe</b></h1>
+            <input type="text" class="input-box" placeholder="Username" value="JohnDoe_NZ">
+            <input type="password" class="input-box" placeholder="Password" value="••••••••">
+            <button class="btn-login" onclick="showVisa()">Log in</button>
+        </div>
+        <div>
+            <h1 class="heading-orange">Create a <b>RealMe</b> login</h1>
+            <p>To access this service you need a RealMe login.</p>
+        </div>
+    </div>
+
+    <footer class="footer-orange">
+        © New Zealand Government
+    </footer>
+</div>
+
+<div id="visaPage">
+    <header class="header-black">
+        <div style="color:white; font-weight:bold;">Ministry of Business, Innovation & Employment</div>
+        <div class="nz-gov-identity">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" class="nz-fern-white">
+        </div>
+    </header>
+
+    <div class="visa-header">
+        <h1>Visa Verification Enquiry</h1>
+    </div>
+
+    <div class="visa-container">
+        <div class="visa-card">
+            <div class="visa-status">✓ Current Visa Found</div>
+            <table class="visa-table">
+                <tr><td class="label">Family Name:</td><td>DOE</td></tr>
+                <tr><td class="label">Given Name(s):</td><td>JOHN</td></tr>
+                <tr><td class="label">Passport Number:</td><td>P12345678</td></tr>
+                <tr><td class="label">Visa Type:</td><td>Post Study Work Visa</td></tr>
+                <tr><td class="label">Expiry Date:</td><td>14 OCT 2027</td></tr>
+                <tr><td class="label">Visa Status:</td><td style="color:green; font-weight:bold;">ISSUED</td></tr>
+            </table>
+        </div>
+        <button onclick="location.reload()" style="margin-top:20px; padding:10px; cursor:pointer;">Logout</button>
+    </div>
+</div>
+
+<script>
+    function showVisa() {
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('visaPage').style.display = 'block';
+        window.scrollTo(0,0);
+    }
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RealMe - Login</title>
     <style>
         :root {
