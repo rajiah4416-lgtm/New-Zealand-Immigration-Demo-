@@ -3,158 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in with RealMe® | Immigration New Zealand</title>
+    <title>Enterprise Verification Portal | Managed Records</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --realme-orange: #f44336; /* Official RealMe Orange */
-            --inz-blue: #00247d;      /* Official NZ Blue */
-            --inz-gray: #333333;
+            --brand-dark: #0f172a;
+            --brand-accent: #3b82f6;
+            --status-valid: #10b981;
         }
-        body { font-family: Arial, Helvetica, sans-serif; background-color: white; margin: 0; }
-        
-        /* Top Branding Bar */
-        .gov-header {
-            background-color: black;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        /* Login Container */
-        .login-box {
-            max-width: 450px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-
-        .realme-logo-text {
-            color: var(--realme-orange);
-            font-size: 42px;
-            font-weight: bold;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #ccc;
-            border-radius: 12px;
-            margin-top: 5px;
-            font-size: 16px;
-        }
-
-        .login-btn {
-            background-color: #e64a19;
-            color: white;
-            width: 100%;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        /* Footer Section */
-        .gov-footer {
-            background-color: #d84315; /* Orange-Red footer */
-            color: white;
-            padding: 40px 20px;
-            margin-top: 50px;
-        }
+        body { font-family: 'Inter', -apple-system, sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .sidebar { background-color: var(--brand-dark); }
+        .header-strip { border-top: 5px solid var(--brand-accent); }
+        .card-shadow { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); }
+        .data-label { font-size: 0.7rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
     </style>
 </head>
-<body>
+<body class="flex flex-col md:flex-row min-h-screen">
 
-    <header class="gov-header">
-        <div class="flex items-center gap-2">
-            <span style="color: #f44336; font-size: 24px; font-weight: bold;">RealMe<span style="font-size: 12px; vertical-align: top;">®</span></span>
-            <span class="text-xs italic text-gray-400 block">Tēnei Au</span>
+    <aside class="sidebar w-full md:w-64 text-slate-300 p-6 flex flex-col gap-8">
+        <div class="flex items-center gap-3 border-b border-slate-700 pb-6">
+            <div class="bg-blue-600 p-2 rounded-lg">
+                <i class="fas fa-shield-halved text-white text-xl"></i>
+            </div>
+            <span class="font-black text-white tracking-tighter text-lg uppercase">Global IDP</span>
         </div>
-        <div class="text-right">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Silver_fern_logo.svg" class="w-8 inline invert" alt="Fern">
-            <span class="text-xs font-bold uppercase tracking-widest ml-2">New Zealand Immigration</span>
-        </div>
-    </header>
-
-    <div class="px-6 py-4 border-b bg-gray-50 text-sm text-gray-600">
-        <i class="fas fa-arrow-left mr-2"></i> Go back to the Ministry of Business, Innovation and Employment
-    </div>
-
-    <main class="login-box">
-        <h1 class="text-4xl font-light mb-6">Log in with <span class="text-red-600 font-bold">RealMe</span></h1>
         
-        <p class="text-gray-700 mb-8">To access this service you need a RealMe login.</p>
+        <nav class="space-y-1">
+            <a href="#" class="flex items-center gap-3 p-3 bg-blue-600/10 text-blue-400 rounded-lg font-bold">
+                <i class="fas fa-layer-group"></i> Dashboard
+            </a>
+            <a href="#" class="flex items-center gap-3 p-3 hover:bg-slate-800 transition rounded-lg">
+                <i class="fas fa-user-shield"></i> Verification
+            </a>
+            <a href="#" class="flex items-center gap-3 p-3 hover:bg-slate-800 transition rounded-lg">
+                <i class="fas fa-database"></i> Audit Logs
+            </a>
+        </nav>
+    </aside>
 
-        <div class="space-y-4 mb-8">
-            <label class="flex items-center gap-3 cursor-pointer">
-                <input type="radio" name="auth" checked class="w-5 h-5 accent-red-600">
-                <span>I have an existing RealMe login</span>
-            </label>
-            <label class="flex items-center gap-3 cursor-pointer">
-                <input type="radio" name="auth" class="w-5 h-5 accent-red-600">
-                <span>I need to create a login</span>
-            </label>
-        </div>
-
-        <div class="space-y-6">
+    <main class="flex-1 flex flex-col">
+        
+        <header class="bg-white p-6 header-strip flex justify-between items-center shadow-sm">
             <div>
-                <label class="block text-sm font-semibold text-gray-600 ml-2">Username</label>
-                <input type="text" id="user" class="input-field shadow-inner focus:border-red-500">
+                <h1 class="text-xl font-bold text-slate-800">Regional Compliance Records</h1>
+                <p class="text-xs text-slate-500 font-medium">Session: Encrypted | Status: Connected</p>
             </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-600 ml-2">Password</label>
-                <input type="password" id="pass" class="input-field shadow-inner focus:border-red-500">
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-slate-400">ADMIN-MODE</span>
+                <div class="w-8 h-8 rounded bg-slate-100 flex items-center justify-center border border-slate-200">
+                    <i class="fas fa-user-tie text-slate-400"></i>
+                </div>
             </div>
-        </div>
+        </header>
 
-        <button onclick="simulateLogin()" class="login-btn">
-            <i class="fas fa-dot-circle"></i> Log in
-        </button>
+        <div class="p-4 md:p-8 space-y-6">
+            
+            <div class="bg-white p-6 rounded-2xl card-shadow border border-slate-100">
+                <h2 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <i class="fas fa-qrcode text-blue-500"></i> System Authentication
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <input type="text" id="idSearch" placeholder="Identity Reference (Passport)" class="bg-slate-50 border border-slate-200 p-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                    <input type="text" placeholder="Application UID" class="bg-slate-50 border border-slate-200 p-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                    <button onclick="runCheck()" class="bg-slate-900 text-white font-bold py-3 px-6 rounded-lg hover:bg-slate-800 transition">
+                        RUN VERIFICATION
+                    </button>
+                </div>
+            </div>
 
-        <div class="text-center mt-6 space-x-4">
-            <a href="#" class="text-red-700 font-bold underline">Forgot Username</a>
-            <span class="text-gray-300">|</span>
-            <a href="#" class="text-red-700 font-bold underline">Forgot Password?</a>
+            <div id="statusGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="bg-white p-8 rounded-2xl card-shadow border-t-4 border-emerald-500">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Authenticated</span>
+                            <h3 class="text-2xl font-black text-slate-800 mt-2 tracking-tight">MANAGED RECORD: 01A</h3>
+                        </div>
+                        <i class="fas fa-check-double text-emerald-500 text-xl"></i>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-y-4">
+                        <div>
+                            <p class="data-label">Visa Classification</p>
+                            <p class="font-bold text-slate-700">EMPLOYMENT (SKILLED)</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Entry Authorization</p>
+                            <p class="font-bold text-slate-700 italic">MULTIPLE RIGHTS</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Identity Reference</p>
+                            <p class="font-bold text-slate-700">PKXXXXXX7</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Compliance Expiry</p>
+                            <p class="font-black text-rose-600 underline">DEC 2026</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl card-shadow border-t-4 border-blue-500">
+                    <h3 class="data-label mb-4">Verification Audit</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-slate-500">Database Sync Status:</span>
+                            <span class="font-bold text-emerald-600">Active</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-slate-500">Regional Compliance:</span>
+                            <span class="font-bold">Verified Level 2</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-slate-500">Attached Document:</span>
+                            <a href="#" class="text-blue-600 font-bold hover:underline italic"><i class="fas fa-file-pdf mr-1"></i> VIEW_VISA_REF.PDF</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="bg-white rounded-2xl card-shadow overflow-hidden border border-slate-100">
+                <div class="bg-slate-50 p-4 border-b">
+                    <span class="data-label">Recent Authentication History</span>
+                </div>
+                <div class="p-4 text-xs font-mono text-slate-500 space-y-1">
+                    <p>[03:44:19] - Connection established via Portal 03 (Regional)</p>
+                    <p>[03:44:21] - Auth token validated: REALME-GATE-XX-09</p>
+                    <p>[03:44:22] - Identity record retrieved successfully.</p>
+                </div>
+            </div>
+
         </div>
     </main>
 
-    <footer class="gov-footer">
-        <div class="max-w-4xl mx-auto space-y-6">
-            <nav class="flex flex-col gap-4 font-semibold">
-                <a href="#" class="hover:underline">Help & contact us</a>
-                <a href="#" class="hover:underline">Terms of use</a>
-                <a href="#" class="hover:underline">Privacy</a>
-                <a href="#" class="hover:underline">About this site</a>
-            </nav>
-            
-            <div class="flex gap-4 font-bold border-t border-white/30 pt-4">
-                <a href="#" class="underline">English</a>
-                <a href="#" class="hover:underline">中文</a>
-            </div>
-
-            <div class="pt-10 border-t border-white/20 text-sm">
-                © New Zealand Government
-            </div>
-        </div>
-    </footer>
-
     <script>
-        function simulateLogin() {
-            const btn = document.querySelector('.login-btn');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-            
+        function runCheck() {
+            const btn = document.querySelector('button[onclick="runCheck()"]');
+            btn.innerHTML = '<i class="fas fa-sync fa-spin"></i> SYNCING...';
             setTimeout(() => {
-                alert("Login Successful. Redirecting to your Private Visa Dashboard.");
-                // This would redirect to the dashboard we made earlier
-                window.location.href = "#dashboard"; 
-            }, 1500);
+                alert("Verification complete. Identity record updated.");
+                btn.innerHTML = 'RUN VERIFICATION';
+            }, 1200);
         }
     </script>
 </body>
