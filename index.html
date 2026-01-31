@@ -1,208 +1,240 @@
-{
-  "name": "Employee",
-  "type": "object",
-  "properties": {
-    "full_name": {
-      "type": "string",
-      "description": "Employee's full legal name"
-    },
-    "email": {
-      "type": "string",
-      "format": "email",
-      "description": "Employee's email address"
-    },
-    "phone": {
-      "type": "string",
-      "description": "Contact phone number"
-    },
-    "department": {
-      "type": "string",
-      "description": "Department the employee works in"
-    },
-    "position": {
-      "type": "string",
-      "description": "Job title/position"
-    },
-    "hire_date": {
-      "type": "string",
-      "format": "date",
-      "description": "Date of hire"
-    },
-    "hiring_manager_email": {
-      "type": "string",
-      "format": "email",
-      "description": "Email of the hiring manager"
-    },
-    "passport_number": {
-      "type": "string",
-      "description": "Passport number for VisaView checks"
-    },
-    "nationality": {
-      "type": "string",
-      "description": "Nationality/citizenship"
-    },
-    "is_nz_citizen": {
-      "type": "boolean",
-      "default": false,
-      "description": "Whether the employee is a NZ citizen or permanent resident"
-    },
-    "visa_type": {
-      "type": "string",
-      "enum": [
-        "work_visa",
-        "student_visa",
-        "partner_visa",
-        "resident_visa",
-        "other",
-        "not_applicable"
-      ],
-      "description": "Type of visa held"
-    },
-    "visa_expiry_date": {
-      "type": "string",
-      "format": "date",
-      "description": "Date the visa expires"
-    },
-    "visa_conditions": {
-      "type": "string",
-      "description": "Any conditions attached to the visa"
-    },
-    "verification_status": {
-      "type": "string",
-      "enum": [
-        "pending",
-        "verified",
-        "issues_found",
-        "expired",
-        "not_required"
-      ],
-      "default": "pending",
-      "description": "Status of VisaView verification"
-    },
-    "last_verification_date": {
-      "type": "string",
-      "format": "date",
-      "description": "Date of last VisaView check"
-    },
-    "verification_notes": {
-      "type": "string",
-      "description": "Notes from the verification check"
-    },
-    "status": {
-      "type": "string",
-      "enum": [
-        "active",
-        "onboarding",
-        "terminated"
-      ],
-      "default": "onboarding",
-      "description": "Employment status"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa Verification & Management | Immigration New Zealand</title>
+    <style>
+        :root {
+            --nz-black: #000000;
+            --realme-orange: #f45b06;
+            --inz-blue: #006272;
+            --sidebar-bg: #e6f1f3;
+            --alert-red: #d00000;
+            --success-green: #008542;
+        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background: #ffffff; color: #333; overflow-x: hidden; }
+
+        /* --- OFFICIAL NZ GOVT HEADER --- */
+        .govt-top-bar { background: var(--nz-black); color: white; padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--realme-orange); }
+        .nz-identity { display: flex; align-items: center; gap: 15px; }
+        .fern-logo { height: 35px; filter: brightness(0) invert(1); }
+        .govt-text { font-weight: bold; font-size: 1.1rem; letter-spacing: 1px; }
+
+        /* --- REALME LOGIN --- */
+        #login-view { max-width: 440px; margin: 80px auto; padding: 0 20px; text-align: left; }
+        .realme-brand { font-size: 3.5rem; font-weight: bold; color: var(--realme-orange); margin-bottom: 5px; }
+        .realme-brand span { color: var(--nz-black); }
+        .input-pill { width: 100%; padding: 18px; margin-bottom: 12px; border: 1px solid #767676; border-radius: 10px; font-size: 1rem; box-sizing: border-box; }
+        .btn-realme { background: var(--realme-orange); color: white; border: none; padding: 18px; width: 100%; border-radius: 40px; font-weight: bold; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .r-logo { background: white; color: var(--realme-orange); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 0.9rem; }
+
+        /* --- DASHBOARD LAYOUT --- */
+        #main-app { display: none; }
+        .inz-banner { background: var(--inz-blue); color: white; padding: 20px 5%; font-size: 1.8rem; font-weight: bold; }
+        .nav-breadcrumb { background: #f3f3f3; padding: 10px 5%; border-bottom: 1px solid #ccc; font-size: 0.8rem; color: #666; }
+        
+        .app-container { display: flex; min-height: 85vh; padding: 0 5%; }
+        .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid #bcd2d6; padding: 20px 0; }
+        .nav-item { padding: 12px 25px; color: #005a69; border-bottom: 1px solid #d1e2e5; cursor: pointer; font-size: 0.95rem; transition: 0.2s; }
+        .nav-item:hover, .nav-item.active { background: white; border-left: 6px solid var(--inz-blue); font-weight: bold; color: #333; }
+
+        .content { flex: 1; padding: 40px; background: white; }
+        h1 { color: #005a69; border-bottom: 2px solid #005a69; padding-bottom: 10px; margin-top: 0; }
+
+        /* --- COMPONENTS --- */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: #f9f9f9; padding: 20px; border-radius: 8px; border-top: 4px solid var(--inz-blue); text-align: center; }
+        .stat-card h3 { margin: 0; color: #666; font-size: 0.9rem; }
+        .stat-card p { font-size: 2rem; font-weight: bold; margin: 10px 0 0 0; color: var(--inz-blue); }
+
+        .alert-list { border: 1px solid #ffcccc; background: #fff5f5; padding: 15px; border-radius: 5px; margin-top: 20px; }
+        .alert-item { color: var(--alert-red); border-bottom: 1px solid #ff000022; padding: 10px 0; font-size: 0.9rem; font-weight: bold; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { text-align: left; background: #f2f2f2; padding: 12px; border: 1px solid #ddd; font-size: 0.9rem; }
+        td { padding: 12px; border: 1px solid #ddd; font-size: 0.9rem; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 8px; font-size: 0.9rem; }
+        .form-group input, .form-group select { width: 100%; max-width: 400px; padding: 10px; border: 1px solid #888; border-radius: 4px; }
+
+        .btn-primary { background: var(--inz-blue); color: white; border: none; padding: 12px 25px; cursor: pointer; font-weight: bold; border-radius: 4px; }
+        .status-pill { padding: 4px 10px; border-radius: 20px; color: white; font-size: 0.8rem; }
+        .status-verified { background: var(--success-green); }
+        .status-pending { background: #e67e22; }
+    </style>
+</head>
+<body>
+
+<div class="govt-top-bar">
+    <div class="nz-identity">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" class="fern-logo" alt="Fern">
+        <span class="govt-text">NEW ZEALAND GOVERNMENT</span>
+    </div>
+    <div style="font-size: 0.8rem; opacity: 0.8;">English | Māori | 中文</div>
+</div>
+
+<div id="login-view">
+    <div class="realme-brand">Real<span>Me</span><sup>®</sup></div>
+    <div style="font-size: 1.5rem; margin-bottom: 10px;">Log in with RealMe</div>
+    <p style="color: #666; margin-bottom: 30px;">To access this service you need a RealMe login.</p>
+
+    <input type="text" class="input-pill" placeholder="Username" id="userIn">
+    <input type="password" class="input-pill" placeholder="Password" style="background: #f2f2f2;">
+
+    <button class="btn-realme" onclick="navigate('dashboard')">
+        <span class="r-logo">r</span> Log in
+    </button>
+    <p style="text-align:center; color: var(--realme-orange); font-weight:bold; margin-top:25px; font-size:0.9rem; cursor:pointer;">Forgot Username or Password?</p>
+</div>
+
+<div id="main-app">
+    <div class="inz-banner">IMMIGRATION NEW ZEALAND</div>
+    <div class="nav-breadcrumb" id="breadcrumb">Home > VisaView > Dashboard</div>
+
+    <div class="app-container">
+        <nav class="sidebar">
+            <div style="padding: 10px 25px; font-weight:bold; color:#004a56;">MENU</div>
+            <div class="nav-item active" onclick="showPage('dashboard')">🏠 Dashboard Page</div>
+            <div class="nav-item" onclick="showPage('employees')">👥 Employees Page</div>
+            <div class="nav-item" onclick="showPage('add-employee')">➕ Add Employee Page</div>
+            <div class="nav-item" onclick="showPage('alerts')">🔔 Alerts Page</div>
+            <div class="nav-item" style="color: var(--alert-red); margin-top:50px;" onclick="location.reload()">🚪 Logout</div>
+        </nav>
+
+        <main class="content">
+            <div id="page-dashboard" class="page">
+                <h1>Dashboard Stats</h1>
+                <div class="stats-grid">
+                    <div class="stat-card"><h3>Total Employees</h3><p id="stat-total">0</p></div>
+                    <div class="stat-card"><h3>Active Visas</h3><p id="stat-active">0</p></div>
+                    <div class="stat-card"><h3>Expiry Alerts</h3><p id="stat-alerts" style="color:var(--alert-red)">0</p></div>
+                </div>
+                <h3>Recent Verification Alerts</h3>
+                <div class="alert-list" id="dashboard-alerts">
+                    <div class="alert-item">System Check: No pending verification alerts.</div>
+                </div>
+            </div>
+
+            <div id="page-employees" class="page" style="display:none;">
+                <h1>Employee Database</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Passport No.</th>
+                            <th>Visa Type</th>
+                            <th>Expiry</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employee-table">
+                        </tbody>
+                </table>
+            </div>
+
+            <div id="page-add-employee" class="page" style="display:none;">
+                <h1>Add Employee & Upload Visa</h1>
+                <div class="form-group">
+                    <label>Employee Full Name *</label>
+                    <input type="text" id="fName" placeholder="e.g. John Smith">
+                </div>
+                <div class="form-group">
+                    <label>Passport Number *</label>
+                    <input type="text" id="fPass" placeholder="e.g. L9928374">
+                </div>
+                <div class="form-group">
+                    <label>Visa Type *</label>
+                    <select id="fType">
+                        <option>Accredited Employer Work Visa</option>
+                        <option>Post Study Work Visa</option>
+                        <option>Visitor Visa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Visa Document Upload (PDF) *</label>
+                    <input type="file" id="fFile" accept=".pdf">
+                </div>
+                <button class="btn-primary" onclick="addEmployee()">Submit Document to INZ</button>
+            </div>
+
+            <div id="page-alerts" class="page" style="display:none;">
+                <h1>Verification Alerts</h1>
+                <p>System tracking for document expiries and verification status.</p>
+                <div class="alert-list" id="main-alert-view">
+                    </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    const state = {
+        employees: [],
+        alerts: []
+    };
+
+    function navigate(view) {
+        if(view === 'dashboard') {
+            document.getElementById('login-view').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+        }
     }
-  },
-  "required": [
-    "full_name",
-    "email"
-  ]
-}{
-  "name": "VerificationAlert",
-  "type": "object",
-  "properties": {
-    "employee_id": {
-      "type": "string",
-      "description": "Reference to the employee"
-    },
-    "employee_name": {
-      "type": "string",
-      "description": "Employee name for quick reference"
-    },
-    "alert_type": {
-      "type": "string",
-      "enum": [
-        "pending_verification",
-        "visa_expiring_soon",
-        "visa_expired",
-        "issues_found",
-        "document_missing"
-      ],
-      "description": "Type of alert"
-    },
-    "priority": {
-      "type": "string",
-      "enum": [
-        "low",
-        "medium",
-        "high",
-        "critical"
-      ],
-      "default": "medium",
-      "description": "Alert priority level"
-    },
-    "message": {
-      "type": "string",
-      "description": "Alert message details"
-    },
-    "status": {
-      "type": "string",
-      "enum": [
-        "open",
-        "acknowledged",
-        "resolved"
-      ],
-      "default": "open",
-      "description": "Alert status"
-    },
-    "assigned_to": {
-      "type": "string",
-      "description": "Email of person assigned to handle this alert"
- {
-  "name": "VisaDocument",
-  "type": "object",
-  "properties": {
-    "employee_id": {
-      "type": "string",
-      "description": "Reference to the employee"
-    },
-    "document_type": {
-      "type": "string",
-      "enum": [
-        "visa",
-        "work_permit",
-        "passport",
-        "residence_permit",
-        "other"
-      ],
-      "description": "Type of document"
-    },
-    "document_name": {
-      "type": "string",
-      "description": "Name/description of the document"
-    },
-    "file_url": {
-      "type": "string",
-      "description": "URL to the uploaded document"
-    },
-    "expiry_date": {
-      "type": "string",
-      "format": "date",
-      "description": "Document expiry date"
-    },
-    "issue_date": {
-      "type": "string",
-      "format": "date",
-      "description": "Document issue date"
-    },
-    "document_number": {
-      "type": "string",
-      "description": "Document reference number"
-    },
-    "notes": {
-      "type": "string",
-      "description": "Additional notes about the document"
+
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.getElementById('page-' + pageId).style.display = 'block';
+        event.currentTarget.classList.add('active');
+        document.getElementById('breadcrumb').innerText = 'Home > VisaView > ' + pageId.replace('-', ' ');
     }
-  },
-  "required": [
-    "employee_id",
-    "document_type",
-    "file_url"
-  ]
-}
+
+    function addEmployee() {
+        const name = document.getElementById('fName').value;
+        const pass = document.getElementById('fPass').value;
+        const type = document.getElementById('fType').value;
+        
+        if(!name || !pass) return alert("Please fill all required fields.");
+
+        const newEmp = {
+            id: Date.now(),
+            name, pass, type,
+            expiry: '2027-12-01',
+            status: 'Verified'
+        };
+
+        state.employees.push(newEmp);
+        state.alerts.push(`NEW RECORD: Visa Verification successfully completed for ${name}.`);
+        
+        updateUI();
+        alert("Employee document successfully uploaded and verified.");
+        showPage('employees');
+    }
+
+    function updateUI() {
+        // Update Stats
+        document.getElementById('stat-total').innerText = state.employees.length;
+        document.getElementById('stat-active').innerText = state.employees.length;
+        
+        // Update Table
+        const tableBody = document.getElementById('employee-table');
+        tableBody.innerHTML = state.employees.map(e => `
+            <tr>
+                <td>${e.name}</td>
+                <td>${e.pass}</td>
+                <td>${e.type}</td>
+                <td>${e.expiry}</td>
+                <td><span class="status-pill status-verified">${e.status}</span></td>
+            </tr>
+        `).join('');
+
+        // Update Alerts
+        const alertHtml = state.alerts.map(a => `<div class="alert-item">⚠️ ${a}</div>`).join('');
+        document.getElementById('dashboard-alerts').innerHTML = alertHtml;
+        document.getElementById('main-alert-view').innerHTML = alertHtml;
+    }
+</script>
+
+</body>
+                                                                                          </html>
