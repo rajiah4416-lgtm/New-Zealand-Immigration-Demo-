@@ -3,121 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RealMe® | Private Visa Verification Portal</title>
+    <title>Enterprise Visa Compliance | Private Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --inz-blue: #00247d;
-            --inz-silver: #f1f5f9;
-            --inz-text: #1a202c;
+            --accent: #3b82f6; /* Modern Tech Blue */
+            --bg-dark: #0f172a;
+            --card-dark: #1e293b;
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--inz-silver); }
-        .realme-header { background-color: white; border-bottom: 4px solid var(--inz-blue); }
-        .btn-verify { background-color: var(--inz-blue); transition: all 0.3s ease; }
-        .btn-verify:hover { background-color: #001a5e; transform: translateY(-1px); }
-        .visa-card { border-left: 6px solid var(--inz-blue); }
-        .watermark { position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); opacity: 0.03; pointer-events: none; width: 400px; }
+        body { font-family: 'Inter', system-ui, sans-serif; background-color: var(--bg-dark); color: #f8fafc; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+        .sidebar-item:hover { background: rgba(59, 130, 246, 0.1); border-right: 4px solid var(--accent); }
+        .status-pill { padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .glow { box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
     </style>
 </head>
-<body>
+<body class="flex min-h-screen overflow-hidden">
 
-    <header class="realme-header py-4 px-6 md:px-20 flex justify-between items-center shadow-sm">
-        <div class="flex items-center gap-4">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" alt="NZ Flag" class="w-10 shadow-sm">
-            <h1 class="text-xl font-bold tracking-tight text-slate-800">IMMIGRATION <span class="text-blue-900">NEW ZEALAND</span></h1>
+    <aside class="w-20 md:w-64 glass flex flex-col items-center py-8 gap-10">
+        <div class="h-12 w-12 bg-blue-600 rounded-xl flex items-center justify-center glow">
+            <i class="fas fa-shield-halved text-white text-xl"></i>
         </div>
-        <div class="hidden md:block">
-            <span class="text-sm font-semibold text-slate-500"><i class="fas fa-lock mr-2"></i>SECURE PRIVATE ACCESS</span>
-        </div>
-    </header>
+        <nav class="flex flex-col w-full gap-2">
+            <a href="#" class="sidebar-item p-4 flex items-center gap-4 text-blue-400"><i class="fas fa-chart-line"></i><span class="hidden md:inline">Analytics</span></a>
+            <a href="#" class="sidebar-item p-4 flex items-center gap-4 text-slate-400"><i class="fas fa-user-check"></i><span class="hidden md:inline">Verifications</span></a>
+            <a href="#" class="sidebar-item p-4 flex items-center gap-4 text-slate-400"><i class="fas fa-file-contract"></i><span class="hidden md:inline">Compliance</span></a>
+            <a href="#" class="sidebar-item p-4 flex items-center gap-4 text-slate-400"><i class="fas fa-history"></i><span class="hidden md:inline">Audit Log</span></a>
+        </nav>
+    </aside>
 
-    <main class="max-w-6xl mx-auto p-6 mt-10">
+    <main class="flex-1 overflow-y-auto p-4 md:p-10">
         
-        <section class="bg-white rounded-xl shadow-lg p-8 mb-10 relative overflow-hidden">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Silver_fern_logo.svg" class="watermark" alt="Watermark">
-            
-            <h2 class="text-2xl font-bold text-slate-800 mb-6">Visa Entitlement Verification</h2>
-            <p class="text-slate-500 mb-8 text-sm italic">Enter applicant credentials to retrieve secure electronic visa (e-Visa) records from the private database.</p>
-
-            <form id="searchForm" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="space-y-2">
-                    <label class="text-xs font-bold uppercase text-slate-400">Passport Number</label>
-                    <input type="text" id="passport" placeholder="e.g. PK1234567" class="w-full p-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600">
-                </div>
-                <div class="space-y-2">
-                    <label class="text-xs font-bold uppercase text-slate-400">Application Reference</label>
-                    <input type="text" id="ref" placeholder="NZ-REF-XXXX" class="w-full p-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600">
-                </div>
-                <div class="flex items-end">
-                    <button type="button" onclick="verifyVisa()" class="btn-verify text-white w-full py-3.5 rounded-lg font-bold shadow-md">
-                        <i class="fas fa-search mr-2"></i> VERIFY ENTITLEMENT
-                    </button>
-                </div>
-            </form>
-        </section>
-
-        <div id="resultDashboard" class="hidden space-y-6">
-            <div class="bg-white visa-card p-8 rounded-xl shadow-md flex flex-col md:flex-row justify-between items-center gap-6">
-                <div>
-                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Active / Valid</span>
-                    <h3 id="displayName" class="text-3xl font-bold text-slate-900 mt-2">JOHN CITIZEN</h3>
-                    <p id="displayClass" class="text-blue-700 font-semibold">Accredited Employer Work Visa (AEWV)</p>
-                </div>
-                <div class="text-center md:text-right">
-                    <p class="text-xs text-slate-400 uppercase font-bold">Expiry Date</p>
-                    <p id="displayExpiry" class="text-2xl font-black text-red-600">12 DEC 2026</p>
-                </div>
+        <header class="flex justify-between items-center mb-10">
+            <div>
+                <h1 class="text-2xl font-black tracking-tight uppercase">Security Dashboard</h1>
+                <p class="text-slate-400 text-sm">System Status: <span class="text-green-500 font-bold">Secure</span> | Port: 443</p>
             </div>
+            <div class="flex items-center gap-4">
+                <button class="p-2 hover:bg-slate-800 rounded-full"><i class="far fa-bell"></i></button>
+                <div class="h-10 w-10 rounded-lg bg-slate-700 border border-slate-600 flex items-center justify-center text-xs font-bold">ADM</div>
+            </div>
+        </header>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-xl shadow-sm">
-                    <p class="text-xs font-bold text-slate-400 uppercase">Visa Conditions</p>
-                    <p class="mt-2 text-sm text-slate-700">Specific Employer: <span class="font-bold text-slate-900">NZ TECH SOLUTIONS</span></p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm">
-                    <p class="text-xs font-bold text-slate-400 uppercase">Entry Type</p>
-                    <p class="mt-2 text-sm text-slate-900 font-bold">Multiple Entry Rights</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm">
-                    <p class="text-xs font-bold text-slate-400 uppercase">Portal Auth</p>
-                    <p class="mt-2 text-sm text-green-600 font-bold"><i class="fas fa-check-circle mr-1"></i> RealMe Verified</p>
-                </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Active Visas</p>
+                <h2 class="text-3xl font-black mt-1">1,248</h2>
+            </div>
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Pending Sync</p>
+                <h2 class="text-3xl font-black mt-1 text-blue-400">42</h2>
+            </div>
+            <div class="glass p-6 rounded-2xl border-orange-500/20">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Expires < 30 Days</p>
+                <h2 class="text-3xl font-black mt-1 text-orange-400">09</h2>
+            </div>
+            <div class="glass p-6 rounded-2xl border-red-500/20">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Security Alerts</p>
+                <h2 class="text-3xl font-black mt-1 text-red-500">0</h2>
             </div>
         </div>
 
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-1 glass p-8 rounded-3xl">
+                <h3 class="text-lg font-bold mb-6 flex items-center gap-2"><i class="fas fa-fingerprint text-blue-500"></i> New Verification</h3>
+                <div class="space-y-4">
+                    <input type="text" id="idSearch" placeholder="Identity Reference (Passport)" class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="text" id="caseSearch" placeholder="Case File Number" class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                    <button onclick="runCheck()" class="w-full bg-blue-600 py-4 rounded-xl font-black hover:bg-blue-500 transition shadow-lg shadow-blue-900/40">EXECUTE SCAN</button>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 glass rounded-3xl overflow-hidden">
+                <div class="p-6 border-b border-white/5 bg-white/5 flex justify-between">
+                    <h3 class="font-bold">Managed Compliance Records</h3>
+                    <button class="text-xs text-blue-400 font-bold uppercase">Export Batch</button>
+                </div>
+                <div class="p-0">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-800 text-slate-400">
+                            <tr>
+                                <th class="p-4 uppercase tracking-tighter">Profile</th>
+                                <th class="p-4 uppercase tracking-tighter">Classification</th>
+                                <th class="p-4 uppercase tracking-tighter">Status</th>
+                                <th class="p-4 uppercase tracking-tighter text-right">Expiration</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feed">
+                            <tr class="border-b border-white/5 hover:bg-white/5">
+                                <td class="p-4">
+                                    <p class="font-black">R. AHMAD</p>
+                                    <p class="text-xs text-slate-500">ID: PK229411</p>
+                                </td>
+                                <td class="p-4">SKILLED MIGRANT</td>
+                                <td class="p-4"><span class="status-pill bg-green-500/20 text-green-400">Verified</span></td>
+                                <td class="p-4 text-right font-mono">11-04-2027</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5">
+                                <td class="p-4">
+                                    <p class="font-black">S. MALIK</p>
+                                    <p class="text-xs text-slate-500">ID: PK100223</p>
+                                </td>
+                                <td class="p-4">AEWV - SPONSORED</td>
+                                <td class="p-4"><span class="status-pill bg-blue-500/20 text-blue-400">In Review</span></td>
+                                <td class="p-4 text-right font-mono">02-12-2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <footer class="mt-20 border-top border-slate-300 py-10 px-6 bg-slate-200 text-center">
-        <p class="text-slate-500 text-xs">
-            &copy; 2026 Private Visa Compliance Office. Information extracted under the Immigration Act 2009.
-            <br>
-            This portal is for authorized client verification only. Securely encrypted via RealMe® protocols.
-        </p>
-    </footer>
-
     <script>
-        function verifyVisa() {
-            const passport = document.getElementById('passport').value;
-            const ref = document.getElementById('ref').value;
-
-            if(passport === "" || ref === "") {
-                alert("Please enter both Passport and Reference numbers.");
-                return;
-            }
-
-            // Simulate loading
-            document.querySelector('.btn-verify').innerHTML = '<i class="fas fa-spinner fa-spin"></i> AUTHENTICATING...';
-
+        function runCheck() {
+            const btn = document.querySelector('button[onclick="runCheck()"]');
+            btn.innerHTML = '<i class="fas fa-sync fa-spin"></i> ACCESSING DATABASE...';
             setTimeout(() => {
-                document.getElementById('resultDashboard').classList.remove('hidden');
-                document.querySelector('.btn-verify').innerHTML = '<i class="fas fa-search mr-2"></i> VERIFY ENTITLEMENT';
-                
-                // Update display (in a real app, you fetch this from your database)
-                document.getElementById('displayName').innerText = "AUTHORIZED APPLICANT";
-                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-            }, 1500);
+                alert("Identity Authenticated. Record sync complete.");
+                btn.innerHTML = 'EXECUTE SCAN';
+            }, 1000);
         }
     </script>
 </body>
-                            </html>
+    </html>
