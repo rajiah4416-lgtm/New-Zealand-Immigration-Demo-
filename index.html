@@ -1,31 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Bank Statement Generator</title>
+    <meta charset="UTF-8">
+    <title>Bank Statement Pro - 2026</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        /* Styles to mimic a bank layout */
-        #statement { width: 800px; padding: 40px; background: white; font-family: Arial; }
-        .header { border-bottom: 2px solid #000; display: flex; justify-content: space-between; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { background: #f2f2f2; border: 1px solid #ddd; padding: 8px; text-align: left; }
-        td { border: 1px solid #ddd; padding: 8px; font-size: 12px; }
-        .credit { color: green; }
-        .debit { color: red; }
+        :root { --pk-green: #006747; --soft-grey: #f8f9fa; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #34495e; margin: 0; display: flex; }
+        
+        /* Input Panel */
+        .controls { width: 400px; height: 100vh; background: #2c3e50; color: white; padding: 20px; overflow-y: auto; box-sizing: border-box; }
+        .controls h2 { color: #27ae60; font-size: 18px; border-bottom: 1px solid #555; padding-bottom: 10px; }
+        label { display: block; margin-top: 15px; font-size: 11px; text-transform: uppercase; color: #bdc3c7; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 4px; border: none; }
+        .btn-add { background: #27ae60; color: white; margin-top: 20px; cursor: pointer; font-weight: bold; }
+        .btn-download { background: #e67e22; color: white; margin-top: 10px; cursor: pointer; font-weight: bold; }
+
+        /* PDF Page */
+        .pdf-container { flex-grow: 1; display: flex; justify-content: center; padding: 40px; }
+        #statement-page { width: 210mm; min-height: 297mm; background: white; padding: 20mm; box-sizing: border-box; box-shadow: 0 0 20px rgba(0,0,0,0.5); position: relative; }
+        
+        .bank-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--pk-green); padding-bottom: 20px; }
+        .bank-logo { color: var(--pk-green); font-weight: bold; font-size: 28px; }
+        
+        .account-info { margin: 20px 0; display: grid; grid-template-columns: 1fr 1fr; font-size: 13px; line-height: 1.6; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
+        th { background: var(--pk-green); color: white; padding: 10px; text-align: left; }
+        td { border-bottom: 1px solid #eee; padding: 10px; vertical-align: top; }
+        
+        .type-tag { font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; }
+        .deposit-bg { background: #d4edda; color: #155724; }
+        .withdraw-bg { background: #f8d7da; color: #721c24; }
+        
+        .amount { text-align: right; font-family: 'Courier New', monospace; }
+        .footer-note { position: absolute; bottom: 20mm; font-size: 10px; color: #7f8c8d; border-top: 1px solid #eee; width: 80%; padding-top: 10px; }
     </style>
 </head>
 <body>
 
-    <div id="statement">
-        <div class="header">
+<div class="controls">
+    <h2>Account Settings</h2>
+    <label>Account Title</label>
+    <input type="text" id="accTitle" placeholder="e.g. Muhammad Ahmed" oninput="updateHeader()">
+    <label>Opening Balance (PKR)</label>
+    <input type="number" id="openBalance" value="100000" oninput="updateHeader()">
+
+    <h2>Add Transaction</h2>
+    <label>Date</label>
+    <input type="date" id="tDate">
+    <label>Type</label>
+    <select id="tType">
+        <option value="Deposit">Deposit (Inward)</option>
+        <option value="Transfer">Transfer (Outward)</option>
+        <option value="Withdrawal">Cash Withdrawal</option>
+    </select>
+    <label>Remitter / Recipient Name</label>
+    <input type="text" id="tName" placeholder="Name of sender or receiver">
+    <label>Description</label>
+    <input type="text" id="tDesc" placeholder="e.g. Freelance Payment">
+    <label>Amount (PKR)</label>
+    <input type="number" id="tAmount" placeholder="0.00">
+    
+    <button class="btn-add" onclick="addTransaction()">Add to Statement</button>
+    <button class="btn-download" onclick="downloadPDF()">Download PDF Statement</button>
+</div>
+
+<div class="pdf-container">
+    <div id="statement-page">
+        <div class="bank-header">
+            <div class="bank-logo">PAKISTAN NATIONAL BANK</div>
+            <div style="text-align: right; font-size: 12px;">
+                <strong>Statement Period:</strong><br>
+                Oct 2025 - Jan 2026
+            </div>
+        </div>
+
+        <div class="account-info">
             <div>
-                <h1>COMMERCIAL BANK LTD</h1>
-                <p>Branch Code: 0123 | Karachi, Pakistan</p>
+                <strong>Account Holder:</strong> <span id="outName">Client Name</span><br>
+                <strong>Address:</strong> DHA Phase VI, Karachi, Pakistan<br>
+                <strong>Currency:</strong> PKR
             </div>
             <div style="text-align: right;">
-                <p><strong>Account Title:</strong> <span id="outName">John Doe</span></p>
-                <p><strong>IBAN:</strong> PK00 BANK 0000 1234 5678 90</p>
+                <strong>Account No:</strong> 0012-998833-01-0<br>
+                <strong>IBAN:</strong> PK00 PNBK 0000 0012 9988 3301<br>
+                <strong>Opening Balance:</strong> <span id="outOpen">100,000.00</span>
             </div>
         </div>
 
@@ -33,55 +94,105 @@
             <thead>
                 <tr>
                     <th>Date</th>
-                    <th>Description</th>
-                    <th>Withdrawals (PKR)</th>
-                    <th>Deposits (PKR)</th>
-                    <th>Balance (PKR)</th>
+                    <th>Description & Party</th>
+                    <th>Withdrawal</th>
+                    <th>Deposit</th>
+                    <th>Balance</th>
                 </tr>
             </thead>
-            <tbody id="tableBody">
+            <tbody id="statementBody">
                 </tbody>
         </table>
+
+        <div class="footer-note">
+            This is a computer-generated statement and does not require a signature. For any discrepancies, please contact your home branch within 15 days.
+        </div>
     </div>
+</div>
 
-    <button onclick="generatePDF()">Download PDF</button>
+<script>
+    let currentBalance = 0;
 
-    <script>
-        // Sample data for 4 months
-        const transactions = [
-            { date: "2025-10-01", desc: "Opening Balance", debit: 0, credit: 0, balance: 150000 },
-            { date: "2025-11-05", desc: "Salary Transfer", debit: 0, credit: 85000, balance: 235000 },
-            { date: "2025-12-12", desc: "ATM Withdrawal", debit: 20000, credit: 0, balance: 215000 },
-            { date: "2026-01-15", desc: "Utility Bill Pay", debit: 12000, credit: 0, balance: 203000 }
-        ];
+    function updateHeader() {
+        document.getElementById('outName').innerText = document.getElementById('accTitle').value || "Client Name";
+        const open = parseFloat(document.getElementById('openBalance').value) || 0;
+        document.getElementById('outOpen').innerText = open.toLocaleString(undefined, {minimumFractionDigits: 2});
+        refreshTable();
+    }
 
-        function loadTable() {
-            const body = document.getElementById('tableBody');
-            transactions.forEach(t => {
-                body.innerHTML += `
-                    <tr>
-                        <td>${t.date}</td>
-                        <td>${t.desc}</td>
-                        <td class="debit">${t.debit > 0 ? t.debit.toLocaleString() : '-'}</td>
-                        <td class="credit">${t.credit > 0 ? t.credit.toLocaleString() : '-'}</td>
-                        <td>${t.balance.toLocaleString()}</td>
-                    </tr>`;
-            });
+    let transactions = [];
+
+    function addTransaction() {
+        const entry = {
+            date: document.getElementById('tDate').value,
+            type: document.getElementById('tType').value,
+            name: document.getElementById('tName').value,
+            desc: document.getElementById('tDesc').value,
+            amount: parseFloat(document.getElementById('tAmount').value) || 0
+        };
+
+        if(!entry.date || entry.amount <= 0) {
+            alert("Please enter a valid date and amount");
+            return;
         }
 
-        async function generatePDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF('p', 'pt', 'a4');
-            const element = document.querySelector("#statement");
+        transactions.push(entry);
+        // Sort by date automatically
+        transactions.sort((a, b) => new Date(a.date) - new Date(b.date));
+        refreshTable();
+    }
 
-            await html2canvas(element).then((canvas) => {
-                const imgData = canvas.toDataURL('image/png');
-                doc.addImage(imgData, 'PNG', 20, 20, 550, 0);
-                doc.save("Bank_Statement.pdf");
-            });
-        }
+    function refreshTable() {
+        const body = document.getElementById('statementBody');
+        body.innerHTML = "";
+        let runningBalance = parseFloat(document.getElementById('openBalance').value) || 0;
 
-        loadTable();
-    </script>
+        transactions.forEach(t => {
+            let dr = 0, cr = 0;
+            if(t.type === "Deposit") {
+                cr = t.amount;
+                runningBalance += cr;
+            } else {
+                dr = t.amount;
+                runningBalance -= dr;
+            }
+
+            const badgeClass = t.type === "Deposit" ? "deposit-bg" : "withdraw-bg";
+
+            body.innerHTML += `
+                <tr>
+                    <td>${t.date}</td>
+                    <td>
+                        <span class="type-tag ${badgeClass}">${t.type}</span><br>
+                        <strong>${t.name}</strong><br>
+                        <small style="color:#666">${t.desc}</small>
+                    </td>
+                    <td class="amount">${dr > 0 ? dr.toLocaleString(undefined, {minimumFractionDigits: 2}) : '-'}</td>
+                    <td class="amount">${cr > 0 ? cr.toLocaleString(undefined, {minimumFractionDigits: 2}) : '-'}</td>
+                    <td class="amount"><strong>${runningBalance.toLocaleString(undefined, {minimumFractionDigits: 2})}</strong></td>
+                </tr>
+            `;
+        });
+    }
+
+    async function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const element = document.getElementById('statement-page');
+        
+        html2canvas(element, { scale: 2 }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgProps = pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save("Pak_Bank_Statement.pdf");
+        });
+    }
+
+    updateHeader();
+</script>
+
 </body>
 </html>
