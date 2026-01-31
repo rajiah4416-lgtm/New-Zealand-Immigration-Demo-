@@ -28,7 +28,6 @@
             position: relative; page-break-after: always; box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
-        /* IMPROVED HEADER */
         .header-container { display: flex; align-items: center; border-bottom: 3px solid var(--al-black); padding-bottom: 15px; margin-bottom: 20px; }
         .flag-wrapper { flex: 0 0 80px; margin-right: 20px; text-align: center; }
         .al-flag { width: 80px; height: auto; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3)); }
@@ -71,9 +70,12 @@
         <input type="text" id="inCo" placeholder="Restaurant/Company Name" oninput="sync()">
         <input type="text" id="inCoAddr" placeholder="Work Address" oninput="sync()">
         <input type="text" id="inCoNum" placeholder="NUIS Number" oninput="sync()">
+        <input type="text" id="inCoPhone" placeholder="Company Phone (+355...)" oninput="sync()">
 
         <h3>Employee</h3>
         <input type="text" id="inName" placeholder="Full Name" oninput="sync()">
+        <label>Date of Birth</label>
+        <input type="date" id="inDOB" oninput="sync()">
         <input type="text" id="inPass" placeholder="Passport Number" oninput="sync()">
         <input type="text" id="inCountry" placeholder="Country of Origin" oninput="sync()">
 
@@ -113,7 +115,9 @@
         <table class="data-table">
             <tr><td class="label">The Employer</td><td class="outCo">__________</td></tr>
             <tr><td class="label">NUIS (Tax ID)</td><td class="outCoNum">__________</td></tr>
+            <tr><td class="label">Contact Number</td><td class="outCoPhone">__________</td></tr>
             <tr><td class="label">The Employee</td><td class="outName">__________</td></tr>
+            <tr><td class="label">Date of Birth</td><td class="outDOB">__________</td></tr>
             <tr><td class="label">Passport No.</td><td class="outPass">__________</td></tr>
             <tr><td class="label">Nationality</td><td class="outCountry">__________</td></tr>
         </table>
@@ -136,10 +140,10 @@
         <h2>4. Professional Conduct & Policy</h2>
         <p>The Employee agrees to adhere to the following Company Policies:</p>
         <ul>
-            <li><strong>Uniform Code:</strong> The Employee is required to wear the official <strong>Company Uniform</strong> at all times during working hours to maintain professional standards.</li>
-            <li><strong>Managerial Authority:</strong> The Employee must strictly follow the professional orders and instructions issued by their <strong>assigned Manager</strong> or Supervisor.</li>
-            <li><strong>Privacy & Confidentiality:</strong> All internal company procedures, recipes, and guest information remain strictly confidential. Disclosure to third parties is grounds for termination.</li>
-            <li><strong>Time Management:</strong> Punctuality is mandatory. Strict time limits for breaks and tasks must be observed as per the daily schedule.</li>
+            <li><strong>Uniform Code:</strong> The Employee is required to wear the official <strong>Company Uniform</strong> at all times during working hours.</li>
+            <li><strong>Managerial Authority:</strong> The Employee must strictly follow professional orders issued by their <strong>assigned Manager</strong>.</li>
+            <li><strong>Privacy & Confidentiality:</strong> All internal procedures and guest information remain strictly confidential.</li>
+            <li><strong>Time Management:</strong> Punctuality is mandatory.</li>
         </ul>
 
         <h2>5. Benefits & Provisions</h2>
@@ -154,23 +158,23 @@
             </div>
             <div class="benefit-box">
                 <span class="benefit-title">Air Travel</span>
-                One-way ticket from <span class="outCountry">Country</span> to Albania is provided at the start of the contract.
+                One-way ticket from <span class="outCountry">Country</span> to Albania is provided.
             </div>
             <div class="benefit-box">
                 <span class="benefit-title">Health Insurance</span>
-                Full coverage under Albanian Social Security and Health Insurance (Sigurimet Shoqërore).
+                Full coverage under Albanian Social Security (Sigurimet Shoqërore).
             </div>
         </div>
 
         <h2>6. Annual Leave & Vacation</h2>
-        <p>After completion of the first year of service, the Employee is entitled to <strong>Paid Annual Leave</strong>. For the upcoming vacation period, the Company will provide a <strong>One-Way flight ticket</strong> as part of the holiday benefit package.</p>
+        <p>After completion of the first year of service, the Employee is entitled to <strong>Paid Annual Leave</strong>. The Company will provide a <strong>One-Way flight ticket</strong> as part of the holiday benefit package.</p>
 
         <div class="footer">Confidential - Republic of Albania Employment Standard | Page 2 of 3</div>
     </div>
 
     <div class="page">
         <h2>7. Duration & Probation</h2>
-        <p>This contract is valid for a period of one (1) year, renewable upon mutual agreement. A 90-day probation period applies from the first day of active duty.</p>
+        <p>This contract is valid for a period of one (1) year, renewable upon mutual agreement. A 90-day probation period applies.</p>
 
         <h2>8. Legal Declarations</h2>
         <p>Both parties agree that this contract is subject to the laws of the Republic of Albania. Any disputes shall be settled by the District Court of Tirana.</p>
@@ -179,12 +183,10 @@
             <div style="width: 45%; border-top: 1.5px solid #000; padding-top: 10px; text-align: center;">
                 <strong style="font-size: 12px;">AUTHORIZED SIGNATORY</strong><br>
                 <em class="outCo" style="font-size: 11px;">[Company Stamp]</em>
-                <br><br><br><br>
             </div>
             <div style="width: 45%; border-top: 1.5px solid #000; padding-top: 10px; text-align: center;">
                 <strong style="font-size: 12px;">EMPLOYEE SIGNATURE</strong><br>
                 <em class="outName" style="font-size: 11px;">[Client Name]</em>
-                <br><br><br><br>
             </div>
         </div>
 
@@ -202,9 +204,10 @@
                 'outRef': document.getElementById('inRef').value || 'AL-MIG-2026-PENDING',
                 'outDate': document.getElementById('inDate').value || '__________',
                 'outCo': document.getElementById('inCo').value || 'COMPANY NAME',
-                'outCoAddr': document.getElementById('inCoAddr').value || 'ADDRESS, ALBANIA',
                 'outCoNum': document.getElementById('inCoNum').value || 'NUIS NO.',
+                'outCoPhone': document.getElementById('inCoPhone').value || '__________',
                 'outName': document.getElementById('inName').value || 'CLIENT NAME',
+                'outDOB': document.getElementById('inDOB').value || '__________',
                 'outPass': document.getElementById('inPass').value || 'PASSPORT NO.',
                 'outCountry': document.getElementById('inCountry').value || 'COUNTRY',
                 'outSalary': document.getElementById('inSalary').value || '0.00',
@@ -220,4 +223,4 @@
         sync();
     </script>
 </body>
-    </html>
+</html>
