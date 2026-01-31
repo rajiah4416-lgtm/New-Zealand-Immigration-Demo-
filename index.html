@@ -1,196 +1,208 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visa Verification Service | Immigration New Zealand</title>
-    <style>
-        :root {
-            --nz-black: #000000;
-            --realme-orange: #f45b06;
-            --inz-blue: #006272;
-            --sidebar-bg: #e6f1f3;
-            --border-color: #dcdcdc;
-        }
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #ffffff; color: #333; }
-
-        /* --- OFFICIAL NZ GOVT HEADER --- */
-        .govt-top-bar { background: var(--nz-black); color: white; padding: 10px 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--realme-orange); }
-        .nz-identity { display: flex; align-items: center; gap: 12px; }
-        .nz-flag { width: 30px; height: 15px; background: #00247d; border: 1px solid #fff; position: relative; } /* CSS Flag Placeholder */
-        .fern-icon { height: 30px; filter: brightness(0) invert(1); }
-        .govt-text { font-weight: bold; font-size: 1rem; letter-spacing: 1px; }
-
-        /* --- REALME LOGIN SECTION --- */
-        #realmeContainer { max-width: 440px; margin: 60px auto; padding: 0 20px; }
-        .realme-brand { font-size: 3rem; font-weight: bold; color: var(--realme-orange); margin-bottom: 5px; }
-        .realme-brand span { color: var(--nz-black); }
-        .realme-title { font-size: 1.5rem; margin-bottom: 30px; }
-        
-        .login-card { background: white; }
-        .input-pill { width: 100%; padding: 16px; margin-bottom: 12px; border: 1px solid #767676; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
-        .input-pill.password { background: #f2f2f2; border: 1px solid #ccc; }
-        
-        .btn-realme { background: var(--realme-orange); color: white; border: none; padding: 18px; width: 100%; border-radius: 35px; font-weight: bold; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; transition: 0.2s; }
-        .btn-realme:hover { background: #d44d05; }
-        .r-logo { background: white; color: var(--realme-orange); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 0.9rem; }
-
-        /* --- VISA VIEW PORTAL SECTION --- */
-        #inzPortal { display: none; }
-        .inz-header { background: var(--inz-blue); color: white; padding: 20px 8%; display: flex; align-items: center; gap: 15px; }
-        .breadcrumb { background: #f4f4f4; padding: 10px 8%; font-size: 0.8rem; color: #666; border-bottom: 1px solid var(--border-color); }
-        
-        .portal-layout { display: flex; min-height: 80vh; padding: 0 8%; }
-        .sidebar { width: 250px; background: var(--sidebar-bg); border-right: 1px solid #bcd2d6; padding-top: 20px; }
-        .sidebar-item { padding: 12px 20px; font-size: 0.9rem; color: #005a69; border-bottom: 1px solid #d1e2e5; cursor: pointer; }
-        .sidebar-item.active { background: white; font-weight: bold; border-left: 5px solid var(--inz-blue); color: #333; }
-
-        .content-body { flex: 1; padding: 40px; }
-        .content-body h1 { color: #005a69; font-size: 1.8rem; border-bottom: 2px solid #005a69; padding-bottom: 10px; margin-top: 0; }
-        
-        .visa-form-grid { width: 100%; border-spacing: 0 15px; }
-        .visa-form-grid label { font-size: 0.9rem; font-weight: bold; color: #444; }
-        .visa-form-grid input, .visa-form-grid select { width: 100%; max-width: 350px; padding: 8px; border: 1px solid #888; border-radius: 2px; }
-        .required { color: #d00; margin-left: 3px; }
-
-        .btn-check-visa { background: var(--inz-blue); color: white; border: 1px solid #004d5a; padding: 10px 30px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
-
-        /* --- STAFF UPLOAD OVERLAY --- */
-        #staffPanel { position: fixed; bottom: 20px; right: 20px; background: #333; color: white; padding: 15px; border-radius: 8px; cursor: pointer; z-index: 1000; }
-        #uploadModal { display: none; position: fixed; top: 15%; left: 30%; width: 40%; background: white; border: 4px solid var(--inz-blue); padding: 30px; z-index: 1001; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
-    </style>
-</head>
-<body>
-
-<div class="govt-top-bar">
-    <div class="nz-identity">
-        <div class="nz-flag"></div>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" class="fern-icon" alt="Fern">
-        <span class="govt-text">NEW ZEALAND GOVERNMENT</span>
-    </div>
-    <div style="font-size: 0.8rem;">English | 中文</div>
-</div>
-
-<div id="realmePage">
-    <div id="realmeContainer">
-        <div class="realme-brand">Real<span>Me</span><sup>®</sup></div>
-        <div class="realme-title">Log in with RealMe</div>
-        <p style="font-size: 0.95rem; margin-bottom: 25px;">To access this service you need a RealMe login.</p>
-
-        <div style="margin-bottom: 25px;">
-            <label style="display:block; margin-bottom:12px;"><input type="radio" name="acc" checked> I have an existing RealMe login</label>
-            <label style="display:block;"><input type="radio" name="acc"> I need to create a login</label>
-        </div>
-
-        <input type="text" class="input-pill" placeholder="Username">
-        <input type="password" class="input-pill password" placeholder="Password">
-
-        <button class="btn-realme" onclick="handleLogin()">
-            <span class="r-logo">r</span> Log in
-        </button>
-
-        <p style="text-align: center; color: var(--realme-orange); font-weight: bold; margin-top: 30px; font-size: 0.9rem; cursor: pointer;">Forgot Username or Forgot Password?</p>
-    </div>
-</div>
-
-<div id="inzPortal">
-    <div class="inz-header">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" height="40" style="filter: brightness(0) invert(1);">
-        <span style="font-size: 1.6rem; font-weight: bold; letter-spacing: 1px;">IMMIGRATION NEW ZEALAND</span>
-    </div>
-    <div class="breadcrumb">Home > VisaView > Visa Verification Enquiry</div>
-
-    <div class="portal-layout">
-        <nav class="sidebar">
-            <div style="padding: 10px 20px; font-weight: bold; color: #005a69; font-size: 1.1rem;">VisaView</div>
-            <div class="sidebar-item">Register Organisation</div>
-            <div class="sidebar-item active">Verify Visa Record</div>
-            <div class="sidebar-item">My Visa Verification Service Account</div>
-        </nav>
-
-        <main class="content-body">
-            <h1>Visa Verification Enquiry</h1>
-            <p style="font-size: 0.85rem; color: #555; margin-bottom: 25px;">Enter the details of the visa to be verified exactly as they appear in the visa holder's current passport.</p>
-
-            <form id="verificationForm">
-                <table class="visa-form-grid">
-                    <tr><td><label>Family Name<span class="required">*</span></label></td><td><input type="text" id="vFamily" required></td></tr>
-                    <tr><td><label>Passport Nationality<span class="required">*</span></label></td><td>
-                        <select id="vNat">
-                            <option value="">Select Nationality...</option>
-                            <option>China</option>
-                            <option>India</option>
-                            <option>Philippines</option>
-                        </select>
-                    </td></tr>
-                    <tr><td><label>Passport Number<span class="required">*</span></label></td><td><input type="text" id="vPass" required></td></tr>
-                    <tr><td><label>Date of Birth<span class="required">*</span> (dd/mm/yyyy)</label></td><td><input type="text" placeholder="dd/mm/yyyy" required></td></tr>
-                    <tr><td><label>Gender<span class="required">*</span></label></td><td><select><option>Select</option><option>Male</option><option>Female</option></select></td></tr>
-                    <tr><td><label>Visa Start Date<span class="required">*</span> (dd/mm/yyyy)</label></td><td><input type="text" placeholder="dd/mm/yyyy" required></td></tr>
-                </table>
-
-                <div style="margin: 25px 0;">
-                    <input type="checkbox" required> <span style="font-size: 0.85rem;">The visa holder has consented to this check.</span>
-                </div>
-
-                <button type="submit" class="btn-check-visa">Check Visa</button>
-            </form>
-        </main>
-    </div>
-</div>
-
-<div id="staffPanel" onclick="document.getElementById('uploadModal').style.display='block'">
-    🛡️ Staff: Upload Client Visa
-</div>
-
-<div id="uploadModal">
-    <h2 style="color:var(--inz-blue); margin-top:0;">Staff: Secure Client Upload</h2>
-    <label>Full Name</label><br>
-    <input type="text" id="dbName" style="width:100%; padding:10px; margin-bottom:15px;"><br>
-    <label>Passport Number</label><br>
-    <input type="text" id="dbPass" style="width:100%; padding:10px; margin-bottom:15px;"><br>
-    <label>Visa PDF Document</label><br>
-    <input type="file" id="dbFile" style="margin-bottom:20px;"><br>
-    
-    <button onclick="saveToLocalDB()" style="background:var(--inz-blue); color:white; border:none; padding:12px; width:100%; cursor:pointer;">Upload to Portal</button>
-    <button onclick="document.getElementById('uploadModal').style.display='none'" style="background:none; border:none; color:red; cursor:pointer; width:100%; margin-top:10px;">Close</button>
-</div>
-
-<script>
-    // Navigation
-    function handleLogin() {
-        document.getElementById('realmePage').style.display = 'none';
-        document.getElementById('inzPortal').style.display = 'block';
+{
+  "name": "Employee",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string",
+      "description": "Employee's full legal name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Employee's email address"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Contact phone number"
+    },
+    "department": {
+      "type": "string",
+      "description": "Department the employee works in"
+    },
+    "position": {
+      "type": "string",
+      "description": "Job title/position"
+    },
+    "hire_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of hire"
+    },
+    "hiring_manager_email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email of the hiring manager"
+    },
+    "passport_number": {
+      "type": "string",
+      "description": "Passport number for VisaView checks"
+    },
+    "nationality": {
+      "type": "string",
+      "description": "Nationality/citizenship"
+    },
+    "is_nz_citizen": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the employee is a NZ citizen or permanent resident"
+    },
+    "visa_type": {
+      "type": "string",
+      "enum": [
+        "work_visa",
+        "student_visa",
+        "partner_visa",
+        "resident_visa",
+        "other",
+        "not_applicable"
+      ],
+      "description": "Type of visa held"
+    },
+    "visa_expiry_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the visa expires"
+    },
+    "visa_conditions": {
+      "type": "string",
+      "description": "Any conditions attached to the visa"
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "verified",
+        "issues_found",
+        "expired",
+        "not_required"
+      ],
+      "default": "pending",
+      "description": "Status of VisaView verification"
+    },
+    "last_verification_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of last VisaView check"
+    },
+    "verification_notes": {
+      "type": "string",
+      "description": "Notes from the verification check"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "onboarding",
+        "terminated"
+      ],
+      "default": "onboarding",
+      "description": "Employment status"
     }
-
-    // Local Storage Data (Simulating a database)
-    const clientDatabase = [];
-
-    function saveToLocalDB() {
-        const name = document.getElementById('dbName').value;
-        const pass = document.getElementById('dbPass').value;
-        if(name && pass) {
-            clientDatabase.push({ name, pass });
-            alert("SUCCESS: Client " + name + " and Visa Document saved to Regional System.");
-            document.getElementById('uploadModal').style.display = 'none';
-        } else {
-            alert("Please fill in all details.");
-        }
+  },
+  "required": [
+    "full_name",
+    "email"
+  ]
+}{
+  "name": "VerificationAlert",
+  "type": "object",
+  "properties": {
+    "employee_id": {
+      "type": "string",
+      "description": "Reference to the employee"
+    },
+    "employee_name": {
+      "type": "string",
+      "description": "Employee name for quick reference"
+    },
+    "alert_type": {
+      "type": "string",
+      "enum": [
+        "pending_verification",
+        "visa_expiring_soon",
+        "visa_expired",
+        "issues_found",
+        "document_missing"
+      ],
+      "description": "Type of alert"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium",
+      "description": "Alert priority level"
+    },
+    "message": {
+      "type": "string",
+      "description": "Alert message details"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "acknowledged",
+        "resolved"
+      ],
+      "default": "open",
+      "description": "Alert status"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Email of person assigned to handle this alert"
+ {
+  "name": "VisaDocument",
+  "type": "object",
+  "properties": {
+    "employee_id": {
+      "type": "string",
+      "description": "Reference to the employee"
+    },
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "visa",
+        "work_permit",
+        "passport",
+        "residence_permit",
+        "other"
+      ],
+      "description": "Type of document"
+    },
+    "document_name": {
+      "type": "string",
+      "description": "Name/description of the document"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "URL to the uploaded document"
+    },
+    "expiry_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Document expiry date"
+    },
+    "issue_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Document issue date"
+    },
+    "document_number": {
+      "type": "string",
+      "description": "Document reference number"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about the document"
     }
-
-    // Form Search
-    document.getElementById('verificationForm').onsubmit = function(e) {
-        e.preventDefault();
-        const searchPass = document.getElementById('vPass').value;
-        const found = clientDatabase.find(c => c.pass === searchPass);
-
-        if(found) {
-            alert("VERIFICATION SUCCESSFUL: A matching visa record for " + found.name + " was found. Status: CURRENT.");
-        } else {
-            alert("NO MATCH FOUND: Please ensure the Passport Number and details are entered exactly as they appear in the passport.");
-        }
-    };
-</script>
-
-</body>
-</html>
+  },
+  "required": [
+    "employee_id",
+    "document_type",
+    "file_url"
+  ]
+}
