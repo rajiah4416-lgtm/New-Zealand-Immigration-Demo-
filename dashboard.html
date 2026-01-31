@@ -2,184 +2,191 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NZ Immigration & HR Sponsorship Suite - Official</title>
+    <title>NZ Immigration & HR Sponsorship Suite - Premium</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style id="themeStyles">
         :root { 
+            --inz-primary: #00247d; 
             --inz-black: #1a1a1a; 
-            --inz-blue: #00247d; 
             --inz-silver: #C0C0C0;
-            --page-bg: #f4f4f6; /* Professional Silver-Grey instead of white */
-            --accent: #00247d;
+            --page-bg: #fdfdfd; 
         }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #2c3e50; margin: 0; display: flex; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #1e272e; margin: 0; display: flex; }
         
-        .sidebar { width: 380px; background: #111; color: white; padding: 25px; height: 100vh; overflow-y: auto; box-sizing: border-box; position: fixed; border-right: 4px solid var(--inz-blue); z-index: 1000; }
-        .sidebar h2 { font-size: 13px; color: var(--inz-silver); text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 20px; }
-        label { display: block; margin-top: 10px; font-size: 10px; text-transform: uppercase; color: #888; }
-        input, select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 4px; border: none; background: #222; color: white; font-size: 13px; }
+        /* Sidebar Styles */
+        .sidebar { width: 400px; background: #0f1418; color: white; padding: 25px; height: 100vh; overflow-y: auto; box-sizing: border-box; position: fixed; border-right: 4px solid var(--inz-primary); z-index: 1000; }
+        .sidebar h2 { font-size: 14px; color: #2ecc71; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 8px; margin-top: 25px; }
+        label { display: block; margin-top: 12px; font-size: 10px; text-transform: uppercase; color: #888; letter-spacing: 1px; }
+        input, select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #333; background: #1a2229; color: white; font-size: 13px; }
         
-        .preview-area { margin-left: 380px; padding: 40px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .color-row { display: flex; gap: 10px; margin-top: 5px; }
+        .color-box { flex: 1; height: 35px; border-radius: 5px; cursor: pointer; border: 2px solid transparent; }
+        .color-box.active { border-color: white; }
+
+        /* Preview Area */
+        .preview-area { margin-left: 400px; padding: 50px; width: 100%; display: flex; flex-direction: column; align-items: center; }
         
-        /* THE A4 PAGE - PIGROOT COLOR CHANGE */
         .a4-page { 
             width: 210mm; min-height: 297mm; 
             background: var(--page-bg); 
             padding: 20mm; 
-            box-shadow: 0 0 25px rgba(0,0,0,0.5); 
+            box-shadow: 0 0 40px rgba(0,0,0,0.6); 
             box-sizing: border-box; color: #222; 
             position: relative;
-            border-top: 8px solid var(--inz-black);
+            transition: all 0.4s ease;
         }
 
-        .nz-header { text-align: center; border-bottom: 1px solid var(--inz-silver); padding-bottom: 20px; margin-bottom: 30px; }
-        .nz-header h1 { margin: 10px 0; font-size: 24px; letter-spacing: 2px; color: var(--inz-black); }
+        /* Themes */
+        .theme-modern { border-top: 15px solid var(--inz-primary); }
+        .theme-presidential { border: 1px solid var(--inz-silver); background-image: linear-gradient(to bottom, #f9f9f9, white); }
+        .theme-minimalist { border-left: 20px solid var(--inz-primary); }
+
+        .flag-header { text-align: center; margin-bottom: 15px; }
+        .nz-header { text-align: center; border-bottom: 1px solid #ddd; padding-bottom: 20px; margin-bottom: 25px; }
+        .nz-header h1 { margin: 5px 0; font-size: 26px; color: var(--inz-black); font-weight: 800; }
         
-        .data-table { width: 100%; border-collapse: collapse; margin: 15px 0; background: white; }
-        .data-table td { padding: 12px; border: 1px solid #ddd; font-size: 13px; }
-        .label-cell { background: #eee; font-weight: bold; width: 35%; color: var(--inz-blue); text-transform: uppercase; font-size: 11px; }
+        .section-title { font-size: 11px; font-weight: bold; color: var(--inz-primary); text-transform: uppercase; border-bottom: 1px solid #eee; margin: 20px 0 10px 0; padding-bottom: 5px; }
 
-        .legal-text { font-style: italic; font-size: 12px; line-height: 1.6; color: #444; border-left: 3px solid var(--inz-blue); padding-left: 15px; margin: 30px 0; }
+        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; background: rgba(255,255,255,0.5); }
+        .data-table td { padding: 10px; border: 1px solid #eee; font-size: 12.5px; }
+        .label-cell { background: #f8f9fa; font-weight: bold; width: 30%; color: #555; }
 
-        .signature-area { margin-top: 40px; display: flex; justify-content: space-between; align-items: flex-end; }
-        #sig-preview { max-width: 150px; max-height: 80px; display: block; margin-bottom: 5px; filter: grayscale(1) contrast(1.2); }
-        
-        .qr-box { text-align: center; font-size: 9px; font-weight: bold; color: var(--inz-blue); }
+        .polished-text { font-size: 13px; line-height: 1.7; color: #333; margin: 25px 0; font-style: italic; }
 
-        button.print-btn { width: 100%; padding: 15px; margin-top: 25px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; background: var(--inz-blue); color: white; }
+        .signature-footer { margin-top: 50px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .sig-block { border-top: 1px solid #000; width: 220px; padding-top: 8px; }
 
-        @media print { .sidebar { display: none; } .preview-area { margin: 0; } .a4-page { box-shadow: none; border: none; } }
+        button.print-btn { width: 100%; padding: 18px; margin-top: 30px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; background: var(--inz-primary); color: white; font-size: 15px; }
+
+        @media print { .sidebar { display: none; } .preview-area { margin: 0; } .a4-page { box-shadow: none; border-top: 15px solid #00247d; } }
     </style>
 </head>
 <body>
 
 <div class="sidebar">
-    <h2>🎨 Official INZ Branding</h2>
-    <label>Theme Preset</label>
-    <select id="colorTheme" onchange="applyOfficialColors()">
-        <option value="official">Official INZ (Navy/Black/Silver)</option>
-        <option value="midnight">Midnight Professional</option>
-        <option value="prestige">Prestige Gold & Charcoal</option>
+    <h2>🎨 Beautiful Themes</h2>
+    <label>Select Layout Style</label>
+    <select id="themeSelect" onchange="updateTheme()">
+        <option value="theme-modern">Modern Professional</option>
+        <option value="theme-presidential">Presidential Embossed</option>
+        <option value="theme-minimalist">Minimalist Sidebar</option>
     </select>
 
-    <h2>✒️ Professional Polish</h2>
-    <label>Tone Enhancer</label>
-    <select id="toneSelect" onchange="sync()">
-        <option value="formal">Standard Formal</option>
-        <option value="premium">Premium Legalistic (Beautiful Words)</option>
-    </select>
+    <label>Official Brand Colors</label>
+    <div class="color-row">
+        <div class="color-box" style="background:#00247d;" onclick="setColor('#00247d')"></div>
+        <div class="color-box" style="background:#1a1a1a;" onclick="setColor('#1a1a1a')"></div>
+        <div class="color-box" style="background:#c0392b;" onclick="setColor('#c0392b')"></div>
+        <div class="color-box" style="background:#16a085;" onclick="setColor('#16a085')"></div>
+    </div>
+    <input type="color" id="customColor" style="margin-top:10px;" oninput="setColor(this.value)">
 
-    <h2>✍️ Digital Signature</h2>
-    <label>Upload HR Signature (PNG/JPG)</label>
-    <input type="file" id="sigInput" accept="image/*" onchange="loadSignature(event)">
-
-    <h2>📅 Timeline</h2>
-    <label>Issuance Date</label>
+    <h2>📅 Documents & Timeline</h2>
+    <label>Date of Letter Issue</label>
     <input type="date" id="inIssueDate" oninput="sync()">
+    <label>Arrival Date in NZ</label>
+    <input type="date" id="inArriveDate" oninput="sync()">
 
-    <h2>👤 Applicant</h2>
-    <input type="text" id="inClName" placeholder="Full Name" oninput="sync()">
-    <input type="text" id="inRef" placeholder="INZ Reference Number" oninput="sync()">
-    
-    <h2>🏢 Employer</h2>
+    <h2>👤 Applicant & Company</h2>
+    <input type="text" id="inClName" placeholder="Full Name of Client" oninput="sync()">
+    <input type="text" id="inDOB" placeholder="Date of Birth (DD/MM/YYYY)" oninput="sync()">
+    <input type="text" id="inRef" placeholder="NZ Immigration Reference #" oninput="sync()">
     <input type="text" id="inCoName" placeholder="Company Name" oninput="sync()">
-    <input type="text" id="inJob" placeholder="Job Title" oninput="sync()">
-    
-    <button class="print-btn" onclick="window.print()">Generate Official PDF</button>
+    <input type="text" id="inCoAddr" placeholder="NZ Business Address" oninput="sync()">
+    <input type="text" id="inJob" placeholder="Official Job Title" oninput="sync()">
+
+    <h2>✍️ HR Authorization</h2>
+    <input type="text" id="inHRName" placeholder="HR Manager Name" oninput="sync()">
+    <input type="text" id="inHRPhone" placeholder="Contact Phone" oninput="sync()">
+
+    <button class="print-btn" onclick="window.print()">Print Official Letter</button>
 </div>
 
 <div class="preview-area">
-    <div class="a4-page" id="docPage">
-        <div class="nz-header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" style="width: 80px;">
-            <h1>IMMIGRATION NEW ZEALAND</h1>
-            <p style="font-size: 11px;">GOVERNMENT PORTAL VERIFICATION RECORD • <span class="outIssueDate">---</span></p>
+    <div class="a4-page theme-modern" id="docPage">
+        <div class="flag-header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" style="width: 100px;">
         </div>
 
+        <div class="nz-header">
+            <h1>IMMIGRATION NEW ZEALAND</h1>
+            <p style="font-size: 11px; letter-spacing: 2px;">GOVERNMENT PORTAL: <strong>www.immigration.govt.nz</strong></p>
+            <p style="font-size: 10px; margin-top: 5px;">ISSUE DATE: <span class="outIssueDate">---</span></p>
+        </div>
+
+        <div class="section-title">Legal Record of Arrival & Sponsorship</div>
         <table class="data-table">
-            <tr><td class="label-cell">Reference Number</td><td class="outRef" style="font-weight:bold; letter-spacing:1px;">---</td></tr>
-            <tr><td class="label-cell">Visa Holder</td><td class="outClName">---</td></tr>
-            <tr><td class="label-cell">Sponsoring Body</td><td class="outCoName">---</td></tr>
-            <tr><td class="label-cell">Position Designation</td><td class="outJob">---</td></tr>
+            <tr><td class="label-cell">Reference Number</td><td class="outRef" style="font-weight:bold;">---</td></tr>
+            <tr><td class="label-cell">Full Legal Name</td><td class="outClName">---</td></tr>
+            <tr><td class="label-cell">Date of Birth</td><td class="outDOB">---</td></tr>
+            <tr><td class="label-cell">Origin / Flight</td><td>Pakistan ➔ NZ (<span class="outArriveDate">---</span>)</td></tr>
         </table>
 
-        <div class="legal-text" id="legalPolish">
-            The sponsoring organization hereby affirms its commitment to the visa maintenance of the applicant under the Accredited Employer Work Visa framework.
+        <div class="section-title">Employment & Accreditation</div>
+        <table class="data-table">
+            <tr><td class="label-cell">Accredited Employer</td><td class="outCoName" style="font-weight:bold;">---</td></tr>
+            <tr><td class="label-cell">Registered Address</td><td class="outCoAddr">---</td></tr>
+            <tr><td class="label-cell">Position Designation</td><td class="outJob">---</td></tr>
+            <tr><td class="label-cell">Visa Classification</td><td>Accredited Employer Work Visa (AEWV)</td></tr>
+        </table>
+
+        <div class="polished-text">
+            "We, <span class="outCoName">The Employer</span>, formally declare our statutory adherence to the Immigration Act 2009. We assume full sponsorship responsibilities for the aforementioned individual, ensuring all employment conditions meet the high standards mandated by the New Zealand Government. This document serves as a verification of our commitment to the applicant's professional placement."
         </div>
 
-        <div class="signature-area">
-            <div>
-                <img id="sig-preview" src="" style="display:none;">
-                <div style="border-top: 1px solid #000; width: 200px; padding-top: 5px;">
-                    <strong style="font-size: 13px;">OFFICIALLY SIGNED</strong><br>
-                    <span style="font-size: 11px; color: #666;">HR COMPLIANCE DIVISION</span>
-                </div>
+        <div class="signature-footer">
+            <div class="sig-block">
+                <strong style="font-size: 13px;"><span class="outHRName">Officer Name</span></strong><br>
+                <span style="font-size: 11px; color: #666;">HR Compliance Division</span><br>
+                <span style="font-size: 10px;" class="outHRPhone">Phone</span>
             </div>
-            <div class="qr-box">
+            <div style="text-align: center;">
                 <div id="hrQRCode"></div>
-                VERIFY AUTHENTICITY
+                <div style="font-size: 8px; font-weight: bold; color: var(--inz-primary); margin-top: 5px;">SECURE GOV LINK</div>
             </div>
         </div>
-        
-        <div style="position: absolute; bottom: 20mm; left: 20mm; font-size: 9px; color: #999;">
-            © 2026 Immigration New Zealand Compliance Office. Document electronically generated.
+
+        <div style="position: absolute; bottom: 15mm; width: 80%; font-size: 9px; color: #999; border-top: 1px solid #eee; padding-top: 10px;">
+            This document is a formal record of employment sponsorship. For verification, visit the official New Zealand Immigration employer check portal at <strong>immigration.govt.nz/check-status</strong>.
         </div>
     </div>
 </div>
 
 <script>
-    let hrQR = new QRCode(document.getElementById("hrQRCode"), { width: 80, height: 80 });
+    let hrQR = new QRCode(document.getElementById("hrQRCode"), { width: 85, height: 85 });
 
-    function loadSignature(event) {
-        const output = document.getElementById('sig-preview');
-        output.src = URL.createObjectURL(event.target.files[0]);
-        output.style.display = 'block';
+    function setColor(color) {
+        document.documentElement.style.setProperty('--inz-primary', color);
     }
 
-    function applyOfficialColors() {
-        const theme = document.getElementById('colorTheme').value;
-        const r = document.documentElement.style;
-        if(theme === 'official') {
-            r.setProperty('--inz-blue', '#00247d');
-            r.setProperty('--inz-black', '#1a1a1a');
-            r.setProperty('--page-bg', '#f4f4f6');
-        } else if(theme === 'midnight') {
-            r.setProperty('--inz-blue', '#2c3e50');
-            r.setProperty('--inz-black', '#000000');
-            r.setProperty('--page-bg', '#ebebeb');
-        } else if(theme === 'prestige') {
-            r.setProperty('--inz-blue', '#996515');
-            r.setProperty('--inz-black', '#222');
-            r.setProperty('--page-bg', '#fcfcfc');
-        }
+    function updateTheme() {
+        const theme = document.getElementById('themeSelect').value;
+        document.getElementById('docPage').className = 'a4-page ' + theme;
     }
 
     function sync() {
-        const tone = document.getElementById('toneSelect').value;
-        const co = document.getElementById('inCoName').value || 'The Company';
-        
-        const polish = {
-            formal: `This letter confirms that ${co} supports the visa application for the mentioned individual and accepts all standard sponsorship responsibilities.`,
-            premium: `Be it known that ${co}, an Accredited Employer under New Zealand statutes, formally declares its unwavering sponsorship of the applicant. We attest to the veracity of the employment terms and pledge full adherence to the Immigration Act 2009 to ensure a seamless professional transition.`
-        };
-
-        document.getElementById('legalPolish').innerText = polish[tone];
-        
         const fields = {
-            outIssueDate: document.getElementById('inIssueDate').value || 'PENDING',
+            outIssueDate: document.getElementById('inIssueDate').value || '---',
+            outArriveDate: document.getElementById('inArriveDate').value || '---',
             outClName: document.getElementById('inClName').value || '---',
+            outDOB: document.getElementById('inDOB').value || '---',
             outRef: document.getElementById('inRef').value || '---',
-            outCoName: co,
-            outJob: document.getElementById('inJob').value || '---'
+            outCoName: document.getElementById('inCoName').value || '---',
+            outCoAddr: document.getElementById('inCoAddr').value || '---',
+            outJob: document.getElementById('inJob').value || '---',
+            outHRName: document.getElementById('inHRName').value || 'Pending Signature',
+            outHRPhone: document.getElementById('inHRPhone').value || ''
         };
 
         for (const [key, value] of Object.entries(fields)) {
             document.querySelectorAll('.' + key).forEach(el => el.innerText = value);
         }
 
-        hrQR.makeCode(`VERIFY|${fields.outRef}|${fields.outCoName}|${fields.outIssueDate}`);
+        hrQR.makeCode(`VERIFY|NZBN-AUTH|${fields.outRef}|${fields.outCoName}`);
     }
 
+    // Initialize with today's date
+    document.getElementById('inIssueDate').value = new Date().toISOString().split('T')[0];
     sync();
 </script>
 </body>
