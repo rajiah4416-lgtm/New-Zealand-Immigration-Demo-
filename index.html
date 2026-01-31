@@ -1,338 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Immigration New Zealand | Portal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --realme-orange: #d84315; 
-            --visaview-blue: #00a0d2;
-            --inz-dark: #00247d;
-        }
-        body { font-family: Arial, sans-serif; margin: 0; background-color: #ffffff; }
-        .hidden { display: none; }
-        
-        /* Mobile-Ready Login Interface */
-        .login-input { border: 2px solid #000; border-radius: 18px; padding: 20px; width: 100%; font-size: 18px; background: #f2f2f2; }
-        .btn-realme { background-color: var(--realme-orange); color: white; padding: 18px; border-radius: 18px; font-weight: bold; width: 100%; font-size: 20px; }
-        
-        /* VisaView Enquiry Styling */
-        .vv-header { background-color: var(--visaview-blue); color: white; padding: 15px 25px; display: flex; align-items: center; }
-        .sidebar { background-color: #eef7fa; width: 240px; border-right: 1px solid #c9e1e9; min-height: 100vh; padding: 20px; }
-        .field-label { font-size: 13px; font-weight: bold; color: #444; width: 160px; }
-        .field-input { border: 1px solid #777; padding: 4px; font-size: 13px; width: 240px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agency Portal | Management System</title>
+
+<style>
+  :root { --primary: #003366; --secondary: #e05a20; --bg: #fafafa; --white: #ffffff; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 0; }
+  header { background: var(--primary); color: white; text-align: center; padding: 20px; font-size: 1.5rem; font-weight: bold; }
+  .container { max-width: 600px; margin: 40px auto; padding: 25px; background: var(--white); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+  input, select, button { width: 100%; margin: 10px 0; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
+  button { background: var(--secondary); border: none; color: white; cursor: pointer; font-weight: bold; transition: 0.3s; }
+  button:hover { background: #c6531a; }
+  .secondary-btn { background: #666; margin-top: 10px; }
+  .footer { text-align: center; padding: 20px; color: #666; font-size: 0.9rem; }
+
+  /* Dashboard Layout */
+  .dashboard-container { display: flex; min-height: 80vh; }
+  .nav-menu { width: 220px; background: var(--primary); padding: 20px; color: white; }
+  .nav-menu ul { list-style: none; padding: 0; }
+  .nav-menu li { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; }
+  .nav-menu li:hover { color: var(--secondary); }
+  .dashboard-content { flex-grow: 1; padding: 30px; }
+  
+  /* Table Styling for Client List */
+  table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+  th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+  th { background-color: #f2f2f2; }
+  .status-badge { padding: 5px 10px; border-radius: 12px; font-size: 0.8rem; background: #d4edda; color: #155724; }
+</style>
 </head>
 <body>
-/**
- * scripts.js
- * Logic for New Zealand Visa Verification Portal
- * Handles Login, Navigation, Client Storage, and PDF Display
- */
 
-// Global State
-let clientList = [];
+<header>Agency Management Portal</header>
 
-/**
- * LOGIN LOGIC
- * Replicates the transition from the RealMe mobile authentication screen
- */
-function handleLogin() {
-    const user = document.getElementById('user').value;
-    const pass = document.getElementById('pass').value;
+<div id="mainContent">
+  
+  <div id="loginPage" class="container">
+    <form id="loginForm">
+      <h2 style="text-align: center;">Staff Login</h2>
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Access System</button>
+    </form>
+  </div>
 
-    if (user.length > 0 && pass.length > 0) {
-        // Hide RealMe Login Section
-        document.getElementById('loginSection').classList.add('hidden');
-        // Show VisaView Enquiry Section
-        document.getElementById('visaViewSection').classList.remove('hidden');
-        window.scrollTo(0, 0);
-    } else {
-        alert("Please enter a valid RealMe Username and Password.");
-    }
-}
+  <div id="dashboardPage" style="display:none;">
+    <div class="dashboard-container">
+      <nav class="nav-menu">
+        <h3>Menu</h3>
+        <ul>
+          <li onclick="showSection('homeSection')">🏠 Dashboard Home</li>
+          <li onclick="showSection('uploadSection')">📤 Upload Client Data</li>
+          <li onclick="showSection('listSection')">👥 View Saved Clients</li>
+          <li onclick="showSection('visaSection')">🔍 Visa Verification</li>
+          <li onclick="logout()" style="color: #ffb3b3;">🚪 Logout</li>
+        </ul>
+      </nav>
 
-/**
- * NAVIGATION LOGIC
- * Switches between the Enquiry Form and the Client Management Dashboard
- */
-function showSection(sectionId) {
-    const sections = ['loginSection', 'visaViewSection', 'dashboardSection', 'resultSection'];
-    sections.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.classList.add('hidden');
-    });
+      <section class="dashboard-content">
+        <div id="homeSection" class="section">
+          <h2>Welcome back, Administrator</h2>
+          <p>Use the sidebar to manage client files, upload new visa PDFs, or run a verification check.</p>
+        </div>
+
+        <div id="uploadSection" class="section" style="display:none;">
+          <h2>Upload Client Information & Visa</h2>
+          <div style="background: #f9f9f9; padding: 20px; border-radius: 8px;">
+            <form id="uploadForm">
+              <label>Client Full Name</label>
+              <input type="text" id="cName" placeholder="e.g. John Doe" required>
+              
+              <label>Passport Number</label>
+              <input type="text" id="cPassport" placeholder="e.g. L1234567" required>
+              
+              <label>Visa Type</label>
+              <select id="cType">
+                <option value="Work">Work Visa</option>
+                <option value="Visitor">Visitor Visa</option>
+                <option value="Student">Student Visa</option>
+              </select>
+
+              <label>Upload Visa PDF</label>
+              <input type="file" id="cFile" accept="application/pdf" required>
+              
+              <button type="submit">Save to Database</button>
+            </form>
+          </div>
+        </div>
+
+        <div id="listSection" class="section" style="display:none;">
+          <h2>Saved Clients</h2>
+          <table id="clientTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Passport</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="clientTableBody">
+              </tbody>
+          </table>
+        </div>
+
+        <div id="visaSection" class="section" style="display:none;">
+            <div class="container" style="margin: 0; max-width: 100%;">
+                <h2>Visa Verification Enquiry</h2>
+                <form id="visaForm">
+                    <input type="text" placeholder="Family Name" required>
+                    <input type="text" placeholder="Passport Number" required>
+                    <input type="date" title="DOB" required>
+                    <button type="submit">Search Records</button>
+                </form>
+            </div>
+        </div>
+
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="footer">© 2026 Agency Management System | Secure Access</div>
+
+<script>
+  // Navigation Logic
+  function showSection(sectionId) {
+    document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+    document.getElementById(sectionId).style.display = 'block';
+  }
+
+  function logout() {
+    document.getElementById('dashboardPage').style.display = 'none';
+    document.getElementById('loginPage').style.display = 'block';
+  }
+
+  // Handle Login
+  document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('dashboardPage').style.display = 'block';
+    showSection('homeSection');
+  });
+
+  // Handle Client Upload
+  const clients = [];
+  document.getElementById("uploadForm").addEventListener("submit", function(e) {
+    e.preventDefault();
     
-    document.getElementById(sectionId).classList.remove('hidden');
-    
-    if (sectionId === 'dashboardSection') {
-        updateClientTable();
-    }
-}
-
-/**
- * SAVING CLIENT INFO
- * Captures data from the VisaView form and stores it in the management list
- */
-function processVisaEnquiry() {
-    const consent = document.getElementById('v_con').checked;
-    
-    if (!consent) {
-        alert("The visa holder must consent to this check.");
-        return;
-    }
-
-    const clientData = {
-        id: Date.now(),
-        familyName: document.getElementById('v_name').value.toUpperCase(),
-        nationality: document.getElementById('v_nat').value,
-        passport: document.getElementById('v_num').value.toUpperCase(),
-        dob: document.getElementById('v_dob').value,
-        gender: document.getElementById('v_gen').value,
-        expiryDate: "12 DEC 2026", // Default for demo
-        status: "VALID / ACTIVE"
+    const newClient = {
+      name: document.getElementById('cName').value,
+      passport: document.getElementById('cPassport').value,
+      type: document.getElementById('cType').value,
+      fileName: document.getElementById('cFile').files[0].name
     };
 
-    // Save to local list
-    clientList.push(clientData);
-    
-    // Auto-navigate to Dashboard to show the result
-    showSection('dashboardSection');
-}
+    clients.push(newClient);
+    updateClientTable();
+    alert("Client Data and PDF reference saved successfully!");
+    this.reset();
+    showSection('listSection');
+  });
 
-/**
- * CLIENT MANAGEMENT TABLE
- * Dynamically updates the dashboard with saved client information
- */
-function updateClientTable() {
-    const tableBody = document.getElementById('clientTable');
-    if (!tableBody) return;
-
-    tableBody.innerHTML = '';
-
-    clientList.forEach(client => {
-        const row = `
-            <tr class="border-b hover:bg-orange-50 transition">
-                <td class="p-4 font-bold text-gray-800">${client.familyName}</td>
-                <td class="p-4">${client.passport}</td>
-                <td class="p-4">
-                    <span class="text-green-600 font-black italic">${client.status}</span>
-                </td>
-                <td class="p-4">
-                    <button onclick="viewCertificate(${client.id})" class="bg-[#00a0d2] text-white px-3 py-1 rounded text-xs font-bold">
-                        VIEW PDF
-                    </button>
-                </td>
-            </tr>
-        `;
-        tableBody.insertAdjacentHTML('beforeend', row);
+  function updateClientTable() {
+    const tbody = document.getElementById('clientTableBody');
+    tbody.innerHTML = "";
+    clients.forEach(c => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${c.name}</td>
+          <td>${c.passport}</td>
+          <td>${c.type}</td>
+          <td><span class="status-badge">Active</span></td>
+          <td><button style="padding:5px; font-size:0.8rem;">View PDF</button></td>
+        </tr>`;
     });
-}
+  }
 
-/**
- * SHOWING UPLOADED / GENERATED PDF
- * Prepares the result screen with the specific client details
- */
-function viewCertificate(clientId) {
-    const client = clientList.find(c => c.id === clientId);
-    if (!client) return;
+  document.getElementById("visaForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Searching secure database for matching visa records...");
+  });
+</script>
 
-    // Populate result section
-    document.getElementById('res_name').innerText = client.familyName;
-    document.getElementById('res_passport').innerText = client.passport;
-    document.getElementById('res_status').innerText = client.status;
-    
-    showSection('resultSection');
-}
-
-/**
- * PDF GENERATION
- * Creates an official-style PDF document for the client
- */
-function downloadOfficialPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    const name = document.getElementById('res_name').innerText;
-    const passport = document.getElementById('res_passport').innerText;
-
-    // Header Blue Bar
-    doc.setFillColor(0, 160, 210); // VisaView Blue
-    doc.rect(0, 0, 210, 30, 'F');
-    
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(18);
-    doc.text("IMMIGRATION NEW ZEALAND", 105, 20, { align: "center" });
-
-    doc.setTextColor(0, 0, 0);
-    doc.setFontSize(12);
-    doc.text("VISA VERIFICATION RECORD", 20, 50);
-    doc.line(20, 52, 190, 52);
-
-    doc.setFont("helvetica", "bold");
-    doc.text(`NAME: ${name}`, 20, 70);
-    doc.text(`PASSPORT NO: ${passport}`, 20, 85);
-    doc.text(`STATUS: VALID / ACTIVE`, 20, 100);
-    doc.text(`EXPIRY DATE: 12 DECEMBER 2026`, 20, 115);
-
-    doc.save(`NZ_Visa_Record_${name}.pdf`);
-}
-    <div id="loginSection">
-        <header class="bg-black text-white p-4 flex justify-between items-center h-16">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl font-bold" style="color: #ff3d00;">RealMe®</span>
-                <span class="text-[10px] text-gray-400 mt-2 font-bold italic">Tēnei Au</span>
-            </div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Silver_fern_logo.svg" class="w-10 invert">
-        </header>
-
-        <main class="p-6 max-w-lg mx-auto mt-10">
-            <h1 class="text-5xl font-light mb-8 italic">Log in with <span class="font-bold text-red-600">RealMe</span></h1>
-            <p class="text-lg text-gray-700 mb-6">To access this service you need a RealMe login.</p>
-            
-            <div class="space-y-4 mb-10">
-                <label class="flex items-center gap-3 text-lg"><input type="radio" name="r" checked> I have an existing RealMe login</label>
-                <label class="flex items-center gap-3 text-lg"><input type="radio" name="r"> I need to create a login</label>
-            </div>
-
-            <div class="space-y-6">
-                <input type="text" id="user" placeholder="Username" class="login-input">
-                <input type="password" id="pass" placeholder="Password" class="login-input">
-                <button onclick="showVisaView()" class="btn-realme shadow-xl">Log in</button>
-            </div>
-            
-            <p class="mt-8 text-center font-bold text-[#d84315] text-lg underline">Forgot Username or Password?</p>
-        </main>
-
-        <footer class="mt-20 p-10 bg-[#d84315] text-white">
-            <div class="space-y-4 font-bold text-lg">
-                <p>Help & contact us</p><p>Privacy</p><p>About this site</p>
-                <hr class="border-white/30">
-                <p class="text-sm font-normal">© New Zealand Government</p>
-            </div>
-        </footer>
-    </div>
-
-    <div id="visaViewSection" class="hidden">
-        <div class="vv-header shadow-md">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Silver_fern_logo.svg" class="w-12 invert mr-4">
-            <h1 class="text-2xl font-bold italic">IMMIGRATION NEW ZEALAND</h1>
-        </div>
-
-        <div class="flex">
-            <aside class="sidebar">
-                <h3 class="text-sm font-bold text-[#00a0d2] mb-4 uppercase">VisaView</h3>
-                <nav class="text-[12px] space-y-4 text-[#005a87]">
-                    <p class="cursor-pointer">▶ Register Organisation</p>
-                    <p class="font-bold underline cursor-pointer">▶ Verify Visa Record</p>
-                    <p class="cursor-pointer" onclick="showDashboard()">▶ Dashboard & Clients</p>
-                </nav>
-            </aside>
-
-            <main class="flex-1 p-10">
-                <div class="flex justify-between border-b pb-2 mb-8">
-                    <h2 class="text-2xl text-[#00a0d2]">Visa Verification Enquiry</h2>
-                    <p class="text-[11px]">Logged in as: <span class="font-bold">Ali Rahat</span></p>
-                </div>
-
-                <div class="space-y-3">
-                    <div class="flex items-center"><span class="field-label">Family Name *</span><input type="text" id="v_name" class="field-input"></div>
-                    <div class="flex items-center"><span class="field-label">Passport Nationality *</span>
-                        <select id="v_nat" class="field-input">
-                            <option>PAKISTAN</option><option>INDIA</option><option>BANGLADESH</option>
-                        </select>
-                    </div>
-                    <div class="flex items-center"><span class="field-label">Passport Number *</span><input type="text" id="v_num" class="field-input"></div>
-                    <div class="flex items-center"><span class="field-label">Date of Birth *</span><input type="text" id="v_dob" class="field-input" placeholder="dd/mm/yyyy"></div>
-                    <div class="flex items-center"><span class="field-label">Gender *</span>
-                        <select id="v_gen" class="field-input"><option>Male</option><option>Female</option></select>
-                    </div>
-                </div>
-
-                <div class="mt-8 flex items-center gap-2">
-                    <input type="checkbox" id="v_con">
-                    <label class="text-[11px] text-gray-700">The visa holder has consented to this check.</label>
-                </div>
-
-                <button onclick="saveAndProcess()" class="mt-8 bg-[#005a87] text-white px-8 py-2 font-bold text-sm">Check Visa</button>
-            </main>
-        </div>
-    </div>
-
-    <div id="dashboardSection" class="hidden p-10 bg-gray-50 min-h-screen">
-        <div class="max-w-5xl mx-auto">
-            <div class="flex justify-between items-center mb-10">
-                <h1 class="text-3xl font-bold text-[#00247d]">Client Management Dashboard</h1>
-                <button onclick="showVisaView()" class="bg-[#d84315] text-white px-4 py-2 rounded">New Enquiry</button>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
-                <table class="w-full text-left">
-                    <thead class="bg-gray-100 text-[12px] uppercase font-bold text-gray-500 border-b">
-                        <tr><th class="p-4">Client Name</th><th class="p-4">Passport</th><th class="p-4">Status</th><th class="p-4">Actions</th></tr>
-                    </thead>
-                    <tbody id="clientTable" class="text-sm">
-                        </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        let clients = [];
-
-        function showVisaView() {
-            document.getElementById('loginSection').classList.add('hidden');
-            document.getElementById('visaViewSection').classList.remove('hidden');
-            document.getElementById('dashboardSection').classList.add('hidden');
-        }
-
-        function showDashboard() {
-            document.getElementById('visaViewSection').classList.add('hidden');
-            document.getElementById('dashboardSection').classList.remove('hidden');
-            renderClients();
-        }
-
-        function saveAndProcess() {
-            if(!document.getElementById('v_con').checked) return alert("Consent required");
-            
-            const newClient = {
-                name: document.getElementById('v_name').value.toUpperCase(),
-                pass: document.getElementById('v_num').value.toUpperCase(),
-                status: 'VALID / ACTIVE'
-            };
-            
-            clients.push(newClient);
-            alert("Visa verified and added to Client Management.");
-            showDashboard();
-        }
-
-        function renderClients() {
-            const table = document.getElementById('clientTable');
-            table.innerHTML = clients.map(c => `
-                <tr class="border-b hover:bg-orange-50">
-                    <td class="p-4 font-bold">${c.name}</td>
-                    <td class="p-4">${c.pass}</td>
-                    <td class="p-4 text-green-600 font-bold">${c.status}</td>
-                    <td class="p-4"><button onclick="generatePDF('${c.name}', '${c.pass}')" class="text-blue-600 underline font-bold">Download PDF</button></td>
-                </tr>
-            `).join('');
-        }
-
-        function generatePDF(name, pass) {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.setFontSize(20);
-            doc.text("NEW ZEALAND VISA RECORD", 105, 30, { align: "center" });
-            doc.setFontSize(12);
-            doc.text(`Name: ${name}`, 20, 60);
-            doc.text(`Passport: ${pass}`, 20, 75);
-            doc.text(`Status: VALID`, 20, 90);
-            doc.save(`NZ_Visa_${name}.pdf`);
-        }
-    </script>
 </body>
-                                                                           </html>
+</html>
