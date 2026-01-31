@@ -2,141 +2,118 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RealMe - Login</title>
     <style>
         :root {
-            --realme-red: #d52b1e;
-            --realme-orange: #f45b06;
-            --inz-blue: #006272;
+            --realme-red: #d32f2f; /* The dark red used for the footer and login brand */
+            --realme-orange: #f35b04; /* The bright orange for the 'RealMe' text and buttons */
             --govt-black: #000000;
         }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background: #fff; }
-
-        /* --- GLOBAL GOVT HEADER (Flag Fixed) --- */
-        .govt-bar { background: var(--govt-black); color: white; padding: 10px 10%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; }
-        .nz-identity { display: flex; align-items: center; gap: 15px; }
         
-        /* CSS New Zealand Flag */
-        .nz-flag { width: 34px; height: 17px; background: #00247d; border: 1px solid #fff; position: relative; }
-        .nz-flag::after { content: "★"; color: #fff; font-size: 5px; position: absolute; right: 2px; top: 2px; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background: #ffffff; color: #333; }
 
-        .nz-identity img { height: 35px; filter: brightness(0) invert(1); }
-        .nz-identity span { font-weight: bold; letter-spacing: 1px; font-size: 0.9rem; }
+        /* --- BLACK HEADER --- */
+        .govt-header { background: var(--govt-black); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; }
+        .logo-left { display: flex; align-items: center; gap: 10px; }
+        .logo-right { height: 45px; filter: brightness(0) invert(1); }
+        .brand-r { color: var(--realme-orange); font-size: 2.5rem; font-weight: bold; margin: 0; display: flex; align-items: center; gap: 5px; }
+        .brand-r span { color: #fff; font-size: 1.8rem; }
+        .tagline { color: #fff; font-size: 0.7rem; display: block; margin-top: -8px; margin-left: 2px; }
 
-        /* --- LOGIN PAGE STYLING --- */
-        .login-wrapper { max-width: 1100px; margin: 60px auto; padding: 0 40px; display: flex; gap: 80px; }
-        .login-left, .login-right { flex: 1; }
+        /* --- BACK NAVIGATION --- */
+        .nav-back { padding: 25px 8%; background: #f9f9f9; border-bottom: 1px solid #eee; }
+        .nav-back a { color: #333; text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
+        .circle-arrow { border: 2px solid #333; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+
+        /* --- MAIN LOGIN COLUMNS --- */
+        .container { max-width: 1200px; margin: 0 auto; display: flex; padding: 60px 8%; gap: 100px; }
+        .col { flex: 1; }
+
+        h1 { font-size: 2.8rem; font-weight: 300; margin: 0 0 30px 0; }
+        h1 b { color: var(--realme-orange); font-weight: 700; }
+
+        .form-group { margin-bottom: 15px; }
+        .input-pill { width: 100%; padding: 18px 25px; border: 1px solid #ccc; border-radius: 12px; background: #f2f2f2; font-size: 1rem; box-sizing: border-box; }
         
-        .back-link { color: #666; font-size: 0.9rem; text-decoration: none; display: flex; align-items: center; gap: 8px; margin-bottom: 40px; }
+        /* LOGIN BUTTON */
+        .btn-orange { background: #bf360c; color: white; border: none; padding: 15px 35px; border-radius: 15px; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; gap: 12px; cursor: pointer; margin-top: 20px; }
+        .btn-icon-r { background: white; color: #bf360c; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-style: normal; }
         
-        .main-logo { font-size: 3.8rem; font-weight: bold; color: var(--realme-orange); margin: 0; letter-spacing: -2px; }
-        .main-logo span { color: var(--govt-black); }
-        .main-logo sup { font-size: 1.2rem; top: -1.5rem; }
-        
-        h2 { font-size: 2.2rem; font-weight: 300; margin: 20px 0; color: #333; }
-        h2 b { color: var(--realme-red); font-weight: 700; }
+        .forgot-link { color: #bf360c; font-weight: bold; text-decoration: none; display: block; margin-top: 25px; font-size: 0.95rem; }
 
-        .form-group { margin-bottom: 20px; }
-        .input-box { width: 100%; padding: 18px; background: #f2f2f2; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
-        
-        .btn-pill { padding: 14px 40px; border-radius: 50px; font-weight: bold; font-size: 1.1rem; border: none; cursor: pointer; display: flex; align-items: center; gap: 10px; color: white; transition: 0.3s; }
-        .btn-login { background: var(--realme-red); }
-        .btn-create { background: var(--realme-red); border: 2px solid var(--realme-red); }
-        .r-icon { background: white; color: var(--realme-red); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-style: normal; }
+        /* CREATE BUTTON */
+        .btn-create { background: #bf360c; color: white; border: none; padding: 15px 30px; border-radius: 12px; font-weight: bold; font-size: 1rem; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .arrow-circle { border: 2px solid white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; }
 
-        .forgot-links { color: var(--realme-red); font-weight: bold; text-decoration: none; font-size: 0.9rem; margin-top: 20px; display: block; }
+        /* --- RED FOOTER --- */
+        .footer { background: #d32f2f; color: white; padding: 40px 8%; margin-top: 80px; }
+        .footer-nav { display: flex; gap: 25px; font-weight: bold; font-size: 0.95rem; margin-bottom: 30px; }
+        .lang-switch { display: flex; gap: 15px; margin-top: 10px; }
+        .footer-line { border-top: 1px solid rgba(255,255,255,0.3); padding-top: 20px; font-size: 0.85rem; }
 
-        /* --- FOOTER --- */
-        .realme-footer { background: var(--realme-red); color: white; padding: 40px 10%; margin-top: 100px; }
-        .footer-links { display: flex; gap: 30px; margin-bottom: 30px; font-weight: bold; font-size: 0.9rem; }
-        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.3); padding-top: 20px; font-size: 0.85rem; }
-
-        /* --- DASHBOARD (Hidden initially) --- */
-        #dashboard { display: none; }
+        @media (max-width: 768px) { .container { flex-direction: column; gap: 50px; } }
     </style>
 </head>
 <body>
 
-<div id="login-screen">
-    <div class="govt-bar">
-        <div class="nz-identity">
-            <div class="nz-flag"></div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" alt="Fern">
-            <span>NEW ZEALAND GOVERNMENT</span>
-        </div>
-        <div style="font-size: 0.8rem;">English | Māori | 中文</div>
+<header class="govt-header">
+    <div class="logo-left">
+        <div class="brand-r">r <span>RealMe</span></div>
+        <div class="tagline">Tēnei Au</div>
     </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Silver_Fern_Logo.svg/1200px-Silver_Fern_Logo.svg.png" class="logo-right" alt="New Zealand Immigration">
+</header>
 
-    <div class="login-wrapper">
-        <div class="login-left">
-            <a href="#" class="back-link">← Go back to Immigration New Zealand</a>
-            <h1 class="main-logo">Real<span>Me</span><sup>®</sup></h1>
-            <p style="color:var(--realme-red); font-weight:bold; margin-top:-5px;">Tēnei Au</p>
-            
-            <h2>Log in with <b>RealMe</b></h2>
-            <p>You've been redirected here so you can log in with RealMe</p>
-
-            <div class="form-group">
-                <input type="text" class="input-box" placeholder="Username" id="userIn">
-            </div>
-            <div class="form-group">
-                <input type="password" class="input-box" placeholder="Password">
-            </div>
-
-            <button class="btn-pill btn-login" onclick="showProcessor()">
-                <i class="r-icon">r</i> Log in
-            </button>
-            <a href="#" class="forgot-links">Forgot Username or Forgot Password?</a>
-        </div>
-
-        <div class="login-right">
-            <h2 style="margin-top: 105px;">Create a <b>RealMe</b> login</h2>
-            <p>To access this service you need a RealMe login.</p>
-            <p style="font-size: 0.9rem; color: #555; line-height: 1.6;">You'll be able to access a range of services with a single username and password. RealMe is designed to protect your privacy and security.</p>
-            
-            <button class="btn-pill btn-create" style="margin-top: 30px;">
-                <span style="border: 2px solid white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 1rem;">→</span> 
-                Create a RealMe login
-            </button>
-        </div>
-    </div>
-
-    <footer class="realme-footer">
-        <div class="footer-links">
-            <span>Help & contact us</span>
-            <span>Terms of use</span>
-            <span>Privacy</span>
-            <span>About this site</span>
-        </div>
-        <div class="footer-bottom">
-            © New Zealand Government.
-        </div>
-    </footer>
+<div class="nav-back">
+    <a href="#"><span class="circle-arrow">←</span> Go back to the Ministry of Business, Innovation and Employment</a>
 </div>
 
-<div id="processor" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.9); z-index:2000; text-align:center; padding-top:200px;">
-    <h1 style="color:var(--inz-blue);">Visa Officer Processing...</h1>
-    <p>Generating Application ID: VV02119875</p>
-    <p>Uploading eVisa PDF Document...</p>
-    <div style="width: 200px; height: 10px; background: #eee; margin: 20px auto; border-radius: 5px; overflow: hidden;">
-        <div id="bar" style="width: 0%; height: 100%; background: var(--inz-blue); transition: 2s;"></div>
+<div class="container">
+    <div class="col">
+        <h1>Log in with <b>RealMe</b></h1>
+        <p style="margin-bottom: 35px;">You've been redirected here so you can log in with RealMe</p>
+        
+        <div class="form-group">
+            <input type="text" class="input-pill" placeholder="Username" id="userIn">
+        </div>
+        <div class="form-group">
+            <input type="password" class="input-pill" placeholder="Password">
+        </div>
+
+        <button class="btn-orange">
+            <i class="btn-icon-r">r</i> Log in
+        </button>
+
+        <a href="#" class="forgot-link">Forgot Username or Forgot Password?</a>
+    </div>
+
+    <div class="col">
+        <h1>Create a <b>RealMe</b> login</h1>
+        <p>To access this service you need a RealMe login.</p>
+        <p style="color: #666; font-size: 0.95rem; line-height: 1.6; margin: 25px 0;">You'll be able to access a range of services with a single username and password. RealMe is designed to protect your privacy and security.</p>
+        
+        <button class="btn-create">
+            <span class="arrow-circle">→</span> Create a RealMe login
+        </button>
     </div>
 </div>
 
-<script>
-    function showProcessor() {
-        const user = document.getElementById('userIn').value;
-        if(!user) { alert("Please enter username"); return; }
-        
-        document.getElementById('processor').style.display = 'block';
-        setTimeout(() => { document.getElementById('bar').style.width = '100%'; }, 100);
-        
-        setTimeout(() => {
-            alert("SUCCESS: Visa for " + user + " has been issued by the processor.");
-            window.location.reload(); // Returns to login for demo safety
-        }, 2500);
-    }
-</script>
+<footer class="footer">
+    <div class="footer-nav">
+        <span>Help & contact us</span>
+        <span>Terms of use</span>
+        <span>Privacy</span>
+        <span>About this site</span>
+    </div>
+    <div class="lang-switch">
+        <span>English</span>
+        <span>中文</span>
+    </div>
+    <div class="footer-line">
+        © New Zealand Government.
+    </div>
+</footer>
 
 </body>
-</html>
+    </html>
