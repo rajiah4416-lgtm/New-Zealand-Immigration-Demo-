@@ -1,50 +1,52 @@
-<div style="margin-top: 40px; border-bottom: 2px solid #006272; padding-bottom: 10px;">
-    <h3 style="font-family: Arial, sans-serif; color: #333; margin: 0;">Issued visas</h3>
-    <p style="font-size: 0.85rem; color: #555; margin-top: 5px;">
-        Dates displayed for multiple entry visas may not be up to date. Select Download eVisa to view visa travel conditions.
+<div style="font-family: Arial, sans-serif; margin-top: 50px;">
+    <h2 style="color: #333; font-size: 1.5rem; margin-bottom: 5px;">Issued visas</h2>
+    <p style="font-size: 0.85rem; color: #555; margin-bottom: 20px;">
+        Dates displayed for multiple entry visas may not be up to date. Select Download eVisa to view visa travel conditions. Use the Options dropdown to share your visa or to view and apply for a variation of conditions.
     </p>
-</div>
 
-<div style="display: flex; justify-content: space-between; align-items: center; background: #f9f9f9; padding: 10px; border: 1px solid #ddd; border-top: none;">
-    <div style="display: flex; align-items: center; color: #006272; font-weight: bold; font-size: 0.9rem; cursor: pointer;">
-        <span style="margin-right: 5px;">▦</span> All Visas
-    </div>
-    <div style="display: flex; gap: 5px;">
-        <input type="text" placeholder="Search" style="padding: 5px 10px; border: 1px solid #ccc; width: 200px;">
-        <button style="background: #eee; border: 1px solid #ccc; padding: 5px 10px; cursor: pointer;">🔍</button>
+    <div style="border: 1px solid #dcdcdc; border-top: 4px solid #006272;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background-color: #f9f9f9; border-bottom: 1px solid #dcdcdc;">
+            <div style="color: #006272; font-weight: bold; font-size: 0.9rem; display: flex; align-items: center; cursor: pointer;">
+                <span style="font-size: 1.2rem; margin-right: 8px;">▦</span> All Visas <span style="margin-left: 5px; font-size: 0.7rem;">▼</span>
+            </div>
+            <div style="display: flex; gap: 0;">
+                <input type="text" placeholder="Search" style="padding: 6px 12px; border: 1px solid #ccc; width: 180px; font-size: 0.85rem;">
+                <button style="background: #eee; border: 1px solid #ccc; border-left: none; padding: 6px 10px; cursor: pointer;">🔍</button>
+            </div>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; background: white;">
+            <thead>
+                <tr style="border-bottom: 1px solid #dcdcdc; text-align: left; background-color: #ffffff;">
+                    <th style="padding: 15px; font-size: 0.85rem; color: #333; border-right: 1px solid #eee;">Visa holder</th>
+                    <th style="padding: 15px; font-size: 0.85rem; color: #333; border-right: 1px solid #eee;">Application ID</th>
+                    <th style="padding: 15px; font-size: 0.85rem; color: #333; border-right: 1px solid #eee;">Visa category</th>
+                    <th style="padding: 15px; font-size: 0.85rem; color: #333; border-right: 1px solid #eee;">Issue date</th>
+                    <th style="padding: 15px; font-size: 0.85rem; color: #333; border-right: 1px solid #eee;">Entry type</th>
+                    <th style="padding: 15px; font-size: 0.85rem; color: #333; border-right: 1px solid #eee;">Download visa</th>
+                    <th style="padding: 15px; font-size: 0.85rem; color: #333;">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 15px; font-size: 0.85rem; font-weight: bold;">John Doe</td>
+                    <td style="padding: 15px; font-size: 0.85rem;">VV02119875</td>
+                    <td style="padding: 15px; font-size: 0.85rem;">Visitor Visa - General</td>
+                    <td style="padding: 15px; font-size: 0.85rem;">01 Feb 2026</td>
+                    <td style="padding: 15px; font-size: 0.85rem;">Multiple</td>
+                    <td style="padding: 15px; font-size: 0.85rem; text-align: center;">
+                        <a href="#" style="color: #006272; text-decoration: underline; font-weight: 500;">Download eVisa</a>
+                    </td>
+                    <td style="padding: 15px; font-size: 0.85rem;">
+                        <select style="padding: 4px 8px; font-size: 0.8rem; border: 1px solid #ccc; background: white;">
+                            <option>Select</option>
+                            <option>View variation</option>
+                            <option>Share visa</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
-
-<table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 0.85rem; margin-top: -1px;">
-    <thead>
-        <tr style="background: #f2f2f2; border: 1px solid #ddd;">
-            <th style="padding: 12px; text-align: left; border-right: 1px solid #ddd;">Visa holder</th>
-            <th style="padding: 12px; text-align: left; border-right: 1px solid #ddd;">Application ID</th>
-            <th style="padding: 12px; text-align: left; border-right: 1px solid #ddd;">Visa category</th>
-            <th style="padding: 12px; text-align: left; border-right: 1px solid #ddd;">Issue date</th>
-            <th style="padding: 12px; text-align: left; border-right: 1px solid #ddd;">Entry type</th>
-            <th style="padding: 12px; text-align: left; border-right: 1px solid #ddd;">Download visa</th>
-            <th style="padding: 12px; text-align: left;">Options</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr style="border: 1px solid #ddd; background: #fff;">
-            <td style="padding: 12px; border-right: 1px solid #ddd; font-weight: bold;">John Doe</td>
-            <td style="padding: 12px; border-right: 1px solid #ddd;">VV02119875</td>
-            <td style="padding: 12px; border-right: 1px solid #ddd;">Visitor Visa - General</td>
-            <td style="padding: 12px; border-right: 1px solid #ddd;">01 Feb 2026</td>
-            <td style="padding: 12px; border-right: 1px solid #ddd;">Multiple</td>
-            <td style="padding: 12px; border-right: 1px solid #ddd; text-align: center;">
-                <button style="background: transparent; color: #006272; border: none; text-decoration: underline; cursor: pointer; font-size: 0.8rem;">
-                    Download eVisa
-                </button>
-            </td>
-            <td style="padding: 12px; text-align: center;">
-                <select style="padding: 3px; font-size: 0.8rem;">
-                    <option>Select</option>
-                    <option>View Details</option>
-                </select>
-            </td>
-        </tr>
-    </tbody>
-</table>
