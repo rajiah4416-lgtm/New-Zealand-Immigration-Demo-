@@ -1,151 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>NZ Immigration - Live PDF QR Suite</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NZ Visa Portal - Upload Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root { --nz-blue: #00247d; --nz-silver: #c0c0c0; --nz-black: #1a1a1a; }
-        body { font-family: 'Segoe UI', Helvetica, sans-serif; background: #0d1117; margin: 0; display: flex; color: white; }
-        
-        .sidebar { width: 400px; background: #161b22; padding: 25px; height: 100vh; overflow-y: auto; box-sizing: border-box; border-right: 4px solid var(--nz-blue); }
-        .sidebar h2 { font-size: 13px; color: #58a6ff; text-transform: uppercase; border-bottom: 1px solid #30363d; padding-bottom: 8px; margin-top: 20px; }
-        label { display: block; margin-top: 12px; font-size: 10px; text-transform: uppercase; color: #8b949e; }
-        input, select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: white; font-size: 13px; }
-        
-        .upload-zone { 
-            margin-top: 15px; padding: 20px; border: 2px dashed #58a6ff; border-radius: 8px; text-align: center; background: rgba(88, 166, 255, 0.05);
-        }
-        .link-status { font-size: 11px; margin-top: 10px; color: #2ecc71; display: none; }
-
-        .preview-area { flex-grow: 1; padding: 40px; display: flex; justify-content: center; background: #0d1117; }
-        .a4-page { 
-            width: 210mm; min-height: 297mm; background: #fdfdfd; padding: 20mm; color: #1a1a1a;
-            box-shadow: 0 0 40px rgba(0,0,0,0.5); position: relative; border-top: 10px solid var(--nz-black);
-        }
-
-        .header-box { text-align: center; border-bottom: 2px solid #000; padding-bottom: 20px; margin-bottom: 30px; }
-        .official-seal { position: absolute; top: 40mm; right: 20mm; width: 100px; opacity: 0.1; transform: rotate(15deg); }
-
-        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-        .data-table td { border: 1px solid #dee2e6; padding: 12px; font-size: 13px; }
-        .label { background: #f8f9fa; font-weight: bold; width: 35%; color: var(--nz-blue); }
-
-        .qr-verification-zone { 
-            margin-top: 40px; border: 1px solid #ddd; padding: 25px; display: flex; align-items: center; gap: 30px; background: #fff;
-            border-left: 10px solid var(--nz-blue);
-        }
-        .qr-desc h3 { margin: 0 0 10px 0; color: var(--nz-blue); font-size: 16px; }
-        .qr-desc p { margin: 0; font-size: 12px; color: #555; line-height: 1.5; }
-
-        .print-btn { 
-            width: 100%; padding: 15px; margin-top: 25px; border: none; border-radius: 6px; 
-            cursor: pointer; font-weight: bold; background: #238636; color: white; font-size: 15px; 
-        }
-
-        @media print { .sidebar { display: none; } .preview-area { padding: 0; } .a4-page { box-shadow: none; border: none; } }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Urdu:wght@400;700&display=swap');
+        body { font-family: 'Noto Urdu', sans-serif; background-color: #f8fafc; }
+        .inz-blue { background-color: #00247d; }
     </style>
 </head>
 <body>
 
-<div class="sidebar">
-    <h2>📂 Step 1: Upload Client PDF</h2>
-    <div class="upload-zone">
-        <label style="color:#58a6ff; cursor:pointer;">
-            <strong>Click to select PDF</strong>
-            <input type="file" id="pdfFile" accept="application/pdf" style="display:none" onchange="handleFileUpload(event)">
-        </label>
-        <div id="fileInfo" style="font-size:10px; margin-top:5px; color:#8b949e;">No file selected</div>
-    </div>
-    <div id="uploadStatus" class="link-status">✓ PDF Linked to QR Code</div>
-
-    <h2>👤 Step 2: Client Identity</h2>
-    <label>Full Name</label>
-    <input type="text" id="inName" placeholder="John Doe" oninput="sync()">
-    <label>Passport No.</label>
-    <input type="text" id="inPass" placeholder="PK000000" oninput="sync()">
-    <label>Visa Reference #</label>
-    <input type="text" id="inRef" placeholder="NZ-REF-2026" oninput="sync()">
-
-    <h2>🏢 Step 3: Employment</h2>
-    <label>Sponsoring Company</label>
-    <input type="text" id="inCo" placeholder="New Zealand Tech Ltd" oninput="sync()">
-    <label>HR Manager</label>
-    <input type="text" id="inHR" placeholder="Manager Name" oninput="sync()">
-
-    <button class="print-btn" onclick="window.print()">Print Official Record</button>
-</div>
-
-<div class="preview-area">
-    <div class="a4-page">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Silver_fern_logo.svg" class="official-seal">
-        
-        <div class="header-box">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" style="width: 80px; margin-bottom: 10px;">
-            <h1 style="margin:0; font-size: 26px; letter-spacing: 1px;">IMMIGRATION NEW ZEALAND</h1>
-            <p style="margin:5px 0; font-size: 12px; color: var(--nz-blue); font-weight: bold;">OFFICIAL SPONSORSHIP VERIFICATION</p>
+    <div class="min-h-screen flex flex-col md:flex-row">
+        <div class="inz-blue w-full md:w-64 p-6 text-white shadow-xl">
+            <h1 class="text-2xl font-bold mb-10 text-center border-b border-blue-400 pb-4">NZ ویزا پورٹل</h1>
+            <nav class="space-y-2">
+                <a href="#" class="block p-3 bg-white/20 rounded-lg">ڈیش بورڈ</a>
+                <a href="#upload-section" class="block p-3 hover:bg-white/10 rounded-lg">ڈیٹا اپ لوڈ کریں</a>
+            </nav>
         </div>
 
-        <table class="data-table">
-            <tr><td class="label">Full Legal Name</td><td class="outName">---</td></tr>
-            <tr><td class="label">Passport Number</td><td class="outPass">---</td></tr>
-            <tr><td class="label">Application Ref</td><td class="outRef" style="font-weight:bold;">---</td></tr>
-            <tr><td class="label">Accredited Employer</td><td class="outCo">---</td></tr>
-        </table>
+        <div class="flex-1 p-4 md:p-10">
+            
+            <section id="upload-section" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-10">
+                <h2 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+                    <span class="inz-blue w-2 h-8 ml-3 rounded-full"></span>
+                    نیا کلائنٹ ویزا ریکارڈ شامل کریں
+                </h2>
+                
+                <form id="visaForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-2">کلائنٹ کا مکمل نام</label>
+                        <input type="text" id="clientName" required class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-2">پاسپورٹ نمبر</label>
+                        <input type="text" id="passportNum" required class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none uppercase">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-2">ویزا کی قسم (e.g. AEWV Work)</label>
+                        <input type="text" id="visaType" required class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-2">ویزا ختم ہونے کی تاریخ</label>
+                        <input type="date" id="expiryDate" required class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div class="md:col-span-2">
+                        <button type="submit" class="inz-blue text-white w-full py-4 rounded-xl font-bold hover:opacity-90 transition shadow-lg">
+                            ڈیٹا اپ لوڈ کریں اور محفوظ کریں
+                        </button>
+                    </div>
+                </form>
+            </section>
 
-        <div class="qr-verification-zone">
-            <div id="mainQR"></div>
-            <div class="qr-desc">
-                <h3>SECURE DOCUMENT ACCESS</h3>
-                <p>This QR code is a dynamic link to the applicant's uploaded PDF documentation and digital visa record. Authorized officers may scan to instantly view the original file.</p>
-                <p style="margin-top:10px; font-weight:bold;">Verified by HR: <span class="outHR">---</span></p>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="p-6 border-b bg-gray-50">
+                    <h3 class="font-bold text-gray-700">موجودہ ویزا ریکارڈز</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right">
+                        <thead class="bg-gray-50 text-gray-500 text-sm">
+                            <tr>
+                                <th class="p-4">نام</th>
+                                <th class="p-4">پاسپورٹ</th>
+                                <th class="p-4">ویزہ کی قسم</th>
+                                <th class="p-4">ایکسپائری</th>
+                                <th class="p-4">اسٹیٹس</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-
-        <div style="margin-top: 60px; font-size: 10px; color: #888; border-top: 1px solid #eee; padding-top: 20px;">
-            Notice: This document is electronically generated. For manual verification, please contact the New Zealand Immigration helpdesk or visit <strong>www.immigration.govt.nz</strong>.
-        </div>
     </div>
-</div>
 
-<script>
-    let qrcode = new QRCode(document.getElementById("mainQR"), { width: 140, height: 140, correctLevel: QRCode.CorrectLevel.H });
-    let currentFileUrl = "";
+    <script>
+        const visaForm = document.getElementById('visaForm');
+        const tableBody = document.getElementById('tableBody');
 
-    async function handleFileUpload(event) {
-        const file = event.target.files[0];
-        if (!file) return;
+        visaForm.addEventListener('submit', function(e) {
+            e.preventDefault();
 
-        document.getElementById('fileInfo').innerText = file.name;
-        
-        // For security and portability, we use a temporary placeholder.
-        // In a real-world scenario, you would upload this to a server.
-        // Here, we simulate the link generation.
-        currentFileUrl = `https://nz-portal.verify/view/pdf/${encodeURIComponent(file.name)}?id=${Math.random().toString(36).substr(2, 9)}`;
-        
-        document.getElementById('uploadStatus').style.display = 'block';
-        sync();
-    }
+            // Get Values
+            const name = document.getElementById('clientName').value;
+            const passport = document.getElementById('passportNum').value;
+            const type = document.getElementById('visaType').value;
+            const date = document.getElementById('expiryDate').value;
 
-    function sync() {
-        const data = {
-            outName: document.getElementById('inName').value || '---',
-            outPass: document.getElementById('inPass').value || '---',
-            outRef: document.getElementById('inRef').value || '---',
-            outCo: document.getElementById('inCo').value || '---',
-            outHR: document.getElementById('inHR').value || '---'
-        };
+            // Create New Row
+            const row = document.createElement('tr');
+            row.className = "border-b hover:bg-blue-50 transition";
+            row.innerHTML = `
+                <td class="p-4 font-bold text-gray-800">${name}</td>
+                <td class="p-4 text-gray-600">${passport}</td>
+                <td class="p-4 text-gray-600">${type}</td>
+                <td class="p-4 text-gray-600">${date}</td>
+                <td class="p-4">
+                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">لائیو</span>
+                </td>
+            `;
 
-        for (const [key, value] of Object.entries(data)) {
-            document.querySelectorAll('.' + key).forEach(el => el.innerText = value);
-        }
+            // Append to Table
+            tableBody.prepend(row);
 
-        // The QR code contains the PDF link and identity metadata
-        const qrContent = currentFileUrl ? currentFileUrl : `VERIFY|REF:${data.outRef}|NAME:${data.outName}`;
-        qrcode.makeCode(qrContent);
-    }
-
-    sync();
-</script>
+            // Clear Form
+            visaForm.reset();
+            alert('ڈیٹا کامیابی سے اپ لوڈ کر دیا گیا ہے!');
+        });
+    </script>
 </body>
 </html>
