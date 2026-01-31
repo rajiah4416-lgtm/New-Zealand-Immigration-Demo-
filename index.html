@@ -6,98 +6,108 @@
     <title>RealMe - Login</title>
     <style>
         :root {
-            --realme-orange: #f45b06; 
+            --realme-orange: #E64415; 
             --govt-black: #000000;
             --text-gray: #333333;
         }
 
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #ffffff; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #ffffff; color: var(--text-gray); }
 
-        /* --- OFFICIAL NATIONAL BLACK HEADER --- */
+        /* --- BLACK NATIONAL HEADER --- */
         .header-black { 
             background-color: var(--govt-black); 
-            padding: 15px 8%; 
+            padding: 12px 8%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
         }
 
-        /* REALME LOGO SECTION */
         .realme-logo-group { display: flex; flex-direction: column; line-height: 1; }
         .logo-main { 
             color: var(--realme-orange); 
-            font-size: 2.4rem; 
+            font-size: 2.2rem; 
             font-weight: bold; 
             display: flex; 
             align-items: center; 
             margin: 0; 
-            letter-spacing: -1px;
         }
         .logo-main span { color: #ffffff; }
-        .logo-main sup { font-size: 0.9rem; margin-left: 2px; top: -1.2rem; }
-        .tenei-au { color: var(--realme-orange); font-size: 0.85rem; font-weight: bold; margin-top: 2px; }
+        .logo-main sup { font-size: 0.8rem; margin-left: 2px; }
+        .tenei-au { color: var(--realme-orange); font-size: 0.8rem; font-weight: bold; margin-top: 2px; }
         
-        /* OFFICIAL GOVT IDENTITY SECTION */
-        .govt-identity { display: flex; align-items: center; gap: 15px; }
-        .nz-fern-white { height: 35px; filter: brightness(0) invert(1); }
-        .govt-text-white { 
-            color: #ffffff; 
-            font-weight: bold; 
-            font-size: 0.85rem; 
-            letter-spacing: 2px; 
-            border-left: 1px solid rgba(255,255,255,0.3);
-            padding-left: 15px;
-            line-height: 1.2;
-        }
+        /* NATIONAL IDENTITY */
+        .nz-identity { display: flex; align-items: center; gap: 10px; }
+        .nz-text-white { color: #ffffff; font-weight: bold; font-size: 0.9rem; letter-spacing: 1px; }
+        .nz-flag-white { height: 35px; filter: brightness(0) invert(1); }
 
-        /* --- NAVIGATION --- */
-        .nav-link-bar { padding: 18px 8%; background-color: #f4f4f4; border-bottom: 1px solid #ddd; }
-        .nav-link-bar a { color: var(--text-gray); text-decoration: none; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; }
-        .arrow-icon { border: 2px solid var(--text-gray); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem; }
+        /* --- NAVIGATION BAR: NEW ZEALAND IMMIGRATION --- */
+        .nav-link-bar { 
+            padding: 18px 8%; 
+            background-color: #f4f4f4; 
+            border-bottom: 1px solid #ddd; 
+        }
+        .nav-link-bar a { 
+            color: var(--text-gray); 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            font-size: 0.95rem; 
+        }
+        .arrow-icon { 
+            border: 2px solid var(--text-gray); 
+            border-radius: 50%; 
+            width: 22px; 
+            height: 22px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: bold;
+        }
+        /* Specific requirement: End with New Zealand Immigration */
+        .immigration-text { font-weight: bold; color: #000; }
 
         /* --- CONTENT --- */
-        .content-grid { display: grid; grid-template-columns: 1fr 1fr; max-width: 1200px; margin: 60px auto; padding: 0 8%; gap: 100px; }
-        .orange-heading { color: var(--realme-orange); font-size: 2.8rem; font-weight: normal; margin: 0 0 25px 0; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; max-width: 1200px; margin: 50px auto; padding: 0 8%; gap: 100px; }
+        .orange-heading { color: var(--realme-orange); font-size: 2.8rem; font-weight: normal; margin-bottom: 25px; }
         .orange-heading b { font-weight: bold; }
-        .form-info { font-size: 1.05rem; margin-bottom: 35px; }
 
-        .input-field { width: 100%; padding: 18px 20px; background-color: #f2f2f2; border: 1px solid #ccc; border-radius: 10px; margin-bottom: 15px; font-size: 1rem; box-sizing: border-box; }
+        .input-field { width: 100%; padding: 18px 20px; background-color: #f1f1f1; border: 1px solid #ccc; border-radius: 12px; margin-bottom: 15px; font-size: 1rem; box-sizing: border-box; }
 
-        .btn-orange { background-color: var(--realme-orange); color: white; border: none; padding: 16px 35px; border-radius: 12px; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; gap: 12px; cursor: pointer; }
-        .r-circle { background: white; color: var(--realme-orange); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; font-style: normal; }
-        .arrow-circle { border: 2px solid white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-
-        .forgot-links { color: var(--realme-orange); font-weight: bold; text-decoration: none; margin-top: 30px; display: block; }
+        .btn-orange { background-color: var(--realme-orange); color: white; border: none; padding: 14px 35px; border-radius: 12px; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .r-circle { background: white; color: var(--realme-orange); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-style: normal; }
+        .arrow-circle { border: 2px solid white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; }
 
         /* --- FOOTER --- */
-        .footer-orange { background-color: var(--realme-orange); color: white; padding: 50px 8%; margin-top: 100px; }
-        .footer-nav { display: flex; gap: 35px; font-weight: bold; margin-bottom: 35px; }
-        .lang-options { display: flex; gap: 20px; font-weight: bold; margin-bottom: 25px; }
-        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.4); padding-top: 25px; font-size: 0.9rem; }
+        .footer-orange { background-color: var(--realme-orange); color: white; padding: 40px 8%; margin-top: 100px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.3); padding-top: 20px; font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
 <header class="header-black">
     <div class="realme-logo-group">
-        <h1 class="logo-main">r<span>RealMe<sup>®</sup></span></h1>
+        <h1 class="logo-main">r <span>RealMe<sup>®</sup></span></h1>
         <div class="tenei-au">Tēnei Au</div>
     </div>
     
-    <div class="govt-identity">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" class="nz-fern-white" alt="Fern">
-        <div class="govt-text-white">NEW ZEALAND<br>GOVERNMENT</div>
+    <div class="nz-identity">
+        <span class="nz-text-white">NEW ZEALAND GOVERNMENT</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" class="nz-flag-white" alt="White Fern">
     </div>
 </header>
 
 <div class="nav-link-bar">
-    <a href="#"><span class="arrow-icon">←</span> Go back to the Ministry of Business, Innovation and Employment</a>
+    <a href="#">
+        <span class="arrow-icon">←</span> 
+        Go back to <span class="immigration-text">&nbsp;New Zealand Immigration</span>
+    </a>
 </div>
 
 <div class="content-grid">
     <div class="login-pane">
         <h1 class="orange-heading">Log in with <b>RealMe</b></h1>
-        <p class="form-info">You've been redirected here so you can log in with RealMe</p>
+        <p>You've been redirected here so you can log in with RealMe</p>
         
         <input type="text" class="input-field" placeholder="Username">
         <input type="password" class="input-field" placeholder="Password">
@@ -106,30 +116,26 @@
             <i class="r-circle">r</i> Log in
         </button>
 
-        <a href="#" class="forgot-links">Forgot Username or Forgot Password?</a>
+        <a href="#" style="color:var(--realme-orange); font-weight:bold; text-decoration:none; margin-top:20px; display:block;">Forgot Username or Forgot Password?</a>
     </div>
 
     <div class="create-pane">
         <h1 class="orange-heading">Create a <b>RealMe</b> login</h1>
-        <p class="form-info">To access this service you need a RealMe login.</p>
-        <p style="line-height: 1.6; color: #555;">You'll be able to access a range of services with a single username and password. RealMe is designed to protect your privacy and security.</p>
+        <p>To access this service you need a RealMe login.</p>
+        <p style="line-height: 1.6; color: #555;">RealMe is designed to protect your privacy and security.</p>
         
-        <button class="btn-orange" style="margin-top: 35px;">
+        <button class="btn-orange" style="margin-top: 30px;">
             <span class="arrow-circle">→</span> Create a RealMe login
         </button>
     </div>
 </div>
 
 <footer class="footer-orange">
-    <div class="footer-nav">
+    <div style="display:flex; gap:30px; font-weight:bold; margin-bottom:30px;">
         <span>Help & contact us</span>
         <span>Terms of use</span>
         <span>Privacy</span>
         <span>About this site</span>
-    </div>
-    <div class="lang-options">
-        <span>English</span>
-        <span>中文</span>
     </div>
     <div class="footer-bottom">
         © New Zealand Government.
