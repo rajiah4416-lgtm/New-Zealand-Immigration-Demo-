@@ -17,7 +17,11 @@
         .preview-area { margin-left: 380px; padding: 40px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 40px; }
         .a4-page { width: 210mm; min-height: 297mm; background: white; padding: 20mm; box-shadow: 0 0 20px rgba(0,0,0,0.4); box-sizing: border-box; color: #333; position: relative; }
 
-        .nz-header { border-bottom: 2px solid var(--nz-black); padding-bottom: 10px; margin-bottom: 20px; }
+        /* Raised Flag Header */
+        .flag-header { text-align: center; margin-bottom: 20px; }
+        .nz-flag-img { width: 120px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #eee; }
+        
+        .nz-header { border-bottom: 2px solid var(--nz-black); text-align: center; padding-bottom: 10px; margin-bottom: 20px; }
         .data-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 12.5px; }
         .data-table td { padding: 8px; border: 1px solid #eee; }
         .label-cell { background: #f4f4f4; font-weight: bold; width: 35%; }
@@ -45,7 +49,13 @@
     <label>Job Title</label>
     <input type="text" id="inJob" placeholder="Senior Engineer" oninput="sync()">
 
-    <h2>2. Flight Details</h2>
+    <h2>2. Company Info</h2>
+    <label>Company Name</label>
+    <input type="text" id="inCoName" placeholder="NZ Tech Solutions Ltd" oninput="sync()">
+    <label>NZ Address</label>
+    <input type="text" id="inCoAddr" placeholder="123 Queen St, Auckland 1010" oninput="sync()">
+
+    <h2>3. Flight Details</h2>
     <label>Depart from Pakistan</label>
     <select id="inDepartCity" oninput="sync()">
         <option value="Islamabad Intl (ISB)">Islamabad (ISB)</option>
@@ -60,7 +70,7 @@
     <label>Arrival Date in NZ</label>
     <input type="date" id="inArriveDate" oninput="sync()">
 
-    <h2>3. HR Verification</h2>
+    <h2>4. HR Verification</h2>
     <label>HR Manager Name</label>
     <input type="text" id="inHRName" placeholder="Name" oninput="sync()">
     <label>HR Contact Phone</label>
@@ -71,49 +81,54 @@
 
 <div class="preview-area">
     <div class="a4-page">
-        <div class="nz-header">
-            <h2 style="margin:0; color:var(--nz-blue);">NEW ZEALAND IMMIGRATION</h2>
-            <p style="margin:0; font-size:12px;">Port of Entry: <span class="outArriveCity">Auckland</span></p>
+        <div class="flag-header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" class="nz-flag-img" alt="New Zealand Flag">
         </div>
 
-        <h3>OFFICIAL ARRIVAL & PERMIT RECORD</h3>
+        <div class="nz-header">
+            <h2 style="margin:0; color:var(--nz-blue);">IMMIGRATION NEW ZEALAND</h2>
+            <p style="margin:5px 0 0 0; font-size:12px; font-weight:bold;">OFFICIAL ARRIVAL & PERMIT RECORD</p>
+        </div>
+
         <table class="data-table">
-            <tr><td class="label-cell">NZ Immigration Ref</td><td id="outRef" style="font-weight:bold;">REF-PENDING</td></tr>
+            <tr><td class="label-cell">NZ Immigration Ref</td><td id="outRef" style="font-weight:bold; color:var(--nz-blue);">REF-PENDING</td></tr>
             <tr><td class="label-cell">Full Name</td><td class="outClName">Client Name</td></tr>
             <tr><td class="label-cell">Date of Birth</td><td class="outDOB">YYYY-MM-DD</td></tr>
             <tr><td class="label-cell">Passport No.</td><td class="outClPass">PK-000000</td></tr>
             <tr><td class="label-cell">Origin</td><td><span class="outDepartCity">Islamabad</span>, Pakistan</td></tr>
             <tr><td class="label-cell">Arrival Date (NZ)</td><td class="outArriveDate">YYYY-MM-DD</td></tr>
+            <tr><td class="label-cell">Port of Entry</td><td class="outArriveCity">Auckland</td></tr>
         </table>
 
-        <h3>WORK PERMIT & SPONSORSHIP</h3>
+        <h3>EMPLOYMENT & SPONSORSHIP DETAILS</h3>
         <table class="data-table">
-            <tr><td class="label-cell">Visa Class</td><td>Accredited Employer Work Visa / Resident Path</td></tr>
+            <tr><td class="label-cell">Sponsoring Company</td><td class="outCoName" style="font-weight:bold;">Company Name</td></tr>
+            <tr><td class="label-cell">NZ Business Address</td><td class="outCoAddr">Company Address</td></tr>
             <tr><td class="label-cell">Designated Job</td><td class="outJob">Position Title</td></tr>
-            <tr><td class="label-cell">Employer Status</td><td>Fully Sponsored / Company Responsible</td></tr>
+            <tr><td class="label-cell">Visa Category</td><td>Accredited Employer Work Visa (AEWV)</td></tr>
         </table>
 
-        <div style="margin-top:20px; padding:15px; border:1px solid #ddd; background:#f9f9f9; font-size:12px;">
-            <strong>LEGAL NOTICE:</strong> The sponsoring company takes full legal and financial responsibility for the employee’s visa maintenance and employment as specified under the Immigration Act 2009.
+        <div style="margin-top:20px; padding:15px; border:1px solid #ddd; background:#f9f9f9; font-size:11px; line-height:1.5;">
+            <strong>LEGAL GUARANTEE:</strong> <span class="outCoName">Company Name</span>, located at <span class="outCoAddr">Address</span>, takes full legal responsibility for the employee’s visa compliance and professional placement. This record is electronically linked to the NZBN database.
         </div>
 
         <div class="hr-verification-box">
             <div>
-                <h4 style="margin:0 0 10px 0; color:var(--nz-blue);">HR MANAGER AUTHORIZATION</h4>
-                <p style="font-size:13px; margin:2px 0;"><strong>Officer:</strong> <span class="outHRName">Pending</span></p>
-                <p style="font-size:13px; margin:2px 0;"><strong>Phone:</strong> <span class="outHRPhone">Pending</span></p>
-                <div style="border-top:1px solid #000; width:150px; margin-top:20px; font-size:10px;">SIGNATURE</div>
+                <h4 style="margin:0 0 10px 0; color:var(--nz-blue);">HR COMPLIANCE AUTHORIZATION</h4>
+                <p style="font-size:12px; margin:2px 0;"><strong>Authorized Officer:</strong> <span class="outHRName">Pending</span></p>
+                <p style="font-size:12px; margin:2px 0;"><strong>Phone:</strong> <span class="outHRPhone">Pending</span></p>
+                <div style="border-top:1px solid #000; width:150px; margin-top:15px; font-size:9px;">HR OFFICIAL SIGNATURE</div>
             </div>
             <div class="qr-box">
                 <div id="hrQRCode"></div>
-                <div style="font-size:8px; margin-top:5px; font-weight:bold;">HR SECURE VERIFICATION</div>
+                <div style="font-size:8px; margin-top:5px; font-weight:bold; color:var(--nz-blue);">SECURE HR VERIFICATION</div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    let hrQR = new QRCode(document.getElementById("hrQRCode"), { width: 100, height: 100 });
+    let hrQR = new QRCode(document.getElementById("hrQRCode"), { width: 90, height: 90 });
 
     function sync() {
         const val = {
@@ -122,6 +137,8 @@
             outClPass: document.getElementById('inClPass').value || 'PK-123456',
             outJob: document.getElementById('inJob').value || 'Job Title',
             outRef: document.getElementById('inRef').value || 'NZ-REF-XXXX',
+            outCoName: document.getElementById('inCoName').value || 'New Zealand Employer Ltd',
+            outCoAddr: document.getElementById('inCoAddr').value || 'Physical Address, New Zealand',
             outDepartCity: document.getElementById('inDepartCity').value,
             outArriveCity: document.getElementById('inArriveCity').value,
             outArriveDate: document.getElementById('inArriveDate').value || 'YYYY-MM-DD',
@@ -134,8 +151,8 @@
             document.querySelectorAll('.' + key).forEach(el => el.innerText = value);
         }
 
-        // Generate QR for HR specifically
-        const qrContent = `HR-VERIFY|MGR:${val.outHRName}|REF:${val.outRef}|CLIENT:${val.outClName}`;
+        // Updated QR Content including Company Info
+        const qrContent = `HR-VERIFY|CO:${val.outCoName}|MGR:${val.outHRName}|REF:${val.outRef}|CLIENT:${val.outClName}`;
         hrQR.makeCode(qrContent);
     }
     sync();
