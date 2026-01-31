@@ -6,33 +6,24 @@
     <title>RealMe - Login</title>
     <style>
         :root {
-            /* Precise RealMe Brand Orange */
             --realme-orange: #f45b06; 
             --govt-black: #000000;
             --text-gray: #333333;
-            --input-bg: #f2f2f2;
         }
 
-        body { 
-            font-family: Arial, sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            background-color: #ffffff; 
-            color: var(--text-gray); 
-        }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #ffffff; }
 
-        /* --- BLACK HEADER --- */
+        /* --- OFFICIAL NATIONAL BLACK HEADER --- */
         .header-black { 
             background-color: var(--govt-black); 
-            padding: 12px 8%; 
+            padding: 15px 8%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
         }
 
-        /* REALME LOGO STYLING */
+        /* REALME LOGO SECTION */
         .realme-logo-group { display: flex; flex-direction: column; line-height: 1; }
-        
         .logo-main { 
             color: var(--realme-orange); 
             font-size: 2.4rem; 
@@ -44,151 +35,45 @@
         }
         .logo-main span { color: #ffffff; }
         .logo-main sup { font-size: 0.9rem; margin-left: 2px; top: -1.2rem; }
+        .tenei-au { color: var(--realme-orange); font-size: 0.85rem; font-weight: bold; margin-top: 2px; }
         
-        .tenei-au { 
-            color: var(--realme-orange); 
-            font-size: 0.85rem; 
-            font-weight: bold; 
-            margin-top: 2px; 
-        }
-        
-        /* NEW ZEALAND TEXT & WHITE FLAG */
-        .nz-identity-group { display: flex; align-items: center; gap: 12px; }
-        .nz-text-white { 
+        /* OFFICIAL GOVT IDENTITY SECTION */
+        .govt-identity { display: flex; align-items: center; gap: 15px; }
+        .nz-fern-white { height: 35px; filter: brightness(0) invert(1); }
+        .govt-text-white { 
             color: #ffffff; 
             font-weight: bold; 
-            font-size: 1rem; 
-            letter-spacing: 1.5px; 
-        }
-        .nz-flag-white { 
-            height: 38px; 
-            filter: brightness(0) invert(1); /* Forces logo to be pure white */
+            font-size: 0.85rem; 
+            letter-spacing: 2px; 
+            border-left: 1px solid rgba(255,255,255,0.3);
+            padding-left: 15px;
+            line-height: 1.2;
         }
 
         /* --- NAVIGATION --- */
-        .nav-link-bar { 
-            padding: 18px 8%; 
-            background-color: #f4f4f4; 
-            border-bottom: 1px solid #ddd; 
-        }
-        .nav-link-bar a { 
-            color: var(--text-gray); 
-            text-decoration: none; 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            font-size: 0.95rem; 
-        }
-        .arrow-icon { 
-            border: 2px solid var(--text-gray); 
-            border-radius: 50%; 
-            width: 22px; 
-            height: 22px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-weight: bold;
-            font-size: 0.8rem;
-        }
+        .nav-link-bar { padding: 18px 8%; background-color: #f4f4f4; border-bottom: 1px solid #ddd; }
+        .nav-link-bar a { color: var(--text-gray); text-decoration: none; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; }
+        .arrow-icon { border: 2px solid var(--text-gray); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem; }
 
-        /* --- MAIN CONTENT --- */
-        .content-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            max-width: 1200px; 
-            margin: 60px auto; 
-            padding: 0 8%; 
-            gap: 100px; 
-        }
-        
-        .orange-heading { 
-            color: var(--realme-orange); 
-            font-size: 2.8rem; 
-            font-weight: normal; 
-            margin: 0 0 25px 0; 
-        }
+        /* --- CONTENT --- */
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; max-width: 1200px; margin: 60px auto; padding: 0 8%; gap: 100px; }
+        .orange-heading { color: var(--realme-orange); font-size: 2.8rem; font-weight: normal; margin: 0 0 25px 0; }
         .orange-heading b { font-weight: bold; }
+        .form-info { font-size: 1.05rem; margin-bottom: 35px; }
 
-        .form-info { font-size: 1.05rem; margin-bottom: 35px; line-height: 1.4; }
+        .input-field { width: 100%; padding: 18px 20px; background-color: #f2f2f2; border: 1px solid #ccc; border-radius: 10px; margin-bottom: 15px; font-size: 1rem; box-sizing: border-box; }
 
-        /* INPUTS */
-        .input-field { 
-            width: 100%; 
-            padding: 18px 20px; 
-            background-color: var(--input-bg); 
-            border: 1px solid #ccc; 
-            border-radius: 10px; 
-            margin-bottom: 15px; 
-            font-size: 1rem; 
-            box-sizing: border-box; 
-        }
+        .btn-orange { background-color: var(--realme-orange); color: white; border: none; padding: 16px 35px; border-radius: 12px; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .r-circle { background: white; color: var(--realme-orange); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; font-style: normal; }
+        .arrow-circle { border: 2px solid white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
 
-        /* BUTTONS */
-        .btn-orange { 
-            background-color: var(--realme-orange); 
-            color: white; 
-            border: none; 
-            padding: 16px 35px; 
-            border-radius: 12px; 
-            font-weight: bold; 
-            font-size: 1.1rem; 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            cursor: pointer; 
-            margin-top: 15px;
-        }
-        .r-circle { 
-            background: white; 
-            color: var(--realme-orange); 
-            border-radius: 50%; 
-            width: 22px; 
-            height: 22px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 0.8rem; 
-            font-style: normal; 
-            font-weight: bold;
-        }
-        .arrow-circle { 
-            border: 2px solid white; 
-            border-radius: 50%; 
-            width: 20px; 
-            height: 20px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-weight: bold;
-        }
-
-        .forgot-links { 
-            color: var(--realme-orange); 
-            font-weight: bold; 
-            text-decoration: none; 
-            margin-top: 30px; 
-            display: block; 
-            font-size: 0.95rem; 
-        }
+        .forgot-links { color: var(--realme-orange); font-weight: bold; text-decoration: none; margin-top: 30px; display: block; }
 
         /* --- FOOTER --- */
-        .footer-orange { 
-            background-color: var(--realme-orange); 
-            color: white; 
-            padding: 50px 8%; 
-            margin-top: 100px; 
-        }
-        .footer-nav { display: flex; gap: 35px; font-weight: bold; margin-bottom: 35px; font-size: 1rem; }
+        .footer-orange { background-color: var(--realme-orange); color: white; padding: 50px 8%; margin-top: 100px; }
+        .footer-nav { display: flex; gap: 35px; font-weight: bold; margin-bottom: 35px; }
         .lang-options { display: flex; gap: 20px; font-weight: bold; margin-bottom: 25px; }
-        .footer-bottom { 
-            border-top: 1px solid rgba(255,255,255,0.4); 
-            padding-top: 25px; 
-            font-size: 0.9rem; 
-        }
-
-        @media (max-width: 900px) {
-            .content-grid { grid-template-columns: 1fr; gap: 60px; }
-        }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.4); padding-top: 25px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -199,9 +84,9 @@
         <div class="tenei-au">Tēnei Au</div>
     </div>
     
-    <div class="nz-identity-group">
-        <span class="nz-text-white">NEW ZEALAND</span>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" class="nz-flag-white" alt="Silver Fern White">
+    <div class="govt-identity">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Silver_Fern_Logo.svg" class="nz-fern-white" alt="Fern">
+        <div class="govt-text-white">NEW ZEALAND<br>GOVERNMENT</div>
     </div>
 </header>
 
@@ -227,7 +112,7 @@
     <div class="create-pane">
         <h1 class="orange-heading">Create a <b>RealMe</b> login</h1>
         <p class="form-info">To access this service you need a RealMe login.</p>
-        <p style="line-height: 1.6; color: #555; font-size: 1rem;">You'll be able to access a range of services with a single username and password. RealMe is designed to protect your privacy and security.</p>
+        <p style="line-height: 1.6; color: #555;">You'll be able to access a range of services with a single username and password. RealMe is designed to protect your privacy and security.</p>
         
         <button class="btn-orange" style="margin-top: 35px;">
             <span class="arrow-circle">→</span> Create a RealMe login
