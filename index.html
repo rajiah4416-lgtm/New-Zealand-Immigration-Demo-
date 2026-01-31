@@ -9,158 +9,114 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --realme-orange: #d84315;
-            --visaview-blue: #00a0d2;
-            --gov-black: #000000;
+            --realme-orange: #d84315; /* Precise orange from regional image */
+            --visaview-blue: #00a0d2; /* Precise blue from INZ header */
+            --inz-dark: #00247d;
         }
-        body { font-family: Arial, Helvetica, sans-serif; margin: 0; background-color: #f4f4f4; }
+        body { font-family: Arial, Helvetica, sans-serif; margin: 0; background-color: #f7f7f7; }
         .hidden { display: none; }
         
-        /* Login Page Styles */
-        .login-input { border: 1px solid #999; border-radius: 8px; padding: 12px; width: 100%; font-size: 14px; background: #eee; }
-        .login-btn { background-color: #b72f12; color: white; padding: 12px 30px; border-radius: 8px; font-weight: bold; }
+        /* Orange Login Theme */
+        .login-container { max-width: 1000px; margin: 40px auto; background: white; border-bottom: 12px solid var(--realme-orange); }
+        .realme-btn { background-color: #b72f12; color: white; padding: 12px 35px; border-radius: 8px; font-weight: bold; font-size: 16px; }
+        .footer-orange { background-color: var(--realme-orange); color: white; padding: 40px; }
 
-        /* VisaView Enquiry Styles */
-        .vv-header { background-color: var(--visaview-blue); height: 80px; display: flex; align-items: center; padding: 0 20px; color: white; }
-        .vv-label { font-size: 12px; font-weight: bold; color: #444; width: 150px; }
-        .vv-input { border: 1px solid #ccc; padding: 3px; font-size: 12px; width: 220px; }
-        .sidebar-link { font-size: 11px; color: #005a87; padding: 4px 0; display: block; }
-        .sidebar-link:hover { text-decoration: underline; }
+        /* Blue VisaView Theme */
+        .vv-header { background-color: var(--visaview-blue); height: 90px; color: white; display: flex; align-items: center; padding: 0 30px; }
+        .vv-input { border: 1px solid #999; padding: 4px; font-size: 13px; width: 250px; }
+        .check-btn { background-color: #005a87; color: white; padding: 5px 20px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div id="loginPage">
+    <div id="stage1">
         <header class="bg-black text-white p-4 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <span class="text-2xl font-bold" style="color: #f44336;">RealMe®</span>
                 <span class="text-[10px] text-gray-400">Tēnei Au</span>
             </div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Silver_fern_logo.svg" class="w-6 invert" alt="Fern">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Silver_fern_logo.svg" class="w-6 invert">
         </header>
-
-        <main class="max-w-4xl mx-auto mt-10 bg-white shadow-sm p-12 flex flex-col md:flex-row gap-16 border-b-8 border-[#d84315]">
-            <div class="flex-1">
-                <h1 class="text-4xl font-light mb-6">Log in with <span class="font-bold text-red-600">RealMe</span></h1>
-                <p class="text-sm text-gray-600 mb-8">You've been redirected here so you can log in with RealMe.</p>
-                <div class="space-y-4 max-w-sm">
-                    <input type="text" id="user" placeholder="Username" class="login-input">
-                    <input type="password" id="pass" placeholder="Password" class="login-input">
-                    <button onclick="toStep2()" class="login-btn flex items-center gap-2"><i class="fas fa-dot-circle text-xs"></i> Log in</button>
-                </div>
-                <div class="mt-6 text-xs font-bold text-red-700 underline space-x-4">
-                    <a href="#">Forgot Username</a> <span>or</span> <a href="#">Forgot Password?</a>
+        
+        <main class="login-container shadow-lg flex flex-col md:flex-row min-h-[500px]">
+            <div class="flex-1 p-12 border-r">
+                <h1 class="text-5xl font-light mb-8 italic">Log in with <span class="font-bold text-red-600">RealMe</span></h1>
+                <div class="space-y-6 max-w-sm">
+                    <input type="text" id="u_name" placeholder="Username" class="w-full p-4 border rounded-xl bg-gray-50">
+                    <input type="password" id="u_pass" placeholder="Password" class="w-full p-4 border rounded-xl bg-gray-50">
+                    <button onclick="toStep2()" class="realme-btn shadow-xl">Log in</button>
+                    <p class="text-red-700 font-bold underline text-sm mt-4 cursor-pointer">Forgot Username or Password?</p>
                 </div>
             </div>
-            <div class="flex-1 border-l pl-12 hidden md:block">
-                <h2 class="text-3xl font-light mb-4">Create a <span class="font-bold text-red-600">RealMe</span> login</h2>
-                <p class="text-sm text-gray-600 mb-6">To access this service you need a RealMe login.</p>
-                <button class="border-2 border-[#d84315] text-[#d84315] px-6 py-2 rounded-lg font-bold">Create a RealMe login</button>
+            <div class="flex-1 p-12 bg-gray-50/30">
+                <h2 class="text-4xl font-light mb-4 italic">Create a <span class="font-bold text-red-600">RealMe</span> login</h2>
+                <button class="mt-6 border-2 border-[#d84315] text-[#d84315] px-10 py-3 rounded-xl font-bold">Create login</button>
             </div>
         </main>
-        <footer class="max-w-4xl mx-auto p-6 text-[11px] text-gray-500">
-            © New Zealand Government
+        <footer class="footer-orange">
+            <div class="max-w-5xl mx-auto space-y-4">
+                <p class="font-bold">Help & contact us</p>
+                <p class="font-bold">Privacy</p>
+                <div class="pt-8 text-xs">© New Zealand Government</div>
+            </div>
         </footer>
     </div>
 
-    <div id="enquiryPage" class="hidden bg-white min-h-screen">
-        <div class="vv-header shadow-md">
-            <div class="flex items-center gap-4">
-                <div class="bg-white/20 p-2 rounded">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Silver_fern_logo.svg" class="w-10 invert">
-                </div>
-                <div>
-                    <h1 class="text-xl font-bold tracking-tighter">IMMIGRATION NEW ZEALAND</h1>
-                </div>
-            </div>
-        </div>
+    <div id="stage2" class="hidden bg-white min-h-screen">
+        <header class="vv-header shadow-md">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Silver_fern_logo.svg" class="w-12 invert mr-4">
+            <h1 class="text-2xl font-bold italic tracking-tight">IMMIGRATION NEW ZEALAND</h1>
+        </header>
 
-        <div class="flex max-w-6xl mx-auto mt-2">
-            <aside class="w-64 bg-[#eef7fa] p-4 border-r min-h-screen">
-                <h3 class="font-bold text-[#00a0d2] text-sm mb-2">VisaView</h3>
-                <nav>
-                    <a href="#" class="sidebar-link">▶ Register Organisation</a>
-                    <a href="#" class="sidebar-link font-bold">▶ Verify Visa Record</a>
-                    <a href="#" class="sidebar-link">▶ My Visa Verification Service Account</a>
+        <div class="flex">
+            <aside class="w-64 bg-[#eef7fa] border-r min-h-screen p-6">
+                <h3 class="font-bold text-[#00a0d2] mb-4">VisaView</h3>
+                <nav class="text-[12px] space-y-3 text-[#005a87]">
+                    <p>▶ Register Organisation</p>
+                    <p class="font-bold underline">▶ Verify Visa Record</p>
                 </nav>
             </aside>
 
-            <main class="flex-1 p-8">
-                <div class="flex justify-between items-center border-b pb-2 mb-6">
-                    <h2 class="text-2xl text-[#00a0d2] font-semibold">Visa Verification Enquiry</h2>
-                    <div class="text-[10px] text-gray-500">Logged in as: <span class="font-bold">Ali Rahat</span> | <a href="#" class="underline">logout</a></div>
-                </div>
-
-                <div class="space-y-3">
-                    <div class="flex items-center"><span class="vv-label">Family Name *</span><input type="text" id="f_name" class="vv-input"></div>
-                    <div class="flex items-center"><span class="vv-label">Passport Nationality *</span>
-                        <select id="f_nat" class="vv-input">
-                            <option value="">Select Country...</option>
+            <main class="flex-1 p-12">
+                <h2 class="text-3xl text-[#00a0d2] font-semibold border-b pb-2 mb-10">Visa Verification Enquiry</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center"><span class="w-48 font-bold text-sm">Family Name *</span><input type="text" id="v_family" class="vv-input"></div>
+                    <div class="flex items-center"><span class="w-48 font-bold text-sm">Passport Nationality *</span>
+                        <select id="v_nat" class="vv-input">
                             <option>PAKISTAN</option><option>INDIA</option><option>BANGLADESH</option>
-                            <option>AFGHANISTAN</option><option>UNITED KINGDOM</option><option>CHINA</option>
                         </select>
                     </div>
-                    <div class="flex items-center"><span class="vv-label">Passport Number *</span><input type="text" id="f_pass" class="vv-input"></div>
-                    <div class="flex items-center"><span class="vv-label">Date of Birth dd/mm/yy *</span><input type="date" id="f_dob" class="vv-input"></div>
-                    <div class="flex items-center"><span class="vv-label">Gender *</span>
-                        <select id="f_gender" class="vv-input"><option>Male</option><option>Female</option></select>
-                    </div>
+                    <div class="flex items-center"><span class="w-48 font-bold text-sm">Passport Number *</span><input type="text" id="v_num" class="vv-input"></div>
+                    <div class="flex items-center"><span class="w-48 font-bold text-sm">Date of Birth *</span><input type="date" id="v_dob" class="vv-input"></div>
                 </div>
-
-                <div class="mt-8 flex items-center gap-2">
-                    <input type="checkbox" id="consent">
-                    <label class="text-[11px] text-gray-600">The visa holder has consented to this check.</label>
-                </div>
-
-                <button onclick="toStep3()" class="mt-6 bg-[#005a87] text-white px-6 py-1 font-bold text-sm shadow">Check Visa</button>
+                <button onclick="toStep3()" class="check-btn mt-10">Check Visa</button>
             </main>
         </div>
     </div>
 
-    <div id="resultPage" class="hidden p-8">
-        <div class="max-w-2xl mx-auto bg-white p-10 border shadow-xl">
-            <div class="flex justify-between items-center border-b-4 border-[#00247d] pb-4 mb-6">
-                <h1 class="text-2xl font-black text-[#00247d]">VISA RECORD FOUND</h1>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" class="w-12">
+    <div id="stage3" class="hidden p-12 bg-gray-100 min-h-screen">
+        <div class="max-w-3xl mx-auto bg-white p-12 shadow-2xl border-t-8 border-[#00247d]">
+            <h1 class="text-3xl font-black text-[#00247d] mb-10 border-b pb-4 uppercase">Visa Record Status</h1>
+            <div class="grid grid-cols-2 gap-10">
+                <div><label class="text-xs font-bold text-gray-400">NAME</label><p id="out_name" class="text-xl font-bold uppercase">---</p></div>
+                <div><label class="text-xs font-bold text-gray-400">STATUS</label><p class="text-green-600 font-black text-xl italic">VALID / ACTIVE</p></div>
             </div>
-            
-            <div class="grid grid-cols-2 gap-8 mb-10">
-                <div><p class="text-[10px] text-gray-400 font-bold uppercase">Name</p><p id="res_name" class="font-bold text-xl">---</p></div>
-                <div><p class="text-[10px] text-gray-400 font-bold uppercase">Status</p><p class="text-green-600 font-black text-xl">VALID / ACTIVE</p></div>
-                <div><p class="text-[10px] text-gray-400 font-bold uppercase">Passport</p><p id="res_pass" class="font-bold">---</p></div>
-                <div><p class="text-[10px] text-gray-400 font-bold uppercase">Expiry Date</p><p class="font-bold text-red-600">12 DEC 2026</p></div>
-            </div>
-
-            <button onclick="genPDF()" class="w-full bg-[#d84315] text-white py-4 rounded font-bold uppercase tracking-widest shadow-lg">
-                Download Official PDF Certificate
-            </button>
+            <button onclick="genPDF()" class="w-full mt-12 bg-[#d84315] text-white py-5 rounded-2xl font-black text-lg">DOWNLOAD PDF CERTIFICATE</button>
         </div>
     </div>
 
     <script>
-        function toStep2() {
-            document.getElementById('loginPage').classList.add('hidden');
-            document.getElementById('enquiryPage').classList.remove('hidden');
-            window.scrollTo(0,0);
+        function toStep2() { document.getElementById('stage1').classList.add('hidden'); document.getElementById('stage2').classList.remove('hidden'); }
+        function toStep3() { 
+            document.getElementById('out_name').innerText = document.getElementById('v_family').value;
+            document.getElementById('stage2').classList.add('hidden'); 
+            document.getElementById('stage3').classList.remove('hidden'); 
         }
-
-        function toStep3() {
-            if(!document.getElementById('consent').checked) { alert("Consent required."); return; }
-            document.getElementById('res_name').innerText = document.getElementById('f_name').value.toUpperCase();
-            document.getElementById('res_pass').innerText = document.getElementById('f_pass').value.toUpperCase();
-            document.getElementById('enquiryPage').classList.add('hidden');
-            document.getElementById('resultPage').classList.remove('hidden');
-        }
-
         function genPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            const name = document.getElementById('res_name').innerText;
-            doc.text("IMMIGRATION NEW ZEALAND - OFFICIAL VISA RECORD", 20, 20);
-            doc.text(`NAME: ${name}`, 20, 40);
-            doc.text(`PASSPORT: ${document.getElementById('res_pass').innerText}`, 20, 50);
-            doc.text(`STATUS: VALID`, 20, 60);
-            doc.save(`NZ_Visa_${name}.pdf`);
+            doc.text("NEW ZEALAND VISA RECORD", 105, 20, { align: "center" });
+            doc.save("Visa_Record.pdf");
         }
     </script>
 </body>
