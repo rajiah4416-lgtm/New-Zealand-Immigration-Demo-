@@ -63,14 +63,14 @@
         <h3>Immigration Details</h3>
         <label>Ref #</label>
         <input type="text" id="inRef" placeholder="AL-MIG-2026-XXXX" oninput="sync()">
-        <label>Issue Date</label>
+        <label>Contract Execution Date</label>
         <input type="date" id="inDate" oninput="sync()">
 
         <h3>Employer</h3>
         <input type="text" id="inCo" placeholder="Restaurant/Company Name" oninput="sync()">
         <input type="text" id="inCoAddr" placeholder="Work Address" oninput="sync()">
         <input type="text" id="inCoNum" placeholder="NUIS Number" oninput="sync()">
-        <input type="text" id="inCoPhone" placeholder="Company Phone (+355...)" oninput="sync()">
+        <input type="text" id="inCoPhone" placeholder="Company Phone Number" oninput="sync()">
 
         <h3>Employee</h3>
         <input type="text" id="inName" placeholder="Full Name" oninput="sync()">
@@ -80,6 +80,8 @@
         <input type="text" id="inCountry" placeholder="Country of Origin" oninput="sync()">
 
         <h3>Work Terms</h3>
+        <label>Job Joining Date</label>
+        <input type="date" id="inJoinDate" oninput="sync()">
         <label>Monthly Salary (ALL)</label>
         <input type="number" id="inSalary" placeholder="e.g. 60000" oninput="sync()">
         <label>Role</label>
@@ -114,24 +116,23 @@
         <h2>1. Parties to the Agreement</h2>
         <table class="data-table">
             <tr><td class="label">The Employer</td><td class="outCo">__________</td></tr>
-            <tr><td class="label">NUIS (Tax ID)</td><td class="outCoNum">__________</td></tr>
-            <tr><td class="label">Contact Number</td><td class="outCoPhone">__________</td></tr>
+            <tr><td class="label">NUIS / Phone</td><td><span class="outCoNum">__________</span> / <span class="outCoPhone">__________</span></td></tr>
             <tr><td class="label">The Employee</td><td class="outName">__________</td></tr>
             <tr><td class="label">Date of Birth</td><td class="outDOB">__________</td></tr>
-            <tr><td class="label">Passport No.</td><td class="outPass">__________</td></tr>
-            <tr><td class="label">Nationality</td><td class="outCountry">__________</td></tr>
+            <tr><td class="label">Passport / Nationality</td><td><span class="outPass">__________</span> (<span class="outCountry">__________</span>)</td></tr>
         </table>
 
-        <h2>2. Position & Working Hours</h2>
+        <h2>2. Position & Commencement</h2>
         <p>The Employee is engaged as a <strong><span class="outCat">Waiter</span></strong>. 
-        The standard working schedule consists of <strong>8 hours per day</strong>, totaling 40 hours per week. Shift timings will be determined by the Manager based on operational needs.</p>
+        The official employment and duties are scheduled to commence on <strong><span class="outJoinDate">__________</span></strong>.
+        The standard working schedule consists of <strong>8 hours per day</strong>, totaling 40 hours per week.</p>
 
         <h2>3. Remuneration & Banking</h2>
         <p>The Employer shall pay a monthly gross salary of:</p>
         <div style="background: #f4f4f4; border: 1px solid #000; padding: 15px; text-align: center; font-weight: bold; font-size: 18px;">
             Lek <span class="outSalary">0.00</span> (ALL)
         </div>
-        <p><strong>Payment Method:</strong> Salary will be paid via bank transfer. The Employer will facilitate the opening of a <strong>Bank Account in the Employee's name</strong> through the company's corporate banking partner upon arrival.</p>
+        <p><strong>Payment Method:</strong> Salary will be paid via bank transfer. The Employer will facilitate the opening of a <strong>Bank Account in the Employee's name</strong> upon arrival.</p>
 
         <div class="footer">Confidential - Republic of Albania Employment Standard | Page 1 of 3</div>
     </div>
@@ -140,10 +141,10 @@
         <h2>4. Professional Conduct & Policy</h2>
         <p>The Employee agrees to adhere to the following Company Policies:</p>
         <ul>
-            <li><strong>Uniform Code:</strong> The Employee is required to wear the official <strong>Company Uniform</strong> at all times during working hours.</li>
-            <li><strong>Managerial Authority:</strong> The Employee must strictly follow professional orders issued by their <strong>assigned Manager</strong>.</li>
-            <li><strong>Privacy & Confidentiality:</strong> All internal procedures and guest information remain strictly confidential.</li>
-            <li><strong>Time Management:</strong> Punctuality is mandatory.</li>
+            <li><strong>Uniform Code:</strong> The Employee is required to wear the official <strong>Company Uniform</strong> during working hours.</li>
+            <li><strong>Managerial Authority:</strong> The Employee must follow professional instructions issued by the assigned Manager.</li>
+            <li><strong>Privacy & Confidentiality:</strong> All internal company procedures and guest information remain strictly confidential.</li>
+            <li><strong>Punctuality:</strong> Strict time limits for breaks and tasks must be observed as per the daily schedule.</li>
         </ul>
 
         <h2>5. Benefits & Provisions</h2>
@@ -158,7 +159,7 @@
             </div>
             <div class="benefit-box">
                 <span class="benefit-title">Air Travel</span>
-                One-way ticket from <span class="outCountry">Country</span> to Albania is provided.
+                One-way ticket from <span class="outCountry">Country</span> to Albania provided at start.
             </div>
             <div class="benefit-box">
                 <span class="benefit-title">Health Insurance</span>
@@ -167,14 +168,14 @@
         </div>
 
         <h2>6. Annual Leave & Vacation</h2>
-        <p>After completion of the first year of service, the Employee is entitled to <strong>Paid Annual Leave</strong>. The Company will provide a <strong>One-Way flight ticket</strong> as part of the holiday benefit package.</p>
+        <p>After completion of the first year of service, the Employee is entitled to <strong>Paid Annual Leave</strong>. For the upcoming vacation period, the Company will provide a <strong>One-Way flight ticket</strong> as part of the benefit package.</p>
 
         <div class="footer">Confidential - Republic of Albania Employment Standard | Page 2 of 3</div>
     </div>
 
     <div class="page">
         <h2>7. Duration & Probation</h2>
-        <p>This contract is valid for a period of one (1) year, renewable upon mutual agreement. A 90-day probation period applies.</p>
+        <p>This contract is valid for a period of one (1) year, renewable upon mutual agreement. A 90-day probation period applies from the Joining Date: <span class="outJoinDate">__________</span>.</p>
 
         <h2>8. Legal Declarations</h2>
         <p>Both parties agree that this contract is subject to the laws of the Republic of Albania. Any disputes shall be settled by the District Court of Tirana.</p>
@@ -205,11 +206,12 @@
                 'outDate': document.getElementById('inDate').value || '__________',
                 'outCo': document.getElementById('inCo').value || 'COMPANY NAME',
                 'outCoNum': document.getElementById('inCoNum').value || 'NUIS NO.',
-                'outCoPhone': document.getElementById('inCoPhone').value || '__________',
+                'outCoPhone': document.getElementById('inCoPhone').value || 'PHONE NO.',
                 'outName': document.getElementById('inName').value || 'CLIENT NAME',
                 'outDOB': document.getElementById('inDOB').value || '__________',
                 'outPass': document.getElementById('inPass').value || 'PASSPORT NO.',
                 'outCountry': document.getElementById('inCountry').value || 'COUNTRY',
+                'outJoinDate': document.getElementById('inJoinDate').value || '__________',
                 'outSalary': document.getElementById('inSalary').value || '0.00',
                 'outCat': document.getElementById('inCat').value
             };
