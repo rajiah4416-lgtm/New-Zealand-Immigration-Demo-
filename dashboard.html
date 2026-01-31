@@ -2,185 +2,184 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NZ Immigration & HR Sponsorship Suite - Deluxe</title>
+    <title>NZ Immigration & HR Sponsorship Suite - Official</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style id="themeStyles">
-        :root { --nz-primary: #00247d; --nz-accent: #27ae60; --nz-bg: #2c3e50; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--nz-bg); margin: 0; display: flex; }
+        :root { 
+            --inz-black: #1a1a1a; 
+            --inz-blue: #00247d; 
+            --inz-silver: #C0C0C0;
+            --page-bg: #f4f4f6; /* Professional Silver-Grey instead of white */
+            --accent: #00247d;
+        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #2c3e50; margin: 0; display: flex; }
         
-        .sidebar { width: 380px; background: #1a1a1a; color: white; padding: 25px; height: 100vh; overflow-y: auto; box-sizing: border-box; position: fixed; border-right: 4px solid var(--nz-primary); z-index: 1000; }
-        .sidebar h2 { font-size: 13px; color: var(--nz-accent); text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 20px; }
-        label { display: block; margin-top: 10px; font-size: 10px; text-transform: uppercase; color: #999; }
-        input, select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 4px; border: none; background: #2b2b2b; color: white; font-size: 13px; }
-        .color-preview { height: 30px; width: 100%; cursor: pointer; border-radius: 4px; margin-top: 5px; border: 1px solid #444; }
+        .sidebar { width: 380px; background: #111; color: white; padding: 25px; height: 100vh; overflow-y: auto; box-sizing: border-box; position: fixed; border-right: 4px solid var(--inz-blue); z-index: 1000; }
+        .sidebar h2 { font-size: 13px; color: var(--inz-silver); text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 20px; }
+        label { display: block; margin-top: 10px; font-size: 10px; text-transform: uppercase; color: #888; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 4px; border: none; background: #222; color: white; font-size: 13px; }
+        
+        .preview-area { margin-left: 380px; padding: 40px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+        
+        /* THE A4 PAGE - PIGROOT COLOR CHANGE */
+        .a4-page { 
+            width: 210mm; min-height: 297mm; 
+            background: var(--page-bg); 
+            padding: 20mm; 
+            box-shadow: 0 0 25px rgba(0,0,0,0.5); 
+            box-sizing: border-box; color: #222; 
+            position: relative;
+            border-top: 8px solid var(--inz-black);
+        }
 
-        .preview-area { margin-left: 380px; padding: 40px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 40px; }
-        .a4-page { width: 210mm; min-height: 297mm; background: white; padding: 20mm; box-shadow: 0 0 20px rgba(0,0,0,0.4); box-sizing: border-box; color: #333; position: relative; transition: all 0.3s ease; }
+        .nz-header { text-align: center; border-bottom: 1px solid var(--inz-silver); padding-bottom: 20px; margin-bottom: 30px; }
+        .nz-header h1 { margin: 10px 0; font-size: 24px; letter-spacing: 2px; color: var(--inz-black); }
+        
+        .data-table { width: 100%; border-collapse: collapse; margin: 15px 0; background: white; }
+        .data-table td { padding: 12px; border: 1px solid #ddd; font-size: 13px; }
+        .label-cell { background: #eee; font-weight: bold; width: 35%; color: var(--inz-blue); text-transform: uppercase; font-size: 11px; }
 
-        /* Document Elements */
-        .flag-header { text-align: center; margin-bottom: 20px; }
-        .nz-flag-img { width: 110px; border: 1px solid #eee; }
-        .nz-header { border-bottom: 2px solid #000; text-align: center; padding-bottom: 10px; margin-bottom: 20px; }
-        .nz-header h2 { color: var(--nz-primary); transition: color 0.3s; }
+        .legal-text { font-style: italic; font-size: 12px; line-height: 1.6; color: #444; border-left: 3px solid var(--inz-blue); padding-left: 15px; margin: 30px 0; }
 
-        .data-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 12.5px; }
-        .data-table td { padding: 8px; border: 1px solid #eee; }
-        .label-cell { background: #f8f9fa; font-weight: bold; width: 35%; color: var(--nz-primary); }
+        .signature-area { margin-top: 40px; display: flex; justify-content: space-between; align-items: flex-end; }
+        #sig-preview { max-width: 150px; max-height: 80px; display: block; margin-bottom: 5px; filter: grayscale(1) contrast(1.2); }
+        
+        .qr-box { text-align: center; font-size: 9px; font-weight: bold; color: var(--inz-blue); }
 
-        .qr-box { text-align: center; }
-        .hr-verification-box { margin-top: 40px; border: 1px solid #ddd; padding: 20px; display: flex; justify-content: space-between; align-items: center; background: #fdfdfd; border-left: 5px solid var(--nz-primary); }
+        button.print-btn { width: 100%; padding: 15px; margin-top: 25px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; background: var(--inz-blue); color: white; }
 
-        button.print-btn { width: 100%; padding: 15px; margin-top: 25px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; background: var(--nz-accent); color: white; font-size: 14px; }
-
-        /* Themes */
-        .theme-minimalist { border: 10px solid #eee; }
-        .theme-modern { border-top: 15px solid var(--nz-primary); }
-        .theme-classic { background-image: radial-gradient(#eee 0.5px, transparent 0.5px); background-size: 20px 20px; }
-
-        @media print { .sidebar { display: none; } .preview-area { margin: 0; } .a4-page { box-shadow: none; margin: 0; border: none; } }
+        @media print { .sidebar { display: none; } .preview-area { margin: 0; } .a4-page { box-shadow: none; border: none; } }
     </style>
 </head>
 <body>
 
 <div class="sidebar">
-    <h2>🎨 Aesthetic & Theme</h2>
-    <label>Select Theme Style</label>
-    <select id="themeSelect" onchange="applyTheme()">
-        <option value="theme-modern">Modern Professional</option>
-        <option value="theme-minimalist">Clean Minimalist</option>
-        <option value="theme-classic">Classic Watermark</option>
+    <h2>🎨 Official INZ Branding</h2>
+    <label>Theme Preset</label>
+    <select id="colorTheme" onchange="applyOfficialColors()">
+        <option value="official">Official INZ (Navy/Black/Silver)</option>
+        <option value="midnight">Midnight Professional</option>
+        <option value="prestige">Prestige Gold & Charcoal</option>
     </select>
 
-    <label>Primary Brand Color</label>
-    <input type="color" id="colorPicker" value="#00247d" oninput="updateColors()">
+    <h2>✒️ Professional Polish</h2>
+    <label>Tone Enhancer</label>
+    <select id="toneSelect" onchange="sync()">
+        <option value="formal">Standard Formal</option>
+        <option value="premium">Premium Legalistic (Beautiful Words)</option>
+    </select>
 
-    <h2>📅 Document Timeline</h2>
-    <label>Date of Letter Issue</label>
+    <h2>✍️ Digital Signature</h2>
+    <label>Upload HR Signature (PNG/JPG)</label>
+    <input type="file" id="sigInput" accept="image/*" onchange="loadSignature(event)">
+
+    <h2>📅 Timeline</h2>
+    <label>Issuance Date</label>
     <input type="date" id="inIssueDate" oninput="sync()">
 
-    <h2>👤 Personal Details</h2>
-    <label>Full Name</label>
-    <input type="text" id="inClName" placeholder="John Citizen" oninput="sync()">
-    <label>Date of Birth</label>
-    <input type="date" id="inDOB" oninput="sync()">
-    <label>Passport Number</label>
-    <input type="text" id="inClPass" placeholder="PK-123456" oninput="sync()">
-    <label>NZ Immigration Ref #</label>
-    <input type="text" id="inRef" placeholder="NZ-RES-2026-001" oninput="sync()">
-
-    <h2>🏢 Company & Job</h2>
-    <label>Company Name</label>
-    <input type="text" id="inCoName" placeholder="NZ Tech Solutions Ltd" oninput="sync()">
-    <label>Job Title</label>
-    <input type="text" id="inJob" placeholder="Senior Consultant" oninput="sync()">
-    <label>NZ Business Address</label>
-    <input type="text" id="inCoAddr" placeholder="123 Queen St, Auckland" oninput="sync()">
-
-    <h2>✈️ Travel Details</h2>
-    <label>Pakistan Departure</label>
-    <select id="inDepartCity" oninput="sync()">
-        <option value="Islamabad Intl (ISB)">Islamabad (ISB)</option>
-        <option value="Lahore Allama Iqbal (LHE)">Lahore (LHE)</option>
-        <option value="Karachi Jinnah Intl (KHI)">Karachi (KHI)</option>
-    </select>
-    <label>Arrival Date in NZ</label>
-    <input type="date" id="inArriveDate" oninput="sync()">
-
-    <h2>📋 HR Officer</h2>
-    <input type="text" id="inHRName" placeholder="Manager Name" oninput="sync()">
-    <input type="text" id="inHRPhone" placeholder="Phone Number" oninput="sync()">
-
-    <button class="print-btn" onclick="window.print()">Download / Print Suite</button>
+    <h2>👤 Applicant</h2>
+    <input type="text" id="inClName" placeholder="Full Name" oninput="sync()">
+    <input type="text" id="inRef" placeholder="INZ Reference Number" oninput="sync()">
+    
+    <h2>🏢 Employer</h2>
+    <input type="text" id="inCoName" placeholder="Company Name" oninput="sync()">
+    <input type="text" id="inJob" placeholder="Job Title" oninput="sync()">
+    
+    <button class="print-btn" onclick="window.print()">Generate Official PDF</button>
 </div>
 
 <div class="preview-area">
-    <div class="a4-page theme-modern" id="docPage">
-        <div class="flag-header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" class="nz-flag-img">
-        </div>
-
+    <div class="a4-page" id="docPage">
         <div class="nz-header">
-            <h2 id="headerTitle">IMMIGRATION NEW ZEALAND</h2>
-            <p style="margin:5px 0 0 0; font-size:11px; letter-spacing: 1px;">DATE OF ISSUE: <span class="outIssueDate">Select Date</span></p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" style="width: 80px;">
+            <h1>IMMIGRATION NEW ZEALAND</h1>
+            <p style="font-size: 11px;">GOVERNMENT PORTAL VERIFICATION RECORD • <span class="outIssueDate">---</span></p>
         </div>
 
         <table class="data-table">
-            <tr><td class="label-cell">NZ Immigration Ref</td><td class="outRef" style="font-weight:bold;">REF-PENDING</td></tr>
-            <tr><td class="label-cell">Full Name</td><td class="outClName">Client Name</td></tr>
-            <tr><td class="label-cell">Date of Birth</td><td class="outDOB">YYYY-MM-DD</td></tr>
-            <tr><td class="label-cell">Passport No.</td><td class="outClPass">PK-000000</td></tr>
-            <tr><td class="label-cell">Route</td><td><span class="outDepartCity">Islamabad</span> ➔ Auckland, NZ</td></tr>
-            <tr><td class="label-cell">Arrival Date (NZ)</td><td class="outArriveDate">YYYY-MM-DD</td></tr>
+            <tr><td class="label-cell">Reference Number</td><td class="outRef" style="font-weight:bold; letter-spacing:1px;">---</td></tr>
+            <tr><td class="label-cell">Visa Holder</td><td class="outClName">---</td></tr>
+            <tr><td class="label-cell">Sponsoring Body</td><td class="outCoName">---</td></tr>
+            <tr><td class="label-cell">Position Designation</td><td class="outJob">---</td></tr>
         </table>
 
-        <h3>EMPLOYMENT SPONSORSHIP</h3>
-        <table class="data-table">
-            <tr><td class="label-cell">Sponsoring Company</td><td class="outCoName" style="font-weight:bold;">Company</td></tr>
-            <tr><td class="label-cell">NZ Office Address</td><td class="outCoAddr">Address</td></tr>
-            <tr><td class="label-cell">Position Title</td><td class="outJob">Job</td></tr>
-        </table>
-
-        <div style="margin-top:20px; padding:15px; border:1px solid #ddd; font-size:11px; line-height:1.5; background:#fff;">
-            <strong>CORPORATE GUARANTEE:</strong> <span class="outCoName">The Company</span> formally accepts all sponsorship obligations for the visa holder. This letter was issued on <span class="outIssueDate">Date</span> and is valid for presentation to border authorities.
+        <div class="legal-text" id="legalPolish">
+            The sponsoring organization hereby affirms its commitment to the visa maintenance of the applicant under the Accredited Employer Work Visa framework.
         </div>
 
-        <div class="hr-verification-box">
+        <div class="signature-area">
             <div>
-                <h4 style="margin:0 0 10px 0; color:var(--nz-primary);">HR OFFICER AUTHORIZATION</h4>
-                <p style="font-size:12px; margin:2px 0;"><strong>Name:</strong> <span class="outHRName">Pending</span></p>
-                <p style="font-size:12px; margin:2px 0;"><strong>Direct Phone:</strong> <span class="outHRPhone">Pending</span></p>
-                <div style="border-top:1px solid #000; width:150px; margin-top:20px; font-size:9px;">SIGNATURE & STAMP</div>
+                <img id="sig-preview" src="" style="display:none;">
+                <div style="border-top: 1px solid #000; width: 200px; padding-top: 5px;">
+                    <strong style="font-size: 13px;">OFFICIALLY SIGNED</strong><br>
+                    <span style="font-size: 11px; color: #666;">HR COMPLIANCE DIVISION</span>
+                </div>
             </div>
             <div class="qr-box">
                 <div id="hrQRCode"></div>
-                <div style="font-size:8px; margin-top:5px; font-weight:bold; color:var(--nz-primary);">SECURE QR VERIFICATION</div>
+                VERIFY AUTHENTICITY
             </div>
+        </div>
+        
+        <div style="position: absolute; bottom: 20mm; left: 20mm; font-size: 9px; color: #999;">
+            © 2026 Immigration New Zealand Compliance Office. Document electronically generated.
         </div>
     </div>
 </div>
 
 <script>
-    let hrQR = new QRCode(document.getElementById("hrQRCode"), { width: 90, height: 90 });
+    let hrQR = new QRCode(document.getElementById("hrQRCode"), { width: 80, height: 80 });
 
-    function updateColors() {
-        const color = document.getElementById('colorPicker').value;
-        document.documentElement.style.setProperty('--nz-primary', color);
+    function loadSignature(event) {
+        const output = document.getElementById('sig-preview');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.style.display = 'block';
     }
 
-    function applyTheme() {
-        const theme = document.getElementById('themeSelect').value;
-        const page = document.getElementById('docPage');
-        page.className = 'a4-page ' + theme;
+    function applyOfficialColors() {
+        const theme = document.getElementById('colorTheme').value;
+        const r = document.documentElement.style;
+        if(theme === 'official') {
+            r.setProperty('--inz-blue', '#00247d');
+            r.setProperty('--inz-black', '#1a1a1a');
+            r.setProperty('--page-bg', '#f4f4f6');
+        } else if(theme === 'midnight') {
+            r.setProperty('--inz-blue', '#2c3e50');
+            r.setProperty('--inz-black', '#000000');
+            r.setProperty('--page-bg', '#ebebeb');
+        } else if(theme === 'prestige') {
+            r.setProperty('--inz-blue', '#996515');
+            r.setProperty('--inz-black', '#222');
+            r.setProperty('--page-bg', '#fcfcfc');
+        }
     }
 
     function sync() {
-        const val = {
-            outIssueDate: document.getElementById('inIssueDate').value || 'Not Issued',
-            outClName: document.getElementById('inClName').value || 'John Citizen',
-            outDOB: document.getElementById('inDOB').value || 'YYYY-MM-DD',
-            outClPass: document.getElementById('inClPass').value || 'PK-123456',
-            outJob: document.getElementById('inJob').value || 'Position',
-            outRef: document.getElementById('inRef').value || 'NZ-REF-XXXX',
-            outCoName: document.getElementById('inCoName').value || 'NZ Company Ltd',
-            outCoAddr: document.getElementById('inCoAddr').value || 'NZ Address',
-            outDepartCity: document.getElementById('inDepartCity').value,
-            outArriveDate: document.getElementById('inArriveDate').value || 'YYYY-MM-DD',
-            outHRName: document.getElementById('inHRName').value || 'Officer Name',
-            outHRPhone: document.getElementById('inHRPhone').value || 'Phone Number'
+        const tone = document.getElementById('toneSelect').value;
+        const co = document.getElementById('inCoName').value || 'The Company';
+        
+        const polish = {
+            formal: `This letter confirms that ${co} supports the visa application for the mentioned individual and accepts all standard sponsorship responsibilities.`,
+            premium: `Be it known that ${co}, an Accredited Employer under New Zealand statutes, formally declares its unwavering sponsorship of the applicant. We attest to the veracity of the employment terms and pledge full adherence to the Immigration Act 2009 to ensure a seamless professional transition.`
         };
 
-        for (const [key, value] of Object.entries(val)) {
+        document.getElementById('legalPolish').innerText = polish[tone];
+        
+        const fields = {
+            outIssueDate: document.getElementById('inIssueDate').value || 'PENDING',
+            outClName: document.getElementById('inClName').value || '---',
+            outRef: document.getElementById('inRef').value || '---',
+            outCoName: co,
+            outJob: document.getElementById('inJob').value || '---'
+        };
+
+        for (const [key, value] of Object.entries(fields)) {
             document.querySelectorAll('.' + key).forEach(el => el.innerText = value);
         }
 
-        const qrData = `HR-VERIFY|ISSUED:${val.outIssueDate}|REF:${val.outRef}|CO:${val.outCoName}`;
-        hrQR.makeCode(qrData);
+        hrQR.makeCode(`VERIFY|${fields.outRef}|${fields.outCoName}|${fields.outIssueDate}`);
     }
 
-    // Set default dates to today
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('inIssueDate').value = today;
-    document.getElementById('inArriveDate').value = today;
     sync();
 </script>
 </body>
