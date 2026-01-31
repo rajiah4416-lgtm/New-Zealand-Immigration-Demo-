@@ -1,40 +1,119 @@
-/* Dashboard styles */
-.dashboard-container {
-  display: flex;
-  margin: 20px;
+/* --- REGIONAL COLOR PALETTE --- */
+:root {
+    --realme-orange: #d84315;    /* Primary brand orange for login and footers */
+    --realme-btn-red: #b72f12;   /* Darker red-orange for active buttons */
+    --inz-blue: #00a0d2;         /* Official VisaView light blue */
+    --inz-navy: #00247d;         /* Header/Border navy for results */
+    --gov-black: #000000;        /* Header background */
+    --field-gray: #f2f2f2;       /* Mobile input background */
 }
 
-.nav-menu {
-  min-width: 180px;
-  background: #003366;
-  padding: 10px;
-  border-radius: 6px;
+/* --- CORE LAYOUT --- */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #ffffff;
 }
 
-.nav-menu ul {
-  list-style: none;
-  padding: 0;
+/* --- AUTHENTICATION (RealMe Login) --- */
+.realme-header {
+    background-color: var(--gov-black);
+    color: #fff;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.nav-menu ul li {
-  margin: 10px 0;
+.realme-login-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    font-style: italic;
+    color: #333;
+    margin-bottom: 2rem;
 }
 
-.nav-menu ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
+.realme-login-title span {
+    font-weight: 800;
+    color: #e51010; /* Specific RealMe Red */
 }
 
-.nav-menu ul li a:hover {
-  text-decoration: underline;
+/* Mobile-Specific Inputs */
+.mobile-input-group input {
+    width: 100%;
+    border: 2px solid #000;
+    border-radius: 18px;
+    padding: 20px;
+    font-size: 1.1rem;
+    background-color: var(--field-gray);
+    margin-bottom: 15px;
 }
 
-.dashboard-content {
-  margin-left: 20px;
-  flex-grow: 1;
-  padding: 15px;
-  background: white;
-  border-radius: 6px;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+.btn-login {
+    background-color: var(--realme-orange);
+    color: white;
+    width: 100%;
+    padding: 18px;
+    border-radius: 18px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+}
+
+.realme-footer {
+    background-color: var(--realme-orange);
+    color: white;
+    padding: 40px 30px;
+    font-weight: 600;
+    line-height: 2;
+}
+
+/* --- ADMINISTRATIVE (VisaView Enquiry) --- */
+.vv-container {
+    background-color: var(--inz-blue);
+    padding: 15px 30px;
+    color: #fff;
+}
+
+.sidebar {
+    background-color: #eef7fa; /* Regional light-blue sidebar tint */
+    width: 260px;
+    border-right: 1px solid #c9e1e9;
+    min-height: 100vh;
+}
+
+.vv-form-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #444;
+    width: 180px;
+    display: inline-block;
+}
+
+.vv-form-input {
+    border: 1px solid #777;
+    padding: 4px;
+    font-size: 13px;
+    width: 250px;
+}
+
+/* --- CLIENT MANAGEMENT DASHBOARD --- */
+.dashboard-header {
+    border-bottom: 4px solid var(--inz-navy);
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+.status-valid {
+    color: #16a34a; /* Success Green */
+    font-weight: 900;
+    font-style: italic;
+}
+
+.status-expiry {
+    color: #dc2626; /* Warning Red */
+    font-weight: 700;
 }
