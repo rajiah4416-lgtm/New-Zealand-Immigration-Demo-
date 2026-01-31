@@ -1,187 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MySite Portal</title>
-
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #fafafa;
-  margin: 0;
-  padding: 0;
-}
-header {
-  background: #003366;
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-.container {
-  max-width: 480px;
-  margin: 40px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-}
-input, select, button {
-  width: 100%;
-  margin: 8px 0;
-  padding: 10px;
-  font-size: 1rem;
-}
-button {
-  background: #e05a20;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-button:hover {
-  background: #c6531a;
-}
-.footer {
-  text-align: center;
-  padding: 12px;
-  background: #ddd;
-  margin-top: 30px;
-}
-
-/* Dashboard styles */
-.dashboard-container {
-  display: flex;
-  margin: 20px;
-}
-.nav-menu {
-  min-width: 180px;
-  background: #003366;
-  padding: 10px;
-  border-radius: 6px;
-}
-.nav-menu ul {
-  list-style: none;
-  padding: 0;
-}
-.nav-menu ul li {
-  margin: 10px 0;
-}
-.nav-menu ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-.nav-menu ul li a:hover {
-  text-decoration: underline;
-}
-.dashboard-content {
-  margin-left: 20px;
-  flex-grow: 1;
-  padding: 15px;
-  background: white;
-  border-radius: 6px;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
-}
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immigration New Zealand | Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --realme-orange: #d84315; 
+            --visaview-blue: #00a0d2;
+            --inz-dark: #00247d;
+        }
+        body { font-family: Arial, sans-serif; margin: 0; background-color: #ffffff; }
+        .hidden { display: none; }
+        
+        /* Mobile-Ready Login Interface */
+        .login-input { border: 2px solid #000; border-radius: 18px; padding: 20px; width: 100%; font-size: 18px; background: #f2f2f2; }
+        .btn-realme { background-color: var(--realme-orange); color: white; padding: 18px; border-radius: 18px; font-weight: bold; width: 100%; font-size: 20px; }
+        
+        /* VisaView Enquiry Styling */
+        .vv-header { background-color: var(--visaview-blue); color: white; padding: 15px 25px; display: flex; align-items: center; }
+        .sidebar { background-color: #eef7fa; width: 240px; border-right: 1px solid #c9e1e9; min-height: 100vh; padding: 20px; }
+        .field-label { font-size: 13px; font-weight: bold; color: #444; width: 160px; }
+        .field-input { border: 1px solid #777; padding: 4px; font-size: 13px; width: 240px; }
+    </style>
 </head>
 <body>
 
-<header id="header">MySite Portal</header>
+    <div id="loginSection">
+        <header class="bg-black text-white p-4 flex justify-between items-center h-16">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-bold" style="color: #ff3d00;">RealMe®</span>
+                <span class="text-[10px] text-gray-400 mt-2 font-bold italic">Tēnei Au</span>
+            </div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Silver_fern_logo.svg" class="w-10 invert">
+        </header>
 
-<div id="mainContent">
-  <!-- Login Form -->
-  <div id="loginPage" class="container">
-    <form id="loginForm">
-      <h2>Log in</h2>
-      <label><input type="radio" name="choice" value="existing" checked> I have an existing login</label>
-      <label><input type="radio" name="choice" value="create"> I need to create a login</label>
+        <main class="p-6 max-w-lg mx-auto mt-10">
+            <h1 class="text-5xl font-light mb-8 italic">Log in with <span class="font-bold text-red-600">RealMe</span></h1>
+            <p class="text-lg text-gray-700 mb-6">To access this service you need a RealMe login.</p>
+            
+            <div class="space-y-4 mb-10">
+                <label class="flex items-center gap-3 text-lg"><input type="radio" name="r" checked> I have an existing RealMe login</label>
+                <label class="flex items-center gap-3 text-lg"><input type="radio" name="r"> I need to create a login</label>
+            </div>
 
-      <input type="text" id="username" placeholder="Username" required>
-      <input type="password" id="password" placeholder="Password" required>
+            <div class="space-y-6">
+                <input type="text" id="user" placeholder="Username" class="login-input">
+                <input type="password" id="pass" placeholder="Password" class="login-input">
+                <button onclick="showVisaView()" class="btn-realme shadow-xl">Log in</button>
+            </div>
+            
+            <p class="mt-8 text-center font-bold text-[#d84315] text-lg underline">Forgot Username or Password?</p>
+        </main>
 
-      <button type="submit">Log in</button>
-    </form>
-  </div>
-
-  <!-- Dashboard Page -->
-  <div id="dashboardPage" style="display:none;">
-    <div class="dashboard-container">
-      <nav class="nav-menu">
-        <ul>
-          <li><a href="#" onclick="showVisaForm()">Visa Verification</a></li>
-          <li><a href="#" onclick="showDashboardHome()">Home</a></li>
-          <li><a href="#" onclick="logout()">Logout</a></li>
-        </ul>
-      </nav>
-
-      <section class="dashboard-content" id="dashboardContent">
-        <h2>Welcome!</h2>
-        <p>Select an option from the menu.</p>
-      </section>
+        <footer class="mt-20 p-10 bg-[#d84315] text-white">
+            <div class="space-y-4 font-bold text-lg">
+                <p>Help & contact us</p><p>Privacy</p><p>About this site</p>
+                <hr class="border-white/30">
+                <p class="text-sm font-normal">© New Zealand Government</p>
+            </div>
+        </footer>
     </div>
-  </div>
 
-  <!-- Visa Verification Form -->
-  <div id="visaPage" style="display:none;" class="container">
-    <h2>Visa Verification</h2>
-    <form id="visaForm">
-      <label>Family Name *<input type="text" id="familyName" required></label>
-      <label>Passport Nationality *<input type="text" id="nationality" required></label>
-      <label>Passport Number *<input type="text" id="passportNo" required></label>
-      <label>Date of Birth *<input type="date" id="dob" required></label>
-      <label>Gender
-        <select id="gender">
-          <option value="">Select</option>
-          <option>Female</option>
-          <option>Male</option>
-          <option>Other</option>
-        </select>
-      </label>
-      <label>Visa Start Date *<input type="date" id="visaStart" required></label>
-      <label><input type="checkbox" id="consent"> The visa holder has consented</label>
-      <button type="submit">Check Visa</button>
-    </form>
-    <button onclick="showDashboardHome()" style="margin-top:10px;">Back to Dashboard</button>
-  </div>
-</div>
+    <div id="visaViewSection" class="hidden">
+        <div class="vv-header shadow-md">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Silver_fern_logo.svg" class="w-12 invert mr-4">
+            <h1 class="text-2xl font-bold italic">IMMIGRATION NEW ZEALAND</h1>
+        </div>
 
-<div class="footer">© MySite Portal</div>
+        <div class="flex">
+            <aside class="sidebar">
+                <h3 class="text-sm font-bold text-[#00a0d2] mb-4 uppercase">VisaView</h3>
+                <nav class="text-[12px] space-y-4 text-[#005a87]">
+                    <p class="cursor-pointer">▶ Register Organisation</p>
+                    <p class="font-bold underline cursor-pointer">▶ Verify Visa Record</p>
+                    <p class="cursor-pointer" onclick="showDashboard()">▶ Dashboard & Clients</p>
+                </nav>
+            </aside>
 
-<script>
-// Show pages
-function showDashboardHome() {
-  document.getElementById('loginPage').style.display = "none";
-  document.getElementById('visaPage').style.display = "none";
-  document.getElementById('dashboardPage').style.display = "block";
-  document.getElementById('dashboardContent').innerHTML = "<h2>Welcome!</h2><p>Select an option from the menu.</p>";
-}
+            <main class="flex-1 p-10">
+                <div class="flex justify-between border-b pb-2 mb-8">
+                    <h2 class="text-2xl text-[#00a0d2]">Visa Verification Enquiry</h2>
+                    <p class="text-[11px]">Logged in as: <span class="font-bold">Ali Rahat</span></p>
+                </div>
 
-function showVisaForm() {
-  document.getElementById('loginPage').style.display = "none";
-  document.getElementById('dashboardPage').style.display = "none";
-  document.getElementById('visaPage').style.display = "block";
-}
+                <div class="space-y-3">
+                    <div class="flex items-center"><span class="field-label">Family Name *</span><input type="text" id="v_name" class="field-input"></div>
+                    <div class="flex items-center"><span class="field-label">Passport Nationality *</span>
+                        <select id="v_nat" class="field-input">
+                            <option>PAKISTAN</option><option>INDIA</option><option>BANGLADESH</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center"><span class="field-label">Passport Number *</span><input type="text" id="v_num" class="field-input"></div>
+                    <div class="flex items-center"><span class="field-label">Date of Birth *</span><input type="text" id="v_dob" class="field-input" placeholder="dd/mm/yyyy"></div>
+                    <div class="flex items-center"><span class="field-label">Gender *</span>
+                        <select id="v_gen" class="field-input"><option>Male</option><option>Female</option></select>
+                    </div>
+                </div>
 
-function logout() {
-  document.getElementById('visaPage').style.display = "none";
-  document.getElementById('dashboardPage').style.display = "none";
-  document.getElementById('loginPage').style.display = "block";
-}
+                <div class="mt-8 flex items-center gap-2">
+                    <input type="checkbox" id="v_con">
+                    <label class="text-[11px] text-gray-700">The visa holder has consented to this check.</label>
+                </div>
 
-document.getElementById("loginForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  showDashboardHome();
-});
+                <button onclick="saveAndProcess()" class="mt-8 bg-[#005a87] text-white px-8 py-2 font-bold text-sm">Check Visa</button>
+            </main>
+        </div>
+    </div>
 
-document.getElementById("visaForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  if (!document.getElementById("consent").checked) {
-    alert("Please check consent before continuing.");
-    return;
-  }
-  alert("Visa check submitted!");
-});
-</script>
+    <div id="dashboardSection" class="hidden p-10 bg-gray-50 min-h-screen">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex justify-between items-center mb-10">
+                <h1 class="text-3xl font-bold text-[#00247d]">Client Management Dashboard</h1>
+                <button onclick="showVisaView()" class="bg-[#d84315] text-white px-4 py-2 rounded">New Enquiry</button>
+            </div>
 
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-100 text-[12px] uppercase font-bold text-gray-500 border-b">
+                        <tr><th class="p-4">Client Name</th><th class="p-4">Passport</th><th class="p-4">Status</th><th class="p-4">Actions</th></tr>
+                    </thead>
+                    <tbody id="clientTable" class="text-sm">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let clients = [];
+
+        function showVisaView() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('visaViewSection').classList.remove('hidden');
+            document.getElementById('dashboardSection').classList.add('hidden');
+        }
+
+        function showDashboard() {
+            document.getElementById('visaViewSection').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.remove('hidden');
+            renderClients();
+        }
+
+        function saveAndProcess() {
+            if(!document.getElementById('v_con').checked) return alert("Consent required");
+            
+            const newClient = {
+                name: document.getElementById('v_name').value.toUpperCase(),
+                pass: document.getElementById('v_num').value.toUpperCase(),
+                status: 'VALID / ACTIVE'
+            };
+            
+            clients.push(newClient);
+            alert("Visa verified and added to Client Management.");
+            showDashboard();
+        }
+
+        function renderClients() {
+            const table = document.getElementById('clientTable');
+            table.innerHTML = clients.map(c => `
+                <tr class="border-b hover:bg-orange-50">
+                    <td class="p-4 font-bold">${c.name}</td>
+                    <td class="p-4">${c.pass}</td>
+                    <td class="p-4 text-green-600 font-bold">${c.status}</td>
+                    <td class="p-4"><button onclick="generatePDF('${c.name}', '${c.pass}')" class="text-blue-600 underline font-bold">Download PDF</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function generatePDF(name, pass) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFontSize(20);
+            doc.text("NEW ZEALAND VISA RECORD", 105, 30, { align: "center" });
+            doc.setFontSize(12);
+            doc.text(`Name: ${name}`, 20, 60);
+            doc.text(`Passport: ${pass}`, 20, 75);
+            doc.text(`Status: VALID`, 20, 90);
+            doc.save(`NZ_Visa_${name}.pdf`);
+        }
+    </script>
 </body>
-</html>
+                                                                           </html>
