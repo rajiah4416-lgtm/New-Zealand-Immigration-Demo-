@@ -1,116 +1,123 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NZ Visa Portal - Upload Dashboard</title>
+    <title>RealMe® | Private Visa Verification Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Urdu:wght@400;700&display=swap');
-        body { font-family: 'Noto Urdu', sans-serif; background-color: #f8fafc; }
-        .inz-blue { background-color: #00247d; }
+        :root {
+            --inz-blue: #00247d;
+            --inz-silver: #f1f5f9;
+            --inz-text: #1a202c;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--inz-silver); }
+        .realme-header { background-color: white; border-bottom: 4px solid var(--inz-blue); }
+        .btn-verify { background-color: var(--inz-blue); transition: all 0.3s ease; }
+        .btn-verify:hover { background-color: #001a5e; transform: translateY(-1px); }
+        .visa-card { border-left: 6px solid var(--inz-blue); }
+        .watermark { position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); opacity: 0.03; pointer-events: none; width: 400px; }
     </style>
 </head>
 <body>
 
-    <div class="min-h-screen flex flex-col md:flex-row">
-        <div class="inz-blue w-full md:w-64 p-6 text-white shadow-xl">
-            <h1 class="text-2xl font-bold mb-10 text-center border-b border-blue-400 pb-4">NZ ویزا پورٹل</h1>
-            <nav class="space-y-2">
-                <a href="#" class="block p-3 bg-white/20 rounded-lg">ڈیش بورڈ</a>
-                <a href="#upload-section" class="block p-3 hover:bg-white/10 rounded-lg">ڈیٹا اپ لوڈ کریں</a>
-            </nav>
+    <header class="realme-header py-4 px-6 md:px-20 flex justify-between items-center shadow-sm">
+        <div class="flex items-center gap-4">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" alt="NZ Flag" class="w-10 shadow-sm">
+            <h1 class="text-xl font-bold tracking-tight text-slate-800">IMMIGRATION <span class="text-blue-900">NEW ZEALAND</span></h1>
         </div>
+        <div class="hidden md:block">
+            <span class="text-sm font-semibold text-slate-500"><i class="fas fa-lock mr-2"></i>SECURE PRIVATE ACCESS</span>
+        </div>
+    </header>
 
-        <div class="flex-1 p-4 md:p-10">
+    <main class="max-w-6xl mx-auto p-6 mt-10">
+        
+        <section class="bg-white rounded-xl shadow-lg p-8 mb-10 relative overflow-hidden">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Silver_fern_logo.svg" class="watermark" alt="Watermark">
             
-            <section id="upload-section" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-10">
-                <h2 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
-                    <span class="inz-blue w-2 h-8 ml-3 rounded-full"></span>
-                    نیا کلائنٹ ویزا ریکارڈ شامل کریں
-                </h2>
-                
-                <form id="visaForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-2">کلائنٹ کا مکمل نام</label>
-                        <input type="text" id="clientName" required class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-2">پاسپورٹ نمبر</label>
-                        <input type="text" id="passportNum" required class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none uppercase">
-                    </div>
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-2">ویزا کی قسم (e.g. AEWV Work)</label>
-                        <input type="text" id="visaType" required class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-2">ویزا ختم ہونے کی تاریخ</label>
-                        <input type="date" id="expiryDate" required class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
-                    </div>
-                    <div class="md:col-span-2">
-                        <button type="submit" class="inz-blue text-white w-full py-4 rounded-xl font-bold hover:opacity-90 transition shadow-lg">
-                            ڈیٹا اپ لوڈ کریں اور محفوظ کریں
-                        </button>
-                    </div>
-                </form>
-            </section>
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">Visa Entitlement Verification</h2>
+            <p class="text-slate-500 mb-8 text-sm italic">Enter applicant credentials to retrieve secure electronic visa (e-Visa) records from the private database.</p>
 
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="p-6 border-b bg-gray-50">
-                    <h3 class="font-bold text-gray-700">موجودہ ویزا ریکارڈز</h3>
+            <form id="searchForm" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="space-y-2">
+                    <label class="text-xs font-bold uppercase text-slate-400">Passport Number</label>
+                    <input type="text" id="passport" placeholder="e.g. PK1234567" class="w-full p-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600">
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-right">
-                        <thead class="bg-gray-50 text-gray-500 text-sm">
-                            <tr>
-                                <th class="p-4">نام</th>
-                                <th class="p-4">پاسپورٹ</th>
-                                <th class="p-4">ویزہ کی قسم</th>
-                                <th class="p-4">ایکسپائری</th>
-                                <th class="p-4">اسٹیٹس</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                            </tbody>
-                    </table>
+                <div class="space-y-2">
+                    <label class="text-xs font-bold uppercase text-slate-400">Application Reference</label>
+                    <input type="text" id="ref" placeholder="NZ-REF-XXXX" class="w-full p-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600">
+                </div>
+                <div class="flex items-end">
+                    <button type="button" onclick="verifyVisa()" class="btn-verify text-white w-full py-3.5 rounded-lg font-bold shadow-md">
+                        <i class="fas fa-search mr-2"></i> VERIFY ENTITLEMENT
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <div id="resultDashboard" class="hidden space-y-6">
+            <div class="bg-white visa-card p-8 rounded-xl shadow-md flex flex-col md:flex-row justify-between items-center gap-6">
+                <div>
+                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Active / Valid</span>
+                    <h3 id="displayName" class="text-3xl font-bold text-slate-900 mt-2">JOHN CITIZEN</h3>
+                    <p id="displayClass" class="text-blue-700 font-semibold">Accredited Employer Work Visa (AEWV)</p>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-xs text-slate-400 uppercase font-bold">Expiry Date</p>
+                    <p id="displayExpiry" class="text-2xl font-black text-red-600">12 DEC 2026</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <p class="text-xs font-bold text-slate-400 uppercase">Visa Conditions</p>
+                    <p class="mt-2 text-sm text-slate-700">Specific Employer: <span class="font-bold text-slate-900">NZ TECH SOLUTIONS</span></p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <p class="text-xs font-bold text-slate-400 uppercase">Entry Type</p>
+                    <p class="mt-2 text-sm text-slate-900 font-bold">Multiple Entry Rights</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <p class="text-xs font-bold text-slate-400 uppercase">Portal Auth</p>
+                    <p class="mt-2 text-sm text-green-600 font-bold"><i class="fas fa-check-circle mr-1"></i> RealMe Verified</p>
                 </div>
             </div>
         </div>
-    </div>
+
+    </main>
+
+    <footer class="mt-20 border-top border-slate-300 py-10 px-6 bg-slate-200 text-center">
+        <p class="text-slate-500 text-xs">
+            &copy; 2026 Private Visa Compliance Office. Information extracted under the Immigration Act 2009.
+            <br>
+            This portal is for authorized client verification only. Securely encrypted via RealMe® protocols.
+        </p>
+    </footer>
 
     <script>
-        const visaForm = document.getElementById('visaForm');
-        const tableBody = document.getElementById('tableBody');
+        function verifyVisa() {
+            const passport = document.getElementById('passport').value;
+            const ref = document.getElementById('ref').value;
 
-        visaForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            if(passport === "" || ref === "") {
+                alert("Please enter both Passport and Reference numbers.");
+                return;
+            }
 
-            // Get Values
-            const name = document.getElementById('clientName').value;
-            const passport = document.getElementById('passportNum').value;
-            const type = document.getElementById('visaType').value;
-            const date = document.getElementById('expiryDate').value;
+            // Simulate loading
+            document.querySelector('.btn-verify').innerHTML = '<i class="fas fa-spinner fa-spin"></i> AUTHENTICATING...';
 
-            // Create New Row
-            const row = document.createElement('tr');
-            row.className = "border-b hover:bg-blue-50 transition";
-            row.innerHTML = `
-                <td class="p-4 font-bold text-gray-800">${name}</td>
-                <td class="p-4 text-gray-600">${passport}</td>
-                <td class="p-4 text-gray-600">${type}</td>
-                <td class="p-4 text-gray-600">${date}</td>
-                <td class="p-4">
-                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">لائیو</span>
-                </td>
-            `;
-
-            // Append to Table
-            tableBody.prepend(row);
-
-            // Clear Form
-            visaForm.reset();
-            alert('ڈیٹا کامیابی سے اپ لوڈ کر دیا گیا ہے!');
-        });
+            setTimeout(() => {
+                document.getElementById('resultDashboard').classList.remove('hidden');
+                document.querySelector('.btn-verify').innerHTML = '<i class="fas fa-search mr-2"></i> VERIFY ENTITLEMENT';
+                
+                // Update display (in a real app, you fetch this from your database)
+                document.getElementById('displayName').innerText = "AUTHORIZED APPLICANT";
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }, 1500);
+        }
     </script>
 </body>
-</html>
+                            </html>
