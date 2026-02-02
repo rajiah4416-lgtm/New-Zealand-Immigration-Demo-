@@ -1,25 +1,181 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>System Dashboard</title>
-  <style>
-    body { font-family: Arial; background:#f4f6f8; padding:40px }
-    a { display:block; padding:15px; margin:10px 0; background:#fff; border-radius:6px; text-decoration:none; color:#000 }
-    a:hover { background:#e8eef5 }
-  </style>
+    <meta charset="UTF-8">
+    <title>NZ AEWV Official Contract - 2026</title>
+    <style>
+        :root { --nz-blue: #00247d; --nz-red: #cc142b; --nz-silver: #444; }
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; background: #eef1f4; color: #333; }
+        
+        /* UI Control Panel */
+        .no-print { background: #ffffff; padding: 30px; border-bottom: 6px solid var(--nz-blue); position: sticky; top: 0; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; max-width: 1400px; margin: 0 auto; }
+        .input-group { display: flex; flex-direction: column; }
+        label { font-size: 10px; font-weight: 700; color: var(--nz-blue); text-transform: uppercase; margin-bottom: 5px; letter-spacing: 0.5px; }
+        input, select { padding: 12px; border: 1px solid #ced4da; border-radius: 5px; font-size: 14px; transition: border-color 0.2s; }
+        input:focus { border-color: var(--nz-blue); outline: none; }
+        .btn-download { padding: 16px 50px; background: var(--nz-blue); color: white; border: none; cursor: pointer; border-radius: 5px; font-weight: 700; font-size: 16px; margin-top: 25px; width: 100%; max-width: 450px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn-download:hover { background: #001a5a; transform: translateY(-1px); }
+
+        /* A4 Page Formatting */
+        .a4-page {
+            width: 210mm; min-height: 297mm; padding: 25mm; margin: 30px auto;
+            background: white; box-shadow: 0 0 20px rgba(0,0,0,0.1); 
+            box-sizing: border-box; line-height: 1.6; position: relative; border-top: 18px solid var(--nz-blue);
+        }
+        .page-break { page-break-after: always; }
+
+        /* NZ Flag & Branding */
+        .nz-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--nz-blue); padding-bottom: 20px; margin-bottom: 40px; }
+        .nz-flag { width: 90px; height: 45px; }
+        .nz-govt-text { text-align: right; }
+        .nz-govt-text strong { color: var(--nz-blue); font-size: 16px; display: block; }
+        .nz-govt-text span { font-size: 12px; color: #777; font-weight: 500; }
+
+        h1 { color: var(--nz-blue); text-transform: uppercase; font-size: 22px; text-align: center; margin: 25px 0; letter-spacing: 1px; }
+        h2 { border-left: 8px solid var(--nz-red); padding: 8px 15px; font-size: 16px; margin-top: 35px; color: var(--nz-blue); background: #f8f9fa; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        td { padding: 12px; border: 1px solid #edf2f7; font-size: 13px; }
+        .label { font-weight: 700; width: 38%; background: #fcfcfc; color: #4a5568; }
+        
+        .benefit-tag { display: inline-block; background: #ebf8ff; color: #2b6cb0; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-bottom: 10px; }
+
+        .footer { position: absolute; bottom: 15mm; left: 25mm; right: 25mm; text-align: center; font-size: 10px; color: #cbd5e0; border-top: 1px solid #edf2f7; padding-top: 10px; }
+        
+        @media print {
+            body { background: white; }
+            .no-print { display: none; }
+            .a4-page { margin: 0; box-shadow: none; page-break-after: always; border-top-width: 25px; }
+        }
+    </style>
 </head>
 <body>
 
-<h2>Admin System Dashboard</h2>
+<div class="no-print">
+    <div class="input-grid">
+        <div class="input-group"><label>Date of Agreement</label><input type="date" id="in_issue" oninput="sync()"></div>
+        <div class="input-group"><label>Candidate Name</label><input type="text" id="in_name" placeholder="Full Name" oninput="sync()"></div>
+        <div class="input-group"><label>Date of Birth</label><input type="date" id="in_dob" oninput="sync()"></div>
+        <div class="input-group"><label>Passport Number</label><input type="text" id="in_pass" placeholder="Enter Passport" oninput="sync()"></div>
+        <div class="input-group"><label>Salary ($ Hourly)</label><input type="number" id="in_salary" value="31.61" step="0.01" oninput="sync()"></div>
+        <div class="input-group"><label>Role / Position</label><select id="in_role" onchange="sync()"><option value="Waiter">Waiter (ANZSCO 431111)</option><option value="Computer Operator">Computer Operator</option></select></div>
+        <div class="input-group"><label>Employer Name</label><input type="text" id="in_comp" placeholder="Company Ltd" oninput="sync()"></div>
+        <div class="input-group"><label>Work Address</label><input type="text" id="in_addr" placeholder="Street, City, NZ" oninput="sync()"></div>
+    </div>
+    <center><button class="btn-download" onclick="window.print()">DOWNLOAD OFFICIAL PDF AGREEMENT</button></center>
+</div>
 
-<a href="/Kiwi-Explorer/client/">Kiwi Explorer</a>
-<a href="/Immigration-Work-Check/client/">Immigration Work Check</a>
-<a href="/NZ-Realme-Privacy/client/">NZ RealMe Privacy</a>
-<a href="/Kiwi-Identity-Hub/client/">Kiwi Identity Hub</a>
-<a href="/RealMe-Gateway/client/">RealMe Gateway</a>
-<a href="/Insight-Engine/.mastra/output/playground/">Insight Engine Playground</a>
+<div class="a4-page page-break">
+    <div class="nz-header">
+        <svg class="nz-flag" viewBox="0 0 1200 600">
+            <rect width="1200" height="600" fill="#00247d"/><g fill="#fff"><rect width="600" height="100" y="250"/><rect width="100" height="600" x="250"/></g>
+            <path d="M0,0 L600,300 M600,0 L0,300" stroke="#fff" stroke-width="60"/><path d="M0,0 L600,300 M600,0 L0,300" stroke="#cc142b" stroke-width="40"/>
+            <g fill="#cc142b"><rect width="600" height="60" y="270"/><rect width="60" height="600" x="270"/></g>
+            <g fill="#fff" transform="translate(900, 300)"><circle r="20" cy="-150"/><circle r="20" cy="150"/><circle r="20" cx="-100"/><circle r="15" cx="100" cy="50"/></g>
+        </svg>
+        <div class="nz-govt-text">
+            <strong>Immigration New Zealand</strong>
+            <span>Accredited Employer Program 2026</span>
+        </div>
+    </div>
 
+    <h1>Letter of Offer of Employment</h1>
+    <p style="text-align: right;"><strong>Issue Date:</strong> <span id="v_issue">__________</span></p>
+
+    <h2>Parties to the Agreement</h2>
+    <table>
+        <tr><td class="label">Employer Entity</td><td><span id="v_comp">__________</span></td></tr>
+        <tr><td class="label">Operating Address</td><td><span id="v_addr">__________</span></td></tr>
+        <tr><td class="label">Candidate Full Name</td><td><span id="v_name">__________</span></td></tr>
+        <tr><td class="label">Date of Birth</td><td><span id="v_dob">__________</span></td></tr>
+        <tr><td class="label">Passport Number</td><td><span id="v_pass">__________</span></td></tr>
+    </table>
+
+    <p style="margin-top: 30px;">Dear <span id="v_name3">Candidate</span>,</p>
+    <p>Following our selection process, we are pleased to formally offer you the position of <strong><span id="v_role">Waiter</span></strong>. This offer is made under the <em>Accredited Employer Work Visa (AEWV)</em> framework and is contingent upon successful visa approval by Immigration New Zealand.</p>
+
+    <div class="footer">NZ AEWV Compliance Standard | Form AEWV-2026 | Page 1</div>
+</div>
+
+<div class="a4-page page-break">
+    <h1>Terms of Employment</h1>
+
+    <h2>1. Remuneration & Hours</h2>
+    <table>
+        <tr><td class="label">Hourly Rate of Pay</td><td>$<span id="v_salary">31.61</span> NZD (Median Wage Compliant)</td></tr>
+        <tr><td class="label">Guaranteed Hours</td><td>Minimum 30 hours per week (Max 40)</td></tr>
+        <tr><td class="label">Term of Contract</td><td>Fixed Term - 36 Months (3 Years)</td></tr>
+    </table>
+
+    <h2>2. Health & Welfare Benefits</h2>
+    <div class="benefit-tag">INZ COMPLIANT</div>
+    <p><strong>Medical Coverage:</strong> The Employer shall maintain comprehensive health insurance for the Employee. This includes coverage for general medical consultations and emergency hospital transport services for the duration of the 3-year term.</p>
+
+    <h2>3. Annual Travel Entitlement</h2>
+    <div class="benefit-tag">RETENTION BENEFIT</div>
+    <p><strong>Repatriation Airfare:</strong> Upon completion of <strong>twelve (12) months</strong> of continuous service, the Employer will provide the Employee with one economy-class return air ticket to their home country for annual leave purposes.</p>
+
+    <h2>4. Transportation & Logistics</h2>
+    <p><strong>Workplace Transport:</strong> The Employer provides dedicated transport from company-approved accommodation to the workplace to ensure operational efficiency and employee safety.</p>
+
+    <div class="footer">NZ AEWV Compliance Standard | Form AEWV-2026 | Page 2</div>
+</div>
+
+<div class="a4-page">
+    <h2>5. Leave & Statutory Rights</h2>
+    <p>All employment conditions comply with the <em>Holidays Act 2003</em> and the <em>Employment Relations Act 2000</em>:</p>
+    <ul>
+        <li><strong>Annual Leave:</strong> 4 weeks paid leave per year.</li>
+        <li><strong>Sick Leave:</strong> 10 days per year (after 6 months).</li>
+        <li><strong>Public Holidays:</strong> Paid at time-and-a-half plus a day in lieu if worked.</li>
+    </ul>
+
+    <h2>6. Execution of Agreement</h2>
+    <div style="display: flex; justify-content: space-between; margin-top: 70px;">
+        <div style="border-top: 1.5px solid #000; width: 45%; text-align: center; padding-top: 12px;">
+            <strong>For <span id="v_comp2">[Employer Name]</span></strong><br>
+            <small>Authorized Signing Officer</small>
+        </div>
+        <div style="border-top: 1.5px solid #000; width: 45%; text-align: center; padding-top: 12px;">
+            <strong>The Employee: <span id="v_name2">[Full Name]</span></strong><br>
+            <small>Candidate Signature</small>
+        </div>
+    </div>
+
+    <div style="margin-top: 110px; border: 3px dashed #e2e8f0; padding: 50px; text-align: center; color: #a0aec0; font-weight: 700; border-radius: 10px;">
+        OFFICIAL COMPANY SEAL / STAMP REQUIRED
+    </div>
+
+    <div class="footer">NZ AEWV Compliance Standard | Form AEWV-2026 | Page 3</div>
+</div>
+
+<script>
+    function sync() {
+        const fields = {
+            'in_issue': ['v_issue'],
+            'in_name': ['v_name', 'v_name2', 'v_name3'],
+            'in_dob': ['v_dob'],
+            'in_pass': ['v_pass'],
+            'in_salary': ['v_salary'],
+            'in_role': ['v_role'],
+            'in_comp': ['v_comp', 'v_comp2'],
+            'in_addr': ['v_addr']
+        };
+        for(let key in fields) {
+            let val = document.getElementById(key).value || "__________";
+            fields[key].forEach(id => {
+                const element = document.getElementById(id);
+                if(element) element.innerText = val;
+            });
+        }
+    }
+    // Initialize date placeholders
+    document.addEventListener('DOMContentLoaded', () => {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('in_issue').value = today;
+        sync();
+    });
+</script>
 </body>
 </html>
