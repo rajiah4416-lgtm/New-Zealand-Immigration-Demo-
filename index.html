@@ -2,7 +2,7 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <title>Azerbaijan TRC - VVIP Black Edition</title>
+    <title>Azerbaijan TRC - Presidential VIP Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -12,12 +12,14 @@
 
         :root {
             --vvip-gold: #ffcc00;
-            --vvip-glow: rgba(255, 204, 0, 0.4);
-            --bg-dark: #05070a;
+            --vvip-glow: rgba(255, 204, 0, 0.5);
+            --az-blue: #0092bc;
+            --az-red: #e4181c;
+            --az-green: #009739;
         }
 
         body {
-            background-color: #000;
+            background-color: #020617;
             font-family: 'Orbitron', sans-serif;
             color: white;
             padding: 20px;
@@ -26,156 +28,146 @@
             align-items: center;
         }
 
-        /* Luxury Card Container */
         .card-container {
-            width: 850px;
-            height: 540px;
-            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-            border-radius: 30px;
+            width: 900px;
+            height: 560px;
+            background: linear-gradient(145deg, #0f172a 0%, #020617 100%);
+            border-radius: 35px;
             position: relative;
-            border: 2px solid var(--vvip-gold);
-            box-shadow: 0 0 80px rgba(0,0,0,1), 0 0 40px var(--vvip-glow);
+            border: 3px solid var(--vvip-gold);
+            box-shadow: 0 0 100px rgba(0,0,0,1), 0 0 40px var(--vvip-glow);
             overflow: hidden;
         }
 
-        /* The Neon Immigration Pillar */
+        /* Large Background Flag (Watermark Style) */
+        .bg-flag {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 120%; height: 120%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            opacity: 0.05;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* The Immigration Pillar */
         .immigration-pillar {
             position: absolute;
             left: 0; top: 0;
-            width: 18px; height: 100%;
+            width: 20px; height: 100%;
             display: flex; flex-direction: column;
             z-index: 50;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
         }
-        .pillar-blue { background: #0092bc; flex: 1; box-shadow: 0 0 15px #0092bc; }
-        .pillar-red { background: #e4181c; flex: 1; box-shadow: 0 0 15px #e4181c; }
-        .pillar-green { background: #009739; flex: 1; box-shadow: 0 0 15px #009739; }
+        .p-b { background: var(--az-blue); flex: 1; }
+        .p-r { background: var(--az-red); flex: 1; }
+        .p-g { background: var(--az-green); flex: 1; }
 
-        /* VVIP Badge */
-        .vvip-badge {
-            position: absolute;
-            top: 30px;
-            right: 140px;
-            padding: 5px 15px;
-            border: 1px solid var(--vvip-gold);
-            color: var(--vvip-gold);
-            font-size: 14px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            background: rgba(255, 204, 0, 0.1);
-            transform: skewX(-15deg);
-            box-shadow: 0 0 15px var(--vvip-glow);
+        .label { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+        .data-val { font-size: 20px; font-weight: 700; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        .gold-text { color: var(--vvip-gold) !important; text-shadow: 0 0 15px var(--vvip-glow) !important; }
+
+        .photo-frame {
+            width: 220px; height: 280px;
+            border: 2px solid var(--vvip-gold);
+            background: #000;
+            box-shadow: 0 0 30px var(--vvip-glow);
+            z-index: 10;
         }
 
-        /* Luxury Typography */
-        .label { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; }
-        .data-val { font-size: 22px; font-weight: 700; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
-        .gold-text { color: var(--vvip-gold) !important; text-shadow: 0 0 10px var(--vvip-glow) !important; }
-
-        /* Signature Pad */
         .signature-box {
-            position: absolute;
-            bottom: 90px;
-            right: 45px;
-            width: 320px;
-            height: 110px;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,204,0,0.3);
-            border-radius: 10px;
+            width: 320px; height: 100px;
+            background: rgba(255,255,255,0.03);
+            border-bottom: 2px solid var(--vvip-gold);
+            margin-top: 5px;
         }
         
         #signature-canvas { width: 100%; height: 100%; filter: drop-shadow(0 0 8px var(--vvip-gold)); }
 
-        .photo-frame {
-            width: 210px; height: 275px;
-            border: 2px solid var(--vvip-gold);
-            background: #000;
-            box-shadow: 0 0 30px var(--vvip-glow);
-        }
-
         .mrz-luxury {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 21px;
+            font-size: 22px;
             letter-spacing: 8px;
             color: var(--vvip-gold);
-            opacity: 0.5;
+            opacity: 0.4;
         }
 
-        /* UI Controls */
+        /* Admin UI */
         .admin-panel {
             background: #111;
             padding: 30px;
             border-radius: 20px;
-            width: 900px;
+            width: 940px;
             margin-bottom: 25px;
             border: 1px solid #333;
         }
+        input, select { background: #000; border: 1px solid #444; padding: 10px; border-radius: 8px; color: #fff; width: 100%; }
     </style>
 </head>
 <body>
 
     <div class="admin-panel no-print">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-black text-yellow-500 italic">VVIP ACCESS TERMINAL</h2>
-            <button onclick="clearSig()" class="bg-red-600 px-4 py-1 rounded text-xs font-bold">RESET SIGNATURE</button>
-        </div>
-        
+        <h2 class="text-2xl font-black text-yellow-500 mb-6 italic tracking-tighter">PRESIDENTIAL VIP ISSUANCE TERMINAL</h2>
         <div class="grid grid-cols-4 gap-4">
-            <div class="col-span-1">
-                <input type="file" class="text-xs w-full" onchange="preview(this)">
-            </div>
-            <input id="inS" placeholder="SURNAME" class="bg-black border border-gray-700 p-2 rounded text-white">
-            <input id="inN" placeholder="GIVEN NAME" class="bg-black border border-gray-700 p-2 rounded text-white">
-            <select id="inCat" class="bg-black border border-gray-700 p-2 rounded text-white">
-                <option value="DIPLOMATIC CLEARANCE">DIPLOMATIC CLEARANCE</option>
+            <input type="file" onchange="preview(this)">
+            <input id="inS" placeholder="SURNAME">
+            <input id="inN" placeholder="GIVEN NAME">
+            <input id="inPass" placeholder="PASSPORT NO">
+            <input id="inNat" placeholder="NATIONALITY">
+            <input id="inVer" placeholder="VERIFICATION DATE (DD.MM.YYYY)">
+            <select id="inCat">
+                <option value="DIPLOMATIC VIP">DIPLOMATIC VIP</option>
                 <option value="EXECUTIVE COMMAND">EXECUTIVE COMMAND</option>
-                <option value="VVIP INVESTOR">VVIP INVESTOR</option>
-                <option value="POWER ENGINEER">CHIEF POWER ENGINEER</option>
+                <option value="STATE INVESTOR">STATE INVESTOR</option>
             </select>
+            <button onclick="clearSig()" class="bg-red-600 font-bold rounded">CLEAR SIGN</button>
         </div>
-
         <div class="mt-6 flex gap-4">
-            <button onclick="update()" class="flex-1 bg-yellow-500 text-black py-4 rounded-xl font-black text-lg">ACTIVATE VVIP STATUS</button>
-            <button onclick="download()" class="flex-1 border-2 border-yellow-500 text-yellow-500 py-4 rounded-xl font-black text-lg">EXPORT LUXURY PNG</button>
+            <button onclick="update()" class="flex-1 bg-yellow-500 text-black py-4 rounded-xl font-black text-xl hover:bg-yellow-400">AUTHORIZE CARD</button>
+            <button onclick="download()" class="flex-1 border-2 border-yellow-500 text-yellow-500 py-4 rounded-xl font-black text-xl">DOWNLOAD MASTER COPY</button>
         </div>
     </div>
 
     <div id="capture">
         <div class="card-container" id="mainCard">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="bg-flag">
+
             <div class="immigration-pillar">
-                <div class="pillar-blue"></div>
-                <div class="pillar-red"></div>
-                <div class="pillar-green"></div>
+                <div class="p-b"></div><div class="p-r"></div><div class="p-g"></div>
             </div>
 
-            <div class="vvip-badge">CLEARANCE LEVEL: 7</div>
-
-            <div class="flex justify-between items-start pl-14 pr-10 pt-10">
+            <div class="flex justify-between items-start pl-16 pr-12 pt-10 relative z-10">
                 <div class="flex gap-6 items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-24 filter drop-shadow-[0_0_10px_rgba(255,204,0,0.8)]">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-28 filter drop-shadow-[0_0_15px_rgba(255,204,0,0.8)]">
                     <div>
-                        <h1 style="font-family: 'Cinzel', serif;" class="text-2xl font-bold leading-none text-white">AZƏRBAYCAN RESPUBLİKASI</h1>
-                        <p class="text-[11px] font-bold text-yellow-500 uppercase tracking-[4px] mt-1">Temporary Residence Permit</p>
+                        <h1 style="font-family: 'Cinzel', serif;" class="text-3xl font-bold leading-none text-white tracking-tight">AZƏRBAYCAN RESPUBLİKASI</h1>
+                        <p class="text-[12px] font-bold text-yellow-500 uppercase tracking-[6px] mt-2">Presidential VIP Residence Permit</p>
                     </div>
                 </div>
-                <div id="qrcode" class="bg-white p-1 rounded-lg"></div>
+                <div class="text-center">
+                    <div id="qrcode" class="bg-white p-1.5 rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.3)]"></div>
+                    <p class="text-[9px] mt-2 text-yellow-500 font-bold">VERIFIED: <span id="outVer">05.02.2026</span></p>
+                </div>
             </div>
 
-            <div class="flex gap-14 pl-14 mt-12">
+            <div class="flex gap-16 pl-16 mt-10 relative z-10">
                 <div class="photo-frame overflow-hidden">
                     <img id="outP" class="w-full h-full object-cover hidden">
                 </div>
 
                 <div class="flex-1 grid grid-cols-2 gap-y-6">
                     <div><p class="label">Surname</p><p id="outS" class="data-val">RAHAT</p></div>
+                    <div><p class="label">Passport No</p><p id="outPass" class="data-val gold-text">P12345678</p></div>
                     <div><p class="label">Given Name</p><p id="outN" class="data-val">ALI</p></div>
+                    <div><p class="label">Nationality</p><p id="outNat" class="data-val">PAKISTAN</p></div>
+                    
                     <div class="col-span-2">
-                        <p class="label">Status Category</p>
-                        <p id="outCat" class="data-val gold-text">DIPLOMATIC CLEARANCE</p>
+                        <p class="label">Category Status</p>
+                        <p id="outCat" class="data-val gold-text italic">DIPLOMATIC VIP</p>
                     </div>
                     
-                    <div class="col-span-2 pt-2">
-                        <p class="label">Official VVIP Signature</p>
+                    <div class="col-span-2">
+                        <p class="label">Presidential Authorization Signature</p>
                         <div class="signature-box">
                             <canvas id="signature-canvas"></canvas>
                         </div>
@@ -183,15 +175,15 @@
                 </div>
             </div>
 
-            <div class="absolute bottom-8 left-0 w-full text-center">
-                <p id="m1" class="mrz-text mrz-luxury">ITAZE6810911<<RAHAT<<<<<<<<<<<<</p>
+            <div class="absolute bottom-10 left-0 w-full text-center z-10">
+                <p id="m1" class="mrz-luxury">ITAZE6810911<<RAHAT<<<<<<<<<<<<</p>
             </div>
         </div>
     </div>
 
     <script>
         const canvas = document.querySelector("canvas");
-        const signaturePad = new SignaturePad(canvas, { penColor: "#ffcc00" });
+        const signaturePad = new SignaturePad(canvas, { penColor: "#ffcc00", minWidth: 2, maxWidth: 4 });
 
         function resizeCanvas() {
             const ratio = 2;
@@ -203,7 +195,7 @@
         window.onresize = resizeCanvas;
         resizeCanvas();
 
-        const qr = new QRCode(document.getElementById("qrcode"), { text: "AZE-VVIP-ACTIVE", width: 80, height: 80 });
+        const qr = new QRCode(document.getElementById("qrcode"), { text: "AZE-VIP-PRESIDENTIAL", width: 90, height: 90 });
 
         function clearSig() { signaturePad.clear(); }
 
@@ -221,20 +213,26 @@
         function update() {
             const s = document.getElementById('inS').value.toUpperCase() || "RAHAT";
             const n = document.getElementById('inN').value.toUpperCase() || "ALI";
+            const pass = document.getElementById('inPass').value.toUpperCase() || "P12345678";
+            const nat = document.getElementById('inNat').value.toUpperCase() || "PAKISTAN";
+            const ver = document.getElementById('inVer').value || "05.02.2026";
             const cat = document.getElementById('inCat').value;
 
             document.getElementById('outS').innerText = s;
             document.getElementById('outN').innerText = n;
+            document.getElementById('outPass').innerText = pass;
+            document.getElementById('outNat').innerText = nat;
+            document.getElementById('outVer').innerText = ver;
             document.getElementById('outCat').innerText = cat;
-            document.getElementById('m1').innerText = `ITAZE6810911<<${s.padEnd(12, '<')}`;
+            document.getElementById('m1').innerText = `ITAZE${pass.slice(0,9)}<<${s.padEnd(12, '<')}`;
             
-            qr.makeCode(`AZE-VVIP-COMMAND: ${n} ${s} | AUTH: ${cat}`);
+            qr.makeCode(`AZE-PRESIDENTIAL-VIP: ${n} ${s} | PASS: ${pass} | VERIFIED: ${ver}`);
         }
 
         function download() {
-            html2canvas(document.querySelector("#capture"), { backgroundColor: '#000' }).then(canvas => {
+            html2canvas(document.querySelector("#capture"), { backgroundColor: '#020617', scale: 2 }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'VVIP-TRC-CARD.png';
+                link.download = `VIP_CARD_${document.getElementById('outS').innerText}.png`;
                 link.href = canvas.toDataURL();
                 link.click();
             });
