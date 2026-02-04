@@ -3,202 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NZ Immigration & Employment Portal</title>
+    <title>NZ Employment & Immigration System</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Libre+Baskerville:italic&display=swap" rel="stylesheet">
     <style>
-        :root { --nz-blue: #003566; --nz-accent: #0056b3; }
-        body { font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+        body { font-family: 'Montserrat', sans-serif; background: #f8fafc; }
+        .orange-gradient { background: linear-gradient(135deg, #ff6b00 0%, #ff9100 100%); }
+        .navy-accent { color: #001d3d; }
         @media print {
             .no-print { display: none !important; }
             .page-break { page-break-before: always; }
-            body { background: white !important; padding: 0 !important; }
-            .doc-shadow { box-shadow: none !important; border: none !important; }
+            body { background: white; padding: 0; }
+            .doc-container { box-shadow: none !important; border: 1px solid #eee !important; margin: 0 !important; width: 100% !important; }
         }
-        .gradient-bg { background: linear-gradient(135deg, #001d3d 0%, #003566 100%); }
-        .inz-logo { height: 60px; width: auto; }
-        .data-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; }
+        .fern-watermark { opacity: 0.05; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60%; pointer-events: none; }
     </style>
 </head>
-<body class="bg-slate-200 p-4 md:p-12">
+<body class="p-4 md:p-10">
 
-    <div class="max-w-6xl mx-auto no-print bg-white rounded-3xl shadow-2xl overflow-hidden mb-12 border border-slate-300">
-        <div class="gradient-bg p-8 text-white flex justify-between items-center">
+    <div class="max-w-6xl mx-auto no-print bg-white rounded-3xl shadow-2xl overflow-hidden mb-12 border border-orange-100">
+        <div class="orange-gradient p-8 text-white flex justify-between items-center">
             <div>
-                <h1 class="text-3xl font-extrabold tracking-tighter">NZ IMMIGRATION PORTAL</h1>
-                <p class="text-blue-200 text-sm font-medium">Official Company Authorization & Employment Pack</p>
+                <h1 class="text-3xl font-black tracking-tight">NZ IMMIGRATION & EMPLOYMENT HUB</h1>
+                <p class="text-orange-100 font-medium">3-Year Contract Administration (2026 Compliant)</p>
             </div>
-            <div class="text-right">
-                <span class="bg-blue-500/30 px-4 py-2 rounded-full text-xs font-bold border border-blue-400/50">SYSTEM VERSION 2026.1</span>
-            </div>
+            <div class="text-3xl">🇳🇿</div>
         </div>
-        
-        <div class="p-10 grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div class="space-y-5">
-                <div class="flex items-center gap-2 text-blue-800 font-bold border-b pb-2">
-                    <span>🏢</span> <h3>COMPANY PROFILE</h3>
-                </div>
-                <input id="coName" type="text" placeholder="Company Legal Name" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
-                <input id="nzbn" type="text" placeholder="NZBN (13 Digits)" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
-                <input id="address" type="text" placeholder="Full Registered Address" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
-                <input id="coEmail" type="email" placeholder="Business Email Address" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
-            </div>
 
-            <div class="space-y-5">
-                <div class="flex items-center gap-2 text-blue-800 font-bold border-b pb-2">
-                    <span>👤</span> <h3>CLIENT BIODATA</h3>
-                </div>
-                <input id="repName" type="text" placeholder="Client Full Name" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none font-semibold">
-                <input id="passport" type="text" placeholder="Passport Number" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
-                <input id="dob" type="text" placeholder="Birth Date (DD/MM/YYYY)" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
-                <input id="nationality" type="text" placeholder="Client Nationality" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
+        <div class="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="space-y-3">
+                <label class="text-[10px] font-bold text-orange-600 uppercase">Employer Details</label>
+                <input id="coName" type="text" placeholder="Company Name" class="w-full p-3 bg-slate-50 border-b-2 border-orange-200 outline-none focus:border-orange-500 transition">
+                <input id="address" type="text" placeholder="Company Address" class="w-full p-3 bg-slate-50 border-b-2 border-orange-200 outline-none focus:border-orange-500 transition">
+                <input id="coEmail" type="email" placeholder="Business Email" class="w-full p-3 bg-slate-50 border-b-2 border-orange-200 outline-none focus:border-orange-500 transition">
+                <input id="coPhone" type="text" placeholder="Company Phone" class="w-full p-3 bg-slate-50 border-b-2 border-orange-200 outline-none focus:border-orange-500 transition">
             </div>
-
-            <div class="space-y-5">
-                <div class="flex items-center gap-2 text-blue-800 font-bold border-b pb-2">
-                    <span>📄</span> <h3>VISA & JOB TERMS</h3>
-                </div>
-                <select id="jobCat" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none font-bold text-blue-900">
-                    <option value="Waiter (Hotel Service)">Waiter (Hotel Service)</option>
-                    <option value="Hotel Service Associate">Hotel Service Associate</option>
-                    <option value="Packer & Inventory Specialist">Packer (Warehouse/Store)</option>
+            <div class="space-y-3">
+                <label class="text-[10px] font-bold text-orange-600 uppercase">Client Information</label>
+                <input id="repName" type="text" placeholder="Client Full Name" class="w-full p-3 bg-slate-50 border-b-2 border-orange-200 outline-none focus:border-orange-500 transition">
+                <input id="passport" type="text" placeholder="Passport Number" class="w-full p-3 bg-slate-50 border-b-2 border-orange-200 outline-none focus:border-orange-500 transition">
+                <select id="nationality" class="w-full p-3 bg-slate-50 border-b-2 border-orange-200 outline-none">
+                    <option value="">Select Nationality</option>
+                    <option value="United Kingdom">United Kingdom</option><option value="India">India</option><option value="Philippines">Philippines</option><option value="South Africa">South Africa</option><option value="Fiji">Fiji</option><option value="China">China</option><option value="Vietnam">Vietnam</option><option value="Malaysia">Malaysia</option>
                 </select>
-                <input id="refNo" type="text" placeholder="INZ Reference / Client No." class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
-                <input id="payRate" type="text" placeholder="Hourly Rate (e.g. $29.66)" class="w-full p-3 bg-green-50 text-green-800 border-none rounded-xl focus:ring-2 focus:ring-green-600 outline-none font-bold">
-                <input id="director" type="text" placeholder="Authorizing Director Name" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
+                <input id="dob" type="text" placeholder="DOB (DD/MM/YYYY)" class="w-full p-3 bg-slate-50 border-b-2 border-orange-200 outline-none focus:border-orange-500 transition">
             </div>
-        </div>
-
-        <div class="p-10 pt-0">
-            <button onclick="generateDocuments()" class="w-full gradient-bg text-white py-5 rounded-2xl font-black text-xl hover:scale-[1.01] transition-transform shadow-xl uppercase tracking-widest">
-                Assemble Beautiful Document Pack
-            </button>
+            <div class="space-y-3">
+                <label class="text-[10px] font-bold text-orange-600 uppercase">Role & Salary</label>
+                <select id="jobCat" class="w-full p-3 bg-slate-50 border-b-2 border-orange-200 outline-none">
+                    <option value="Waiter (Hotel Service)">Waiter (Hotel Service)</option>
+                    <option value="Hotel Service Specialist">Hotel Service Worker</option>
+                    <option value="Packer / Inventory Specialist">Packer / Warehouse</option>
+                </select>
+                <input id="payRate" type="text" placeholder="Monthly Salary (NZD)" class="w-full p-3 bg-slate-50 border-b-2 border-orange-200 outline-none focus:border-orange-500 transition">
+                <input id="joinDate" type="date" class="w-full p-3 bg-slate-50 border-b-2 border-orange-200 outline-none">
+                <input id="refNo" type="text" placeholder="Ref Number (Optional)" class="w-full p-3 bg-slate-50 border-b-2 border-orange-200 outline-none">
+            </div>
+            <div class="space-y-3">
+                <label class="text-[10px] font-bold text-orange-600 uppercase">Authorization</label>
+                <input id="director" type="text" placeholder="Director Name" class="w-full p-3 bg-slate-50 border-b-2 border-orange-200 outline-none focus:border-orange-500 transition">
+                <button onclick="generateDoc()" class="w-full orange-gradient text-white py-4 rounded-xl font-bold shadow-lg hover:brightness-110 transition uppercase tracking-tighter">Generate Pack</button>
+            </div>
         </div>
     </div>
 
-    <div id="document-pack" class="hidden">
+    <div id="document-pack" class="hidden space-y-10">
         
-        <div class="max-w-4xl mx-auto bg-white p-16 shadow-2xl mb-12 doc-shadow relative min-h-[1100px]">
-            <div class="flex justify-between items-start border-b-8 border-blue-900 pb-8 mb-12">
-                <div>
-                    <h2 class="outCoName text-4xl font-black text-blue-900 tracking-tighter uppercase leading-none mb-2"></h2>
-                    <p class="text-xs font-bold text-slate-400">NZBN: <span class="outNZBN font-normal text-slate-800"></span></p>
-                    <p class="outAddress text-[10px] text-slate-500 max-w-xs mt-1"></p>
-                    <p class="outCoEmail text-xs text-blue-600 font-bold mt-2"></p>
+        <div class="max-w-4xl mx-auto bg-white p-16 shadow-2xl relative doc-container overflow-hidden min-h-[1050px]">
+            <img src="https://i.imgur.com/39G0H5v.png" class="fern-watermark" alt="Silver Fern">
+            <div class="flex justify-between items-start border-b-4 border-orange-500 pb-6 mb-10">
+                <div class="navy-accent">
+                    <h2 class="outCoName text-3xl font-black uppercase"></h2>
+                    <p class="text-xs outAddress font-bold"></p>
+                    <p class="text-[10px] text-orange-600 font-black">PH: <span class="outCoPhone"></span> | EMAIL: <span class="outCoEmail"></span></p>
                 </div>
-                <img src="https://i.imgur.com/vH9eHwO.png" alt="INZ Logo" class="inz-logo">
+                <div class="text-right">
+                    <p class="text-[10px] font-black text-slate-400">NZ IMMIGRATION COMPLIANCE</p>
+                    <p class="text-xs font-bold outDate"></p>
+                    <p class="text-[10px] text-blue-800 font-bold">REF: <span class="outRefNo"></span></p>
+                </div>
             </div>
 
-            <p class="text-right font-bold text-slate-900 mb-12 outDate"></p>
-
-            <h3 class="bg-blue-900 text-white inline-block px-6 py-2 rounded-full font-black text-sm mb-10 tracking-widest">01 / OFFICIAL AUTHORIZATION</h3>
-
-            <div class="grid grid-cols-2 gap-8 mb-12 bg-blue-50 p-8 rounded-3xl border border-blue-100">
-                <div><span class="data-label">Applicant Name</span><p class="text-xl font-extrabold text-blue-900 outRepName"></p></div>
-                <div><span class="data-label">Passport Number</span><p class="text-xl font-extrabold text-blue-900 outPassport"></p></div>
-                <div><span class="data-label">Nationality</span><p class="text-lg font-bold outNationality"></p></div>
-                <div><span class="data-label">Client Reference</span><p class="text-lg font-bold text-blue-700 outRefNo"></p></div>
-            </div>
-
-            <p class="text-slate-700 leading-relaxed mb-8">This formal instrument serves to notify <strong>Immigration New Zealand</strong> that the company named above hereby authorizes the applicant to act as its corporate representative for the <span class="font-black text-blue-900">Accredited Employer Work Visa</span> process.</p>
+            <h3 class="bg-orange-500 text-white inline-block px-4 py-1 text-xs font-black tracking-widest rounded mb-10 uppercase">Doc 01: Authority to Represent</h3>
+            <p class="mb-8 leading-relaxed">We hereby authorize <strong><span class="outRepName text-orange-600"></span></strong> (<span class="outNationality"></span>, Passport: <span class="outPassport"></span>) to act as the primary worker and representative for <strong><span class="outCoName"></span></strong> under the Accredited Employer scheme.</p>
             
-            <p class="text-slate-700 leading-relaxed mb-12 italic border-l-4 border-blue-200 pl-6">"The Company confirms it remains fully responsible for all regulatory compliance under the Immigration Act 2009."</p>
-
-            <div class="mt-32">
-                <div class="w-64 h-1 bg-blue-900 mb-2"></div>
-                <p class="font-black outDirector text-xl text-blue-900 uppercase"></p>
-                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Managing Director | Authorized Signatory</p>
+            <div class="mt-40">
+                <div class="w-48 h-1 bg-navy-accent mb-2"></div>
+                <p class="font-black outDirector uppercase"></p>
+                <p class="text-[10px] font-bold text-slate-400 italic tracking-widest">Director Signature / Corporate Seal</p>
             </div>
         </div>
 
-        <div class="max-w-4xl mx-auto bg-white p-16 shadow-2xl mb-12 doc-shadow page-break min-h-[1100px]">
-            <h3 class="bg-blue-900 text-white inline-block px-6 py-2 rounded-full font-black text-sm mb-10 tracking-widest uppercase">02 / Letter of Offer</h3>
-            <p class="text-2xl font-light mb-8">Dear <span class="outRepName font-bold"></span>,</p>
-            <p class="mb-10 text-slate-600 leading-relaxed">We are delighted to invite you to join <strong><span class="outCoName"></span></strong>. This position is vital to our operations within the New Zealand hospitality and logistics sector.</p>
+        <div class="max-w-4xl mx-auto bg-white p-16 shadow-2xl relative doc-container page-break min-h-[1050px]">
+            <h3 class="bg-orange-500 text-white inline-block px-4 py-1 text-xs font-black tracking-widest rounded mb-10 uppercase">Doc 02: 3-Year Fixed Term Contract</h3>
+            <p class="mb-6 font-bold text-lg border-l-4 border-orange-500 pl-4">Position: <span class="outJobCat"></span></p>
             
-            <div class="border-2 border-blue-900 rounded-3xl overflow-hidden mb-12">
-                <div class="bg-blue-900 text-white p-4 font-bold text-center">CORE EMPLOYMENT TERMS</div>
-                <div class="grid grid-cols-2 text-sm">
-                    <div class="p-4 border-b border-r bg-slate-50 font-bold">Designated Role</div><div class="p-4 border-b outJobCat font-extrabold text-blue-800 uppercase"></div>
-                    <div class="p-4 border-b border-r bg-slate-50 font-bold">Remuneration</div><div class="p-4 border-b font-black text-green-700"><span class="outPayRate"></span> Per Hour</div>
-                    <div class="p-4 border-r bg-slate-50 font-bold">Guaranteed Hours</div><div class="p-4 italic">30 Hours Minimum (AEWV Compliant)</div>
-                </div>
+            <div class="grid grid-cols-2 gap-4 text-sm mb-10 bg-slate-50 p-6 rounded-2xl border border-orange-100">
+                <div><span class="text-[10px] font-bold text-slate-400 uppercase block">Commencement</span><span class="font-bold outJoinDate"></span></div>
+                <div><span class="text-[10px] font-bold text-slate-400 uppercase block">Contract Term</span><span class="font-bold">3 Years (Fixed)</span></div>
+                <div><span class="text-[10px] font-bold text-slate-400 uppercase block">Working Hours</span><span class="font-bold">Minimum 30 Hours Per Week</span></div>
+                <div><span class="text-[10px] font-bold text-slate-400 uppercase block">Salary (Monthly)</span><span class="font-bold text-orange-600 outPayRate"></span></div>
             </div>
 
-            <div class="bg-blue-50 p-8 rounded-3xl mb-10 border border-blue-100">
-                <h4 class="font-black text-blue-900 mb-4 text-xs uppercase tracking-widest italic">Specific Duties & Responsibilities:</h4>
-                <div id="dutyList" class="text-sm text-slate-700 space-y-3 font-medium"></div>
-            </div>
-
-            <p class="text-xs text-slate-400 mt-20 italic font-serif leading-relaxed text-center">This offer is subject to the granting of a New Zealand work visa and satisfactory reference checks.</p>
-        </div>
-
-        <div class="max-w-4xl mx-auto bg-white p-16 shadow-2xl doc-shadow page-break min-h-[1100px]">
-            <h3 class="bg-blue-900 text-white inline-block px-6 py-2 rounded-full font-black text-sm mb-10 tracking-widest uppercase">03 / Agreement Summary</h3>
-            <div class="space-y-6 text-[13px] text-slate-700 leading-relaxed">
-                <p><strong>1. HOLIDAYS:</strong> As per the <em>Holidays Act 2003</em>, the employee is entitled to 4 weeks annual leave and 10 days sick leave (after 6 months).</p>
-                <p><strong>2. PUBLIC HOLIDAYS:</strong> Work on public holidays is paid at "Time and a Half" ($T_{1.5}$) plus an alternative day of rest.</p>
-                <p><strong>3. EMPLOYEE PROTECTION:</strong> This agreement includes standard New Zealand employment protection provisions regarding company restructuring.</p>
-                <p><strong>4. DISPUTE RESOLUTION:</strong> If an employment problem arises, parties will use the <em>Employment Relations Act 2000</em> mediation services.</p>
-            </div>
-
-            <div class="mt-40 grid grid-cols-2 gap-20">
-                <div class="text-center">
-                    <div class="w-full h-px bg-slate-300 mb-4"></div>
-                    <p class="text-[10px] font-black text-blue-900 uppercase">Authorized Employer Signature</p>
-                </div>
-                <div class="text-center">
-                    <div class="w-full h-px bg-slate-300 mb-4"></div>
-                    <p class="text-[10px] font-black text-blue-900 uppercase">Employee Acceptance Signature</p>
-                </div>
-            </div>
-
-            <div class="no-print mt-20 flex justify-center">
-                <button onclick="window.print()" class="bg-blue-600 text-white px-12 py-4 rounded-full font-black shadow-2xl hover:bg-blue-700 transition transform hover:scale-105">
-                    ⬇️ DOWNLOAD FULL PDF PACK
-                </button>
+            <div class="space-y-4 text-xs leading-relaxed text-slate-700">
+                <p><strong>1. ACCOMMODATION:</strong> The Company provides full monthly accommodation support for the duration of the 3-year term.</p>
+                <p><strong>2. TRANSPORT:</strong> Local transport to and from the workplace is fully provided and maintained by the Company.</p>
+                <p><strong>3. MEDICAL & INSURANCE:</strong> Comprehensive medical cover is provided by the Company. In accordance with insurance policy standards, a <strong>One-way return air ticket</strong> will be issued by the insurance provider after the completion of the second year (24 months).</p>
+                <p><strong>4. LEAVE:</strong> Entitlements under the <em>Holidays Act 2003</em> apply including 4 weeks annual leave.</p>
             </div>
         </div>
+
     </div>
 
     <script>
-        const dutySet = {
-            "Waiter (Hotel Service)": [
-                "Greet and seat guests in the hotel dining facilities.",
-                "Process complex food and beverage orders via digital POS systems.",
-                "Maintain high-level mise-en-place and table service standards.",
-                "Coordinate with kitchen staff regarding dietary requirements.",
-                "Ensure all beverage service complies with Sale and Supply of Alcohol Act."
-            ],
-            "Hotel Service Associate": [
-                "Provide frontline guest services and concierge assistance.",
-                "Ensure common areas meet 5-star hotel hygiene standards.",
-                "Manage hotel inventory and service supply logistics.",
-                "Respond to guest inquiries and manage room service delivery.",
-                "Monitor and maintain hotel facilities for health and safety compliance."
-            ],
-            "Packer & Inventory Specialist": [
-                "Accurately pick and pack stock for commercial distribution.",
-                "Utilize inventory management software for stock tracking.",
-                "Ensuring all outgoing shipments meet NZ export/domestic standards.",
-                "Operate warehouse equipment safely (Forklift/MHE if qualified).",
-                "Perform regular cycle counts and inventory reconciliations."
-            ]
-        };
+        function generateDoc() {
+            const data = {
+                coName: document.getElementById('coName').value,
+                address: document.getElementById('address').value,
+                coEmail: document.getElementById('coEmail').value,
+                coPhone: document.getElementById('coPhone').value,
+                repName: document.getElementById('repName').value,
+                passport: document.getElementById('passport').value,
+                nationality: document.getElementById('nationality').value,
+                jobCat: document.getElementById('jobCat').value,
+                payRate: document.getElementById('payRate').value,
+                joinDate: document.getElementById('joinDate').value,
+                director: document.getElementById('director').value,
+                refNo: document.getElementById('refNo').value || 'NZ-' + Math.floor(100000 + Math.random() * 900000),
+                date: new Date().toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' })
+            };
 
-        function generateDocuments() {
-            const keys = ['coName', 'nzbn', 'address', 'coEmail', 'repName', 'passport', 'dob', 'nationality', 'jobCat', 'refNo', 'payRate', 'director'];
-            keys.forEach(k => {
-                const val = document.getElementById(k).value || "---";
-                document.querySelectorAll('.out' + k.charAt(0).toUpperCase() + k.slice(1)).forEach(el => el.innerText = val);
-            });
-
-            const currentJob = document.getElementById('jobCat').value;
-            const dutyList = document.getElementById('dutyList');
-            dutyList.innerHTML = dutySet[currentJob].map(d => `<div class="flex gap-2"><span>▶</span> <p>${d}</p></div>`).join('');
-
-            document.querySelectorAll('.outDate').forEach(el => {
-                el.innerText = new Date().toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' });
+            Object.keys(data).forEach(key => {
+                document.querySelectorAll('.out' + key.charAt(0).toUpperCase() + key.slice(1)).forEach(el => el.innerText = data[key]);
             });
 
             document.getElementById('document-pack').classList.remove('hidden');
@@ -206,4 +142,4 @@
         }
     </script>
 </body>
-</html>
+                                                                                                                                                                                                                                                                                      </html>
