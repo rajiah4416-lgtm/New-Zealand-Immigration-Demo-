@@ -3,175 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azerbaijan Work Permit Card</title>
+    <title>Azerbaijan TRC Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
-        body { font-family: 'Outfit', sans-serif; background: #f0f4f8; }
+        body { font-family: 'Outfit', sans-serif; background: #fff7ed; }
         
-        .id-card {
-            width: 450px;
-            height: 280px;
+        .trc-card {
+            width: 500px;
+            height: 315px;
             background: white;
-            border-radius: 20px;
+            border-radius: 24px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 50px rgba(255, 107, 0, 0.15);
+            border: 1px solid #ffedd5;
         }
 
-        .card-orange { background: #ff6b00; }
-        .card-blue { background: #0092bc; }
-        .card-navy { background: #003366; }
+        .bg-orange-main { background-color: #ff6b00; }
+        .bg-blue-main { background-color: #0092bc; }
+        .text-orange-main { color: #ff6b00; }
+        .text-blue-main { color: #0092bc; }
+        .text-navy-main { color: #003366; }
 
         @media print {
             .no-print { display: none !important; }
-            body { background: white; }
-            .card-wrapper { padding: 0; margin: 20px; box-shadow: none; border: 1px solid #ddd; }
+            body { background: white; padding: 0; }
+            .trc-card { box-shadow: none !important; border: 1px solid #0092bc !important; margin-bottom: 20px; }
         }
 
-        .watermark {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 80px;
-            opacity: 0.05;
-            font-weight: 900;
-            pointer-events: none;
-        }
+        .mrz-font { font-family: 'Courier New', Courier, monospace; letter-spacing: 2px; }
+        .chip { width: 45px; height: 35px; background: linear-gradient(135deg, #ffd700 0%, #ff6b00 100%); border-radius: 6px; }
     </style>
 </head>
-<body class="p-4 flex flex-col items-center">
+<body class="p-6 flex flex-col items-center">
 
-    <div class="max-w-4xl w-full no-print bg-white p-8 rounded-3xl shadow-xl mb-10 border-t-8 border-orange-500">
-        <h1 class="text-2xl font-black text-blue-900 mb-6 flex items-center gap-2">
-            🇦🇿 AZERBAIJAN TRP CARD GENERATOR
-        </h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input id="name" type="text" placeholder="Full Name" class="p-3 bg-slate-50 rounded-xl border-none ring-1 ring-slate-200">
-            <input id="nationality" type="text" placeholder="Nationality" class="p-3 bg-slate-50 rounded-xl border-none ring-1 ring-slate-200">
-            <input id="passport" type="text" placeholder="Passport Number" class="p-3 bg-slate-50 rounded-xl border-none ring-1 ring-slate-200">
-            <input id="job" type="text" placeholder="Job Category" class="p-3 bg-slate-50 rounded-xl border-none ring-1 ring-slate-200">
-            <input id="company" type="text" placeholder="Company Name" class="p-3 bg-slate-50 rounded-xl border-none ring-1 ring-slate-200">
-            <input id="issueDate" type="date" class="p-3 bg-slate-50 rounded-xl border-none ring-1 ring-slate-200">
-            <button onclick="updateCard()" class="md:col-span-2 bg-orange-600 text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-orange-700 transition">
-                Generate Card
-            </button>
+    <div class="max-w-4xl w-full no-print bg-white p-10 rounded-[2.5rem] shadow-2xl mb-12 border-b-8 border-orange-500">
+        <div class="flex items-center gap-4 mb-8">
+            <span class="text-4xl">🇦🇿</span>
+            <h1 class="text-3xl font-black text-navy-main italic">TRC ISSUANCE SYSTEM</h1>
         </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <input id="name" type="text" placeholder="Full Name" class="p-4 bg-orange-50 rounded-2xl border-none ring-2 ring-orange-100 focus:ring-orange-500 outline-none font-bold">
+            <input id="nation" type="text" placeholder="Nationality" class="p-4 bg-orange-50 rounded-2xl border-none ring-2 ring-orange-100 outline-none">
+            <input id="pass" type="text" placeholder="Passport No" class="p-4 bg-orange-50 rounded-2xl border-none ring-2 ring-orange-100 outline-none">
+            
+            <div class="space-y-1">
+                <label class="text-[10px] font-bold text-blue-500 ml-2">ISSUE DATE</label>
+                <input id="issue" type="date" class="w-full p-4 bg-blue-50 rounded-2xl border-none ring-2 ring-blue-100 outline-none">
+            </div>
+            <div class="space-y-1">
+                <label class="text-[10px] font-bold text-red-500 ml-2">EXPIRY DATE</label>
+                <input id="expiry" type="date" class="w-full p-4 bg-blue-50 rounded-2xl border-none ring-2 ring-blue-100 outline-none">
+            </div>
+            <div class="space-y-1">
+                <label class="text-[10px] font-bold text-orange-500 ml-2">CONTRACT CATEGORY</label>
+                <input id="category" type="text" placeholder="e.g. Hotel Service" class="w-full p-4 bg-blue-50 rounded-2xl border-none ring-2 ring-blue-100 outline-none">
+            </div>
+        </div>
+
+        <button onclick="generateTRC()" class="w-full mt-8 bg-orange-main text-white py-5 rounded-3xl font-black text-xl hover:scale-[1.02] transition shadow-lg shadow-orange-200 uppercase tracking-tighter">
+            Build Temporary Residence Card
+        </button>
     </div>
 
-    <div id="card-preview" class="hidden flex flex-col md:flex-row gap-10">
+    <div id="display-area" class="hidden flex flex-col lg:flex-row gap-12 items-center">
         
-        <div class="id-card border-2 border-blue-50">
-            <div class="watermark">TRP</div>
-            <div class="card-blue p-3 flex justify-between items-center text-white">
-                <div class="flex items-center gap-2">
+        <div class="trc-card">
+            <div class="bg-blue-main p-4 flex justify-between items-center text-white">
+                <div class="flex items-center gap-3">
                     <span class="text-2xl">🇦🇿</span>
-                    <div class="leading-none">
-                        <p class="text-[10px] font-black uppercase tracking-tighter">Republic of Azerbaijan</p>
-                        <p class="text-[8px] font-bold opacity-80 uppercase">Work Permit / TRP Card</p>
+                    <div>
+                        <p class="text-[11px] font-black uppercase leading-none">Republic of Azerbaijan</p>
+                        <p class="text-[8px] font-bold text-cyan-100 uppercase mt-1">Temporary Residence Card (TRC)</p>
                     </div>
                 </div>
-                <p class="text-[9px] font-black bg-white/20 px-2 py-1 rounded">2026 SERIES</p>
+                <div class="chip"></div>
             </div>
 
-            <div class="flex p-4 gap-4">
-                <div class="w-32 h-40 bg-slate-100 rounded-lg flex items-center justify-center border-2 border-orange-200 text-slate-300 text-xs text-center p-2 italic">
-                    Place Photo Here
+            <div class="flex p-5 gap-5">
+                <div class="flex flex-col gap-2">
+                    <div class="w-32 h-40 bg-slate-100 rounded-xl border-2 border-orange-400 border-dashed flex items-center justify-center text-center p-4">
+                        <p class="text-[10px] font-bold text-orange-400">ATTACH WORKER PHOTO</p>
+                    </div>
+                    <p class="text-[10px] font-black text-blue-800 text-center tracking-widest" id="outID">AZ000000</p>
                 </div>
-                <div class="flex-1 space-y-2">
+
+                <div class="flex-1 space-y-3">
                     <div>
-                        <p class="text-[7px] font-black text-blue-500 uppercase">Surname / Given Names</p>
-                        <p id="outName" class="text-sm font-black text-blue-900 uppercase">CLIENT NAME</p>
+                        <p class="text-[7px] font-black text-orange-500 uppercase">Surname / Given Names</p>
+                        <p id="outName" class="text-[15px] font-black text-navy-main uppercase leading-tight"></p>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <p class="text-[7px] font-black text-blue-500 uppercase">Nationality</p>
-                            <p id="outNation" class="text-[10px] font-bold">Azerbaijan</p>
+                            <p class="text-[7px] font-black text-orange-500 uppercase">Nationality</p>
+                            <p id="outNation" class="text-[10px] font-bold text-navy-main"></p>
                         </div>
                         <div>
-                            <p class="text-[7px] font-black text-blue-500 uppercase">Passport No</p>
-                            <p id="outPass" class="text-[10px] font-bold">C0000000</p>
+                            <p class="text-[7px] font-black text-orange-500 uppercase">Passport</p>
+                            <p id="outPass" class="text-[10px] font-bold text-navy-main"></p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <p class="text-[7px] font-black text-blue-500 uppercase">Date of Issue</p>
+                            <p id="outIssue" class="text-[10px] font-bold text-navy-main"></p>
+                        </div>
+                        <div class="bg-orange-50 p-1 rounded-lg">
+                            <p class="text-[7px] font-black text-red-600 uppercase">Date of Expiry</p>
+                            <p id="outExpiry" class="text-[10px] font-black text-red-600"></p>
                         </div>
                     </div>
                     <div>
-                        <p class="text-[7px] font-black text-blue-500 uppercase">Employment Category</p>
-                        <p id="outJob" class="text-[11px] font-black text-orange-600">PROFESSIONAL WORKER</p>
-                    </div>
-                    <div>
-                        <p class="text-[7px] font-black text-blue-500 uppercase">Sponsoring Employer</p>
-                        <p id="outCompany" class="text-[10px] font-bold text-blue-800">COMPANY NAME LTD</p>
+                        <p class="text-[7px] font-black text-blue-500 uppercase">Occupation Category</p>
+                        <p id="outCat" class="text-[10px] font-black text-navy-main italic"></p>
                     </div>
                 </div>
             </div>
 
-            <div class="absolute bottom-0 w-full card-orange p-2 flex justify-between px-4 text-[9px] font-black text-white">
-                <p>REF: <span id="outRef">AZ-889900</span></p>
-                <p>ISSUE: <span id="outDate">01/01/2026</span></p>
+            <div class="absolute bottom-0 w-full h-8 bg-orange-main flex items-center px-6">
+                <p class="text-[9px] font-black text-white tracking-[0.4em]">STATE MIGRATION SERVICE OF AZERBAIJAN</p>
             </div>
         </div>
 
-        <div class="id-card border-2 border-orange-50 bg-slate-50">
-            <div class="p-6 space-y-4">
-                <h4 class="text-[10px] font-black text-blue-900 border-b-2 border-orange-500 pb-1 uppercase italic">Permit Privileges & Terms</h4>
+        <div class="trc-card bg-orange-50">
+            <div class="p-8">
+                <h4 class="text-xs font-black text-navy-main border-b-2 border-orange-500 pb-2 mb-6 uppercase italic">Permit Provisions & Benefits</h4>
                 
-                <div class="grid grid-cols-1 gap-2 text-[9px] font-bold text-slate-600">
-                    <div class="flex items-center gap-2">
-                        <span class="text-orange-600 font-black">✔</span>
-                        <p>3-Year Contract Agreement Covered</p>
+                <div class="grid grid-cols-1 gap-4 text-[10px] font-bold text-navy-main">
+                    <div class="flex items-center gap-3 bg-white p-2 rounded-xl">
+                        <span class="text-orange-600">★</span>
+                        <p>Contract Duration: 3-Year Labor Agreement</p>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-orange-600 font-black">✔</span>
-                        <p>Accommodation & Transport Provided</p>
+                    <div class="flex items-center gap-3 bg-white p-2 rounded-xl">
+                        <span class="text-orange-600">★</span>
+                        <p>Accommodation & Corporate Transport Covered</p>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-orange-600 font-black">✔</span>
-                        <p>Insurance & Medical Coverage Active</p>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-orange-600 font-black">✔</span>
-                        <p>Return Airfare (Post 24 Months Service)</p>
+                    <div class="flex items-center gap-3 bg-white p-2 rounded-xl">
+                        <span class="text-orange-600">★</span>
+                        <p>Full Health Insurance & Medical Coverage</p>
                     </div>
                 </div>
 
-                <div class="mt-4 bg-white p-3 rounded-xl border border-slate-200">
-                    <p class="text-[7px] font-black text-slate-400 mb-1 uppercase">Machine Readable Zone / TRP-ID</p>
-                    <p class="text-[10px] font-mono tracking-widest text-blue-900 overflow-hidden whitespace-nowrap">
-                        TRPAZE<<CLIENT<NAME<<<<<<<<<<<<<000000000
-                    </p>
+                <div class="mt-8 bg-white/50 p-4 rounded-2xl border border-orange-200">
+                    <p class="text-[8px] font-black text-orange-600 mb-2 mrz-font">P<AZE<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<</p>
+                    <p id="mrzLine" class="text-[8px] font-black text-blue-900 mrz-font"></p>
                 </div>
 
-                <div class="flex justify-between items-end mt-4">
-                    <div class="w-20 h-20 bg-white border border-slate-200 rounded p-1 flex items-center justify-center text-[8px] text-slate-300">
-                        QR CODE
+                <div class="flex justify-between items-end mt-10">
+                    <div class="text-[9px] font-bold text-blue-800">
+                        <p>Card Status: ACTIVE</p>
+                        <p>Region: AZ-BAKU</p>
                     </div>
                     <div class="text-right">
-                        <div class="w-24 h-px bg-blue-900 mb-1"></div>
-                        <p class="text-[8px] font-black text-blue-900 uppercase italic">Authorized Signatory</p>
+                        <div class="w-24 h-px bg-orange-500 mb-1"></div>
+                        <p class="text-[8px] font-black text-orange-600 uppercase">Service Commissioner</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <button onclick="window.print()" class="no-print mt-10 bg-blue-900 text-white px-10 py-4 rounded-full font-black shadow-xl hover:bg-blue-800 transition">
-        PRINT CARDS
+    <button onclick="window.print()" class="no-print mt-12 bg-navy-main text-white px-12 py-4 rounded-full font-black shadow-2xl hover:bg-blue-800 transition">
+        PRINT TRC DOCUMENT
     </button>
 
     <script>
-        function updateCard() {
-            document.getElementById('outName').innerText = document.getElementById('name').value || "CLIENT NAME";
-            document.getElementById('outNation').innerText = document.getElementById('nationality').value || "NATIONALITY";
-            document.getElementById('outPass').innerText = document.getElementById('passport').value || "PASSPORT";
-            document.getElementById('outJob').innerText = document.getElementById('job').value || "CATEGORY";
-            document.getElementById('outCompany').innerText = document.getElementById('company').value || "COMPANY";
+        function generateTRC() {
+            const getVal = (id) => document.getElementById(id).value;
+            const setOut = (id, val) => document.getElementById(id).innerText = val || "---";
+
+            setOut('outName', getVal('name'));
+            setOut('outNation', getVal('nation'));
+            setOut('outPass', getVal('pass'));
+            setOut('outCat', getVal('category'));
             
-            const dateVal = document.getElementById('issueDate').value;
-            document.getElementById('outDate').innerText = dateVal ? new Date(dateVal).toLocaleDateString('en-GB') : "01/01/2026";
+            const iDate = getVal('issue') ? new Date(getVal('issue')).toLocaleDateString('en-GB') : "---";
+            const eDate = getVal('expiry') ? new Date(getVal('expiry')).toLocaleDateString('en-GB') : "---";
             
-            document.getElementById('outRef').innerText = 'AZ-' + Math.floor(100000 + Math.random() * 900000);
-            document.getElementById('card-preview').classList.remove('hidden');
+            setOut('outIssue', iDate);
+            setOut('outExpiry', eDate);
+
+            const randomID = 'AZ' + Math.floor(100000 + Math.random() * 900000);
+            setOut('outID', randomID);
+
+            // Machine Readable Zone logic
+            const mrzName = getVal('name').replace(/\s+/g, '<').toUpperCase();
+            document.getElementById('mrzLine').innerText = randomID + "<<<<<" + mrzName + "<<<<<<<<";
+
+            document.getElementById('display-area').classList.remove('hidden');
         }
     </script>
 </body>
-                            </html>
+</html>
