@@ -11,8 +11,7 @@
             --az-blue: #0092bc;
             --az-red: #e4181c;
             --az-green: #009739;
-            /* High-security rainbow background */
-            --rainbow-bg: linear-gradient(135deg, #e0f2fe 0%, #fefce8 50%, #f0fdf4 100%);
+            --bg-rainbow: radial-gradient(circle at 50% 50%, #fdfdfb 0%, #f1f8e9 60%, #e0f2fe 100%);
         }
 
         body { 
@@ -21,73 +20,51 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            padding: 40px; 
+            padding: 20px; 
+            color: #111;
         }
 
         .trc-ultimate {
             width: 850px;
             height: 540px;
-            background: var(--rainbow-bg);
-            border-radius: 20px;
+            background: var(--bg-rainbow);
+            border-radius: 15px;
             position: relative;
-            padding: 30px 45px;
-            box-shadow: 0 0 100px rgba(0,0,0,0.8);
-            border: 1px solid rgba(0,0,0,0.1);
+            padding: 25px 40px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            border: 1px solid #94a3b8;
             overflow: hidden;
         }
 
-        /* The Azerbaijan Flag Header Bar */
-        .header-flag-bar {
+        /* National Flag Top Ribbon */
+        .ribbon {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 8px;
+            top: 0; left: 0; width: 100%; height: 7px;
             display: flex;
         }
-        .b { background: var(--az-blue); flex: 1; }
-        .r { background: var(--az-red); flex: 1; }
-        .g { background: var(--az-green); flex: 1; }
+        .ribbon div { flex: 1; }
 
-        /* Security Guilloche & Watermark Pattern */
-        .security-layer {
+        /* Security Guilloche Pattern */
+        .watermark-pattern {
             position: absolute;
             inset: 0;
-            opacity: 0.12;
-            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0l5 15h15l-12 9 5 15-13-10-13 10 5-15-12-9h15z' fill='%230092bc' fill-opacity='0.4'/%3E%3C/svg%3E");
+            opacity: 0.1;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='0' y='30' font-family='Arial' font-size='8' fill='%230092bc'%3EAZERBAIJAN%3C/text%3E%3C/svg%3E");
             pointer-events: none;
         }
 
-        /* Right Side Immigration Seal (Holographic Effect) */
-        .migration-seal {
-            position: absolute;
-            top: 35px;
-            right: 45px;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.5;
-            mix-blend-mode: multiply;
-            border: 1px solid rgba(255,255,255,0.8);
-            box-shadow: inset 0 0 15px white;
-        }
+        .mrz { font-family: 'Share Tech Mono', monospace; letter-spacing: 6px; font-size: 21px; line-height: 1; }
+        .label-az { font-size: 12.5px; font-weight: 700; color: #1e293b; line-height: 1; }
+        .label-en { font-size: 10.5px; font-weight: 400; color: #64748b; font-style: italic; margin-bottom: 2px; }
+        .val { font-size: 17px; font-weight: 700; color: #000; text-transform: uppercase; }
+        .red-exp { color: var(--az-red) !important; font-weight: 900; }
 
-        .mrz-text { font-family: 'Share Tech Mono', monospace; letter-spacing: 6.5px; font-size: 22px; color: #111; line-height: 1.1; }
-        .label-az { font-size: 13.5px; font-weight: 700; color: #1e293b; line-height: 1.2; }
-        .label-en { font-size: 11px; font-weight: 400; color: #64748b; font-style: italic; margin-top: -2px; }
-        .data-field { font-size: 19px; font-weight: 700; color: #000; text-transform: uppercase; margin-top: 1px; }
-        .expiry-warning { color: var(--az-red) !important; }
-
-        .biometric-container {
-            width: 215px;
-            height: 280px;
-            background: white;
+        .photo-slot {
+            width: 210px;
+            height: 270px;
+            background: #fff;
             border: 1px solid #cbd5e1;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+            margin-top: 5px;
         }
 
         @media print { .no-print { display: none !important; } }
@@ -95,100 +72,108 @@
 </head>
 <body>
 
-    <div class="no-print bg-white p-8 rounded-3xl shadow-2xl w-[850px] mb-12 border-t-8 border-[#0092bc]">
-        <h2 class="text-xl font-black mb-6 text-slate-800 tracking-tight uppercase">Dövlət Miqrasiya Xidməti - Sənəd Portalı</h2>
-        <div class="grid grid-cols-3 gap-6">
-            <input type="file" class="text-xs p-2 border rounded-xl" onchange="preview(this)">
-            <input id="inS" placeholder="Soyad / Surname" class="p-3 border rounded-xl outline-none">
-            <input id="inN" placeholder="Ad / Name" class="p-3 border rounded-xl outline-none">
-            <input id="inNat" placeholder="Vətəndaşlıq / Nationality" class="p-3 border rounded-xl outline-none">
-            <input id="inIss" placeholder="Verilmə Tarixi (DD.MM.YYYY)" class="p-3 border rounded-xl outline-none">
-            <input id="inExp" placeholder="Etibarlıdır (DD.MM.YYYY)" class="p-3 border rounded-xl outline-none">
+    <div class="no-print bg-white p-6 rounded-2xl shadow-xl w-[850px] mb-8 border-t-4 border-[#0092bc]">
+        <h2 class="font-bold text-gray-700 mb-4 uppercase">Dövlət Miqrasiya Xidməti - Sənəd Hazırlanması</h2>
+        <div class="grid grid-cols-4 gap-4">
+            <input type="file" class="col-span-1 text-xs" onchange="load(this)">
+            <input id="iSur" placeholder="Soyad / Surname" class="p-2 border rounded text-sm">
+            <input id="iNam" placeholder="Ad / Name" class="p-2 border rounded text-sm">
+            <input id="iNat" placeholder="Vətəndaşlıq / Nationality" class="p-2 border rounded text-sm">
+            <input id="iCat" placeholder="Kateqoriya / Category" class="p-2 border rounded text-sm">
+            <input id="iDob" placeholder="Doğum tarixi / DOB (DD.MM.YYYY)" class="p-2 border rounded text-sm">
+            <input id="iCit" placeholder="Şəhər / City" class="p-2 border rounded text-sm">
+            <input id="iIss" placeholder="Verilmə tarixi (DD.MM.YYYY)" class="p-2 border rounded text-sm">
+            <input id="iExp" placeholder="Etibarlıdır (DD.MM.YYYY)" class="p-2 border rounded text-sm">
         </div>
-        <button onclick="sync()" class="w-full mt-6 bg-[#002D5A] text-white py-4 rounded-2xl font-black text-lg shadow-lg hover:brightness-110 transition-all uppercase">SƏNƏDİ TƏSDİQ ET</button>
+        <button onclick="sync()" class="w-full mt-4 bg-[#002D5A] text-white py-3 rounded-lg font-bold uppercase tracking-widest">Update Data</button>
     </div>
 
-    <div class="trc-ultimate" id="trc">
-        <div class="header-flag-bar">
-            <div class="b"></div><div class="r"></div><div class="g"></div>
+    <div class="trc-ultimate">
+        <div class="ribbon">
+            <div class="bg-[#0092bc]"></div><div class="bg-[#e4181c]"></div><div class="bg-[#009739]"></div>
         </div>
-        <div class="security-layer"></div>
+        <div class="watermark-pattern"></div>
         
-        <div class="flex gap-8 pt-3">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-24">
-            <div class="pt-2">
-                <p class="font-bold text-[16px] leading-tight text-slate-900">AZƏRBAYCAN RESPUBLİKASININ ƏRAZİSİNDƏ</p>
-                <p class="font-bold text-[16px] leading-tight text-slate-900">MÜVƏQQƏTİ YAŞAMAQ ÜÇÜN İCAZƏ VƏSİQƏSİ</p>
-                <p class="font-bold text-[14px] text-[#0092bc] mt-1">PERMIT FOR TEMPORARY RESIDENCE</p>
-                <p class="font-medium text-[10px] text-slate-500 uppercase">Republic of Azerbaijan - State Migration Service</p>
+        <div class="flex justify-between items-start pt-3">
+            <div class="flex gap-5">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-20">
+                <div>
+                    <p class="font-bold text-[15px] leading-tight text-gray-900">AZƏRBAYCAN RESPUBLİKASININ ƏRAZİSİNDƏ</p>
+                    <p class="font-bold text-[15px] leading-tight text-gray-900">MÜVƏQQƏTİ YAŞAMAQ ÜÇÜN İCAZƏ VƏSİQƏSİ</p>
+                    <p class="font-bold text-[13px] text-[#0092bc] mt-1">PERMIT FOR TEMPORARY RESIDENCE</p>
+                </div>
+            </div>
+            <div class="text-right pr-6 pt-1">
+                 <p class="text-[12px] font-bold">Seriya <span class="text-[#e4181c]">MYİ</span> № <span id="oSer">6810911</span></p>
             </div>
         </div>
 
-        <div class="migration-seal">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="w-16 opacity-30">
-        </div>
-
-        <div class="absolute top-36 left-[315px]">
-            <p class="text-[13px] font-bold text-slate-700">Seriya/Series <span class="text-[#e4181c] font-black">MYİ</span> № <span id="outSer">6810911</span></p>
-        </div>
-
-        <div class="flex gap-14 mt-14 px-2">
-            <div class="biometric-container overflow-hidden">
-                <img id="outP" class="w-full h-full object-cover hidden">
+        <div class="flex gap-10 mt-10">
+            <div class="photo-slot overflow-hidden">
+                <img id="oImg" class="w-full h-full object-cover hidden">
             </div>
 
-            <div class="flex-1 grid grid-cols-2 gap-y-7 pt-2">
+            <div class="flex-1 grid grid-cols-2 gap-y-5">
                 <div>
-                    <div class="label-group"><p class="label-az">Soyad/</p><p class="label-en">Surname</p></div>
-                    <p id="outS" class="data-field">RAHAT</p>
+                    <p class="label-az">Soyad/</p><p class="label-en">Surname</p>
+                    <p id="oS" class="val">RAHAT</p>
                 </div>
-                <div class="pl-14">
-                    <div class="label-group"><p class="label-az">Soyad</p></div>
-                    <p id="outSAz" class="data-field">RAHAT</p>
+                <div>
+                    <p class="label-az">Soyad (AZ)</p><p class="label-en">Surname</p>
+                    <p id="oSAz" class="val">RAHAT</p>
                 </div>
 
                 <div>
-                    <div class="label-group"><p class="label-az">Ad/</p><p class="label-en">Name</p></div>
-                    <p id="outN" class="data-field">ALI</p>
+                    <p class="label-az">Ad/</p><p class="label-en">Given Name</p>
+                    <p id="oN" class="val">ALI</p>
                 </div>
-                <div class="pl-14">
-                    <div class="label-group"><p class="label-az">Ad</p></div>
-                    <p id="outNAz" class="data-field">ALI</p>
+                <div>
+                    <p class="label-az">Kateqoriya/</p><p class="label-en">Category</p>
+                    <p id="oCat" class="val">İŞÇİ / WORKER</p>
                 </div>
 
                 <div>
-                    <div class="label-group"><p class="label-az">Vətəndaşlıq/</p><p class="label-en">Nationality</p></div>
-                    <p id="outNat" class="data-text data-field">PAKISTAN</p>
+                    <p class="label-az">Vətəndaşlıq/</p><p class="label-en">Nationality</p>
+                    <p id="oNat" class="val">PAKISTAN</p>
                 </div>
-                <div class="pl-14">
-                    <div class="label-group"><p class="label-az">Vətəndaşlıq</p></div>
-                    <p id="outNatAz" class="data-field">PAKISTAN</p>
+                <div>
+                    <p class="label-az">Doğulduğu yer/</p><p class="label-en">City / Place of birth</p>
+                    <p id="oCit" class="val">LAHORE</p>
                 </div>
 
                 <div>
-                    <div class="label-group"><p class="label-az">İcazənin verilmə tarixi/</p><p class="label-en">Date of issue</p></div>
-                    <p id="outIss" class="data-field">05.02.2026</p>
+                    <p class="label-az">Doğum tarixi/</p><p class="label-en">Date of birth</p>
+                    <p id="oDob" class="val">01.01.1990</p>
                 </div>
-                <div class="pl-14">
-                    <div class="label-group"><p class="label-az">Etibarlıdır/</p><p class="label-en">Date of expiry</p></div>
-                    <p id="outExp" class="data-field expiry-warning">04.02.2027</p>
+                <div>
+                    <p class="label-az">İcazənin verilmə tarixi/</p><p class="label-en">Date of issue</p>
+                    <p id="oIss" class="val">05.02.2026</p>
+                </div>
+
+                <div>
+                    <p class="label-az">Verən orqan/</p><p class="label-en">Issuing authority</p>
+                    <p class="val text-[14px]">DÖVLƏT MİQRASİYA XİDMƏTİ</p>
+                </div>
+                <div>
+                    <p class="label-az">Etibarlıdır/</p><p class="label-en">Date of expiry</p>
+                    <p id="oExp" class="val red-exp">04.02.2027</p>
                 </div>
             </div>
         </div>
 
-        <div class="absolute bottom-10 left-[45px] right-[45px] pt-4 border-t border-slate-300">
-            <p class="mrz-text" id="m1">ITAZE6810911<<RAHAT<<<<<<<<<<<<</p>
-            <p class="mrz-text" id="m2">9001011M2901017AZE<<<<<<<<<<<<0</p>
+        <div class="absolute bottom-10 left-[40px] right-[40px] pt-4 border-t border-gray-300">
+            <p class="mrz" id="m1">ITAZE6810911<<RAHAT<<<<<<<<<<<<</p>
+            <p class="mrz" id="m2">9001011M2901017AZE<<<<<<<<<<<<0</p>
         </div>
     </div>
 
     <script>
-        function preview(input) {
+        function load(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = (e) => {
-                    document.getElementById('outP').src = e.target.result;
-                    document.getElementById('outP').classList.remove('hidden');
+                    document.getElementById('oImg').src = e.target.result;
+                    document.getElementById('oImg').classList.remove('hidden');
                 }
                 reader.readAsDataURL(input.files[0]);
             }
@@ -196,14 +181,15 @@
 
         function sync() {
             const v = (id) => document.getElementById(id).value.toUpperCase();
-            if(v('inS')) { document.getElementById('outS').innerText = v('inS'); document.getElementById('outSAz').innerText = v('inS'); }
-            if(v('inN')) { document.getElementById('outN').innerText = v('inN'); document.getElementById('outNAz').innerText = v('inN'); }
-            if(v('inNat')) { document.getElementById('outNat').innerText = v('inNat'); document.getElementById('outNatAz').innerText = v('inNat'); }
-            if(v('inIss')) document.getElementById('outIss').innerText = v('inIss');
-            if(v('inExp')) document.getElementById('outExp').innerText = v('inExp');
-            
-            const sn = document.getElementById('outSer').innerText;
-            const sur = document.getElementById('outS').innerText || 'RAHAT';
+            const map = { 'iSur':'oS', 'iSur':'oSAz', 'iNam':'oN', 'iNat':'oNat', 'iCat':'oCat', 'iDob':'oDob', 'iCit':'oCit', 'iIss':'oIss', 'iExp':'oExp' };
+            for(let i in map) {
+                if(v(i)) {
+                    document.getElementById(map[i]).innerText = v(i);
+                    if(i === 'iSur') document.getElementById('oSAz').innerText = v(i);
+                }
+            }
+            const sn = document.getElementById('oSer').innerText;
+            const sur = document.getElementById('oS').innerText;
             document.getElementById('m1').innerText = `ITAZE${sn}<<${sur.padEnd(12, '<')}`;
         }
     </script>
