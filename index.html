@@ -2,173 +2,193 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <title>Azerbaijan TRC - Presidential VIP Edition</title>
+    <title>Azerbaijan - Eternal Flame VIP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Cinzel:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;900&family=Cinzel:wght@700&display=swap');
 
         :root {
             --vvip-gold: #ffcc00;
-            --vvip-glow: rgba(255, 204, 0, 0.5);
             --az-blue: #0092bc;
             --az-red: #e4181c;
             --az-green: #009739;
         }
 
         body {
-            background-color: #020617;
+            background-color: #000;
             font-family: 'Orbitron', sans-serif;
             color: white;
-            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding: 40px;
         }
 
+        /* THE DIFFERENCE: The Living Card Container */
         .card-container {
             width: 900px;
             height: 560px;
-            background: linear-gradient(145deg, #0f172a 0%, #020617 100%);
-            border-radius: 35px;
+            background: #05070a;
+            border-radius: 40px;
             position: relative;
-            border: 3px solid var(--vvip-gold);
-            box-shadow: 0 0 100px rgba(0,0,0,1), 0 0 40px var(--vvip-glow);
+            /* The Micro-Text Border: Repeating "AZERBAIJAN" */
+            border: 4px solid var(--vvip-gold);
+            box-shadow: 0 0 100px rgba(0,0,0,1), 0 0 30px var(--vvip-gold);
             overflow: hidden;
         }
 
-        /* Large Background Flag (Watermark Style) */
-        .bg-flag {
+        /* THE HEARTBEAT: Dynamic Glow Overlay */
+        .heartbeat-glow {
             position: absolute;
-            top: 50%; left: 50%;
-            width: 120%; height: 120%;
-            transform: translate(-50%, -50%) rotate(-15deg);
-            opacity: 0.05;
-            z-index: 1;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(228, 24, 28, 0.05) 100%);
+            animation: pulse 4s infinite ease-in-out;
             pointer-events: none;
         }
 
-        /* The Immigration Pillar */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); box-shadow: inset 0 0 50px var(--az-red); }
+        }
+
+        /* The Presidential Silk Texture */
+        .silk-texture {
+            position: absolute;
+            width: 150%; height: 150%;
+            background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 10px);
+            top: -25%; left: -25%;
+            transform: rotate(15deg);
+        }
+
+        /* Floating Hologram Ghost Image */
+        .ghost-img {
+            position: absolute;
+            right: 40px;
+            top: 130px;
+            width: 100px;
+            height: 130px;
+            opacity: 0.15;
+            filter: grayscale(1) brightness(2) sepia(1) arcade;
+            border: 1px solid var(--vvip-gold);
+            z-index: 5;
+        }
+
         .immigration-pillar {
             position: absolute;
             left: 0; top: 0;
             width: 20px; height: 100%;
             display: flex; flex-direction: column;
             z-index: 50;
-            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
         }
-        .p-b { background: var(--az-blue); flex: 1; }
-        .p-r { background: var(--az-red); flex: 1; }
-        .p-g { background: var(--az-green); flex: 1; }
+        .p-b { background: var(--az-blue); flex: 1; box-shadow: 0 0 20px var(--az-blue); }
+        .p-r { background: var(--az-red); flex: 1; box-shadow: 0 0 20px var(--az-red); }
+        .p-g { background: var(--az-green); flex: 1; box-shadow: 0 0 20px var(--az-green); }
 
-        .label { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
-        .data-val { font-size: 20px; font-weight: 700; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
-        .gold-text { color: var(--vvip-gold) !important; text-shadow: 0 0 15px var(--vvip-glow) !important; }
+        .label { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 3px; font-weight: 900; }
+        .data-val { font-size: 22px; font-weight: 700; color: #fff; }
+        .gold-highlight { color: var(--vvip-gold); text-shadow: 0 0 10px var(--vvip-glow); font-family: 'Cinzel', serif; }
 
-        .photo-frame {
-            width: 220px; height: 280px;
-            border: 2px solid var(--vvip-gold);
-            background: #000;
-            box-shadow: 0 0 30px var(--vvip-glow);
-            z-index: 10;
-        }
-
-        .signature-box {
-            width: 320px; height: 100px;
-            background: rgba(255,255,255,0.03);
-            border-bottom: 2px solid var(--vvip-gold);
-            margin-top: 5px;
+        .signature-area {
+            width: 350px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed var(--vvip-gold);
+            position: relative;
         }
         
-        #signature-canvas { width: 100%; height: 100%; filter: drop-shadow(0 0 8px var(--vvip-gold)); }
+        #signature-canvas { width: 100%; height: 100%; filter: drop-shadow(0 0 10px var(--vvip-gold)); }
 
-        .mrz-luxury {
+        .mrz-lux {
             font-family: 'Share Tech Mono', monospace;
             font-size: 22px;
-            letter-spacing: 8px;
+            letter-spacing: 10px;
             color: var(--vvip-gold);
-            opacity: 0.4;
+            opacity: 0.3;
         }
 
-        /* Admin UI */
-        .admin-panel {
-            background: #111;
+        /* Control UI */
+        .terminal {
+            background: #0a0c10;
             padding: 30px;
-            border-radius: 20px;
+            border-radius: 24px;
             width: 940px;
-            margin-bottom: 25px;
-            border: 1px solid #333;
+            margin-bottom: 30px;
+            border: 1px solid #1e293b;
         }
-        input, select { background: #000; border: 1px solid #444; padding: 10px; border-radius: 8px; color: #fff; width: 100%; }
+        input, select { background: #161b22; border: 1px solid #30363d; padding: 12px; border-radius: 10px; color: #c9d1d9; }
     </style>
 </head>
 <body>
 
-    <div class="admin-panel no-print">
-        <h2 class="text-2xl font-black text-yellow-500 mb-6 italic tracking-tighter">PRESIDENTIAL VIP ISSUANCE TERMINAL</h2>
+    <div class="terminal no-print">
+        <h2 class="text-2xl font-black text-white mb-6 uppercase tracking-[10px]">Neural-Link Identity Terminal</h2>
         <div class="grid grid-cols-4 gap-4">
             <input type="file" onchange="preview(this)">
             <input id="inS" placeholder="SURNAME">
             <input id="inN" placeholder="GIVEN NAME">
             <input id="inPass" placeholder="PASSPORT NO">
             <input id="inNat" placeholder="NATIONALITY">
-            <input id="inVer" placeholder="VERIFICATION DATE (DD.MM.YYYY)">
+            <input id="inVer" placeholder="VERIFICATION DATE">
             <select id="inCat">
-                <option value="DIPLOMATIC VIP">DIPLOMATIC VIP</option>
-                <option value="EXECUTIVE COMMAND">EXECUTIVE COMMAND</option>
-                <option value="STATE INVESTOR">STATE INVESTOR</option>
+                <option value="DIPLOMATIC ETERNAL">DIPLOMATIC ETERNAL</option>
+                <option value="EXECUTIVE PRIME">EXECUTIVE PRIME</option>
+                <option value="SUPREME INVESTOR">SUPREME INVESTOR</option>
             </select>
-            <button onclick="clearSig()" class="bg-red-600 font-bold rounded">CLEAR SIGN</button>
+            <button onclick="clearSig()" class="bg-slate-800 text-white font-bold rounded">RESET BIOMETRIC SIGN</button>
         </div>
-        <div class="mt-6 flex gap-4">
-            <button onclick="update()" class="flex-1 bg-yellow-500 text-black py-4 rounded-xl font-black text-xl hover:bg-yellow-400">AUTHORIZE CARD</button>
-            <button onclick="download()" class="flex-1 border-2 border-yellow-500 text-yellow-500 py-4 rounded-xl font-black text-xl">DOWNLOAD MASTER COPY</button>
+        <div class="mt-8 flex gap-4">
+            <button onclick="update()" class="flex-1 bg-yellow-500 text-black py-4 rounded-2xl font-black text-xl shadow-[0_0_20px_rgba(255,204,0,0.4)]">INITIALIZE NEURAL CARD</button>
+            <button onclick="download()" class="flex-1 border-2 border-slate-700 text-slate-400 py-4 rounded-2xl font-black text-xl hover:text-white">ENCRYPT & DOWNLOAD</button>
         </div>
     </div>
 
     <div id="capture">
         <div class="card-container" id="mainCard">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="bg-flag">
-
+            <div class="silk-texture"></div>
+            <div class="heartbeat-glow"></div>
+            
             <div class="immigration-pillar">
                 <div class="p-b"></div><div class="p-r"></div><div class="p-g"></div>
             </div>
 
-            <div class="flex justify-between items-start pl-16 pr-12 pt-10 relative z-10">
-                <div class="flex gap-6 items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-28 filter drop-shadow-[0_0_15px_rgba(255,204,0,0.8)]">
+            <img id="ghostImg" class="ghost-img hidden">
+
+            <div class="flex justify-between items-start pl-20 pr-12 pt-12 relative z-10">
+                <div class="flex gap-8 items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-32 filter drop-shadow-[0_0_20px_rgba(255,204,0,0.6)]">
                     <div>
-                        <h1 style="font-family: 'Cinzel', serif;" class="text-3xl font-bold leading-none text-white tracking-tight">AZƏRBAYCAN RESPUBLİKASI</h1>
-                        <p class="text-[12px] font-bold text-yellow-500 uppercase tracking-[6px] mt-2">Presidential VIP Residence Permit</p>
+                        <h1 style="font-family: 'Cinzel', serif;" class="text-3xl font-bold tracking-tighter">AZƏRBAYCAN RESPUBLİKASI</h1>
+                        <p class="text-xs font-black text-yellow-500 uppercase tracking-[8px] mt-2">VVIP Special Operations Identity</p>
                     </div>
                 </div>
                 <div class="text-center">
-                    <div id="qrcode" class="bg-white p-1.5 rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.3)]"></div>
-                    <p class="text-[9px] mt-2 text-yellow-500 font-bold">VERIFIED: <span id="outVer">05.02.2026</span></p>
+                    <div id="qrcode" class="bg-white p-2 rounded-2xl"></div>
+                    <p class="text-[10px] mt-3 text-white font-black opacity-50 uppercase">Sec-Trace: <span id="outVer" class="text-yellow-500">LIVE</span></p>
                 </div>
             </div>
 
-            <div class="flex gap-16 pl-16 mt-10 relative z-10">
+            <div class="flex gap-16 pl-20 mt-10 relative z-10">
                 <div class="photo-frame overflow-hidden">
                     <img id="outP" class="w-full h-full object-cover hidden">
                 </div>
 
-                <div class="flex-1 grid grid-cols-2 gap-y-6">
-                    <div><p class="label">Surname</p><p id="outS" class="data-val">RAHAT</p></div>
-                    <div><p class="label">Passport No</p><p id="outPass" class="data-val gold-text">P12345678</p></div>
+                <div class="flex-1 grid grid-cols-2 gap-y-8">
+                    <div><p class="label">Identity Surname</p><p id="outS" class="data-val">RAHAT</p></div>
+                    <div><p class="label">Access Passport</p><p id="outPass" class="data-val gold-highlight">P12345678</p></div>
                     <div><p class="label">Given Name</p><p id="outN" class="data-val">ALI</p></div>
-                    <div><p class="label">Nationality</p><p id="outNat" class="data-val">PAKISTAN</p></div>
+                    <div><p class="label">Origin / Nationality</p><p id="outNat" class="data-val">PAKISTAN</p></div>
                     
                     <div class="col-span-2">
-                        <p class="label">Category Status</p>
-                        <p id="outCat" class="data-val gold-text italic">DIPLOMATIC VIP</p>
+                        <p class="label">Clearance Status</p>
+                        <p id="outCat" class="data-val gold-highlight text-3xl">DIPLOMATIC ETERNAL</p>
                     </div>
                     
                     <div class="col-span-2">
-                        <p class="label">Presidential Authorization Signature</p>
-                        <div class="signature-box">
+                        <p class="label">Neural-Hand Signature (Biometric)</p>
+                        <div class="signature-area">
                             <canvas id="signature-canvas"></canvas>
                         </div>
                     </div>
@@ -176,14 +196,14 @@
             </div>
 
             <div class="absolute bottom-10 left-0 w-full text-center z-10">
-                <p id="m1" class="mrz-luxury">ITAZE6810911<<RAHAT<<<<<<<<<<<<</p>
+                <p id="m1" class="mrz-lux">ITAZE6810911<<RAHAT<<<<<<<<<<<<</p>
             </div>
         </div>
     </div>
 
     <script>
         const canvas = document.querySelector("canvas");
-        const signaturePad = new SignaturePad(canvas, { penColor: "#ffcc00", minWidth: 2, maxWidth: 4 });
+        const signaturePad = new SignaturePad(canvas, { penColor: "#ffcc00", minWidth: 2, maxWidth: 5 });
 
         function resizeCanvas() {
             const ratio = 2;
@@ -195,7 +215,7 @@
         window.onresize = resizeCanvas;
         resizeCanvas();
 
-        const qr = new QRCode(document.getElementById("qrcode"), { text: "AZE-VIP-PRESIDENTIAL", width: 90, height: 90 });
+        const qr = new QRCode(document.getElementById("qrcode"), { text: "AZE-NEURAL-LINK", width: 100, height: 100 });
 
         function clearSig() { signaturePad.clear(); }
 
@@ -205,6 +225,8 @@
                 reader.onload = e => {
                     document.getElementById('outP').src = e.target.result;
                     document.getElementById('outP').classList.remove('hidden');
+                    document.getElementById('ghostImg').src = e.target.result;
+                    document.getElementById('ghostImg').classList.remove('hidden');
                 }
                 reader.readAsDataURL(input.files[0]);
             }
@@ -215,7 +237,7 @@
             const n = document.getElementById('inN').value.toUpperCase() || "ALI";
             const pass = document.getElementById('inPass').value.toUpperCase() || "P12345678";
             const nat = document.getElementById('inNat').value.toUpperCase() || "PAKISTAN";
-            const ver = document.getElementById('inVer').value || "05.02.2026";
+            const ver = document.getElementById('inVer').value || "LIVE SYNC";
             const cat = document.getElementById('inCat').value;
 
             document.getElementById('outS').innerText = s;
@@ -226,13 +248,13 @@
             document.getElementById('outCat').innerText = cat;
             document.getElementById('m1').innerText = `ITAZE${pass.slice(0,9)}<<${s.padEnd(12, '<')}`;
             
-            qr.makeCode(`AZE-PRESIDENTIAL-VIP: ${n} ${s} | PASS: ${pass} | VERIFIED: ${ver}`);
+            qr.makeCode(`AZE-NEURAL-SYNC: ${n} | AUTH: ${cat}`);
         }
 
         function download() {
-            html2canvas(document.querySelector("#capture"), { backgroundColor: '#020617', scale: 2 }).then(canvas => {
+            html2canvas(document.querySelector("#capture"), { backgroundColor: '#000', scale: 2 }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = `VIP_CARD_${document.getElementById('outS').innerText}.png`;
+                link.download = `ETERNAL_VIP_${document.getElementById('outS').innerText}.png`;
                 link.href = canvas.toDataURL();
                 link.click();
             });
