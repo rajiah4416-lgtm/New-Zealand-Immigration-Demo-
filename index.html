@@ -1,61 +1,141 @@
-import datetime
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NZ Immigration Authorization Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            .no-print { display: none; }
+            #letter-output { border: none; box-shadow: none; padding: 0; width: 100%; }
+            body { background-color: white; }
+        }
+        .inz-logo {
+            max-height: 80px;
+            width: auto;
+            filter: grayscale(100%); /* Keeps it professional for official documents */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans p-8">
 
-def generate_nz_auth_letter():
-    print("--- NZ Company Authorization Letter Generator ---")
-    
-    # Gathering Input
-    company_name = input("Enter Company Name: ")
-    nzbn = input("Enter NZBN: ")
-    address = input("Enter Registered Office Address: ")
-    appointee_name = input("Enter Full Name of Appointee: ")
-    id_details = input("Enter Appointee ID Details (e.g., Passport #12345): ")
-    scope = input("Enter Scope of Authority (e.g., Signing bank documents): ")
-    director_name = input("Enter Director's Full Name: ")
-    
-    current_date = datetime.date.today().strftime("%B %d, %Y")
+    <div class="max-w-4xl mx-auto no-print">
+        <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-200 mb-8">
+            <h1 class="text-2xl font-bold text-slate-800 mb-2">🇳🇿 Corporate Authorization Portal</h1>
+            <p class="text-sm text-slate-500 mb-6 font-medium">Standardized for Immigration New Zealand (INZ) Compliance</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="col-span-1">
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Company Legal Name</label>
+                    <input id="coName" type="text" placeholder="e.g. Auckland Tech Solutions Ltd" class="w-full p-2 border rounded focus:ring-2 focus:ring-slate-400 outline-none">
+                </div>
+                <div class="col-span-1">
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">NZBN</label>
+                    <input id="nzbn" type="text" placeholder="13-digit Number" class="w-full p-2 border rounded focus:ring-2 focus:ring-slate-400 outline-none">
+                </div>
+                <div class="col-span-2">
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Registered Address</label>
+                    <input id="address" type="text" placeholder="Full Registered Office Address" class="w-full p-2 border rounded focus:ring-2 focus:ring-slate-400 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Representative Name</label>
+                    <input id="repName" type="text" placeholder="As per Passport" class="w-full p-2 border rounded focus:ring-2 focus:ring-slate-400 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Passport Number</label>
+                    <input id="passport" type="text" placeholder="Document ID" class="w-full p-2 border rounded focus:ring-2 focus:ring-slate-400 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Authorizing Director</label>
+                    <input id="director" type="text" placeholder="Full Legal Name" class="w-full p-2 border rounded focus:ring-2 focus:ring-slate-400 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Contact Email</label>
+                    <input id="email" type="email" placeholder="Business Email" class="w-full p-2 border rounded focus:ring-2 focus:ring-slate-400 outline-none">
+                </div>
+            </div>
 
-    # The Template
-    letter_content = f"""
-{company_name.upper()}
-NZBN: {nzbn}
-Registered Address: {address}
+            <button onclick="generateLetter()" class="mt-8 w-full md:w-auto bg-slate-900 text-white px-10 py-3 rounded-lg font-bold hover:bg-slate-800 transition-all shadow-md">
+                Generate Official Letter
+            </button>
+        </div>
+    </div>
 
-Date: {current_date}
+    <div id="letter-output" class="max-w-4xl mx-auto bg-white p-16 shadow-2xl hidden border border-gray-100">
+        <div class="flex justify-end no-print">
+            <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-bold text-sm shadow-lg transition transform hover:scale-105">
+                Download / Print to PDF
+            </button>
+        </div>
 
-TO WHOM IT MAY CONCERN
+        <div id="printableArea">
+            <div class="flex justify-between items-start border-b-2 border-slate-900 pb-6 mb-10">
+                <div class="w-2/3">
+                    <h2 id="outCoName" class="text-2xl font-serif font-black uppercase tracking-tight text-slate-900 mb-1">COMPANY NAME</h2>
+                    <p class="text-xs font-bold text-slate-600">NZBN: <span id="outNZBN" class="font-normal text-slate-800">0000000000000</span></p>
+                    <p id="outAddress" class="text-xs text-slate-500 leading-relaxed max-w-sm mt-1 uppercase">Registered Office Address</p>
+                </div>
+                <div class="w-1/3 flex justify-end">
+                    <img src="https://i.imgur.com/vH9eHwO.png" alt="Immigration NZ" class="inz-logo">
+                </div>
+            </div>
 
-RE: Letter of Authorization for {appointee_name}
+            <div class="text-right mb-10">
+                <p class="font-serif text-slate-900 italic" id="outDate"></p>
+            </div>
 
-This letter serves to formally notify that {company_name} (the "Company") hereby 
-authorizes {appointee_name}, holding {id_details}, to act on behalf of the 
-Company in the following capacity:
+            <div class="text-slate-900 leading-relaxed">
+                <p class="font-bold mb-1">TO: IMMIGRATION NEW ZEALAND</p>
+                <p class="font-bold text-sm mb-8 underline decoration-2 underline-offset-4">SUBJECT: AUTHORIZATION OF CORPORATE REPRESENTATIVE</p>
 
-Scope of Authority:
-* {scope}
+                <p class="mb-6">To the Visa Processing Officer,</p>
+                
+                <p class="mb-6">We, <strong><span class="outCoNamePlain">The Company</span></strong>, hereby formally authorize <strong><span id="outRepName">Representative Name</span></strong> (Passport Number: <strong><span id="outPassport">XXXXXX</span></strong>) to act as our authorized agent and signatory in all matters relating to Immigration New Zealand applications.</p>
 
-This authorization is effective from {current_date} and shall remain valid until 
-further notice or unless revoked in writing. 
+                <p class="mb-4">This authorization grants full authority to:</p>
+                <ul class="list-disc ml-10 mb-8 space-y-3 text-sm">
+                    <li>Execute and submit Employer Accreditation and Job Check applications.</li>
+                    <li>Provide declarations on behalf of the Company regarding employment conditions.</li>
+                    <li>Act as the primary point of contact for the AEWV (Accredited Employer Work Visa) portal.</li>
+                </ul>
 
-The Company confirms that any actions taken by {appointee_name} within the scope 
-defined above shall be legally binding upon the Company.
+                <p class="mb-10 text-sm italic border-l-4 border-slate-200 pl-4">The Company confirms that it remains responsible for compliance with all New Zealand employment and immigration laws as per the Immigration Act 2009.</p>
 
-Should you require further verification, please contact the undersigned.
+                <div class="mt-20">
+                    <p class="mb-16 text-slate-400 italic">Signed for and on behalf of the Board of Directors:</p>
+                    <div class="w-64 border-t border-slate-900 mb-2"></div>
+                    <p class="font-bold text-lg uppercase tracking-wider" id="outDirector">Director Name</p>
+                    <p class="text-xs font-bold text-slate-600">Director | <span class="outCoNamePlain uppercase">The Company</span></p>
+                    <p id="outEmail" class="text-xs text-blue-800 mt-1"></p>
+                </div>
+            </div>
+            
+            <div class="mt-20 text-center border-t border-slate-100 pt-4">
+                <p class="text-[10px] text-slate-400 uppercase tracking-widest italic">Confidential Corporate Documentation</p>
+            </div>
+        </div>
+    </div>
 
-Yours faithfully,
+    <script>
+        function generateLetter() {
+            const co = document.getElementById('coName').value || "Company Legal Name";
+            document.getElementById('outCoName').innerText = co;
+            document.querySelectorAll('.outCoNamePlain').forEach(el => el.innerText = co);
+            
+            document.getElementById('outNZBN').innerText = document.getElementById('nzbn').value || "N/A";
+            document.getElementById('outAddress').innerText = document.getElementById('address').value || "N/A";
+            document.getElementById('outRepName').innerText = document.getElementById('repName').value || "Representative";
+            document.getElementById('outPassport').innerText = document.getElementById('passport').value || "N/A";
+            document.getElementById('outDirector').innerText = document.getElementById('director').value || "Director";
+            document.getElementById('outEmail').innerText = document.getElementById('email').value || "";
+            
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            document.getElementById('outDate').innerText = new Date().toLocaleDateString('en-NZ', options);
 
-(Signature)
-
-{director_name}
-Director
-{company_name}
-"""
-
-    # Saving to a file
-    filename = f"Authorization_Letter_{appointee_name.replace(' ', '_')}.txt"
-    with open(filename, "w") as file:
-        file.write(letter_content)
-    
-    print(f"\nSuccess! Letter generated and saved as: {filename}")
-
-if __name__ == "__main__":
-    generate_nz_auth_letter()
+            document.getElementById('letter-output').classList.remove('hidden');
+            window.scrollTo({ top: document.getElementById('letter-output').offsetTop, behavior: 'smooth' });
+        }
+    </script>
+</body>
+    </html>
