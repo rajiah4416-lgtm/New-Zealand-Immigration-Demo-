@@ -2,6 +2,257 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
+    <title>Azərbaycan Respublikası - QR Glow Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Arimo:wght@400;700;900&display=swap');
+        
+        :root {
+            --az-blue: #0092bc;
+            --az-red: #e4181c;
+            --az-green: #009739;
+            --bg-glow: radial-gradient(circle at 50% 50%, #ffffff 0%, #f0f9ff 40%, #fff1f2 75%, #f0fdf4 100%);
+        }
+
+        body { 
+            font-family: 'Arimo', sans-serif; 
+            background: #020617; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 20px; 
+            color: #111;
+        }
+
+        .trc-ultimate {
+            width: 850px;
+            height: 540px;
+            background: var(--bg-glow);
+            border-radius: 20px;
+            position: relative;
+            padding: 25px 45px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 60px rgba(0, 146, 188, 0.4);
+            overflow: hidden;
+        }
+
+        /* Animated Glow Sweep */
+        .trc-ultimate::before {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-25deg);
+            animation: lightMove 5s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes lightMove {
+            0% { left: -100%; }
+            50% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        .ribbon {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 10px;
+            display: flex;
+        }
+        .ribbon .b { background: var(--az-blue); flex: 1; }
+        .ribbon .r { background: var(--az-red); flex: 1; }
+        .ribbon .g { background: var(--az-green); flex: 1; }
+
+        .mrz { font-family: 'Share Tech Mono', monospace; letter-spacing: 6.5px; font-size: 22px; color: #000; }
+        .label-az { font-size: 11px; font-weight: 900; color: #334155; text-transform: uppercase; margin: 0; line-height: 1; }
+        .label-en { font-size: 10px; font-weight: 400; color: #64748b; font-style: italic; margin-bottom: 2px; line-height: 1; }
+        .val { font-size: 17px; font-weight: 800; color: #000; text-transform: uppercase; line-height: 1.1; }
+        
+        .photo-frame {
+            width: 200px;
+            height: 260px;
+            background: #fff;
+            border: 1px solid #94a3b8;
+            z-index: 10;
+        }
+
+        /* QR Code Styling with Glow */
+        #qrcode {
+            position: absolute;
+            top: 35px;
+            right: 40px;
+            padding: 8px;
+            background: white;
+            border: 2px solid var(--az-blue);
+            box-shadow: 0 0 15px rgba(0, 146, 188, 0.4);
+            border-radius: 8px;
+        }
+
+        .no-print { z-index: 1000; }
+    </style>
+</head>
+<body>
+
+    <div class="no-print bg-white p-8 rounded-3xl shadow-2xl w-[900px] mb-8 border-t-8 border-[#0092bc]">
+        <h2 class="text-center font-black text-xl mb-6 uppercase tracking-widest">Azerbaijan State Migration Service Portal</h2>
+        <div class="grid grid-cols-3 gap-4">
+            <input type="file" class="border p-2 rounded text-xs" onchange="load(this)">
+            <input id="iS" placeholder="Soyad (Surname)" class="p-2 border rounded-xl">
+            <input id="iN" placeholder="Ad (Name)" class="p-2 border rounded-xl">
+            <input id="iNat" placeholder="Vətəndaşlıq (Nationality)" class="p-2 border rounded-xl">
+            <input id="iCat" placeholder="Kateqoriya (Category)" class="p-2 border rounded-xl">
+            <input id="iDob" placeholder="Doğum Tarixi (DD.MM.YYYY)" class="p-2 border rounded-xl">
+            <input id="iCit" placeholder="Şəhər (City)" class="p-2 border rounded-xl">
+            <input id="iIss" placeholder="Verilmə (DD.MM.YYYY)" class="p-2 border rounded-xl">
+            <input id="iExp" placeholder="Etibarlıdır (DD.MM.YYYY)" class="p-2 border rounded-xl">
+        </div>
+        <div class="flex gap-4 mt-6">
+            <button onclick="sync()" class="flex-1 bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-black">SYNC DATA & QR</button>
+            <button onclick="download()" class="flex-1 bg-[#0092bc] text-white py-3 rounded-xl font-bold shadow-lg">DOWNLOAD PNG</button>
+        </div>
+    </div>
+
+    <div id="capture">
+        <div class="trc-ultimate">
+            <div class="ribbon"><div class="b"></div><div class="r"></div><div class="g"></div></div>
+            
+            <div id="qrcode"></div>
+
+            <div class="flex justify-between items-start pt-4">
+                <div class="flex gap-5">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-20">
+                    <div>
+                        <p class="font-black text-[15px] leading-tight">AZƏRBAYCAN RESPUBLİKASININ ƏRAZİSİNDƏ</p>
+                        <p class="font-black text-[15px] leading-tight">MÜVƏQQƏTİ YAŞAMAQ ÜÇÜN İCAZƏ VƏSİQƏSİ</p>
+                        <p class="font-bold text-[13px] text-[#0092bc] mt-1 uppercase">Permit for temporary residence</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-10 mt-12">
+                <div class="photo-frame overflow-hidden">
+                    <img id="oImg" class="w-full h-full object-cover hidden">
+                </div>
+
+                <div class="flex-1 grid grid-cols-2 gap-y-4">
+                    <div>
+                        <p class="label-az">Soyad/</p><p class="label-en">Surname</p>
+                        <p id="oS" class="val">RAHAT</p>
+                    </div>
+                    <div class="pl-4">
+                        <p class="label-az text-red-600">Seriya/№</p>
+                        <p class="val"><span class="text-red-600">MYİ</span> 6810911</p>
+                    </div>
+
+                    <div>
+                        <p class="label-az">Ad/</p><p class="label-en">Given Name</p>
+                        <p id="oN" class="val">ALI</p>
+                    </div>
+                    <div class="pl-4">
+                        <p class="label-az">Kateqoriya/</p><p class="label-en">Category</p>
+                        <p id="oCat" class="val text-blue-800">İŞÇİ / WORKER</p>
+                    </div>
+
+                    <div>
+                        <p class="label-az">Vətəndaşlıq/</p><p class="label-en">Nationality</p>
+                        <p id="oNat" class="val">PAKISTAN</p>
+                    </div>
+                    <div class="pl-4">
+                        <p class="label-az">Doğulduğu yer/</p><p class="label-en">Place of birth</p>
+                        <p id="oCit" class="val">BAUK</p>
+                    </div>
+
+                    <div>
+                        <p class="label-az">Doğum tarixi/</p><p class="label-en">Date of birth</p>
+                        <p id="oDob" class="val">09.08.1998</p>
+                    </div>
+                    <div class="pl-4">
+                        <p class="label-az">İcazənin verilmə tarixi/</p><p class="label-en">Date of issue</p>
+                        <p id="oIss" class="val">05.02.2026</p>
+                    </div>
+
+                    <div>
+                        <p class="label-az">Verən orqan/</p><p class="label-en">Issuing authority</p>
+                        <p class="val text-[14px]">DÖVLƏT MİQRASİYA XİDMƏTİ</p>
+                    </div>
+                    <div class="pl-4">
+                        <p class="label-az text-red-600">Etibarlıdır/</p><p class="label-en text-red-600">Date of expiry</p>
+                        <p id="oExp" class="val text-red-600">04.02.2027</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-10 left-[45px] right-[45px] border-t border-slate-300 pt-4">
+                <p class="mrz" id="m1">ITAZE6810911<<RAHAT<<<<<<<<<<<<</p>
+                <p class="mrz" id="m2">9001011M2901017AZE<<<<<<<<<<<<0</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: "AZ-MIGRATION-VERIFIED: ALI RAHAT",
+            width: 80,
+            height: 80,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        function load(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('oImg').src = e.target.result;
+                    document.getElementById('oImg').classList.remove('hidden');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function sync() {
+            const get = (id) => document.getElementById(id).value.toUpperCase();
+            const s = get('iS') || "RAHAT";
+            const n = get('iN') || "ALI";
+            const exp = get('iExp') || "04.02.2027";
+
+            document.getElementById('oS').innerText = s;
+            document.getElementById('oN').innerText = n;
+            if(get('iNat')) document.getElementById('oNat').innerText = get('iNat');
+            if(get('iCat')) document.getElementById('oCat').innerText = get('iCat');
+            if(get('iDob')) document.getElementById('oDob').innerText = get('iDob');
+            if(get('iCit')) document.getElementById('oCit').innerText = get('iCit');
+            if(get('iIss')) document.getElementById('oIss').innerText = get('iIss');
+            document.getElementById('oExp').innerText = exp;
+
+            // Update MRZ
+            document.getElementById('m1').innerText = `ITAZE6810911<<${s.padEnd(12, '<')}`;
+            
+            // Update QR Code Content
+            qrcode.clear();
+            qrcode.makeCode(`AZE-TRC-VERIFY: ${n} ${s} | EXP: ${exp} | STATUS: ACTIVE`);
+        }
+
+        function download() {
+            html2canvas(document.querySelector("#capture"), {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: "#020617"
+            }).then(canvas => {
+                let link = document.createElement('a');
+                link.download = `TRC_${document.getElementById('oS').innerText}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+    </script>
+</body>
+                </html><!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
     <title>Azərbaycan Respublikası - Fixed Glow Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
