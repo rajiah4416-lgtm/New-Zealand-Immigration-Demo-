@@ -3,168 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Owner Control Panel | NZ Pathway</title>
+    <title>Owner Portal: NZ Immigration System</title>
     <style>
         :root {
-            --primary: #00247D; /* NZ Blue */
-            --accent: #CC142B;  /* NZ Red */
-            --dark: #1a1a1a;
+            --nz-blue: #00247D;
+            --nz-red: #CC142B;
+            --gold: #FFD700;
             --glass: rgba(255, 255, 255, 0.1);
         }
 
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
             color: white;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
+            padding: 20px;
         }
 
-        .panel {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 30px;
-            border-radius: 20px;
-            width: 80%;
-            max-width: 600px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            text-align: center;
-        }
-
-        .header {
+        /* Top Status Bar */
+        .status-bar {
+            width: 90%;
+            max-width: 900px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--glass);
-            padding-bottom: 15px;
-        }
-
-        .nz-flag {
-            font-size: 40px;
-        }
-
-        .owner-title {
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: bold;
-            color: #00d4ff;
-        }
-
-        .time-display {
-            font-size: 3rem;
-            font-weight: bold;
-            margin: 10px 0;
-            font-family: 'Courier New', monospace;
-        }
-
-        .date-display {
-            font-size: 1.2rem;
-            color: #ddd;
+            background: var(--glass);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.2);
             margin-bottom: 20px;
         }
 
-        .info-grid {
+        .flag-icon { font-size: 24px; vertical-align: middle; }
+
+        /* Main Dashboard */
+        .dashboard {
+            width: 90%;
+            max-width: 900px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 20px;
+        }
+
+        /* Left Side: Admin Input (The "System in your hands") */
+        .admin-panel {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid var(--nz-blue);
+        }
+
+        .admin-panel h3 { color: var(--gold); margin-top: 0; }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #444;
+            color: white;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: var(--nz-red);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Right Side: Live Official Display */
+        .display-panel {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+        }
+
+        .official-seal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            opacity: 0.3;
+            font-size: 50px;
+        }
+
+        .client-info h1 { font-size: 2.5rem; margin: 0; color: #fff; }
+        .detail-row { margin: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+        .label { font-size: 0.8rem; color: #aaa; text-transform: uppercase; }
+        .value { font-size: 1.2rem; font-weight: bold; }
+
+        .time-box {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.5rem;
+            color: var(--gold);
             margin-top: 20px;
         }
 
-        .card {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 10px;
-            border-left: 4px solid var(--accent);
-        }
-
-        .status-live {
-            color: #00ff88;
+        .badge {
+            display: inline-block;
+            background: #00ff88;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
             font-weight: bold;
-            animation: blink 1.5s infinite;
+            font-size: 0.7rem;
+            margin-top: 10px;
         }
 
-        @keyframes blink {
-            50% { opacity: 0.5; }
-        }
-
-        .footer {
-            margin-top: 25px;
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
     </style>
 </head>
 <body>
 
-    <div class="panel">
-        <div class="header">
-            <span class="nz-flag">🇳🇿</span>
-            <span class="owner-title">System Status: Owner</span>
-            <span class="status-live">● LIVE</span>
+    <div class="status-bar">
+        <div><span class="flag-icon">🇳🇿</span> <strong>NZ IMMIGRATION AUTHORITY</strong></div>
+        <div style="color: #00ff88;">● LIVE SYSTEM ACCESS</div>
+    </div>
+
+    <div class="dashboard">
+        <div class="admin-panel">
+            <h3>System Control</h3>
+            <label>Client Full Name</label>
+            <input type="text" id="inName" placeholder="Enter Name...">
+            
+            <label>Current Address</label>
+            <input type="text" id="inAddress" placeholder="Enter Address...">
+            
+            <label>Passport Number</label>
+            <input type="text" id="inPassport" placeholder="Enter Passport No...">
+            
+            <button onclick="updateSystem()">Update Client Record</button>
+            <p style="font-size: 12px; opacity: 0.6; margin-top: 15px;">
+                Log: Authority Level 10 (Owner) <br>
+                Location: Padang Tengku, Malaysia
+            </p>
         </div>
 
-        <div id="clock" class="time-display">00:00:00</div>
-        <div id="date" class="date-display">Loading Date...</div>
+        <div class="display-panel">
+            <div class="official-seal">🇳🇿</div>
+            <div class="badge">OFFICIAL WAITER CATEGORY</div>
+            
+            <div class="client-info">
+                <div class="detail-row">
+                    <div class="label">Primary Applicant</div>
+                    <div class="value" id="displayName">---</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="label">Address / Jurisdiction</div>
+                    <div class="value" id="displayAddress">---</div>
+                </div>
 
-        <div class="info-grid">
-            <div class="card">
-                <strong>Current Location</strong><br>
-                Padang Tengku, Malaysia
+                <div class="detail-row">
+                    <div class="label">Passport ID</div>
+                    <div class="value" id="displayPassport">---</div>
+                </div>
             </div>
-            <div class="card" style="border-left-color: var(--primary);">
-                <strong>Target Destination</strong><br>
-                New Zealand
-            </div>
-            <div class="card">
-                <strong>System Access</strong><br>
-                Full Owner Privileges
-            </div>
-            <div class="card" style="border-left-color: #00ff88;">
-                <strong>Visa Status</strong><br>
-                Official Waiter Category
-            </div>
-        </div>
 
-        <div class="footer">
-            New Zealand Immigration & Employment Portal | Authority: Owner Verified
+            <div class="time-box">
+                <div id="liveClock">00:00:00</div>
+                <div id="liveDate" style="font-size: 1rem; color: #fff;">Date</div>
+            </div>
         </div>
     </div>
 
     <script>
-        function updateDashboard() {
-            const now = new Date();
-            
-            // Time update
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        function updateSystem() {
+            const name = document.getElementById('inName').value;
+            const addr = document.getElementById('inAddress').value;
+            const pass = document.getElementById('inPassport').value;
 
-            // Date update
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('date').textContent = now.toLocaleDateString('en-NZ', options);
+            document.getElementById('displayName').innerText = name || "---";
+            document.getElementById('displayAddress').innerText = addr || "---";
+            document.getElementById('displayPassport').innerText = pass || "---";
+            
+            alert("System Record Updated Successfully.");
         }
 
-        setInterval(updateDashboard, 1000);
-        updateDashboard();
+        function runClock() {
+            const now = new Date();
+            document.getElementById('liveClock').innerText = now.toLocaleTimeString();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-NZ', options);
+        }
+
+        setInterval(runClock, 1000);
+        runClock();
     </script>
 </body>
 </html>
-What this "System" shows:
-The New Zealand Flag (🇳🇿): Placed at the top as your ultimate target.
-
-Live Clock & Date: Syncs automatically with your local time.
-
-Location Tracking: Displays your current base in Malaysia.
-
-Owner Status: Labeled with "Full Owner Privileges" and "System in my hands."
-
-Visa Category: Highlights the "Official Waiter Category" you are aiming for.
-
-Would you like me to add a countdown timer to this code for a specific date you plan to move?
