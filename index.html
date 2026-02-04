@@ -3,119 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NZ Immigration Company Authorization</title>
+    <title>NZ Employment & Authorization System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @media print {
             .no-print { display: none; }
-            #letter-output { border: none; box-shadow: none; padding: 0; width: 100%; }
+            .page-break { page-break-before: always; }
             body { background-color: white; padding: 0; }
+            .content-box { box-shadow: none; border: none; width: 100%; max-width: 100%; }
         }
-        .inz-logo { max-height: 75px; width: auto; }
+        .inz-logo { max-height: 60px; width: auto; }
     </style>
 </head>
-<body class="bg-slate-100 font-sans p-4 md:p-10">
+<body class="bg-slate-100 p-4 md:p-10 font-sans">
 
-    <div class="max-w-5xl mx-auto no-print">
-        <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-200 mb-10">
-            <h1 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-4">🇳🇿 Authorization Letter Generator</h1>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="space-y-4">
-                    <h3 class="font-bold text-blue-800 text-xs uppercase tracking-wider">Company Details</h3>
-                    <input id="coName" type="text" placeholder="Company Legal Name" class="w-full p-2 border rounded text-sm">
-                    <input id="nzbn" type="text" placeholder="NZBN (13 digits)" class="w-full p-2 border rounded text-sm">
-                    <input id="address" type="text" placeholder="Company Address" class="w-full p-2 border rounded text-sm">
-                    <input id="coEmail" type="email" placeholder="Company Email" class="w-full p-2 border rounded text-sm">
-                </div>
-
-                <div class="space-y-4">
-                    <h3 class="font-bold text-blue-800 text-xs uppercase tracking-wider">Client (Applicant) Details</h3>
-                    <input id="repName" type="text" placeholder="Full Name (as per Passport)" class="w-full p-2 border rounded text-sm">
-                    <input id="passport" type="text" placeholder="Passport Number" class="w-full p-2 border rounded text-sm">
-                    <input id="dob" type="text" placeholder="Date of Birth (DD/MM/YYYY)" class="w-full p-2 border rounded text-sm">
-                    <input id="nationality" type="text" placeholder="Nationality" class="w-full p-2 border rounded text-sm">
-                </div>
-
-                <div class="space-y-4">
-                    <h3 class="font-bold text-blue-800 text-xs uppercase tracking-wider">Application Details</h3>
-                    <input id="visaCat" type="text" placeholder="Visa Category (e.g. AEWV)" class="w-full p-2 border rounded text-sm">
-                    <input id="refNo" type="text" placeholder="Reference / Client Number" class="w-full p-2 border rounded text-sm">
-                    <input id="director" type="text" placeholder="Authorizing Director" class="w-full p-2 border rounded text-sm">
-                </div>
+    <div class="max-w-5xl mx-auto no-print bg-white p-8 rounded-xl shadow-lg border border-slate-200 mb-10">
+        <h1 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-4">🇳🇿 Multi-Page NZ Employment System</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="space-y-4">
+                <h3 class="font-bold text-blue-800 text-xs uppercase italic">Company & Contact</h3>
+                <input id="coName" type="text" placeholder="Company Legal Name" class="w-full p-2 border rounded text-sm">
+                <input id="nzbn" type="text" placeholder="NZBN (13 digits)" class="w-full p-2 border rounded text-sm">
+                <input id="address" type="text" placeholder="Company Address" class="w-full p-2 border rounded text-sm">
+                <input id="coEmail" type="email" placeholder="Company Email" class="w-full p-2 border rounded text-sm">
             </div>
 
-            <button onclick="generateLetter()" class="mt-8 bg-slate-900 text-white px-8 py-3 rounded font-bold hover:bg-black transition shadow-lg">
-                Generate Document
-            </button>
+            <div class="space-y-4">
+                <h3 class="font-bold text-blue-800 text-xs uppercase italic">Client (Applicant)</h3>
+                <input id="repName" type="text" placeholder="Full Name" class="w-full p-2 border rounded text-sm">
+                <input id="passport" type="text" placeholder="Passport Number" class="w-full p-2 border rounded text-sm">
+                <input id="dob" type="text" placeholder="DOB (DD/MM/YYYY)" class="w-full p-2 border rounded text-sm">
+                <input id="nationality" type="text" placeholder="Nationality" class="w-full p-2 border rounded text-sm">
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="font-bold text-blue-800 text-xs uppercase italic">Job & Visa Details</h3>
+                <select id="jobCat" class="w-full p-2 border rounded text-sm bg-white">
+                    <option value="Waiter (Hotel Service)">Waiter (Hotel Service)</option>
+                    <option value="Hotel Service Worker">Hotel Service Worker</option>
+                    <option value="Packer / Storeperson">Packer / Warehouse Category</option>
+                </select>
+                <input id="refNo" type="text" placeholder="INZ Reference / Client No" class="w-full p-2 border rounded text-sm">
+                <input id="payRate" type="text" placeholder="Pay Rate (e.g. $29.66/hr)" class="w-full p-2 border rounded text-sm">
+                <input id="director" type="text" placeholder="Authorizing Director" class="w-full p-2 border rounded text-sm">
+            </div>
+        </div>
+
+        <button onclick="generateSystem()" class="mt-8 bg-blue-900 text-white px-10 py-3 rounded-lg font-bold hover:bg-black transition shadow-xl">
+            Generate 3-Page Document
+        </button>
+    </div>
+
+    <div id="page1" class="max-w-4xl mx-auto bg-white p-16 shadow-2xl hidden mb-10 content-box">
+        <div class="flex justify-between border-b-2 border-black pb-4 mb-8">
+            <div>
+                <h2 class="outCoName text-2xl font-bold uppercase"></h2>
+                <p class="text-xs">NZBN: <span class="outNZBN"></span></p>
+                <p class="outCoEmail text-xs text-blue-700"></p>
+            </div>
+            <img src="https://i.imgur.com/vH9eHwO.png" alt="INZ" class="inz-logo">
+        </div>
+        <p class="text-right italic mb-8 outDate"></p>
+        <h3 class="font-bold underline mb-6">PAGE 1: FORMAL AUTHORIZATION LETTER</h3>
+        <div class="grid grid-cols-2 gap-4 bg-slate-50 p-4 mb-8 text-sm border">
+            <p><strong>Applicant:</strong> <span class="outRepName"></span></p>
+            <p><strong>Passport:</strong> <span class="outPassport"></span></p>
+            <p><strong>Nationality:</strong> <span class="outNationality"></span></p>
+            <p><strong>Reference:</strong> <span class="outRefNo"></span></p>
+        </div>
+        <p class="mb-6">We authorize the above individual for all <strong>Immigration New Zealand</strong> matters regarding the <span class="outJobCat font-bold"></span> category. This includes Job Check and portal management.</p>
+        <div class="mt-20">
+            <div class="w-48 border-t border-black"></div>
+            <p class="font-bold outDirector"></p>
+            <p class="text-xs italic">Director</p>
         </div>
     </div>
 
-    <div id="letter-output" class="max-w-4xl mx-auto bg-white p-16 shadow-2xl hidden">
-        <div class="flex justify-end no-print mb-4">
-            <button onclick="window.print()" class="bg-green-600 text-white px-6 py-2 rounded text-sm font-bold shadow hover:bg-green-700">Print to PDF</button>
+    <div id="page2" class="max-w-4xl mx-auto bg-white p-16 shadow-2xl hidden mb-10 page-break content-box">
+        <h3 class="font-bold border-b-2 border-black pb-2 mb-8 text-xl">PAGE 2: FORMAL LETTER OF OFFER</h3>
+        <p class="mb-6">Dear <span class="outRepName"></span>,</p>
+        <p class="mb-6">We are pleased to offer you the position of <strong><span class="outJobCat"></span></strong> at <span class="outCoName"></span>. This role falls under the essential service category within our New Zealand operations.</p>
+        <table class="w-full mb-8 text-sm border-collapse border border-slate-300">
+            <tr><td class="border p-2 bg-slate-50 font-bold">Position</td><td class="border p-2 outJobCat"></td></tr>
+            <tr><td class="border p-2 bg-slate-50 font-bold">Location</td><td class="border p-2 outAddress"></td></tr>
+            <tr><td class="border p-2 bg-slate-50 font-bold">Remuneration</td><td class="border p-2 outPayRate"></td></tr>
+            <tr><td class="border p-2 bg-slate-50 font-bold">Hours</td><td class="border p-2">Minimum 30 hours per week (AEWV Compliant)</td></tr>
+        </table>
+        <p class="mb-6">Your duties will include maintaining high service standards in the <span class="outJobCat"></span> department and ensuring compliance with New Zealand Health & Safety standards.</p>
+        <div class="mt-20"><div class="w-48 border-t border-black"></div><p class="font-bold outDirector"></p></div>
+    </div>
+
+    <div id="page3" class="max-w-4xl mx-auto bg-white p-16 shadow-2xl hidden page-break content-box">
+        <h3 class="font-bold border-b-2 border-black pb-2 mb-8 text-xl text-red-800">PAGE 3: EMPLOYMENT AGREEMENT SUMMARY</h3>
+        <p class="text-xs mb-8">This summary is provided to meet the <strong>Employment Relations Act 2000</strong> requirements for New Zealand employers.</p>
+        <div class="space-y-4 text-sm leading-relaxed">
+            <p><strong>1. Holidays & Leave:</strong> The employee is entitled to 4 weeks annual leave and 10 days sick leave per annum after 6 months of continuous employment.</p>
+            <p><strong>2. Public Holidays:</strong> Work on public holidays will be paid at time and a half ($T_{1.5}$) plus a relevant compensatory day off.</p>
+            <p><strong>3. Termination:</strong> A notice period of 4 weeks applies to both parties unless otherwise negotiated.</p>
+            <p><strong>4. Dispute Resolution:</strong> If a problem arises, the employee should first raise it with the Director. If unresolved, the parties may seek mediation through the Ministry of Business, Innovation and Employment (MBIE).</p>
         </div>
-
-        <div id="printableArea">
-            <div class="flex justify-between items-start border-b-2 border-slate-900 pb-6 mb-8">
-                <div>
-                    <h2 id="outCoName" class="text-2xl font-bold uppercase text-slate-900">COMPANY NAME</h2>
-                    <p class="text-xs">NZBN: <span id="outNZBN"></span></p>
-                    <p id="outAddress" class="text-xs text-slate-600 italic"></p>
-                    <p id="outCoEmail" class="text-xs text-blue-700"></p>
-                </div>
-                <img src="https://i.imgur.com/vH9eHwO.png" alt="INZ Logo" class="inz-logo">
-            </div>
-
-            <div class="text-right mb-6">
-                <p id="outDate" class="font-medium"></p>
-            </div>
-
-            <div class="bg-slate-50 border border-slate-200 p-4 mb-8 grid grid-cols-2 gap-y-2 text-sm">
-                <div><span class="font-bold text-slate-500 uppercase text-[10px]">Applicant:</span> <p id="outRepName" class="font-bold"></p></div>
-                <div><span class="font-bold text-slate-500 uppercase text-[10px]">Passport No:</span> <p id="outPassport" class="font-bold"></p></div>
-                <div><span class="font-bold text-slate-500 uppercase text-[10px]">Date of Birth:</span> <p id="outDOB"></p></div>
-                <div><span class="font-bold text-slate-500 uppercase text-[10px]">Nationality:</span> <p id="outNationality"></p></div>
-                <div><span class="font-bold text-slate-500 uppercase text-[10px]">Visa Category:</span> <p id="outVisaCat"></p></div>
-                <div><span class="font-bold text-slate-500 uppercase text-[10px]">Reference No:</span> <p id="outRefNo"></p></div>
-            </div>
-
-            <div class="text-slate-900">
-                <p class="font-bold mb-6">TO: IMMIGRATION NEW ZEALAND</p>
-                <p class="mb-4">To the Visa Processing Officer,</p>
-                <p class="mb-6">This letter serves to formally authorize the individual named above to act on behalf of <strong><span class="outCoNamePlain"></span></strong> for all matters related to the specified visa application category.</p>
-                
-                <p class="mb-4 font-bold">Scope of Authorization:</p>
-                <ul class="list-disc ml-8 mb-8 space-y-1 text-sm">
-                    <li>Submission of Employer Accreditation and Job Check documentation.</li>
-                    <li>Communication with INZ regarding the applicant's status and employment terms.</li>
-                    <li>Authority to provide settlement support evidence as required by AEWV policy.</li>
-                </ul>
-
-                <p class="mb-12 text-sm leading-relaxed italic">We confirm that all information provided is true and correct to the best of our knowledge, and the company remains compliant with the Immigration Act 2009.</p>
-
-                <div class="mt-20">
-                    <div class="w-64 border-t border-black mb-1"></div>
-                    <p class="font-bold uppercase" id="outDirector"></p>
-                    <p class="text-xs">Director | <span class="outCoNamePlain uppercase text-slate-500"></span></p>
-                </div>
-            </div>
+        <div class="mt-32 grid grid-cols-2 gap-10">
+            <div><div class="border-t border-black"></div><p class="text-xs">Employer Signature</p></div>
+            <div><div class="border-t border-black"></div><p class="text-xs">Employee Signature</p></div>
         </div>
     </div>
 
     <script>
-        function generateLetter() {
-            const fields = ['coName', 'nzbn', 'address', 'coEmail', 'repName', 'passport', 'dob', 'nationality', 'visaCat', 'refNo', 'director'];
-            fields.forEach(f => {
-                const val = document.getElementById(f).value || "---";
-                const out = document.getElementById('out' + f.charAt(0).toUpperCase() + f.slice(1));
-                if (out) out.innerText = val;
+        function generateSystem() {
+            const data = {
+                coName: document.getElementById('coName').value,
+                nzbn: document.getElementById('nzbn').value,
+                address: document.getElementById('address').value,
+                coEmail: document.getElementById('coEmail').value,
+                repName: document.getElementById('repName').value,
+                passport: document.getElementById('passport').value,
+                dob: document.getElementById('dob').value,
+                nationality: document.getElementById('nationality').value,
+                jobCat: document.getElementById('jobCat').value,
+                refNo: document.getElementById('refNo').value,
+                payRate: document.getElementById('payRate').value,
+                director: document.getElementById('director').value,
+                date: new Date().toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' })
+            };
+
+            // Batch update all matching classes
+            Object.keys(data).forEach(key => {
+                document.querySelectorAll('.out' + key.charAt(0).toUpperCase() + key.slice(1)).forEach(el => {
+                    el.innerText = data[key] || "---";
+                });
             });
 
-            document.querySelectorAll('.outCoNamePlain').forEach(el => el.innerText = document.getElementById('coName').value);
-            document.getElementById('outDate').innerText = new Date().toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' });
-            document.getElementById('letter-output').classList.remove('hidden');
-            window.scrollTo({ top: document.getElementById('letter-output').offsetTop, behavior: 'smooth' });
+            document.getElementById('page1').classList.remove('hidden');
+            document.getElementById('page2').classList.remove('hidden');
+            document.getElementById('page3').classList.remove('hidden');
+            window.scrollTo({ top: document.getElementById('page1').offsetTop, behavior: 'smooth' });
         }
     </script>
 </body>
