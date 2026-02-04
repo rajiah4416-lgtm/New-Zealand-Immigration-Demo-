@@ -1,158 +1,161 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>T.C. İçişleri Bakanlığı | E-İkamet Sistemi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azerbaijan TRP - Worker Authorization</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root { --tr-red: #E30A17; --tr-white: #FFFFFF; --gold: #C5A059; --bg: #0d1117; }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; }
-        
-        /* Navigation */
-        nav { background: #161b22; padding: 15px; display: flex; justify-content: center; gap: 15px; border-bottom: 2px solid var(--tr-red); }
-        nav button { background: #21262d; border: 1px solid #30363d; color: white; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        nav button.active { background: var(--tr-red); border-color: white; }
-
-        .container { padding: 30px; display: flex; flex-direction: column; align-items: center; }
-        .page { display: none; width: 100%; max-width: 900px; animation: fadeIn 0.4s ease; }
-        .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Page 1: Input */
-        .admin-card { background: #1c2128; padding: 25px; border-radius: 12px; border: 1px solid #30363d; }
-        .grid-input { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        label { display: block; font-size: 0.8rem; color: #8b949e; margin-bottom: 5px; text-transform: uppercase; }
-        input { width: 100%; padding: 10px; background: #0d1117; border: 1px solid #444; color: white; border-radius: 4px; box-sizing: border-box; }
-        .btn-main { background: var(--tr-red); color: white; border: none; padding: 15px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 20px; }
-
-        /* Page 3: The TRC Card */
-        .trc-card {
-            width: 480px; height: 300px; background: linear-gradient(135deg, #e1e4e8 0%, #ffffff 100%);
-            border-radius: 18px; color: #333; position: relative; border: 1px solid #999;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5); overflow: hidden;
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
+        body { font-family: 'Space Grotesk', sans-serif; background: #fffcf9; }
+        .az-orange { background-color: #ff6b00; } /* Matches your preference */
+        .az-blue { background-color: #0092bc; }   /* Azerbaijan Flag Blue */
+        .az-navy { background-color: #003366; }
+        .orange-text { color: #ff6b00; }
+        .blue-text { color: #0092bc; }
+        @media print {
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            body { background: white; padding: 0; }
+            .doc-container { box-shadow: none !important; border: 2px solid #ff6b00 !important; width: 100% !important; margin: 0 !important; }
         }
-        .trc-header { background: var(--tr-red); padding: 10px 20px; color: white; display: flex; align-items: center; }
-        .trc-header img { height: 40px; margin-right: 15px; }
-        .trc-body { display: grid; grid-template-columns: 130px 1fr; padding: 20px; gap: 20px; }
-        
-        #preview-img { width: 110px; height: 140px; background: #eee; border: 2px solid #ccc; object-fit: cover; }
-        
-        .info-label { font-size: 0.65rem; color: #666; margin: 0; text-transform: uppercase; }
-        .info-value { font-size: 0.9rem; font-weight: bold; margin: 0 0 8px 0; color: #000; border-bottom: 1px solid rgba(0,0,0,0.1); }
-        
-        .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 6rem; opacity: 0.05; font-weight: bold; pointer-events: none; }
-        .stamp-official { position: absolute; bottom: 20px; right: 20px; border: 3px solid #008000; color: #008000; padding: 5px; font-weight: bold; transform: rotate(-10deg); opacity: 0.6; }
     </style>
 </head>
-<body>
+<body class="p-6 lg:p-12">
 
-<nav>
-    <button id="n1" class="active" onclick="showPage(1)">1. OWNER ENTRY</button>
-    <button id="n2" onclick="showPage(2)">2. SECURE DATABASE</button>
-    <button id="n3" onclick="showPage(3)">3. DOWNLOAD TRC</button>
-</nav>
-
-<div class="container">
-    <div id="p1" class="page active">
-        <div class="admin-card">
-            <h2 style="color: var(--gold);">Authority Portal: TRC Generator</h2>
-            <div class="grid-input">
-                <div><label>Foreigner ID (YKN)</label><input type="text" id="inID" placeholder="99XXXXXXXXX"></div>
-                <div><label>Nationality</label><input type="text" id="inNat" placeholder="e.g., MALAYSIA"></div>
-                <div><label>Adı (Name)</label><input type="text" id="inName" placeholder="First Name"></div>
-                <div><label>Soyadı (Surname)</label><input type="text" id="inSurname" placeholder="Last Name"></div>
-                <div><label>Issue Date</label><input type="date" id="inIssue"></div>
-                <div><label>Expiry Date</label><input type="date" id="inExpiry"></div>
+    <div class="max-w-6xl mx-auto no-print bg-white rounded-[2rem] shadow-2xl overflow-hidden mb-12 border-b-8 border-orange-500">
+        <div class="az-orange p-10 text-white flex justify-between items-center">
+            <div>
+                <h1 class="text-4xl font-bold tracking-tighter">AZERBAIJAN TRP PORTAL</h1>
+                <p class="text-orange-100 font-medium opacity-90 uppercase tracking-widest text-xs mt-1">State Migration Service Compliance (2026)</p>
             </div>
-            <label style="margin-top:15px;">Client Biometric Photo</label>
-            <input type="file" id="inPhoto" accept="image/*" onchange="previewFile()">
-            <button class="btn-main" onclick="processTRC()">SYNC & AUTHORIZE PERMIT</button>
+            <div class="flex gap-4 items-center">
+                <span class="text-5xl">🇦🇿</span>
+            </div>
+        </div>
+
+        <div class="p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="space-y-4">
+                <label class="text-[10px] font-bold blue-text uppercase tracking-widest">Sponsoring Entity</label>
+                <input id="coName" type="text" placeholder="Company Name (Baku/Sumqayit)" class="w-full p-4 bg-orange-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-400">
+                <input id="address" type="text" placeholder="Official Business Address" class="w-full p-4 bg-orange-50 border-none rounded-2xl">
+                <input id="coEmail" type="email" placeholder="Business Email" class="w-full p-4 bg-orange-50 border-none rounded-2xl">
+                <input id="coPhone" type="text" placeholder="Company Phone" class="w-full p-4 bg-orange-50 border-none rounded-2xl">
+            </div>
+            <div class="space-y-4">
+                <label class="text-[10px] font-bold blue-text uppercase tracking-widest">Foreign Worker</label>
+                <input id="repName" type="text" placeholder="Full Legal Name" class="w-full p-4 bg-blue-50 border-none rounded-2xl font-bold orange-text">
+                <input id="passport" type="text" placeholder="Passport Number" class="w-full p-4 bg-blue-50 border-none rounded-2xl">
+                <input id="nationality" type="text" placeholder="Nationality" class="w-full p-4 bg-blue-50 border-none rounded-2xl">
+                <input id="dob" type="text" placeholder="DOB (DD/MM/YYYY)" class="w-full p-4 bg-blue-50 border-none rounded-2xl">
+            </div>
+            <div class="space-y-4">
+                <label class="text-[10px] font-bold blue-text uppercase tracking-widest">Contractual Terms</label>
+                <input id="jobCat" type="text" placeholder="Job Title (e.g. Technician)" class="w-full p-4 bg-orange-50 border-none rounded-2xl">
+                <input id="payRate" type="text" placeholder="Monthly Salary (AZN/USD)" class="w-full p-4 bg-orange-50 border-none rounded-2xl font-bold">
+                <input id="director" type="text" placeholder="Authorizing Official" class="w-full p-4 bg-orange-50 border-none rounded-2xl">
+                <button onclick="generateAZ()" class="w-full az-blue text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-sky-700 transition uppercase tracking-tighter mt-2">Generate AZ-TRP Pack</button>
+            </div>
         </div>
     </div>
 
-    <div id="p2" class="page">
-        <div class="admin-card">
-            <h3>Registered Foreigner Record</h3>
-            <div id="db-content">Fill in the Owner Entry first.</div>
-        </div>
-    </div>
-
-    <div id="p3" class="page">
-        <div class="trc-card" id="trc-capture">
-            <div class="watermark">TÜRKİYE</div>
-            <div class="trc-header">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg" alt="TR Flag">
+    <div id="document-pack" class="hidden space-y-10">
+        
+        <div class="max-w-4xl mx-auto bg-white p-20 shadow-2xl relative doc-container min-h-[1100px] border-t-[15px] border-blue-500">
+            <div class="flex justify-between items-start mb-16 border-b-2 border-orange-100 pb-8">
                 <div>
-                    <div style="font-weight: bold; font-size: 0.9rem;">TÜRKİYE CUMHURİYETİ</div>
-                    <div style="font-size: 0.7rem;">ÇALIŞMA VE SOSYAL GÜVENLİK BAKANLIĞI</div>
+                    <h2 class="outCoName text-3xl font-bold blue-text uppercase"></h2>
+                    <p class="text-xs outAddress font-medium orange-text"></p>
+                    <p class="text-[10px] font-bold mt-2">EMAIL: <span class="outCoEmail"></span> | TEL: <span class="outCoPhone"></span></p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] font-bold blue-text">REPUBLIC OF AZERBAIJAN</p>
+                    <p class="text-[10px] font-bold text-orange-500">STATE MIGRATION SERVICE</p>
+                    <p class="text-xs font-bold mt-4">REF: <span class="outRefNo"></span></p>
+                    <p class="text-[10px] outDate italic"></p>
                 </div>
             </div>
-            <div class="trc-body">
-                <div>
-                    <img id="preview-img" src="#" alt="Photo">
-                    <div style="font-size: 0.6rem; margin-top: 10px; color: #999;">KİMLİK NO / ID NO</div>
-                    <div id="card-id" style="font-weight: bold;">99...</div>
-                </div>
-                <div class="info-section">
-                    <p class="info-label">Adı / Name</p><p class="info-value" id="card-name">---</p>
-                    <p class="info-label">Soyadı / Surname</p><p class="info-value" id="card-surname">---</p>
-                    <p class="info-label">Uyruğu / Nationality</p><p class="info-value" id="card-nat">---</p>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr;">
-                        <div><p class="info-label">Veriliş / Issue</p><p class="info-value" id="card-issue">---</p></div>
-                        <div><p class="info-label">Son / Expiry</p><p class="info-value" id="card-expiry">---</p></div>
-                    </div>
-                </div>
+
+            <h3 class="text-2xl font-bold orange-text mb-8 text-center underline underline-offset-8 decoration-blue-400">LETTER OF EMPLOYMENT SPONSORSHIP</h3>
+            
+            <p class="mb-6 leading-relaxed text-slate-700">To the State Migration Service of the Republic of Azerbaijan,</p>
+            <p class="mb-8 leading-relaxed text-slate-700">
+                We, <strong><span class="outCoName"></span></strong>, officially authorize and sponsor 
+                <strong><span class="outRepName orange-text font-bold"></span></strong>, a citizen of <span class="outNationality font-bold"></span> 
+                (Passport: <span class="outPassport"></span>), for the issuance of a Temporary Residence Permit (TRP) under a 3-year labor agreement.
+            </p>
+
+            <div class="mt-48">
+                <div class="w-56 h-1 az-orange mb-2"></div>
+                <p class="font-bold outDirector uppercase blue-text text-xl"></p>
+                <p class="text-[10px] font-bold orange-text tracking-widest uppercase italic">Director / Authorized Representative</p>
             </div>
-            <div class="stamp-official">APPROVED / ONAYLANDI</div>
         </div>
-        <button class="btn-main" style="background: #21262d; margin-top: 30px;" onclick="window.print()">PRINT / DOWNLOAD AS PDF</button>
+
+        <div class="max-w-4xl mx-auto bg-white p-20 shadow-2xl relative doc-container page-break min-h-[1100px] border-t-[15px] border-orange-500">
+            <h3 class="text-3xl font-bold blue-text mb-12 border-l-8 border-orange-500 pl-6">CONTRACTUAL BENEFITS (TRP PACK)</h3>
+            
+            <div class="grid grid-cols-2 gap-6 mb-12">
+                <div class="p-6 bg-blue-50 rounded-3xl border border-blue-100">
+                    <p class="text-[10px] font-bold orange-text uppercase">Labor Category</p>
+                    <p class="text-xl font-bold blue-text outJobCat"></p>
+                </div>
+                <div class="p-6 bg-orange-50 rounded-3xl border border-orange-100">
+                    <p class="text-[10px] font-bold blue-text uppercase">Monthly Remuneration</p>
+                    <p class="text-xl font-bold orange-text outPayRate"></p>
+                </div>
+            </div>
+
+            <div class="space-y-6 text-sm font-medium text-slate-700">
+                <div class="p-6 border-2 border-blue-50 rounded-2xl flex gap-6 items-center">
+                    <span class="text-3xl">🏢</span>
+                    <p><strong>ACCOMMODATION:</strong> The company provides a fully-contracted residential area in Azerbaijan for the duration of the 3-year term.</p>
+                </div>
+                <div class="p-6 border-2 border-orange-50 rounded-2xl flex gap-6 items-center">
+                    <span class="text-3xl">🚗</span>
+                    <p><strong>TRANSPORT:</strong> All corporate and worksite transport is provided and maintained by the company.</p>
+                </div>
+                <div class="p-6 border-2 border-blue-50 rounded-2xl flex gap-6 items-center">
+                    <span class="text-3xl">🏥</span>
+                    <p><strong>MEDICAL:</strong> Mandatory health insurance and medical check-up costs are fully covered by the employer.</p>
+                </div>
+                <div class="p-6 border-2 border-orange-50 rounded-2xl flex gap-6 items-center">
+                    <span class="text-3xl">✈️</span>
+                    <p><strong>RETURN TICKET:</strong> One-way return ticket provided by the insurance carrier upon completion of 24 months of service.</p>
+                </div>
+            </div>
+
+            <div class="no-print mt-20 flex justify-center">
+                <button onclick="window.print()" class="az-orange text-white px-12 py-4 rounded-full font-bold shadow-xl hover:scale-105 transition">DOWNLOAD TRP DOSSIER</button>
+            </div>
+        </div>
+
     </div>
-</div>
 
-<script>
-    function showPage(n) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-        document.getElementById('p'+n).classList.add('active');
-        document.getElementById('n'+n).classList.add('active');
-    }
+    <script>
+        function generateAZ() {
+            const data = {
+                coName: document.getElementById('coName').value,
+                address: document.getElementById('address').value,
+                coEmail: document.getElementById('coEmail').value,
+                coPhone: document.getElementById('coPhone').value,
+                repName: document.getElementById('repName').value,
+                passport: document.getElementById('passport').value,
+                nationality: document.getElementById('nationality').value,
+                jobCat: document.getElementById('jobCat').value,
+                payRate: document.getElementById('payRate').value,
+                director: document.getElementById('director').value,
+                refNo: 'AZ-' + Math.floor(100000 + Math.random() * 900000),
+                date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+            };
 
-    function previewFile() {
-        const preview = document.getElementById('preview-img');
-        const file = document.getElementById('inPhoto').files[0];
-        const reader = new FileReader();
-        reader.onloadend = function () { preview.src = reader.result; }
-        if (file) { reader.readAsDataURL(file); }
-    }
+            Object.keys(data).forEach(key => {
+                document.querySelectorAll('.out' + key.charAt(0).toUpperCase() + key.slice(1)).forEach(el => el.innerText = data[key]);
+            });
 
-    function processTRC() {
-        const data = {
-            id: document.getElementById('inID').value,
-            name: document.getElementById('inName').value,
-            surname: document.getElementById('inSurname').value,
-            nat: document.getElementById('inNat').value,
-            issue: document.getElementById('inIssue').value,
-            expiry: document.getElementById('inExpiry').value
-        };
-
-        // Update Database View
-        document.getElementById('db-content').innerHTML = `
-            <p><strong>Status:</strong> <span style="color:#00ff88">Active Permission</span></p>
-            <p><strong>Full Name:</strong> ${data.name} ${data.surname}</p>
-            <p><strong>Nationality:</strong> ${data.nat}</p>
-            <p><strong>Issue Date:</strong> ${data.issue}</p>
-        `;
-
-        // Update Card View
-        document.getElementById('card-id').innerText = data.id || "99000000000";
-        document.getElementById('card-name').innerText = data.name.toUpperCase();
-        document.getElementById('card-surname').innerText = data.surname.toUpperCase();
-        document.getElementById('card-nat').innerText = data.nat.toUpperCase();
-        document.getElementById('card-issue').innerText = data.issue;
-        document.getElementById('card-expiry').innerText = data.expiry;
-
-        alert("System Synchronized: TRC Authorized.");
-        showPage(2);
-    }
-</script>
+            document.getElementById('document-pack').classList.remove('hidden');
+            window.scrollTo({ top: document.getElementById('document-pack').offsetTop, behavior: 'smooth' });
+        }
+    </script>
 </body>
-</html>
+                                                                                             </html>
