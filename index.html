@@ -3,197 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azerbaijan TRC Management</title>
+    <title>Regional TRC Azerbaijan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
-        body { font-family: 'Outfit', sans-serif; background: #fff7ed; }
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+        
+        body { font-family: 'Outfit', sans-serif; background: #fffcf0; }
         
         .trc-card {
-            width: 500px;
-            height: 315px;
-            background: white;
-            border-radius: 24px;
-            overflow: hidden;
+            width: 540px;
+            height: 340px;
+            background: #ffffff;
+            border-radius: 18px;
             position: relative;
-            box-shadow: 0 20px 50px rgba(255, 107, 0, 0.15);
-            border: 1px solid #ffedd5;
+            box-shadow: 0 10px 40px rgba(255, 107, 0, 0.2);
+            overflow: hidden;
+            border: 2px solid #0092bc;
         }
 
-        .bg-orange-main { background-color: #ff6b00; }
-        .bg-blue-main { background-color: #0092bc; }
-        .text-orange-main { color: #ff6b00; }
-        .text-blue-main { color: #0092bc; }
-        .text-navy-main { color: #003366; }
+        /* Security Background Pattern */
+        .security-bg {
+            background-image: radial-gradient(#0092bc 0.5px, transparent 0.5px);
+            background-size: 10px 10px;
+            opacity: 0.1;
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .orange-strip { background: linear-gradient(90deg, #ff6b00, #ff9100); }
+        .navy-text { color: #002d5a; }
+        .orange-text { color: #ff6b00; }
+
+        /* Regional Stamp Style */
+        .regional-stamp {
+            width: 90px;
+            height: 90px;
+            border: 3px double #ff6b00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 8px;
+            font-weight: 900;
+            color: #ff6b00;
+            opacity: 0.6;
+            transform: rotate(-15deg);
+            position: absolute;
+            bottom: 60px;
+            right: 20px;
+            border-style: dashed;
+        }
 
         @media print {
             .no-print { display: none !important; }
-            body { background: white; padding: 0; }
-            .trc-card { box-shadow: none !important; border: 1px solid #0092bc !important; margin-bottom: 20px; }
+            body { background: white; }
+            .trc-card { box-shadow: none !important; margin: 10px; page-break-inside: avoid; }
         }
-
-        .mrz-font { font-family: 'Courier New', Courier, monospace; letter-spacing: 2px; }
-        .chip { width: 45px; height: 35px; background: linear-gradient(135deg, #ffd700 0%, #ff6b00 100%); border-radius: 6px; }
     </style>
 </head>
-<body class="p-6 flex flex-col items-center">
+<body class="p-8 flex flex-col items-center">
 
-    <div class="max-w-4xl w-full no-print bg-white p-10 rounded-[2.5rem] shadow-2xl mb-12 border-b-8 border-orange-500">
-        <div class="flex items-center gap-4 mb-8">
-            <span class="text-4xl">🇦🇿</span>
-            <h1 class="text-3xl font-black text-navy-main italic">TRC ISSUANCE SYSTEM</h1>
-        </div>
-
+    <div class="max-w-4xl w-full no-print bg-white p-10 rounded-[2rem] shadow-2xl mb-12 border-2 border-orange-400">
+        <h2 class="text-2xl font-black navy-text mb-6 uppercase flex items-center gap-3">
+            <span>🇦🇿</span> Regional TRC Enrollment System
+        </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <input id="name" type="text" placeholder="Full Name" class="p-4 bg-orange-50 rounded-2xl border-none ring-2 ring-orange-100 focus:ring-orange-500 outline-none font-bold">
-            <input id="nation" type="text" placeholder="Nationality" class="p-4 bg-orange-50 rounded-2xl border-none ring-2 ring-orange-100 outline-none">
-            <input id="pass" type="text" placeholder="Passport No" class="p-4 bg-orange-50 rounded-2xl border-none ring-2 ring-orange-100 outline-none">
-            
-            <div class="space-y-1">
-                <label class="text-[10px] font-bold text-blue-500 ml-2">ISSUE DATE</label>
-                <input id="issue" type="date" class="w-full p-4 bg-blue-50 rounded-2xl border-none ring-2 ring-blue-100 outline-none">
-            </div>
-            <div class="space-y-1">
-                <label class="text-[10px] font-bold text-red-500 ml-2">EXPIRY DATE</label>
-                <input id="expiry" type="date" class="w-full p-4 bg-blue-50 rounded-2xl border-none ring-2 ring-blue-100 outline-none">
-            </div>
-            <div class="space-y-1">
-                <label class="text-[10px] font-bold text-orange-500 ml-2">CONTRACT CATEGORY</label>
-                <input id="category" type="text" placeholder="e.g. Hotel Service" class="w-full p-4 bg-blue-50 rounded-2xl border-none ring-2 ring-blue-100 outline-none">
-            </div>
+            <input id="name" type="text" placeholder="Full Name" class="p-4 bg-orange-50 rounded-xl outline-none focus:ring-2 focus:ring-orange-500 font-bold">
+            <select id="region" class="p-4 bg-orange-50 rounded-xl outline-none font-bold navy-text">
+                <option value="BAKU REGION">BAKU REGION</option>
+                <option value="SUMQAYIT DISTRICT">SUMQAYIT DISTRICT</option>
+                <option value="GANJA REGIONAL OFFICE">GANJA REGIONAL OFFICE</option>
+                <option value="QUBA DISTRICT">QUBA DISTRICT</option>
+            </select>
+            <input id="pass" type="text" placeholder="Passport Number" class="p-4 bg-orange-50 rounded-xl outline-none">
+            <input id="issue" type="date" class="p-4 bg-blue-50 rounded-xl outline-none">
+            <input id="expiry" type="date" class="p-4 bg-blue-50 rounded-xl outline-none">
+            <input id="nationality" type="text" placeholder="Nationality" class="p-4 bg-orange-50 rounded-xl outline-none">
         </div>
-
-        <button onclick="generateTRC()" class="w-full mt-8 bg-orange-main text-white py-5 rounded-3xl font-black text-xl hover:scale-[1.02] transition shadow-lg shadow-orange-200 uppercase tracking-tighter">
-            Build Temporary Residence Card
+        <button onclick="renderCard()" class="w-full mt-8 orange-strip text-white py-4 rounded-xl font-black text-xl shadow-lg hover:brightness-110 transition uppercase">
+            Issue Regional TRC
         </button>
     </div>
 
-    <div id="display-area" class="hidden flex flex-col lg:flex-row gap-12 items-center">
-        
+    <div id="card-display" class="hidden space-y-12">
         <div class="trc-card">
-            <div class="bg-blue-main p-4 flex justify-between items-center text-white">
+            <div class="security-bg"></div>
+            
+            <div class="bg-[#0092bc] p-4 flex justify-between items-center text-white">
                 <div class="flex items-center gap-3">
-                    <span class="text-2xl">🇦🇿</span>
+                    <span class="text-3xl">🇦🇿</span>
                     <div>
-                        <p class="text-[11px] font-black uppercase leading-none">Republic of Azerbaijan</p>
-                        <p class="text-[8px] font-bold text-cyan-100 uppercase mt-1">Temporary Residence Card (TRC)</p>
+                        <h3 class="text-[12px] font-black leading-none uppercase">Azərbaycan Respublikası</h3>
+                        <p class="text-[8px] font-bold opacity-90 uppercase tracking-widest">State Migration Service</p>
                     </div>
                 </div>
-                <div class="chip"></div>
+                <div class="text-right">
+                    <p id="outRegion" class="text-[9px] font-black bg-white/20 px-2 py-1 rounded">REGIONAL OFFICE</p>
+                </div>
             </div>
 
-            <div class="flex p-5 gap-5">
-                <div class="flex flex-col gap-2">
-                    <div class="w-32 h-40 bg-slate-100 rounded-xl border-2 border-orange-400 border-dashed flex items-center justify-center text-center p-4">
-                        <p class="text-[10px] font-bold text-orange-400">ATTACH WORKER PHOTO</p>
+            <div class="flex p-5 gap-6">
+                <div class="relative">
+                    <div class="w-32 h-44 bg-slate-200 rounded-lg border-2 border-orange-300 flex items-center justify-center overflow-hidden">
+                        <span class="text-[10px] text-orange-400 font-bold text-center p-2">BIOMETRIC PHOTO AREA</span>
                     </div>
-                    <p class="text-[10px] font-black text-blue-800 text-center tracking-widest" id="outID">AZ000000</p>
+                    <div class="mt-2 flex items-center gap-2">
+                        <div class="w-8 h-8 bg-blue-100 rounded border border-blue-300 flex items-center justify-center">
+                            <span class="text-[14px]">☝️</span>
+                        </div>
+                        <p class="text-[7px] font-black navy-text leading-none uppercase">Biometric<br>Stored</p>
+                    </div>
                 </div>
 
                 <div class="flex-1 space-y-3">
                     <div>
-                        <p class="text-[7px] font-black text-orange-500 uppercase">Surname / Given Names</p>
-                        <p id="outName" class="text-[15px] font-black text-navy-main uppercase leading-tight"></p>
+                        <p class="text-[8px] font-black orange-text uppercase">Full Name / Soyadı və Adı</p>
+                        <p id="outName" class="text-lg font-black navy-text uppercase leading-tight"></p>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <p class="text-[7px] font-black text-orange-500 uppercase">Nationality</p>
-                            <p id="outNation" class="text-[10px] font-bold text-navy-main"></p>
+                            <p class="text-[8px] font-black orange-text uppercase">Nationality</p>
+                            <p id="outNation" class="text-[11px] font-bold navy-text"></p>
                         </div>
                         <div>
-                            <p class="text-[7px] font-black text-orange-500 uppercase">Passport</p>
-                            <p id="outPass" class="text-[10px] font-bold text-navy-main"></p>
+                            <p class="text-[8px] font-black orange-text uppercase">Passport No</p>
+                            <p id="outPass" class="text-[11px] font-bold navy-text"></p>
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <p class="text-[7px] font-black text-blue-500 uppercase">Date of Issue</p>
-                            <p id="outIssue" class="text-[10px] font-bold text-navy-main"></p>
+                            <p class="text-[8px] font-black text-blue-500 uppercase">Issue Date</p>
+                            <p id="outIssue" class="text-[11px] font-bold navy-text"></p>
                         </div>
-                        <div class="bg-orange-50 p-1 rounded-lg">
-                            <p class="text-[7px] font-black text-red-600 uppercase">Date of Expiry</p>
-                            <p id="outExpiry" class="text-[10px] font-black text-red-600"></p>
+                        <div class="bg-orange-50 p-1 rounded-md">
+                            <p class="text-[8px] font-black text-red-600 uppercase">Expiry Date</p>
+                            <p id="outExpiry" class="text-[11px] font-black text-red-600"></p>
                         </div>
                     </div>
                     <div>
-                        <p class="text-[7px] font-black text-blue-500 uppercase">Occupation Category</p>
-                        <p id="outCat" class="text-[10px] font-black text-navy-main italic"></p>
+                        <p class="text-[8px] font-black text-blue-500 uppercase">Document ID</p>
+                        <p id="outID" class="text-[12px] font-mono font-black navy-text tracking-widest"></p>
                     </div>
                 </div>
             </div>
 
-            <div class="absolute bottom-0 w-full h-8 bg-orange-main flex items-center px-6">
-                <p class="text-[9px] font-black text-white tracking-[0.4em]">STATE MIGRATION SERVICE OF AZERBAIJAN</p>
+            <div class="regional-stamp">
+                STATE MIGRATION<br>SERVICE<br><span id="stampRegion">BAKU</span>
+            </div>
+
+            <div class="absolute bottom-0 w-full h-8 orange-strip flex items-center justify-center">
+                <p class="text-[10px] font-black text-white tracking-[0.3em] uppercase">Temporary Residence Card • TRC</p>
             </div>
         </div>
 
-        <div class="trc-card bg-orange-50">
+        <div class="trc-card border-orange-400 bg-[#fffdfa]">
+            <div class="security-bg"></div>
             <div class="p-8">
-                <h4 class="text-xs font-black text-navy-main border-b-2 border-orange-500 pb-2 mb-6 uppercase italic">Permit Provisions & Benefits</h4>
+                <h4 class="text-sm font-black navy-text border-b-4 border-orange-500 pb-2 mb-6 flex items-center gap-2">
+                    <span>📋</span> REGIONAL REGISTRATION TERMS
+                </h4>
                 
-                <div class="grid grid-cols-1 gap-4 text-[10px] font-bold text-navy-main">
-                    <div class="flex items-center gap-3 bg-white p-2 rounded-xl">
-                        <span class="text-orange-600">★</span>
-                        <p>Contract Duration: 3-Year Labor Agreement</p>
-                    </div>
-                    <div class="flex items-center gap-3 bg-white p-2 rounded-xl">
-                        <span class="text-orange-600">★</span>
-                        <p>Accommodation & Corporate Transport Covered</p>
-                    </div>
-                    <div class="flex items-center gap-3 bg-white p-2 rounded-xl">
-                        <span class="text-orange-600">★</span>
-                        <p>Full Health Insurance & Medical Coverage</p>
-                    </div>
+                <div class="space-y-4 text-[10px] font-bold navy-text">
+                    <p class="flex items-center gap-3"><span class="orange-text">●</span> 3-YEAR LABOR AGREEMENT: VALID</p>
+                    <p class="flex items-center gap-3"><span class="orange-text">●</span> MEDICAL INSURANCE POLICY: ACTIVE</p>
+                    <p class="flex items-center gap-3"><span class="orange-text">●</span> ACCOMMODATION STATUS: REGISTERED</p>
                 </div>
 
-                <div class="mt-8 bg-white/50 p-4 rounded-2xl border border-orange-200">
-                    <p class="text-[8px] font-black text-orange-600 mb-2 mrz-font">P<AZE<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<</p>
-                    <p id="mrzLine" class="text-[8px] font-black text-blue-900 mrz-font"></p>
+                <div class="mt-12 bg-white/80 p-5 rounded-2xl border border-blue-200">
+                    <p class="text-[9px] font-mono navy-text break-all tracking-widest leading-loose" id="mrz">
+                        P<AZE<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                    </p>
                 </div>
 
-                <div class="flex justify-between items-end mt-10">
-                    <div class="text-[9px] font-bold text-blue-800">
-                        <p>Card Status: ACTIVE</p>
-                        <p>Region: AZ-BAKU</p>
-                    </div>
+                <div class="mt-8 flex justify-between items-end">
+                    <div class="w-16 h-16 bg-white border border-slate-200 flex items-center justify-center text-[8px] text-slate-400">QR CODE</div>
                     <div class="text-right">
-                        <div class="w-24 h-px bg-orange-500 mb-1"></div>
-                        <p class="text-[8px] font-black text-orange-600 uppercase">Service Commissioner</p>
+                        <p class="text-[9px] font-black navy-text uppercase">Chief of Migration Office</p>
+                        <div class="w-32 h-px bg-orange-500 mt-1"></div>
+                        <p class="text-[7px] orange-text font-bold italic mt-1">Digital Approval Signature</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <button onclick="window.print()" class="no-print mt-12 bg-navy-main text-white px-12 py-4 rounded-full font-black shadow-2xl hover:bg-blue-800 transition">
-        PRINT TRC DOCUMENT
+    <button onclick="window.print()" class="no-print mt-12 bg-[#002d5a] text-white px-16 py-4 rounded-full font-black text-lg shadow-2xl hover:scale-105 transition">
+        DOWNLOAD OFFICIAL PDF
     </button>
 
     <script>
-        function generateTRC() {
-            const getVal = (id) => document.getElementById(id).value;
-            const setOut = (id, val) => document.getElementById(id).innerText = val || "---";
+        function renderCard() {
+            const get = (id) => document.getElementById(id).value;
+            const set = (id, val) => document.getElementById(id).innerText = val || "---";
 
-            setOut('outName', getVal('name'));
-            setOut('outNation', getVal('nation'));
-            setOut('outPass', getVal('pass'));
-            setOut('outCat', getVal('category'));
+            set('outName', get('name'));
+            set('outNation', get('nationality'));
+            set('outPass', get('pass'));
+            set('outRegion', get('region'));
+            set('stampRegion', get('region').split(' ')[0]);
             
-            const iDate = getVal('issue') ? new Date(getVal('issue')).toLocaleDateString('en-GB') : "---";
-            const eDate = getVal('expiry') ? new Date(getVal('expiry')).toLocaleDateString('en-GB') : "---";
-            
-            setOut('outIssue', iDate);
-            setOut('outExpiry', eDate);
+            set('outIssue', get('issue') ? new Date(get('issue')).toLocaleDateString('en-GB') : "---");
+            set('outExpiry', get('expiry') ? new Date(get('expiry')).toLocaleDateString('en-GB') : "---");
 
-            const randomID = 'AZ' + Math.floor(100000 + Math.random() * 900000);
-            setOut('outID', randomID);
+            const cardID = 'TRC' + Math.floor(200000 + Math.random() * 800000);
+            set('outID', cardID);
 
-            // Machine Readable Zone logic
-            const mrzName = getVal('name').replace(/\s+/g, '<').toUpperCase();
-            document.getElementById('mrzLine').innerText = randomID + "<<<<<" + mrzName + "<<<<<<<<";
+            // Machine Readable Zone Generation
+            const mrzName = get('name').replace(/\s+/g, '<').toUpperCase();
+            set('mrz', `P<AZE${mrzName}<<<<<<<<<<<<<<<<<<<<<${cardID}<<<<<`);
 
-            document.getElementById('display-area').classList.remove('hidden');
+            document.getElementById('card-display').classList.remove('hidden');
+            window.scrollTo({ top: document.getElementById('card-display').offsetTop, behavior: 'smooth' });
         }
     </script>
 </body>
-</html>
+    </html>
