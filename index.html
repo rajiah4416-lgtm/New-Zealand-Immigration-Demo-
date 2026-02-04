@@ -3,204 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Owner Portal: NZ Immigration System</title>
+    <title>NZ Immigration Owner System</title>
     <style>
         :root {
             --nz-blue: #00247D;
             --nz-red: #CC142B;
             --gold: #FFD700;
-            --glass: rgba(255, 255, 255, 0.1);
+            --bg: #0b0e14;
         }
 
         body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            margin: 0; font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg); color: white;
+            display: flex; flex-direction: column; align-items: center;
         }
 
-        /* Top Status Bar */
-        .status-bar {
-            width: 90%;
-            max-width: 900px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--glass);
-            padding: 10px 20px;
-            border-radius: 50px;
-            border: 1px solid rgba(255,255,255,0.2);
-            margin-bottom: 20px;
+        /* Navigation Bar */
+        nav {
+            width: 100%; background: #161b22; padding: 15px 0;
+            display: flex; justify-content: center; gap: 20px;
+            border-bottom: 2px solid var(--nz-blue);
         }
 
-        .flag-icon { font-size: 24px; vertical-align: middle; }
-
-        /* Main Dashboard */
-        .dashboard {
-            width: 90%;
-            max-width: 900px;
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 20px;
+        nav button {
+            background: none; border: 1px solid rgba(255,255,255,0.2);
+            color: white; padding: 8px 16px; border-radius: 5px; cursor: pointer;
+            transition: 0.3s;
         }
 
-        /* Left Side: Admin Input (The "System in your hands") */
-        .admin-panel {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid var(--nz-blue);
+        nav button.active { background: var(--nz-blue); border-color: white; }
+
+        /* Content Containers */
+        .page { display: none; width: 90%; max-width: 800px; margin-top: 40px; }
+        .page.active { display: block; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Page 1: Owner System Styles */
+        .card { background: #1c2128; padding: 30px; border-radius: 15px; border: 1px solid #30363d; }
+        .owner-header { color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        input, select { 
+            width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px;
+            border: 1px solid #30363d; background: #0d1117; color: white; box-sizing: border-box;
         }
 
-        .admin-panel h3 { color: var(--gold); margin-top: 0; }
+        /* Page 2: Client Info Styles */
+        .official-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .official-table td { padding: 15px; border-bottom: 1px solid #30363d; }
+        .label { color: #8b949e; font-size: 0.9rem; width: 40%; }
+        .val { font-weight: bold; font-size: 1.1rem; }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid #444;
-            color: white;
-            border-radius: 5px;
-            box-sizing: border-box;
+        /* Page 3: Results Styles */
+        .result-box { text-align: center; padding: 50px; border: 3px solid var(--nz-blue); border-radius: 20px; }
+        .flag-large { font-size: 80px; margin-bottom: 20px; }
+        .status-stamp { 
+            display: inline-block; padding: 10px 20px; border: 4px double #00ff88;
+            color: #00ff88; font-weight: bold; font-size: 1.5rem; text-transform: uppercase;
+            transform: rotate(-5deg); margin-top: 20px;
         }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background: var(--nz-red);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        /* Right Side: Live Official Display */
-        .display-panel {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.2);
-            position: relative;
-        }
-
-        .official-seal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            opacity: 0.3;
-            font-size: 50px;
-        }
-
-        .client-info h1 { font-size: 2.5rem; margin: 0; color: #fff; }
-        .detail-row { margin: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
-        .label { font-size: 0.8rem; color: #aaa; text-transform: uppercase; }
-        .value { font-size: 1.2rem; font-weight: bold; }
-
-        .time-box {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.5rem;
-            color: var(--gold);
-            margin-top: 20px;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #00ff88;
-            color: black;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 0.7rem;
-            margin-top: 10px;
-        }
-
     </style>
 </head>
 <body>
 
-    <div class="status-bar">
-        <div><span class="flag-icon">🇳🇿</span> <strong>NZ IMMIGRATION AUTHORITY</strong></div>
-        <div style="color: #00ff88;">● LIVE SYSTEM ACCESS</div>
+    <nav>
+        <button onclick="showPage('owner')" id="btn-owner" class="active">1. Owner System</button>
+        <button onclick="showPage('client')" id="btn-client">2. Client Data</button>
+        <button onclick="showPage('results')" id="btn-results">3. Final Results</button>
+    </nav>
+
+    <div id="page-owner" class="page active">
+        <div class="card">
+            <h2 class="owner-header">Master Control: Data Entry</h2>
+            <p>Enter the official details to synchronize with the NZ system.</p>
+            <input type="text" id="name" placeholder="Client Full Name">
+            <input type="text" id="passport" placeholder="Passport Number">
+            <input type="text" id="address" placeholder="Client Current Address">
+            <select id="category">
+                <option value="Official Waiter Category">Official Waiter Category</option>
+                <option value="Hospitality Specialist">Hospitality Specialist</option>
+            </select>
+            <button onclick="saveAndGo()" style="background: var(--nz-red); color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                AUTHORIZE & GENERATE FILES
+            </button>
+        </div>
     </div>
 
-    <div class="dashboard">
-        <div class="admin-panel">
-            <h3>System Control</h3>
-            <label>Client Full Name</label>
-            <input type="text" id="inName" placeholder="Enter Name...">
-            
-            <label>Current Address</label>
-            <input type="text" id="inAddress" placeholder="Enter Address...">
-            
-            <label>Passport Number</label>
-            <input type="text" id="inPassport" placeholder="Enter Passport No...">
-            
-            <button onclick="updateSystem()">Update Client Record</button>
-            <p style="font-size: 12px; opacity: 0.6; margin-top: 15px;">
-                Log: Authority Level 10 (Owner) <br>
-                Location: Padang Tengku, Malaysia
-            </p>
+    <div id="page-client" class="page">
+        <div class="card">
+            <h2 style="color: white; border-bottom: 1px solid var(--nz-blue); padding-bottom: 10px;">Client Profile: Immigration NZ</h2>
+            <table class="official-table">
+                <tr><td class="label">System ID</td><td class="val" id="disp-id">#NZ-8829-X</td></tr>
+                <tr><td class="label">Full Legal Name</td><td class="val" id="disp-name">---</td></tr>
+                <tr><td class="label">Passport Number</td><td class="val" id="disp-pass">---</td></tr>
+                <tr><td class="label">Location Address</td><td class="val" id="disp-addr">---</td></tr>
+                <tr><td class="label">Application Type</td><td class="val" id="disp-cat">---</td></tr>
+            </table>
         </div>
+    </div>
 
-        <div class="display-panel">
-            <div class="official-seal">🇳🇿</div>
-            <div class="badge">OFFICIAL WAITER CATEGORY</div>
-            
-            <div class="client-info">
-                <div class="detail-row">
-                    <div class="label">Primary Applicant</div>
-                    <div class="value" id="displayName">---</div>
-                </div>
-                
-                <div class="detail-row">
-                    <div class="label">Address / Jurisdiction</div>
-                    <div class="value" id="displayAddress">---</div>
-                </div>
-
-                <div class="detail-row">
-                    <div class="label">Passport ID</div>
-                    <div class="value" id="displayPassport">---</div>
-                </div>
-            </div>
-
-            <div class="time-box">
-                <div id="liveClock">00:00:00</div>
-                <div id="liveDate" style="font-size: 1rem; color: #fff;">Date</div>
-            </div>
+    <div id="page-results" class="page">
+        <div class="result-box card">
+            <div class="flag-large">🇳🇿</div>
+            <h1>IMMIGRATION NEW ZEALAND</h1>
+            <p>The system has processed the application for:</p>
+            <h2 id="res-name" style="color: var(--gold);">---</h2>
+            <div class="status-stamp">Official Approved</div>
+            <p style="margin-top: 30px; opacity: 0.6;">Verification Date: <span id="res-date"></span></p>
+            <p style="font-size: 0.8rem;">Status: Active / Authority Verified</p>
         </div>
     </div>
 
     <script>
-        function updateSystem() {
-            const name = document.getElementById('inName').value;
-            const addr = document.getElementById('inAddress').value;
-            const pass = document.getElementById('inPassport').value;
-
-            document.getElementById('displayName').innerText = name || "---";
-            document.getElementById('displayAddress').innerText = addr || "---";
-            document.getElementById('displayPassport').innerText = pass || "---";
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
             
-            alert("System Record Updated Successfully.");
+            // Show selected
+            document.getElementById('page-' + pageId).classList.add('active');
+            document.getElementById('btn-' + pageId).classList.add('active');
         }
 
-        function runClock() {
-            const now = new Date();
-            document.getElementById('liveClock').innerText = now.toLocaleTimeString();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-NZ', options);
-        }
+        function saveAndGo() {
+            // Get values
+            const name = document.getElementById('name').value;
+            const pass = document.getElementById('passport').value;
+            const addr = document.getElementById('address').value;
+            const cat = document.getElementById('category').value;
 
-        setInterval(runClock, 1000);
-        runClock();
+            // Update Page 2
+            document.getElementById('disp-name').innerText = name || "N/A";
+            document.getElementById('disp-pass').innerText = pass || "N/A";
+            document.getElementById('disp-addr').innerText = addr || "N/A";
+            document.getElementById('disp-cat').innerText = cat;
+
+            // Update Page 3
+            document.getElementById('res-name').innerText = name || "CLIENT";
+            document.getElementById('res-date').innerText = new Date().toLocaleDateString('en-NZ');
+
+            alert("Data Transferred to Official Record.");
+            showPage('client');
+        }
     </script>
 </body>
 </html>
