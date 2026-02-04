@@ -2,23 +2,21 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <title>Azerbaijan TRC - Power Edition</title>
+    <title>Azerbaijan TRC - Signature Glow</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
 
         :root {
             --neon-blue: #00d2ff;
-            --neon-gold: #ffcc00;
-            --neon-red: #ff003c;
             --active-color: var(--neon-blue);
         }
 
         body {
             background-color: #020617;
-            background-image: radial-gradient(circle at 20% 20%, #0f172a 0%, #020617 100%);
             font-family: 'Rajdhani', sans-serif;
             color: white;
             padding: 20px;
@@ -27,193 +25,178 @@
             align-items: center;
         }
 
-        /* The Night Card */
         .card-container {
             width: 850px;
             height: 540px;
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(15, 23, 42, 0.95);
             border-radius: 30px;
             position: relative;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 50px rgba(0, 0, 0, 1), 0 0 20px var(--active-color);
+            box-shadow: 0 0 60px rgba(0, 0, 0, 1), 0 0 30px var(--active-color);
             overflow: hidden;
-            transition: all 0.5s ease;
         }
 
-        /* Laser Scan Sweep */
-        .laser {
+        /* The Immigration Pillar (Left Side Azerbaijan Colors) */
+        .immigration-pillar {
             position: absolute;
-            top: 0; left: -100%;
+            left: 0; top: 0;
+            width: 15px; height: 100%;
+            display: flex; flex-direction: column;
+            box-shadow: 5px 0 20px rgba(0,0,0,0.5);
+            z-index: 50;
+        }
+        .pillar-blue { background: #0092bc; flex: 1; box-shadow: inset -5px 0 10px rgba(0,0,0,0.3); }
+        .pillar-red { background: #e4181c; flex: 1; }
+        .pillar-green { background: #009739; flex: 1; }
+
+        /* Signature Area */
+        .signature-wrap {
+            position: absolute;
+            bottom: 85px;
+            right: 45px;
+            width: 320px;
+            height: 100px;
+            background: rgba(255,255,255,0.03);
+            border-bottom: 2px solid var(--active-color);
+            overflow: hidden;
+        }
+        
+        #signature-canvas {
             width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, var(--active-color), transparent);
-            opacity: 0.15;
-            animation: scan 4s infinite linear;
-            pointer-events: none;
-        }
-
-        @keyframes scan {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .neon-flag {
-            display: flex; height: 14px; width: 100%;
-        }
-        .neon-flag div:nth-child(1) { background: #0092bc; flex: 1; }
-        .neon-flag div:nth-child(2) { background: #e4181c; flex: 1; }
-        .neon-flag div:nth-child(3) { background: #009739; flex: 1; }
-
-        .photo-frame {
-            width: 210px; height: 270px;
-            border: 2px solid var(--active-color);
-            background: #000;
-            box-shadow: 0 0 25px var(--active-color);
-            position: relative;
+            filter: drop-shadow(0 0 5px var(--active-color));
         }
 
         .label { font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; }
-        .data-val { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
-        
-        /* Power Job Special Glow */
-        #outCat {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
-            color: var(--active-color);
-            text-shadow: 0 0 10px var(--active-color);
+        .data-val { font-size: 20px; font-weight: 700; color: #fff; }
+        .photo-frame {
+            width: 200px; height: 260px;
+            border: 2px solid var(--active-color);
+            box-shadow: 0 0 25px var(--active-color);
         }
 
         .mrz-text {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 22px;
+            font-size: 21px;
             letter-spacing: 7px;
             color: var(--active-color);
-            opacity: 0.8;
+            opacity: 0.6;
         }
 
-        /* Controls */
-        .panel {
-            background: rgba(30, 41, 59, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 24px;
+        /* Interface Styling */
+        .control-panel {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 20px;
             width: 900px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
         }
+        input, select { background: #0f172a; border: 1px solid #334155; padding: 8px; border-radius: 6px; color: white; }
     </style>
 </head>
 <body>
 
-    <div class="panel no-print">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-black text-white italic tracking-tighter">IMMIGRATION COMMAND CENTER</h2>
-            <div class="flex gap-2">
-                <button onclick="changeTheme('#00d2ff')" class="w-8 h-8 rounded-full bg-cyan-400 border-2 border-white"></button>
-                <button onclick="changeTheme('#ffcc00')" class="w-8 h-8 rounded-full bg-yellow-400 border-2 border-white"></button>
-                <button onclick="changeTheme('#00ff85')" class="w-8 h-8 rounded-full bg-emerald-400 border-2 border-white"></button>
-                <button onclick="changeTheme('#ff003c')" class="w-8 h-8 rounded-full bg-red-500 border-2 border-white"></button>
+    <div class="control-panel no-print">
+        <div class="flex justify-between mb-4">
+            <h2 class="text-xl font-black text-cyan-400">COMMANDER CONSOLE v4.0</h2>
+            <div class="flex gap-3">
+                <button onclick="changeTheme('#00d2ff')" class="w-6 h-6 rounded-full bg-cyan-400"></button>
+                <button onclick="changeTheme('#00ff85')" class="w-6 h-6 rounded-full bg-emerald-400"></button>
+                <button onclick="changeTheme('#ffcc00')" class="w-6 h-6 rounded-full bg-yellow-400"></button>
+                <button onclick="clearSig()" class="bg-red-900 px-3 py-1 rounded text-xs">CLEAR SIGN</button>
             </div>
         </div>
-
+        
         <div class="grid grid-cols-4 gap-4">
-            <div class="col-span-1">
-                <label class="text-xs block mb-1">Holder Photo</label>
-                <input type="file" class="text-xs w-full" onchange="preview(this)">
-            </div>
-            <input id="inS" placeholder="Soyad (Surname)">
-            <input id="inN" placeholder="Ad (Name)">
-            <input id="inNat" placeholder="Nationality">
-            
-            <select id="inCat" class="bg-slate-900 border border-slate-700 p-2 rounded-lg text-white">
-                <option value="WORKER">REGULAR WORKER</option>
-                <option value="SPECIALIST">TECH SPECIALIST</option>
-                <option value="INVESTOR">INVESTOR</option>
+            <input type="file" class="text-xs" onchange="preview(this)">
+            <input id="inS" placeholder="Surname">
+            <input id="inN" placeholder="Name">
+            <select id="inCat">
                 <option value="EXECUTIVE POWER">POWER JOB / EXECUTIVE</option>
                 <option value="CHIEF ENGINEER">POWER JOB / ENGINEER</option>
+                <option value="SPECIALIST">SPECIALIST</option>
             </select>
-
-            <input id="inCit" placeholder="City of Birth">
-            <input id="inIss" placeholder="Issue Date">
-            <input id="inExp" placeholder="Expiry Date">
         </div>
 
-        <div class="mt-6 flex gap-4">
-            <button onclick="update()" class="flex-1 bg-white text-black py-4 rounded-xl font-black text-lg hover:invert">INITIALIZE SYNC</button>
-            <button onclick="download()" class="flex-1 border-2 border-white text-white py-4 rounded-xl font-black text-lg hover:bg-white hover:text-black">DOWNLOAD ARCHIVE</button>
+        <div class="mt-4 flex gap-4">
+            <button onclick="update()" class="flex-1 bg-cyan-600 py-3 rounded-lg font-bold">COMMIT CHANGES</button>
+            <button onclick="download()" class="flex-1 border border-white py-3 rounded-lg font-bold">EXPORT PNG</button>
         </div>
     </div>
 
     <div id="capture">
         <div class="card-container" id="mainCard">
-            <div class="neon-flag"><div></div><div></div><div></div></div>
-            <div class="laser"></div>
-
-            <div class="flex justify-between items-start px-12 pt-10">
-                <div class="flex gap-6 items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-24 filter brightness-125">
-                    <div>
-                        <h1 class="text-2xl font-black leading-none tracking-tighter">AZƏRBAYCAN RESPUBLİKASI</h1>
-                        <p class="text-sm font-bold opacity-60 uppercase tracking-widest mt-1">Temporary Residence Permit</p>
-                    </div>
-                </div>
-                <div id="qrcode" class="bg-white p-1 rounded-lg"></div>
+            <div class="immigration-pillar">
+                <div class="pillar-blue"></div>
+                <div class="pillar-red"></div>
+                <div class="pillar-green"></div>
             </div>
 
-            <div class="flex gap-14 px-12 mt-12">
-                <div class="photo-frame overflow-hidden">
+            <div class="flex justify-between items-start pl-12 pr-10 pt-10">
+                <div class="flex gap-5 items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-20 filter brightness-110">
+                    <div>
+                        <h1 class="text-xl font-black leading-none tracking-tighter">AZƏRBAYCAN RESPUBLİKASI</h1>
+                        <p class="text-[12px] font-bold opacity-60 uppercase tracking-[2px]">Temporary Residence Permit</p>
+                    </div>
+                </div>
+                <div id="qrcode" class="bg-white p-1 rounded"></div>
+            </div>
+
+            <div class="flex gap-12 pl-12 mt-12">
+                <div class="photo-frame overflow-hidden bg-black">
                     <img id="outP" class="w-full h-full object-cover hidden">
-                    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-cyan-500/20 to-transparent"></div>
                 </div>
 
-                <div class="flex-1 grid grid-cols-2 gap-y-6">
-                    <div>
-                        <p class="label">Surname</p>
-                        <p id="outS" class="data-val">RAHAT</p>
-                    </div>
-                    <div>
-                        <p class="label">Given Name</p>
-                        <p id="outN" class="data-val">ALI</p>
-                    </div>
-                    <div>
-                        <p class="label">Category</p>
-                        <p id="outCat" class="data-val">POWER JOB</p>
-                    </div>
-                    <div>
-                        <p class="label">Nationality</p>
-                        <p id="outNat" class="data-val">PAKISTAN</p>
-                    </div>
-                    <div>
-                        <p class="label">Birth Place</p>
-                        <p id="outCit" class="data-val">BAKU</p>
-                    </div>
-                    <div>
-                        <p class="label">Expiry</p>
-                        <p id="outExp" class="data-val text-red-500">04.02.2027</p>
-                    </div>
-                    <div class="col-span-2">
-                        <p class="label">Auth Code</p>
-                        <p class="text-xs opacity-50 tracking-[5px]">DÖVLƏT MİQRASİYA XİDMƏTİ / 7749-001</p>
+                <div class="flex-1 grid grid-cols-2 gap-y-5">
+                    <div><p class="label">Surname</p><p id="outS" class="data-val">RAHAT</p></div>
+                    <div><p class="label">Given Name</p><p id="outN" class="data-val">ALI</p></div>
+                    <div><p class="label">Category</p><p id="outCat" class="data-val text-cyan-400">EXECUTIVE POWER</p></div>
+                    <div><p class="label">Nationality</p><p id="outNat" class="data-val">PAKISTAN</p></div>
+                    
+                    <div class="col-span-2 pt-2">
+                        <p class="label">Holder's Signature / İmza</p>
+                        <div class="signature-wrap">
+                            <canvas id="signature-canvas"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="absolute bottom-10 left-0 w-full text-center">
+            <div class="absolute bottom-6 left-0 w-full text-center">
                 <p id="m1" class="mrz-text">ITAZE6810911<<RAHAT<<<<<<<<<<<<</p>
-                <p id="m2" class="mrz-text">9001011M2901017AZE<<<<<<<<<<<<0</p>
             </div>
         </div>
     </div>
 
+    <p class="mt-4 text-xs text-slate-500 uppercase tracking-widest">Sign with mouse or touch in the box above</p>
+
     <script>
-        const qr = new QRCode(document.getElementById("qrcode"), {
-            text: "AZE-POWER-SYNC",
-            width: 85, height: 85
+        // Init Signature Pad
+        const canvas = document.querySelector("canvas");
+        const signaturePad = new SignaturePad(canvas, {
+            penColor: "rgb(0, 210, 255)"
         });
+
+        // Resize signature canvas for high resolution
+        function resizeCanvas() {
+            const ratio =  Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
+            signaturePad.clear();
+        }
+        window.onresize = resizeCanvas;
+        resizeCanvas();
+
+        const qr = new QRCode(document.getElementById("qrcode"), { text: "AZE-POWER", width: 75, height: 75 });
 
         function changeTheme(color) {
             document.documentElement.style.setProperty('--active-color', color);
-            document.getElementById('mainCard').style.boxShadow = `0 0 50px rgba(0,0,0,1), 0 0 20px ${color}`;
+            signaturePad.penColor = color;
+            document.getElementById('outCat').style.color = color;
         }
+
+        function clearSig() { signaturePad.clear(); }
 
         function preview(input) {
             if (input.files && input.files[0]) {
@@ -230,25 +213,19 @@
             const get = (id) => document.getElementById(id).value.toUpperCase();
             document.getElementById('outS').innerText = get('inS') || "RAHAT";
             document.getElementById('outN').innerText = get('inN') || "ALI";
-            document.getElementById('outNat').innerText = get('inNat') || "PAKISTAN";
             document.getElementById('outCat').innerText = document.getElementById('inCat').value;
-            document.getElementById('outCit').innerText = get('inCit') || "BAKU";
-            document.getElementById('outExp').innerText = get('inExp') || "04.02.2027";
-
-            const sName = get('inS') || "RAHAT";
-            document.getElementById('m1').innerText = `ITAZE6810911<<${sName.padEnd(12, '<')}`;
-            
-            qr.makeCode(`LVL-7-ACCESS: ${get('inN')} | CAT: ${document.getElementById('inCat').value}`);
+            document.getElementById('m1').innerText = `ITAZE6810911<<${(get('inS') || "RAHAT").padEnd(12, '<')}`;
+            qr.makeCode(`AZE-AUTH: ${get('inN')} | ${document.getElementById('inCat').value}`);
         }
 
         function download() {
             html2canvas(document.querySelector("#capture"), { backgroundColor: '#020617' }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'POWER-TRC.png';
+                link.download = 'Signature-TRC.png';
                 link.href = canvas.toDataURL();
                 link.click();
             });
         }
     </script>
 </body>
-                </html>
+                    </html>
