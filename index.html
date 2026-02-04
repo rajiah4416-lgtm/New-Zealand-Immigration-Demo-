@@ -8,148 +8,147 @@
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Share+Tech+Mono&display=swap');
         
         :root {
-            /* Official Flag Colors */
-            --az-blue: #0092bc;  /* Top Band */
-            --az-red: #e4181c;   /* Middle Band */
-            --az-green: #009739; /* Bottom Band */
-            --card-base: #f7fbf2; /* The exact pale mint-cream base */
+            --az-blue: #0092bc;
+            --az-red: #e4181c;
+            --az-green: #009739;
+            --card-cream: #f9f8f4; /* Matches the paper tone in your photo */
         }
 
-        body { font-family: 'Roboto', sans-serif; background: #e5e7eb; }
+        body { font-family: 'Roboto', sans-serif; background: #d1d5db; display: flex; flex-direction: column; align-items: center; padding: 40px; }
 
-        .trc-container {
+        .trc-card {
             width: 850px;
             height: 540px;
-            background-color: var(--card-base);
-            border-radius: 18px;
+            background-color: var(--card-cream);
+            border-radius: 20px;
             position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            border: 1px solid #d1d5db;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid #c0c0c0;
             overflow: hidden;
+            padding: 35px 45px;
         }
 
-        /* Subtle guilloche security pattern from your image */
-        .guilloche {
+        /* Subtle wavy line pattern seen in original ID */
+        .waves {
             position: absolute;
             inset: 0;
-            opacity: 0.15;
-            background-image: radial-gradient(var(--az-blue) 0.5px, transparent 0.5px);
-            background-size: 15px 15px;
+            opacity: 0.08;
+            background-image: url("data:image/svg+xml,%3Csvg width='800' height='200' viewBox='0 0 800 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 C 150 50 300 150 450 100 C 600 50 750 150 900 100' stroke='%230092bc' fill='transparent' stroke-width='1'/%3E%3C/svg%3E");
             pointer-events: none;
         }
 
-        .mrz-font { font-family: 'Share Tech Mono', monospace; letter-spacing: 4px; color: #1f2937; }
-        .label-az { font-size: 11px; font-weight: 700; color: #374151; line-height: 1.1; }
-        .label-en { font-size: 10px; font-weight: 400; color: #4b5563; font-style: italic; }
-        .data-text { font-size: 15px; font-weight: 700; color: #000; text-transform: uppercase; }
+        .mrz { font-family: 'Share Tech Mono', monospace; letter-spacing: 5px; font-size: 20px; color: #1a1a1a; line-height: 1.3; }
+        .label-az { font-size: 12px; font-weight: 700; color: #333; }
+        .label-en { font-size: 10px; font-weight: 400; color: #555; font-style: italic; margin-top: -2px; }
+        .data { font-size: 17px; font-weight: 700; color: #000; text-transform: uppercase; margin-top: 2px; }
+        .expiry-red { color: var(--az-red) !important; }
 
-        /* Photo Area with standard passport proportions */
-        .photo-box {
-            width: 190px;
-            height: 250px;
+        .photo-area {
+            width: 210px;
+            height: 270px;
             background: #fff;
-            border: 1px solid #94a3b8;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #bbb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
+        @media print { .no-print { display: none !important; } }
     </style>
 </head>
-<body class="p-10 flex flex-col items-center gap-10">
+<body>
 
-    <div class="no-print bg-white p-6 rounded-xl shadow-lg w-[850px] border-t-4 border-[#0092bc]">
-        <div class="flex items-center gap-4 mb-4">
-            <div class="flex flex-col w-8 h-6">
-                <div class="h-1/3 bg-[#0092bc]"></div>
-                <div class="h-1/3 bg-[#e4181c]"></div>
-                <div class="h-1/3 bg-[#009739]"></div>
-            </div>
-            <h2 class="font-bold text-gray-700">Client Image & Data Input</h2>
-        </div>
+    <div class="no-print bg-white p-8 rounded-2xl shadow-lg w-[850px] mb-10 border-t-8 border-[#0092bc]">
+        <h2 class="font-black text-xl mb-4">MIGRATION DATA ENTRY</h2>
         <div class="grid grid-cols-3 gap-4">
-            <input type="file" id="imgInp" class="text-xs p-2 border rounded" onchange="readURL(this)">
-            <input id="inSurname" placeholder="Surname" class="p-2 border rounded text-sm">
-            <input id="inName" placeholder="Given Name" class="p-2 border rounded text-sm">
-            <input id="inNation" placeholder="Nationality" class="p-2 border rounded text-sm">
-            <input id="inIssue" type="date" class="p-2 border rounded text-sm">
-            <input id="inExpiry" type="date" class="p-2 border rounded text-sm">
+            <input type="file" id="clientImg" class="text-xs border p-2" onchange="preview(this)">
+            <input id="inSurname" placeholder="Surname (RAHAT)" class="p-2 border rounded">
+            <input id="inName" placeholder="Name (ALI)" class="p-3 border rounded">
+            <input id="inNation" placeholder="Nationality (PAKISTAN)" class="p-3 border rounded">
+            <input id="inIssue" type="text" placeholder="Issue Date (05.02.2026)" class="p-3 border rounded">
+            <input id="inExpiry" type="text" placeholder="Expiry Date (04.02.2027)" class="p-3 border rounded">
         </div>
-        <button onclick="update()" class="w-full mt-4 bg-[#0092bc] text-white font-bold py-2 rounded">GENERATE OFFICIAL CARD</button>
+        <button onclick="update()" class="w-full mt-4 bg-[#0092bc] text-white font-black py-3 rounded-xl uppercase">Apply Changes</button>
     </div>
 
-    <div class="trc-container" id="capture">
-        <div class="guilloche"></div>
+    <div class="trc-card">
+        <div class="waves"></div>
         
-        <div class="p-6 flex justify-between items-start">
+        <div class="flex justify-between items-start">
             <div class="flex gap-4">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-20" alt="Emblem">
-                <div class="pt-1">
-                    <p class="font-bold text-[13px] text-[#1f2937]">AZƏRBAYCAN RESPUBLİKASININ ƏRAZİSİNDƏ</p>
-                    <p class="font-bold text-[13px] text-[#1f2937]">MÜVƏQQƏTİ YAŞAMAQ ÜÇÜN İCAZƏ VƏSİQƏSİ</p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-16" alt="Emblem">
+                <div>
+                    <p class="font-bold text-[14px]">AZƏRBAYCAN RESPUBLİKASININ ƏRAZİSİNDƏ</p>
+                    <p class="font-bold text-[14px]">MÜVƏQQƏTİ YAŞAMAQ ÜÇÜN İCAZƏ VƏSİQƏSİ</p>
                     <p class="font-bold text-[12px] text-[#0092bc] mt-1">PERMIT FOR TEMPORARY RESIDENCE</p>
-                    <p class="font-medium text-[9px] text-gray-500 uppercase tracking-tighter">In the territory of the Republic of Azerbaijan</p>
+                    <p class="font-medium text-[10px] text-gray-500 uppercase">In the territory of the Republic of Azerbaijan</p>
                 </div>
             </div>
             <div class="text-right">
-                <p class="text-[11px] font-bold">Seriya/Series <span class="text-[#e4181c]">MYİ</span> № <span id="outCardNo">1234567</span></p>
+                <img src="https://i.imgur.com/39G0H5v.png" class="h-8 mb-2 opacity-80" style="filter: grayscale(1);">
+                <p class="text-[11px] font-bold">Seriya/Series <span class="text-[#e4181c]">MYİ</span> № <span id="outNo">6810911</span></p>
             </div>
         </div>
 
-        <div class="px-10 flex gap-12 mt-4">
-            <div class="photo-box overflow-hidden">
-                <img id="outPhoto" class="w-full h-full object-cover hidden">
+        <div class="flex gap-12 mt-10">
+            <div class="photo-area overflow-hidden">
+                <img id="outImg" class="w-full h-full object-cover hidden">
+                <span id="imgPlc" class="text-gray-300 font-bold">PHOTO</span>
             </div>
 
-            <div class="flex-1 grid grid-cols-2 gap-y-4">
+            <div class="flex-1 grid grid-cols-2 gap-y-6">
                 <div>
                     <p class="label-az">Soyad/</p><p class="label-en">Surname</p>
-                    <p id="outSurname" class="data-text">---</p>
+                    <p id="outSurname" class="data">RAHAT</p>
                 </div>
-                <div class="pl-10">
+                <div class="pl-12">
                     <p class="label-az">Soyad</p>
-                    <p id="outSurnameAz" class="data-text">---</p>
+                    <p id="outSurnameAz" class="data">RAHAT</p>
                 </div>
 
                 <div>
                     <p class="label-az">Ad/</p><p class="label-en">Name</p>
-                    <p id="outName" class="data-text">---</p>
+                    <p id="outName" class="data">ALI</p>
                 </div>
-                <div class="pl-10">
+                <div class="pl-12">
                     <p class="label-az">Ad</p>
-                    <p id="outNameAz" class="data-text">---</p>
+                    <p id="outNameAz" class="data">ALI</p>
                 </div>
 
                 <div>
                     <p class="label-az">Vətəndaşlıq/</p><p class="label-en">Nationality</p>
-                    <p id="outNation" class="data-text">---</p>
+                    <p id="outNation" class="data">PAKISTAN</p>
                 </div>
-                <div class="pl-10">
+                <div class="pl-12">
                     <p class="label-az">Vətəndaşlıq</p>
-                    <p id="outNationAz" class="data-text">---</p>
+                    <p id="outNationAz" class="data">PAKISTAN</p>
                 </div>
 
                 <div>
                     <p class="label-az">İcazənin verilmə tarixi/</p><p class="label-en">Date of issue</p>
-                    <p id="outIssue" class="data-text">---</p>
+                    <p id="outIssue" class="data">05.02.2026</p>
                 </div>
-                <div class="pl-10">
+                <div class="pl-12">
                     <p class="label-az">Etibarlıdır/</p><p class="label-en">Date of expiry</p>
-                    <p id="outExpiry" class="data-text text-[#e4181c]">---</p>
+                    <p id="outExpiry" class="data expiry-red">04.02.2027</p>
                 </div>
             </div>
         </div>
 
-        <div class="absolute bottom-8 left-10 right-10 border-t border-gray-300 pt-4">
-            <p class="mrz-font text-[18px]" id="mrz1">ITAZE1234567<<<<<<<<<<<<<<<<<<</p>
-            <p class="mrz-font text-[18px]" id="mrz2">9001011M2901017AZE<<<<<<<<<<<0</p>
+        <div class="absolute bottom-10 left-[45px] right-[45px] pt-4 border-t border-gray-300">
+            <p class="mrz" id="mrz1">ITAZE6810911<<RAHAT<<<<<<<<<<<<</p>
+            <p class="mrz" id="mrz2">9001011M2901017AZE<<<<<<<<<<<<0</p>
         </div>
     </div>
 
     <script>
-        function readURL(input) {
+        function preview(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('outPhoto').src = e.target.result;
-                    document.getElementById('outPhoto').classList.remove('hidden');
+                    document.getElementById('outImg').src = e.target.result;
+                    document.getElementById('outImg').classList.remove('hidden');
+                    document.getElementById('imgPlc').classList.add('hidden');
                 }
                 reader.readAsDataURL(input.files[0]);
             }
@@ -157,22 +156,25 @@
 
         function update() {
             const get = (id) => document.getElementById(id).value.toUpperCase();
-            document.getElementById('outSurname').innerText = get('inSurname');
-            document.getElementById('outSurnameAz').innerText = get('inSurname');
-            document.getElementById('outName').innerText = get('inName');
-            document.getElementById('outNameAz').innerText = get('inName');
-            document.getElementById('outNation').innerText = get('inNation');
-            document.getElementById('outNationAz').innerText = get('inNation');
-            
-            const iD = document.getElementById('inIssue').value ? new Date(document.getElementById('inIssue').value).toLocaleDateString('en-GB').replace(/\//g, '.') : "---";
-            const eD = document.getElementById('inExpiry').value ? new Date(document.getElementById('inExpiry').value).toLocaleDateString('en-GB').replace(/\//g, '.') : "---";
-            
-            document.getElementById('outIssue').innerText = iD;
-            document.getElementById('outExpiry').innerText = eD;
-            
-            const num = Math.floor(1000000 + Math.random() * 9000000);
-            document.getElementById('outCardNo').innerText = num;
-            document.getElementById('mrz1').innerText = `ITAZE${num}<<${get('inSurname')}<<<<<<<<<<<<<`;
+            if(get('inSurname')) {
+                document.getElementById('outSurname').innerText = get('inSurname');
+                document.getElementById('outSurnameAz').innerText = get('inSurname');
+            }
+            if(get('inName')) {
+                document.getElementById('outName').innerText = get('inName');
+                document.getElementById('outNameAz').innerText = get('inName');
+            }
+            if(get('inNation')) {
+                document.getElementById('outNation').innerText = get('inNation');
+                document.getElementById('outNationAz').innerText = get('inNation');
+            }
+            if(get('inIssue')) document.getElementById('outIssue').innerText = get('inIssue');
+            if(get('inExpiry')) document.getElementById('outExpiry').innerText = get('inExpiry');
+
+            // Dynamic MRZ update
+            const cardNum = document.getElementById('outNo').innerText;
+            const surname = document.getElementById('outSurname').innerText;
+            document.getElementById('mrz1').innerText = `ITAZE${cardNum}<<${surname.padEnd(12, '<')}`;
         }
     </script>
 </body>
