@@ -2,196 +2,230 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <title>Azerbaijan - Obsidian Heritage</title>
+    <title>AZE - The Singularity</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=UnifrakturMaguntia&family=Cinzel:wght@400;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Playfair+Display:ital,wght@1,900&family=Share+Tech+Mono&display=swap');
 
         body {
-            background-color: #050505;
-            color: #d4af37;
+            background-color: #000;
+            color: #fff;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 50px;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* THE OBSIDIAN BASE */
+        /* THE SINGULARITY CONTAINER */
         .card-container {
-            width: 880px;
+            width: 950px;
             height: 550px;
-            background: #0a0a0a;
-            border-radius: 15px;
+            background: #080808;
+            border-radius: 2px; /* Brutalist sharp edges */
             position: relative;
-            /* Real gold-leaf style border */
-            border: 1px solid #d4af37;
-            box-shadow: 0 0 40px rgba(0,0,0,1), inset 0 0 100px rgba(212, 175, 55, 0.05);
+            box-shadow: 0 0 100px rgba(0,0,0,1);
+            display: flex;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* LEFT ZONE: The "Data Void" */
+        .left-zone {
+            flex: 1.5;
+            padding: 60px;
+            position: relative;
+            z-index: 10;
+            background: linear-gradient(90deg, #050505 0%, #080808 100%);
+        }
+
+        /* RIGHT ZONE: The "Golden Light" */
+        .right-zone {
+            flex: 1;
+            background: #d4af37;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
         }
 
-        /* THE HERITAGE GLOW: A unique "Internal Fire" effect */
-        .internal-fire {
+        /* Liquid Gold Animation */
+        .liquid-gold {
             position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle at center, rgba(228, 24, 28, 0.08) 0%, transparent 40%);
-            animation: rotateFire 20s infinite linear;
-            pointer-events: none;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, #b8860b, #ffd700, #daa520, #8b4513);
+            background-size: 400% 400%;
+            animation: flow 10s infinite alternate ease-in-out;
+            opacity: 0.9;
         }
 
-        @keyframes rotateFire {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* THE PILLAR: Reimagined as a physical carved element */
-        .pillar {
+        /* VERTICAL FLAG: Reimagined as a structural spine */
+        .flag-spine {
             position: absolute;
-            left: 0; top: 0; width: 8px; height: 100%;
+            left: 0; top: 0; width: 5px; height: 100%;
             display: flex; flex-direction: column;
         }
-        .p-b { background: #0092bc; flex: 1; opacity: 0.6; }
-        .p-r { background: #e4181c; flex: 1; opacity: 0.6; }
-        .p-g { background: #009739; flex: 1; opacity: 0.6; }
+        .b { background: #0092bc; flex: 1; }
+        .r { background: #e4181c; flex: 1; }
+        .g { background: #009739; flex: 1; }
 
-        /* TYPOGRAPHY: Moving away from "Standard Tech" to "Ancient Power" */
-        .state-name {
-            font-family: 'Cinzel', serif;
+        /* TYPOGRAPHY */
+        .title-main {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            font-size: 10px;
+            letter-spacing: 8px;
+            color: #d4af37;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .name-hero {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
             font-weight: 900;
-            font-size: 2.2rem;
-            letter-spacing: -1px;
-            color: #fff;
-            text-shadow: 0 0 15px rgba(255,255,255,0.4);
+            font-size: 65px;
+            line-height: 1;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, #666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .label {
-            font-family: 'Cinzel', serif;
-            font-size: 9px;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 8px;
+            color: #444;
+            margin-bottom: 4px;
+            display: block;
         }
 
-        .data-val {
-            font-family: 'Cinzel', serif;
-            font-size: 20px;
-            color: #d4af37; /* Pure Gold */
-            font-weight: 700;
+        .data-text {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 18px;
+            color: #eee;
+            margin-bottom: 20px;
         }
 
-        .photo-frame {
-            width: 210px;
-            height: 270px;
-            border: 1px solid #333;
-            filter: grayscale(1) contrast(1.1) brightness(0.9);
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+        /* THE PHOTO: Floating & Shadowed */
+        .photo-wrap {
+            width: 240px;
+            height: 300px;
+            background: #000;
+            z-index: 20;
+            box-shadow: 30px 30px 60px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            transform: rotate(-2deg);
             position: relative;
         }
 
-        /* The signature feels like it's etched into stone */
-        .sig-canvas-wrap {
-            width: 340px;
-            height: 100px;
-            border-bottom: 1px solid #d4af37;
-            opacity: 0.8;
+        .photo-wrap img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: contrast(1.2) brightness(0.8) sepia(0.2);
         }
 
-        #signature-canvas { filter: drop-shadow(0 0 2px #d4af37); }
+        /* SIGNATURE AREA: On top of the Gold */
+        .sig-container {
+            position: absolute;
+            bottom: 40px;
+            width: 80%;
+            height: 80px;
+            border-bottom: 2px solid #000;
+            z-index: 30;
+        }
+        
+        #signature-canvas { filter: invert(1) brightness(0); }
 
-        .mrz {
+        .mrz-brutalist {
+            position: absolute;
+            bottom: 20px;
+            left: 60px;
             font-family: 'Share Tech Mono', monospace;
-            font-size: 20px;
-            color: #222; /* Hidden in the shadows */
-            letter-spacing: 12px;
+            font-size: 12px;
+            color: #222;
+            letter-spacing: 5px;
         }
 
-        .panel {
-            background: #111;
-            padding: 20px;
-            border-radius: 10px;
-            width: 900px;
-            margin-bottom: 30px;
-            border: 1px solid #222;
+        .admin-box {
+            background: #111; padding: 20px; border-radius: 8px; margin-bottom: 40px; border: 1px solid #333;
         }
     </style>
 </head>
 <body>
 
-    <div class="panel no-print">
-        <div class="grid grid-cols-4 gap-4">
-            <input type="file" onchange="preview(this)" class="bg-black text-xs p-2 border border-yellow-900">
-            <input id="inS" placeholder="SURNAME" class="bg-black p-2 border border-yellow-900">
-            <input id="inN" placeholder="NAME" class="bg-black p-2 border border-yellow-900">
-            <input id="inPass" placeholder="PASSPORT" class="bg-black p-2 border border-yellow-900">
-            <input id="inNat" placeholder="NATIONALITY" class="bg-black p-2 border border-yellow-900">
-            <button onclick="update()" class="bg-yellow-900 text-white font-bold py-2 rounded">ETCH DATA</button>
-            <button onclick="download()" class="bg-white text-black font-bold py-2 rounded">ARCHIVE</button>
-            <button onclick="clearSig()" class="bg-gray-800 text-white py-2 rounded">CLEAR ETCH</button>
+    <div class="admin-box no-print">
+        <div class="grid grid-cols-5 gap-3">
+            <input type="file" onchange="preview(this)" class="bg-black text-xs p-2">
+            <input id="inN" placeholder="NAME" class="bg-black p-2 text-xs">
+            <input id="inS" placeholder="SURNAME" class="bg-black p-2 text-xs">
+            <input id="inPass" placeholder="PASSPORT" class="bg-black p-2 text-xs">
+            <button onclick="update()" class="bg-white text-black text-[10px] font-bold">GENERATE SINGULARITY</button>
+        </div>
+        <div class="flex gap-2 mt-2">
+             <button onclick="clearSig()" class="bg-red-900 text-white text-[10px] px-4 py-1">RESET SIGN</button>
+             <button onclick="download()" class="bg-blue-900 text-white text-[10px] px-4 py-1">EXPORT MASTER</button>
         </div>
     </div>
 
     <div id="capture">
         <div class="card-container">
-            <div class="internal-fire"></div>
-            <div class="pillar">
-                <div class="p-b"></div><div class="p-r"></div><div class="p-g"></div>
+            <div class="flag-spine">
+                <div class="b"></div><div class="r"></div><div class="g"></div>
             </div>
 
-            <div class="flex justify-between items-start pl-16 pr-12 pt-12 relative z-10">
-                <div class="flex gap-8 items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-24 filter contrast-125 brightness-75 sepia-50">
-                    <div>
-                        <h1 class="state-name">AZƏRBAYCAN</h1>
-                        <p class="label" style="color:#d4af37">Presidential Heritage Document</p>
-                    </div>
-                </div>
-                <div id="qrcode" class="bg-white p-1 rounded opacity-80"></div>
-            </div>
+            <div class="left-zone">
+                <p class="title-main">Republic of Azerbaijan // Sovereign Identity</p>
+                
+                <h1 id="outN" class="name-hero">ALI</h1>
+                <h1 id="outS" class="name-hero" style="margin-top:-15px; opacity:0.5">RAHAT</h1>
 
-            <div class="flex gap-16 pl-16 mt-12 relative z-10">
-                <div class="photo-frame">
-                    <img id="outP" class="w-full h-full object-cover hidden">
-                </div>
-
-                <div class="flex-1 grid grid-cols-2 gap-y-10">
-                    <div>
-                        <p class="label">Legacy Surname</p>
-                        <p id="outS" class="data-val">RAHAT</p>
-                    </div>
-                    <div>
-                        <p class="label">Passport Code</p>
-                        <p id="outPass" class="data-val">P12345678</p>
-                    </div>
-                    <div>
-                        <p class="label">Given Name</p>
-                        <p id="outN" class="data-val">ALI</p>
-                    </div>
-                    <div>
-                        <p class="label">Nationality</p>
-                        <p id="outNat" class="data-val">PAKISTAN</p>
-                    </div>
+                <div class="mt-12">
+                    <span class="label">Document Code</span>
+                    <p id="outPass" class="data-text">P12345678</p>
                     
-                    <div class="col-span-2">
-                        <p class="label">Biometric Verification Mark</p>
-                        <div class="sig-canvas-wrap">
-                            <canvas id="signature-canvas"></canvas>
-                        </div>
-                    </div>
+                    <span class="label">Authorization Status</span>
+                    <p class="data-text" style="color:#d4af37">PERMANENT VVIP ACCESS</p>
+                </div>
+
+                <div class="mrz-brutalist">
+                    AZE<<<<<<<<<<<<<<<<<<<<<<<<<<001
                 </div>
             </div>
 
-            <div class="absolute bottom-8 left-0 w-full text-center">
-                <p id="m1" class="mrz">ITAZE6810911<<RAHAT<<<<<<<<<<<<</p>
+            <div class="right-zone">
+                <div class="liquid-gold"></div>
+                
+                <div class="photo-wrap">
+                    <img id="outP" src="" class="hidden">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                </div>
+
+                <div class="sig-container">
+                    <span class="label" style="color:#000; font-weight:bold; position:absolute; top:-15px">Biometric Etch</span>
+                    <canvas id="signature-canvas"></canvas>
+                </div>
+                
+                <div id="qrcode" class="absolute top-10 right-10 bg-black p-1"></div>
             </div>
         </div>
     </div>
 
     <script>
         const canvas = document.querySelector("canvas");
-        const signaturePad = new SignaturePad(canvas, { penColor: "#d4af37", minWidth: 1, maxWidth: 3 });
+        const signaturePad = new SignaturePad(canvas, { penColor: "#000" });
         
         function resizeCanvas() {
             const ratio = 2;
@@ -202,7 +236,7 @@
         window.onresize = resizeCanvas;
         resizeCanvas();
 
-        const qr = new QRCode(document.getElementById("qrcode"), { text: "OBSIDIAN-TRACE", width: 80, height: 80 });
+        const qr = new QRCode(document.getElementById("qrcode"), { text: "SINGULARITY", width: 50, height: 50, colorDark: "#d4af37", colorLight: "#000" });
 
         function preview(input) {
             if (input.files && input.files[0]) {
@@ -216,26 +250,22 @@
         }
 
         function update() {
-            const s = document.getElementById('inS').value.toUpperCase() || "RAHAT";
-            const n = document.getElementById('inN').value.toUpperCase() || "ALI";
-            const pass = document.getElementById('inPass').value.toUpperCase() || "P12345678";
-            document.getElementById('outS').innerText = s;
-            document.getElementById('outN').innerText = n;
-            document.getElementById('outPass').innerText = pass;
-            document.getElementById('outNat').innerText = document.getElementById('inNat').value.toUpperCase() || "PAKISTAN";
-            qr.makeCode(`AZ-HERITAGE: ${n} ${s}`);
+            document.getElementById('outN').innerText = document.getElementById('inN').value.toUpperCase() || "ALI";
+            document.getElementById('outS').innerText = document.getElementById('inS').value.toUpperCase() || "RAHAT";
+            document.getElementById('outPass').innerText = document.getElementById('inPass').value.toUpperCase() || "P12345678";
+            qr.makeCode(`AZE-SINGULARITY: ${document.getElementById('inN').value}`);
         }
 
         function clearSig() { signaturePad.clear(); }
 
         function download() {
-            html2canvas(document.querySelector("#capture"), { backgroundColor: '#050505' }).then(canvas => {
+            html2canvas(document.querySelector("#capture"), { backgroundColor: '#000' }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'Heritage_Document.png';
+                link.download = 'AZE_Singularity.png';
                 link.href = canvas.toDataURL();
                 link.click();
             });
         }
     </script>
 </body>
-                </html>
+</html>
