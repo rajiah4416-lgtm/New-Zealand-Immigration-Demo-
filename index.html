@@ -2,137 +2,180 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Türkiye İş Gücü Sistemi | Owner Portal</title>
+    <title>E-İzin: T.C. Çalışma İzni Sistemi</title>
     <style>
         :root {
-            --tr-red: #e30a17; /* Turkish Flag Red */
-            --tr-white: #ffffff;
-            --gold: #d4af37;
-            --dark: #121212;
+            --tr-red: #E30A17;
+            --tr-white: #FFFFFF;
+            --gold: #D4AF37;
+            --card-bg: #F0F2F5;
+            --dark-blue: #1A2B49;
         }
 
-        body { margin: 0; font-family: 'Arial', sans-serif; background: var(--dark); color: #e0e0e0; }
-        
-        /* Navigation */
-        nav { background: #1a1a1a; display: flex; justify-content: center; padding: 15px; border-bottom: 3px solid var(--tr-red); }
-        nav button { background: transparent; border: 1px solid #444; color: white; padding: 10px 20px; margin: 0 5px; cursor: pointer; border-radius: 4px; }
+        body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #0b0d11; color: white; }
+
+        /* Authority Header */
+        header {
+            background: #161b22; padding: 10px 5%; border-bottom: 3px solid var(--tr-red);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        nav { display: flex; gap: 10px; }
+        nav button {
+            background: #21262d; border: 1px solid #30363d; color: white;
+            padding: 8px 15px; border-radius: 5px; cursor: pointer;
+        }
         nav button.active { background: var(--tr-red); border-color: white; font-weight: bold; }
 
-        .container { display: flex; justify-content: center; padding: 40px; }
-        .page { display: none; width: 100%; max-width: 800px; animation: slideIn 0.3s ease; }
+        /* Layout */
+        .page { display: none; padding: 40px; max-width: 900px; margin: 0 auto; animation: fadeIn 0.4s ease; }
         .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        /* Page 1: Input Control */
+        .admin-box { background: #1c2128; padding: 30px; border-radius: 12px; border: 1px solid #30363d; }
+        input { width: 100%; padding: 12px; margin: 10px 0; background: #0d1117; border: 1px solid #444; color: white; border-radius: 4px; box-sizing: border-box; }
+        .btn-sync { background: var(--tr-red); color: white; border: none; padding: 15px; width: 100%; cursor: pointer; font-weight: bold; border-radius: 4px; margin-top: 20px; }
 
-        /* Page 1: Owner Control */
-        .admin-card { background: #1e1e1e; padding: 30px; border-radius: 12px; border-left: 5px solid var(--gold); }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; background: #2d2d2d; border: 1px solid #444; color: white; border-radius: 5px; }
-        .btn-authorize { background: var(--tr-red); color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 1rem; }
+        /* Page 3: EXACT CARD DESIGN */
+        .permit-card-container { display: flex; justify-content: center; padding: 20px; }
+        .work-permit-card {
+            width: 450px; height: 280px; background: linear-gradient(135deg, #e1e4e8 0%, #f9fafb 100%);
+            border-radius: 15px; position: relative; color: #333; box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            border: 1px solid #ccc; overflow: hidden;
+        }
 
-        /* Page 2: Client Profile */
-        .profile-table { width: 100%; border-collapse: collapse; background: #1e1e1e; border-radius: 10px; overflow: hidden; }
-        .profile-table td { padding: 15px; border-bottom: 1px solid #333; }
-        .label { color: #aaa; width: 35%; font-size: 0.9rem; }
-        .value { font-weight: bold; }
+        .card-top-red { background: var(--tr-red); height: 50px; display: flex; align-items: center; padding: 0 15px; color: white; }
+        .tc-logo { height: 35px; margin-right: 10px; }
+        .card-title { font-size: 0.8rem; font-weight: bold; line-height: 1.2; }
 
-        /* Page 3: The Result (Turkish Card Style) */
-        .permit-card { background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%); color: #333; padding: 25px; border-radius: 15px; border: 1px solid #999; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; }
-        .card-header { display: flex; align-items: center; border-bottom: 2px solid var(--tr-red); padding-bottom: 10px; margin-bottom: 20px; }
-        .flag-small { width: 40px; height: auto; margin-right: 15px; }
-        .qr-code { position: absolute; bottom: 20px; right: 20px; width: 80px; height: 80px; background: #fff; border: 2px solid #333; display: flex; align-items: center; justify-content: center; font-size: 10px; text-align: center; }
-        .approved-stamp { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg); border: 5px solid rgba(0, 128, 0, 0.4); color: rgba(0, 128, 0, 0.4); font-size: 3rem; font-weight: bold; text-transform: uppercase; pointer-events: none; padding: 10px; }
+        .card-body { padding: 15px; display: grid; grid-template-columns: 120px 1fr; gap: 15px; }
+        .photo-area { width: 100px; height: 125px; background: #ddd; border: 1px solid #999; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.7rem; }
+        
+        .info-lines p { margin: 4px 0; font-size: 0.75rem; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .info-lines span { font-weight: bold; display: block; font-size: 0.9rem; color: #000; }
+        
+        .qr-area { position: absolute; bottom: 15px; right: 15px; width: 60px; height: 60px; background: white; border: 1px solid #000; }
+        .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5rem; opacity: 0.05; font-weight: bold; pointer-events: none; }
+        
+        /* Table for Page 2 */
+        table { width: 100%; border-collapse: collapse; background: #1c2128; }
+        th, td { padding: 15px; text-align: left; border: 1px solid #30363d; }
+        th { color: #8b949e; font-weight: normal; }
     </style>
 </head>
 <body>
 
-<nav>
-    <button id="nav-1" class="active" onclick="switchPage(1)">MASTER CONTROL</button>
-    <button id="nav-2" onclick="switchPage(2)">CLIENT DATA</button>
-    <button id="nav-3" onclick="switchPage(3)">FINAL PERMIT</button>
-</nav>
-
-<div class="container">
-    <div id="page-1" class="page active">
-        <div class="admin-card">
-            <h2 style="color: var(--gold);">Turkish Immigration System [OWNER]</h2>
-            <label>Full Name (Adı Soyadı)</label>
-            <input type="text" id="inName" placeholder="Client Name">
-            <label>Foreigner ID (Yabancı Kimlik No)</label>
-            <input type="text" id="inID" placeholder="99XXXXXXXXX">
-            <label>Passport Number</label>
-            <input type="text" id="inPassport" placeholder="Passport No">
-            <label>Employer Name</label>
-            <input type="text" id="inEmployer" placeholder="Company Name in Türkiye">
-            <button class="btn-authorize" onclick="updateSystem()">SYNC TO E-PERMIT SYSTEM</button>
-        </div>
+<header>
+    <div>
+        <span style="color: var(--tr-red); font-weight: bold; font-size: 1.2rem;">T.C. ÇALIŞMA SİSTEMİ</span><br>
+        <small style="color: #8b949e;">E-PERMIT AUTHORITY: MASTER</small>
     </div>
+    <nav>
+        <button id="n1" class="active" onclick="tab(1)">1. OWNER ENTRY</button>
+        <button id="n2" onclick="tab(2)">2. DATABASE</button>
+        <button id="n3" onclick="tab(3)">3. OFFICIAL CARD</button>
+    </nav>
+</header>
 
-    <div id="page-2" class="page">
-        <div class="admin-card">
-            <h3>Registered Client Information</h3>
-            <table class="profile-table">
-                <tr><td class="label">Reference No</td><td class="value">TR-2026-REF881</td></tr>
-                <tr><td class="label">Name / Adı</td><td class="value" id="outName">---</td></tr>
-                <tr><td class="label">ID No / Kimlik No</td><td class="value" id="outID">---</td></tr>
-                <tr><td class="label">Passport</td><td class="value" id="outPass">---</td></tr>
-                <tr><td class="label">Employer</td><td class="value" id="outEmp">---</td></tr>
-            </table>
-        </div>
+<div id="p1" class="page active">
+    <div class="admin-box">
+        <h2 style="color: var(--gold); border: none;">Authority Data Input</h2>
+        <label>Foreigner ID No (Yabancı Kimlik No)</label>
+        <input type="text" id="inID" placeholder="99000000000">
+        
+        <label>Name (Adı)</label>
+        <input type="text" id="inName" placeholder="First Name">
+        
+        <label>Surname (Soyadı)</label>
+        <input type="text" id="inSurname" placeholder="Last Name">
+        
+        <label>Nationality (Uyruğu)</label>
+        <input type="text" id="inNat" placeholder="e.g. MALAYSIA">
+
+        <label>Passport Number</label>
+        <input type="text" id="inPass" placeholder="A1234567">
+        
+        <button class="btn-sync" onclick="sync()">SYNC TO MINISTRY RECORDS</button>
     </div>
+</div>
 
-    <div id="page-3" class="page">
-        <div class="permit-card">
-            <div class="approved-stamp">ONAYLANDI</div>
-            <div class="card-header">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg" class="flag-small" alt="Turkey Flag">
-                <div>
-                    <strong style="font-size: 1.1rem;">TÜRKİYE CUMHURİYETİ</strong><br>
-                    <small>ÇALIŞMA VE SOSYAL GÜVENLİK BAKANLIĞI</small>
+<div id="p2" class="page">
+    <div class="admin-box">
+        <h3>Master Client Database</h3>
+        <table>
+            <tr><th>Status</th><td style="color: #00ff88;">● ACTIVE PERMIT</td></tr>
+            <tr><th>Y.K.N. (ID)</th><td id="dID">---</td></tr>
+            <tr><th>Full Name</th><td id="dFull">---</td></tr>
+            <tr><th>Nationality</th><td id="dNat">---</td></tr>
+            <tr><th>Passport</th><td id="dPass">---</td></tr>
+        </table>
+    </div>
+</div>
+
+<div id="p3" class="page">
+    <div class="permit-card-container">
+        <div class="work-permit-card">
+            <div class="watermark">TÜRKİYE</div>
+            <div class="card-top-red">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg" class="tc-logo" alt="TR">
+                <div class="card-title">
+                    TÜRKİYE CUMHURİYETİ<br>
+                    ÇALIŞMA VE SOSYAL GÜVENLİK BAKANLIĞI
                 </div>
             </div>
-            
-            <p><strong>ÇALIŞMA İZNİ / WORK PERMIT</strong></p>
-            <div style="font-size: 0.9rem;">
-                <p><strong>Kimlik No:</strong> <span id="cardID">99...</span></p>
-                <p><strong>Adı Soyadı:</strong> <span id="cardName">---</span></p>
-                <p><strong>İşveren:</strong> <span id="cardEmp">---</span></p>
-                <p><strong>Geçerlilik Tarihi:</strong> <span id="cardDate"></span></p>
+
+            <div class="card-body">
+                <div class="photo-area">BIOMETRIC<br>PHOTO</div>
+                <div class="info-lines">
+                    <p>Yabancı Kimlik No / ID No<span id="cID">99000000000</span></p>
+                    <p>Adı / Name<span id="cName">---</span></p>
+                    <p>Soyadı / Surname<span id="cSurname">---</span></p>
+                    <p>Uyruğu / Nationality<span id="cNat">---</span></p>
+                    <p>Geçerlilik Tarihi / Valid Until<span id="cDate">05.02.2027</span></p>
+                </div>
             </div>
 
-            <div class="qr-code">VERIFIED BY QR</div>
+            <div class="qr-area">
+                <div style="font-size: 8px; text-align: center; margin-top: 15px;">QR<br>VERIFIED</div>
+            </div>
+            
+            <div style="position: absolute; bottom: 10px; left: 15px; font-size: 0.6rem; color: #666;">
+                ÇALIŞMA İZNİ / WORK PERMIT
+            </div>
         </div>
-        <p style="text-align: center; color: #888; font-size: 0.8rem; margin-top: 10px;">Bu belge ikamet izni yerine geçer. (This permit substitutes residence permit.)</p>
     </div>
 </div>
 
 <script>
-    function switchPage(n) {
+    function tab(n) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-        document.getElementById('page-' + n).classList.add('active');
-        document.getElementById('nav-' + n).classList.add('active');
+        document.getElementById('p'+n).classList.add('active');
+        document.getElementById('n'+n).classList.add('active');
     }
 
-    function updateSystem() {
-        const name = document.getElementById('inName').value;
+    function sync() {
         const id = document.getElementById('inID').value;
-        const pass = document.getElementById('inPassport').value;
-        const emp = document.getElementById('inEmployer').value;
+        const name = document.getElementById('inName').value;
+        const surname = document.getElementById('inSurname').value;
+        const nat = document.getElementById('inNat').value;
+        const pass = document.getElementById('inPass').value;
 
-        // Update Page 2
-        document.getElementById('outName').innerText = name || "---";
-        document.getElementById('outID').innerText = id || "---";
-        document.getElementById('outPass').innerText = pass || "---";
-        document.getElementById('outEmp').innerText = emp || "---";
+        // DB Updates
+        document.getElementById('dID').innerText = id;
+        document.getElementById('dFull').innerText = name + " " + surname;
+        document.getElementById('dNat').innerText = nat;
+        document.getElementById('dPass').innerText = pass;
 
-        // Update Page 3 (The Card)
-        document.getElementById('cardName').innerText = name.toUpperCase() || "---";
-        document.getElementById('cardID').innerText = id || "99XXXXXXXXX";
-        document.getElementById('cardEmp').innerText = emp || "---";
-        document.getElementById('cardDate').innerText = "05/02/2027";
+        // Card Updates
+        document.getElementById('cID').innerText = id;
+        document.getElementById('cName').innerText = name.toUpperCase();
+        document.getElementById('cSurname').innerText = surname.toUpperCase();
+        document.getElementById('cNat').innerText = nat.toUpperCase();
 
-        alert("Turkish Work Permit Synchronized Successfully.");
-        switchPage(2);
+        alert("Turkish E-Permit System Synchronized.");
+        tab(2);
     }
 </script>
 </body>
