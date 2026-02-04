@@ -3,141 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NZ Regional TRC Portal</title>
+    <title>Official TRC Issuance - Azerbaijan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=OCR+A+Std&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=OCR+A+Std&display=swap');
         
         :root {
-            --nz-navy: #002D5A;
-            --nz-blue-light: #F0F4F8;
+            --az-green: #e9f5db; /* The light mint from the card */
+            --az-blue: #0092bc;  /* The flag blue */
+            --az-navy: #003366;  /* Deep navy for text */
         }
 
-        body { font-family: 'Inter', sans-serif; background: var(--nz-blue-light); color: var(--nz-navy); }
+        body { font-family: 'Roboto', sans-serif; background: #f4f7f6; color: var(--az-navy); }
         
-        .trc-card {
-            width: 800px;
-            height: 500px;
-            background: white;
-            border: 3px solid var(--nz-navy);
-            border-radius: 12px;
+        /* The exact gradient and wave pattern from your uploaded image */
+        .trc-official-card {
+            width: 850px;
+            height: 540px;
+            background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
+            border-radius: 20px;
             position: relative;
-            padding: 35px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 1px solid #cbd5e1;
+            overflow: hidden;
         }
 
-        .mrz-font { font-family: 'OCR A Std', monospace; letter-spacing: 3px; }
-        .label { font-size: 10px; font-weight: 900; color: #555; text-transform: uppercase; }
-        .data { font-size: 16px; font-weight: 700; color: var(--nz-navy); }
-        
-        .no-print { display: block; }
+        .security-waves {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='1000' height='200' viewBox='0 0 1000 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 Q 250 50 500 100 T 1000 100' stroke='%230092bc' fill='transparent' stroke-opacity='0.1' stroke-width='1'/%3E%3C/svg%3E");
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .mrz-zone { font-family: 'OCR A Std', monospace; letter-spacing: 5px; font-size: 18px; line-height: 1.2; }
+        .label-az { font-size: 10px; font-weight: 700; color: #475569; }
+        .label-en { font-size: 9px; font-weight: 400; color: #64748b; }
+        .data-value { font-size: 16px; font-weight: 700; color: #1e293b; text-transform: uppercase; }
+
         @media print {
             .no-print { display: none !important; }
-            body { background: white; }
+            body { background: white; padding: 0; }
+            .trc-official-card { box-shadow: none; border: 1px solid #ccc; margin: 0 auto; }
         }
     </style>
 </head>
 <body class="p-10 flex flex-col items-center">
 
-    <div class="max-w-4xl w-full no-print bg-white p-8 rounded-2xl shadow-lg mb-12 border-t-8 border-[#002D5A]">
-        <h2 class="text-2xl font-black mb-6">REGIONAL ISSUANCE SYSTEM</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div class="p-6 border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 flex flex-col items-center justify-center">
-                <p class="text-xs font-bold mb-2">CLIENT PHOTO UPLOAD</p>
-                <input type="file" id="photoInput" accept="image/*" class="text-[10px]" onchange="previewImage(event)">
-                <p class="text-[9px] mt-2 text-slate-400">Select .JPG or .PNG for biometric area</p>
+    <div class="max-w-5xl w-full no-print bg-white p-10 rounded-3xl shadow-xl mb-12 border-b-8 border-[#0092bc]">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-2xl font-black">AZERBAIJAN TRC ENROLLMENT</h1>
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-slate-400">PARTNERING WITH</span>
+                <img src="https://i.imgur.com/M6LpIun.png" class="h-8" alt="Immigration NZ">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="md:col-span-1 space-y-4">
+                <p class="text-[10px] font-black uppercase text-slate-400">Biometric Upload</p>
+                <div class="w-full h-48 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden">
+                    <input type="file" id="photoInput" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" onchange="loadPhoto(event)">
+                    <img id="photoPreview" class="w-full h-full object-cover hidden">
+                    <div id="uploadPrompt" class="text-center p-4">
+                        <span class="text-2xl">👤</span>
+                        <p class="text-[10px] font-bold mt-2">CLICK TO UPLOAD<br>CLIENT PHOTO</p>
+                    </div>
+                </div>
             </div>
             
-            <div class="grid grid-cols-1 gap-3">
-                <input id="surname" placeholder="Surname (Soyad)" class="p-3 bg-slate-50 rounded-lg border-none outline-none ring-1 ring-slate-200">
-                <input id="name" placeholder="Name (Ad)" class="p-3 bg-slate-50 rounded-lg border-none outline-none ring-1 ring-slate-200">
-                <input id="nation" placeholder="Nationality" class="p-3 bg-slate-50 rounded-lg border-none outline-none ring-1 ring-slate-200">
+            <div class="md:col-span-2 grid grid-cols-2 gap-4">
+                <input id="surname" placeholder="Soyad / Surname" class="p-4 bg-slate-50 rounded-xl outline-none focus:ring-2 focus:ring-blue-400 font-bold">
+                <input id="name" placeholder="Ad / Name" class="p-4 bg-slate-50 rounded-xl outline-none focus:ring-2 focus:ring-blue-400 font-bold">
+                <input id="nation" placeholder="Vətəndaşlıq / Nationality" class="p-4 bg-slate-50 rounded-xl outline-none">
+                <input id="dob" placeholder="Doğulduğu yer və tarix / Place & Date of birth" class="p-4 bg-slate-50 rounded-xl outline-none">
+                <input id="issue" type="date" class="p-4 bg-slate-50 rounded-xl outline-none">
+                <input id="expiry" type="date" class="p-4 bg-slate-50 rounded-xl outline-none">
+                <input id="passNo" placeholder="Passport Number" class="p-4 bg-slate-50 rounded-xl outline-none">
             </div>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <input id="issue" type="date" class="p-3 bg-slate-50 rounded-lg border-none ring-1 ring-slate-200">
-            <input id="expiry" type="date" class="p-3 bg-slate-50 rounded-lg border-none ring-1 ring-slate-200">
-            <input id="passNo" placeholder="Passport Number" class="p-3 bg-slate-50 rounded-lg border-none ring-1 ring-slate-200">
-        </div>
-
-        <button onclick="generate()" class="w-full mt-6 bg-[#002D5A] text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-blue-900">
-            Finalize Regional TRC
+        
+        <button onclick="renderTRC()" class="w-full mt-8 bg-[#0092bc] text-white py-5 rounded-2xl font-black text-lg shadow-lg hover:bg-blue-600 transition uppercase tracking-widest">
+            Generate Official Migration Document
         </button>
     </div>
 
-    <div id="output" class="hidden space-y-12">
-        <div class="trc-card">
+    <div id="output-area" class="hidden space-y-20">
+        
+        <div class="trc-official-card">
+            <div class="security-waves"></div>
+            
             <div class="flex justify-between items-start mb-8">
                 <div class="flex gap-4">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-14" style="filter: grayscale(100%) brightness(50%);">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-16" alt="Azerbaijan COA">
                     <div>
-                        <p class="font-black text-xs">MÜVƏQQƏTİ YAŞAMAQ ÜÇÜN İCAZƏ VƏSİQƏSİ</p>
-                        <p class="font-bold text-[10px] text-blue-600">PERMIT FOR TEMPORARY RESIDENCE</p>
+                        <p class="font-bold text-[13px] leading-tight">AZƏRBAYCAN RESPUBLİKASININ ƏRAZİSİNDƏ</p>
+                        <p class="font-bold text-[13px] leading-tight">MÜVƏQQƏTİ YAŞAMAQ ÜÇÜN İCAZƏ VƏSİQƏSİ</p>
+                        <p class="font-bold text-[12px] text-blue-600 tracking-tight mt-1">PERMIT FOR TEMPORARY RESIDENCE</p>
+                        <p class="font-bold text-[9px] uppercase tracking-tighter">In the territory of the Republic of Azerbaijan</p>
                     </div>
                 </div>
                 <div class="text-right">
-                    <p class="text-[10px] font-black">Seriya MYİ № <span id="outNo">0000000</span></p>
+                    <div class="inline-block w-16 h-12 bg-blue-100/50 rounded-lg flex flex-col items-center justify-center mb-2 border border-blue-200">
+                        <p class="text-[10px] font-black text-blue-800">2026</p>
+                        <p class="text-[8px] font-bold text-blue-500">BIO-ID</p>
+                    </div>
+                    <p class="text-[10px] font-bold">Seriya/Series <span class="text-blue-700">MYİ</span> № <span id="outNo">1234567</span></p>
                 </div>
             </div>
 
-            <div class="flex gap-8">
-                <div class="w-40 h-52 bg-slate-100 border border-slate-300 rounded overflow-hidden">
-                    <img id="photoPreview" class="w-full h-full object-cover hidden">
-                    <div id="photoPlaceholder" class="w-full h-full flex items-center justify-center text-[10px] font-bold text-slate-400 text-center p-4">PHOTO AREA</div>
+            <div class="flex gap-12">
+                <div class="w-48 h-60 bg-white/80 rounded shadow-inner border border-slate-200 overflow-hidden relative">
+                    <img id="cardPhoto" class="w-full h-full object-cover grayscale brightness-110 contrast-125 opacity-90">
                 </div>
 
                 <div class="flex-1 grid grid-cols-2 gap-y-4">
-                    <div><p class="label">Surname</p><p id="outSurname" class="data">---</p></div>
-                    <div><p class="label">Soyad</p><p id="outSurnameAz" class="data">---</p></div>
-                    <div><p class="label">Name</p><p id="outName" class="data">---</p></div>
-                    <div><p class="label">Ad</p><p id="outNameAz" class="data">---</p></div>
-                    <div><p class="label">Nationality</p><p id="outNation" class="data">---</p></div>
-                    <div><p class="label">Issue Date</p><p id="outIssue" class="data">---</p></div>
-                    <div><p class="label">Expiry Date</p><p id="outExpiry" class="data">---</p></div>
-                    <div><p class="label">Passport</p><p id="outPass" class="data">---</p></div>
+                    <div class="col-span-1">
+                        <p class="label-az">Soyad/</p><p class="label-en">Surname</p>
+                        <p id="outSurname" class="data-value">SOYAD</p>
+                    </div>
+                    <div class="col-span-1 pl-10">
+                        <p class="label-az">Soyad</p>
+                        <p id="outSurnameAz" class="data-value">SOYAD</p>
+                    </div>
+
+                    <div class="col-span-1">
+                        <p class="label-az">Ad/</p><p class="label-en">Name</p>
+                        <p id="outName" class="data-value">AD</p>
+                    </div>
+                    <div class="col-span-1 pl-10">
+                        <p class="label-az">Ad</p>
+                        <p id="outNameAz" class="data-value">AD</p>
+                    </div>
+
+                    <div class="col-span-1">
+                        <p class="label-az">Vətəndaşlıq/</p><p class="label-en">Nationality</p>
+                        <p id="outNation" class="data-value">AZƏRBAYCAN</p>
+                    </div>
+                    <div class="col-span-1 pl-10">
+                        <p class="label-az">Vətəndaşlıq</p>
+                        <p id="outNationAz" class="data-value">AZƏRBAYCAN</p>
+                    </div>
+
+                    <div class="col-span-2">
+                        <p class="label-az">Doğulduğu yer və tarix/</p><p class="label-en">Place and date of birth</p>
+                        <p id="outDob" class="data-value">CITY, 01.01.1990</p>
+                    </div>
+
+                    <div>
+                        <p class="label-az">İcazənin verilmə tarixi/</p><p class="label-en">Date of issue</p>
+                        <p id="outIssue" class="data-value">01.01.2026</p>
+                    </div>
+                    <div class="pl-10">
+                        <p class="label-az">Etibarlıdır/</p><p class="label-en">Date of expiry</p>
+                        <p id="outExpiry" class="data-value" style="color: #be123c;">01.01.2029</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="absolute bottom-8 left-10 right-10 border-t pt-4">
-                <p class="mrz-font text-sm uppercase" id="mrz1">ITAZE<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<</p>
-                <p class="mrz-font text-sm uppercase" id="mrz2">00000000<<<<<<<<<<<<<<<<<<<<<<<<</p>
+            <div class="mt-8 pt-4 border-t border-blue-200">
+                <p class="mrz-zone uppercase text-[#1e293b]" id="mrz1">ITAZE1234567<<<<<<<<<<<<<<<<<<</p>
+                <p class="mrz-zone uppercase text-[#1e293b]" id="mrz2">9001011M2901017AZE<<<<<<<<<<<0</p>
             </div>
         </div>
+
     </div>
 
     <script>
-        function previewImage(event) {
+        function loadPhoto(event) {
             const reader = new FileReader();
             reader.onload = function() {
-                const output = document.getElementById('photoPreview');
-                output.src = reader.result;
-                output.classList.remove('hidden');
-                document.getElementById('photoPlaceholder').classList.add('hidden');
+                const preview = document.getElementById('photoPreview');
+                const cardImg = document.getElementById('cardPhoto');
+                preview.src = cardImg.src = reader.result;
+                preview.classList.remove('hidden');
+                document.getElementById('uploadPrompt').classList.add('hidden');
             }
             reader.readAsDataURL(event.target.files[0]);
         }
 
-        function generate() {
-            const get = id => document.getElementById(id).value.toUpperCase();
-            document.getElementById('outSurname').innerText = get('surname');
-            document.getElementById('outSurnameAz').innerText = get('surname');
-            document.getElementById('outName').innerText = get('name');
-            document.getElementById('outNameAz').innerText = get('name');
-            document.getElementById('outNation').innerText = get('nation');
-            document.getElementById('outIssue').innerText = get('issue');
-            document.getElementById('outExpiry').innerText = get('expiry');
-            document.getElementById('outPass').innerText = get('passNo');
-            
-            const cardNum = Math.floor(1000000 + Math.random() * 9000000);
-            document.getElementById('outNo').innerText = cardNum;
-            
-            document.getElementById('mrz1').innerText = `ITAZE${cardNum}<<${get('surname')}<<<<<<<<<<<<<`;
-            document.getElementById('mrz2').innerText = `${get('passNo')}<<<<<<<<<<<<<<<<<<<<<<<<`;
+        function renderTRC() {
+            const getVal = (id) => document.getElementById(id).value.toUpperCase();
+            const setOut = (id, val) => {
+                const els = document.querySelectorAll(id);
+                els.forEach(el => el.innerText = val || "---");
+            };
 
-            document.getElementById('output').classList.remove('hidden');
+            setOut('#outSurname', getVal('surname'));
+            setOut('#outSurnameAz', getVal('surname'));
+            setOut('#outName', getVal('name'));
+            setOut('#outNameAz', getVal('name'));
+            setOut('#outNation', getVal('nation'));
+            setOut('#outNationAz', getVal('nation'));
+            setOut('#outDob', getVal('dob'));
+            
+            const iDate = getVal('issue') ? new Date(getVal('issue')).toLocaleDateString('en-GB').replace(/\//g, '.') : "01.01.2026";
+            const eDate = getVal('expiry') ? new Date(getVal('expiry')).toLocaleDateString('en-GB').replace(/\//g, '.') : "01.01.2029";
+            
+            setOut('#outIssue', iDate);
+            setOut('#outExpiry', eDate);
+            
+            const refNo = Math.floor(1000000 + Math.random() * 9000000);
+            setOut('#outNo', refNo);
+
+            // MRZ Logic
+            const sur = getVal('surname').padEnd(10, '<');
+            const nam = getVal('name').padEnd(10, '<');
+            document.getElementById('mrz1').innerText = `ITAZE${refNo}<<${sur}${nam}<<<<<<<<`;
+
+            document.getElementById('output-area').classList.remove('hidden');
+            window.scrollTo({ top: document.getElementById('output-area').offsetTop, behavior: 'smooth' });
         }
     </script>
 </body>
-    </html>
+                                                                                       </html>
