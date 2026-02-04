@@ -1,274 +1,310 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Client Visa System</title>
 
 <style>
-body{
-font-family:Arial;
-margin:0;
-background:#f2f4f7;
+
+/* ====== GLOBAL ====== */
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-header{
-background:#003a8f;
-color:white;
-padding:15px;
-font-size:20px;
+body {
+  background: #eef2f5;
+  margin: 0;
+  padding: 0;
 }
 
-.container{
-padding:20px;
+h2, h3 {
+  color: #002a60;
 }
 
-.card{
-background:white;
-padding:20px;
-margin-bottom:20px;
-border-radius:8px;
-box-shadow:0 2px 6px rgba(0,0,0,0.1);
+/* ====== HEADER ====== */
+header {
+  background: #003a8f;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
 }
 
-input,textarea{
-width:100%;
-padding:8px;
-margin-top:5px;
-margin-bottom:15px;
-border:1px solid #ccc;
-border-radius:4px;
+/* ====== CONTAINER ====== */
+.container {
+  width: 95%;
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
 }
 
-button{
-background:#003a8f;
-color:white;
-border:none;
-padding:10px 15px;
-border-radius:5px;
-cursor:pointer;
+/* ====== CARD ====== */
+.card {
+  background: white;
+  margin: 20px 0;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-button:hover{
-background:#0055cc;
+/* ====== INPUTS ====== */
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccd1d9;
+  border-radius: 6px;
+  font-size: 16px;
 }
 
-table{
-width:100%;
-border-collapse:collapse;
+input:focus, textarea:focus {
+  outline: none;
+  border: 2px solid #005fcc;
 }
 
-th,td{
-padding:10px;
-border-bottom:1px solid #ddd;
-text-align:left;
+/* ====== BUTTON ====== */
+button {
+  background: #005fcc;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor:pointer;
+  transition: 0.3s ease;
 }
 
-#letter{
-background:white;
-padding:40px;
-margin-top:20px;
+button:hover {
+  background: #0041a8;
 }
+
+/* ====== TABLE ====== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border-bottom: 1px solid #d7dde4;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background: #f4f6fa;
+  color: #333;
+}
+
+/* ====== LETTER ====== */
+#letter {
+  background: white;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  margin-top: 10px;
+}
+
+#letter img {
+  max-height: 80px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+#letter h3 {
+  margin-top: 0;
+  color: #003a8f;
+}
+
+/* ====== RESPONSIVE ====== */
+@media(max-width: 768px){
+  header {
+    font-size: 20px;
+  }
+
+  button {
+    width: 100%;
+    padding: 14px;
+  }
+}
+
 </style>
 
 </head>
-
 <body>
 
-<header>
-Client Visa Admin System
-</header>
+<header>Beautiful Visa Client System</header>
 
 <div class="container">
 
-<div class="card">
+  <!-- ====== ADD CLIENT ====== -->
+  <div class="card">
+    <h3>Add New Client</h3>
 
-<h3>Add Client</h3>
+    <label>Client Name</label>
+    <input id="name">
 
-<label>Client Name</label>
-<input id="name">
+    <label>Passport No</label>
+    <input id="passport">
 
-<label>Passport</label>
-<input id="passport">
+    <label>Visa Type</label>
+    <input id="visa">
 
-<label>Visa Type</label>
-<input id="visa">
+    <label>Upload Visa PDF</label>
+    <input type="file" id="pdfUpload">
 
-<label>Upload Visa PDF</label>
-<input type="file" id="pdfUpload">
+    <button onclick="saveClient()">Add Client</button>
+  </div>
 
-<button onclick="saveClient()">Save Client</button>
+  <!-- ====== UPLOAD LOGO ====== -->
+  <div class="card">
+    <h3>Upload Company Logo</h3>
+    <input type="file" onchange="uploadLogo(event)">
+  </div>
 
-</div>
+  <!-- ====== CLIENT DASHBOARD ====== -->
+  <div class="card">
+    <h3>Client Dashboard</h3>
+    <table id="clientTable">
+      <tr>
+        <th>Name</th>
+        <th>Passport</th>
+        <th>Visa Type</th>
+        <th>Actions</th>
+      </tr>
+    </table>
+  </div>
 
+  <!-- ====== VISA LETTER ====== -->
+  <div class="card">
+    <h3>Visa Letter Preview</h3>
 
-<div class="card">
-<h3>Upload Logo</h3>
-<input type="file" onchange="uploadLogo(event)">
-</div>
+    <div id="letter">
+      <img id="logo">
+      <h3>VISA APPROVAL LETTER</h3>
+      <p id="letterContent"></p>
+    </div>
 
+    <br>
 
-<div class="card">
-
-<h3>Client Dashboard</h3>
-
-<table id="clientTable">
-<tr>
-<th>Name</th>
-<th>Passport</th>
-<th>Visa</th>
-<th>Actions</th>
-</tr>
-</table>
-
-</div>
-
-
-<div class="card">
-
-<h3>Visa Letter Preview</h3>
-
-<div id="letter">
-
-<img id="logo" style="height:80px"><br><br>
-
-<h2>Visa Approval Letter</h2>
-
-<p id="letterContent"></p>
-
-</div>
-
-<br>
-
-<button onclick="window.print()">Print Letter</button>
-<button onclick="downloadPDF()">Download PDF</button>
-<button onclick="downloadZIP()">Export ZIP</button>
-
-</div>
+    <button onclick="window.print()">🖨 Print</button>
+    <button onclick="downloadPDF()">📥 Download PDF</button>
+    <button onclick="downloadZIP()">📦 Export ZIP</button>
+  </div>
 
 </div>
 
 
 <script>
 
+/* ====== STORAGE ====== */
 let clients = JSON.parse(localStorage.getItem("clients") || "[]");
 
+/* ====== SAVE CLIENT ====== */
 function saveClient(){
 
-let file = document.getElementById("pdfUpload").files[0];
+  let file = document.getElementById("pdfUpload").files[0];
+  let reader = new FileReader();
 
-let reader = new FileReader();
+  reader.onload = function(){
+    let client = {
+      name: name.value,
+      passport: passport.value,
+      visa: visa.value,
+      pdf: reader.result
+    };
 
-reader.onload = function(){
+    clients.push(client);
+    localStorage.setItem("clients", JSON.stringify(clients));
+    loadClients();
+  };
 
-let client = {
-name: name.value,
-passport: passport.value,
-visa: visa.value,
-pdf: reader.result
-};
+  if(file) reader.readAsDataURL(file);
+  else reader.onload();
 
-clients.push(client);
-
-localStorage.setItem("clients",JSON.stringify(clients));
-
-loadClients();
-
-};
-
-if(file) reader.readAsDataURL(file);
 }
 
+/* ====== LOAD CLIENTS ====== */
 function loadClients(){
+  let table = document.getElementById("clientTable");
 
-let table = document.getElementById("clientTable");
+  table.innerHTML = `
+    <tr>
+      <th>Name</th>
+      <th>Passport</th>
+      <th>Visa Type</th>
+      <th>Actions</th>
+    </tr>
+  `;
 
-table.innerHTML = `
-<tr>
-<th>Name</th>
-<th>Passport</th>
-<th>Visa</th>
-<th>Actions</th>
-</tr>
-`;
-
-clients.forEach((c,i)=>{
-
-table.innerHTML += `
-<tr>
-<td>${c.name}</td>
-<td>${c.passport}</td>
-<td>${c.visa}</td>
-<td>
-<button onclick="viewLetter(${i})">View</button>
-<button onclick="deleteClient(${i})">Delete</button>
-</td>
-</tr>
-`;
-
-});
-
+  clients.forEach((c,i) => {
+    table.innerHTML += `
+    <tr>
+      <td>${c.name}</td>
+      <td>${c.passport}</td>
+      <td>${c.visa}</td>
+      <td>
+        <button onclick="viewLetter(${i})">View</button>
+        <button onclick="deleteClient(${i})">Delete</button>
+      </td>
+    </tr>
+    `;
+  });
 }
 
+/* ====== DELETE ====== */
 function deleteClient(i){
-clients.splice(i,1);
-localStorage.setItem("clients",JSON.stringify(clients));
-loadClients();
+  clients.splice(i,1);
+  localStorage.setItem("clients", JSON.stringify(clients));
+  loadClients();
 }
 
+/* ====== VIEW LETTER ====== */
 function viewLetter(i){
-
-let c = clients[i];
-
-letterContent.innerHTML = `
-This letter confirms that <b>${c.name}</b>
-holding passport number <b>${c.passport}</b>
-has been granted a <b>${c.visa}</b> visa.
-`;
-
+  let c = clients[i];
+  document.getElementById("letterContent").innerHTML = `
+This letter confirms that <strong>${c.name}</strong>,
+passport number <strong>${c.passport}</strong>,
+has been granted a <strong>${c.visa}</strong> visa.
+  `;
 }
 
+/* ====== UPLOAD LOGO ====== */
 function uploadLogo(e){
+  let reader = new FileReader();
 
-let reader = new FileReader();
+  reader.onload = function(){
+    localStorage.setItem("logo", reader.result);
+    document.getElementById("logo").src = reader.result;
+  };
 
-reader.onload = function(){
-localStorage.setItem("logo",reader.result);
-document.getElementById("logo").src = reader.result;
-};
-
-reader.readAsDataURL(e.target.files[0]);
+  reader.readAsDataURL(e.target.files[0]);
 }
 
 document.getElementById("logo").src = localStorage.getItem("logo");
 
-loadClients();
-
-
-// PDF DOWNLOAD
+/* ====== PDF DOWNLOAD ====== */
 function downloadPDF(){
-
-let content = document.getElementById("letter").innerHTML;
-
-let win = window.open("");
-win.document.write(content);
-win.print();
-
+  let content = document.getElementById("letter").innerHTML;
+  let win = window.open("");
+  win.document.write(content);
+  win.print();
 }
 
-
-// ZIP EXPORT
+/* ====== ZIP EXPORT ====== */
 function downloadZIP(){
-
-let zipData = JSON.stringify(clients);
-
-let blob = new Blob([zipData],{type:"application/zip"});
-
-let a = document.createElement("a");
-a.href = URL.createObjectURL(blob);
-a.download = "clients.zip";
-a.click();
-
+  let zipData = JSON.stringify(clients);
+  let blob = new Blob([zipData], {type:"application/zip"});
+  let a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "clients.zip";
+  a.click();
 }
+
+/* ====== INITIAL LOAD ====== */
+loadClients();
 
 </script>
 
