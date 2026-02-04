@@ -2,180 +2,208 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NZ AEWV Official Contract - 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NZ Immigration & Employment Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Libre+Baskerville:italic&display=swap" rel="stylesheet">
     <style>
-        :root { --nz-blue: #00247d; --nz-red: #cc142b; --nz-silver: #444; }
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; background: #eef1f4; color: #333; }
-        
-        /* UI Control Panel */
-        .no-print { background: #ffffff; padding: 30px; border-bottom: 6px solid var(--nz-blue); position: sticky; top: 0; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; max-width: 1400px; margin: 0 auto; }
-        .input-group { display: flex; flex-direction: column; }
-        label { font-size: 10px; font-weight: 700; color: var(--nz-blue); text-transform: uppercase; margin-bottom: 5px; letter-spacing: 0.5px; }
-        input, select { padding: 12px; border: 1px solid #ced4da; border-radius: 5px; font-size: 14px; transition: border-color 0.2s; }
-        input:focus { border-color: var(--nz-blue); outline: none; }
-        .btn-download { padding: 16px 50px; background: var(--nz-blue); color: white; border: none; cursor: pointer; border-radius: 5px; font-weight: 700; font-size: 16px; margin-top: 25px; width: 100%; max-width: 450px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .btn-download:hover { background: #001a5a; transform: translateY(-1px); }
-
-        /* A4 Page Formatting */
-        .a4-page {
-            width: 210mm; min-height: 297mm; padding: 25mm; margin: 30px auto;
-            background: white; box-shadow: 0 0 20px rgba(0,0,0,0.1); 
-            box-sizing: border-box; line-height: 1.6; position: relative; border-top: 18px solid var(--nz-blue);
-        }
-        .page-break { page-break-after: always; }
-
-        /* NZ Flag & Branding */
-        .nz-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--nz-blue); padding-bottom: 20px; margin-bottom: 40px; }
-        .nz-flag { width: 90px; height: 45px; }
-        .nz-govt-text { text-align: right; }
-        .nz-govt-text strong { color: var(--nz-blue); font-size: 16px; display: block; }
-        .nz-govt-text span { font-size: 12px; color: #777; font-weight: 500; }
-
-        h1 { color: var(--nz-blue); text-transform: uppercase; font-size: 22px; text-align: center; margin: 25px 0; letter-spacing: 1px; }
-        h2 { border-left: 8px solid var(--nz-red); padding: 8px 15px; font-size: 16px; margin-top: 35px; color: var(--nz-blue); background: #f8f9fa; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        td { padding: 12px; border: 1px solid #edf2f7; font-size: 13px; }
-        .label { font-weight: 700; width: 38%; background: #fcfcfc; color: #4a5568; }
-        
-        .benefit-tag { display: inline-block; background: #ebf8ff; color: #2b6cb0; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-bottom: 10px; }
-
-        .footer { position: absolute; bottom: 15mm; left: 25mm; right: 25mm; text-align: center; font-size: 10px; color: #cbd5e0; border-top: 1px solid #edf2f7; padding-top: 10px; }
-        
+        :root { --nz-blue: #003566; --nz-accent: #0056b3; }
+        body { font-family: 'Inter', sans-serif; }
         @media print {
-            body { background: white; }
-            .no-print { display: none; }
-            .a4-page { margin: 0; box-shadow: none; page-break-after: always; border-top-width: 25px; }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            body { background: white !important; padding: 0 !important; }
+            .doc-shadow { box-shadow: none !important; border: none !important; }
         }
+        .gradient-bg { background: linear-gradient(135deg, #001d3d 0%, #003566 100%); }
+        .inz-logo { height: 60px; width: auto; }
+        .data-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; }
     </style>
 </head>
-<body>
+<body class="bg-slate-200 p-4 md:p-12">
 
-<div class="no-print">
-    <div class="input-grid">
-        <div class="input-group"><label>Date of Agreement</label><input type="date" id="in_issue" oninput="sync()"></div>
-        <div class="input-group"><label>Candidate Name</label><input type="text" id="in_name" placeholder="Full Name" oninput="sync()"></div>
-        <div class="input-group"><label>Date of Birth</label><input type="date" id="in_dob" oninput="sync()"></div>
-        <div class="input-group"><label>Passport Number</label><input type="text" id="in_pass" placeholder="Enter Passport" oninput="sync()"></div>
-        <div class="input-group"><label>Salary ($ Hourly)</label><input type="number" id="in_salary" value="31.61" step="0.01" oninput="sync()"></div>
-        <div class="input-group"><label>Role / Position</label><select id="in_role" onchange="sync()"><option value="Waiter">Waiter (ANZSCO 431111)</option><option value="Computer Operator">Computer Operator</option></select></div>
-        <div class="input-group"><label>Employer Name</label><input type="text" id="in_comp" placeholder="Company Ltd" oninput="sync()"></div>
-        <div class="input-group"><label>Work Address</label><input type="text" id="in_addr" placeholder="Street, City, NZ" oninput="sync()"></div>
-    </div>
-    <center><button class="btn-download" onclick="window.print()">DOWNLOAD OFFICIAL PDF AGREEMENT</button></center>
-</div>
+    <div class="max-w-6xl mx-auto no-print bg-white rounded-3xl shadow-2xl overflow-hidden mb-12 border border-slate-300">
+        <div class="gradient-bg p-8 text-white flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tighter">NZ IMMIGRATION PORTAL</h1>
+                <p class="text-blue-200 text-sm font-medium">Official Company Authorization & Employment Pack</p>
+            </div>
+            <div class="text-right">
+                <span class="bg-blue-500/30 px-4 py-2 rounded-full text-xs font-bold border border-blue-400/50">SYSTEM VERSION 2026.1</span>
+            </div>
+        </div>
+        
+        <div class="p-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="space-y-5">
+                <div class="flex items-center gap-2 text-blue-800 font-bold border-b pb-2">
+                    <span>🏢</span> <h3>COMPANY PROFILE</h3>
+                </div>
+                <input id="coName" type="text" placeholder="Company Legal Name" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
+                <input id="nzbn" type="text" placeholder="NZBN (13 Digits)" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
+                <input id="address" type="text" placeholder="Full Registered Address" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
+                <input id="coEmail" type="email" placeholder="Business Email Address" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
+            </div>
 
-<div class="a4-page page-break">
-    <div class="nz-header">
-        <svg class="nz-flag" viewBox="0 0 1200 600">
-            <rect width="1200" height="600" fill="#00247d"/><g fill="#fff"><rect width="600" height="100" y="250"/><rect width="100" height="600" x="250"/></g>
-            <path d="M0,0 L600,300 M600,0 L0,300" stroke="#fff" stroke-width="60"/><path d="M0,0 L600,300 M600,0 L0,300" stroke="#cc142b" stroke-width="40"/>
-            <g fill="#cc142b"><rect width="600" height="60" y="270"/><rect width="60" height="600" x="270"/></g>
-            <g fill="#fff" transform="translate(900, 300)"><circle r="20" cy="-150"/><circle r="20" cy="150"/><circle r="20" cx="-100"/><circle r="15" cx="100" cy="50"/></g>
-        </svg>
-        <div class="nz-govt-text">
-            <strong>Immigration New Zealand</strong>
-            <span>Accredited Employer Program 2026</span>
+            <div class="space-y-5">
+                <div class="flex items-center gap-2 text-blue-800 font-bold border-b pb-2">
+                    <span>👤</span> <h3>CLIENT BIODATA</h3>
+                </div>
+                <input id="repName" type="text" placeholder="Client Full Name" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none font-semibold">
+                <input id="passport" type="text" placeholder="Passport Number" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
+                <input id="dob" type="text" placeholder="Birth Date (DD/MM/YYYY)" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
+                <input id="nationality" type="text" placeholder="Client Nationality" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
+            </div>
+
+            <div class="space-y-5">
+                <div class="flex items-center gap-2 text-blue-800 font-bold border-b pb-2">
+                    <span>📄</span> <h3>VISA & JOB TERMS</h3>
+                </div>
+                <select id="jobCat" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none font-bold text-blue-900">
+                    <option value="Waiter (Hotel Service)">Waiter (Hotel Service)</option>
+                    <option value="Hotel Service Associate">Hotel Service Associate</option>
+                    <option value="Packer & Inventory Specialist">Packer (Warehouse/Store)</option>
+                </select>
+                <input id="refNo" type="text" placeholder="INZ Reference / Client No." class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
+                <input id="payRate" type="text" placeholder="Hourly Rate (e.g. $29.66)" class="w-full p-3 bg-green-50 text-green-800 border-none rounded-xl focus:ring-2 focus:ring-green-600 outline-none font-bold">
+                <input id="director" type="text" placeholder="Authorizing Director Name" class="w-full p-3 bg-blue-50 border-none rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
+            </div>
+        </div>
+
+        <div class="p-10 pt-0">
+            <button onclick="generateDocuments()" class="w-full gradient-bg text-white py-5 rounded-2xl font-black text-xl hover:scale-[1.01] transition-transform shadow-xl uppercase tracking-widest">
+                Assemble Beautiful Document Pack
+            </button>
         </div>
     </div>
 
-    <h1>Letter of Offer of Employment</h1>
-    <p style="text-align: right;"><strong>Issue Date:</strong> <span id="v_issue">__________</span></p>
+    <div id="document-pack" class="hidden">
+        
+        <div class="max-w-4xl mx-auto bg-white p-16 shadow-2xl mb-12 doc-shadow relative min-h-[1100px]">
+            <div class="flex justify-between items-start border-b-8 border-blue-900 pb-8 mb-12">
+                <div>
+                    <h2 class="outCoName text-4xl font-black text-blue-900 tracking-tighter uppercase leading-none mb-2"></h2>
+                    <p class="text-xs font-bold text-slate-400">NZBN: <span class="outNZBN font-normal text-slate-800"></span></p>
+                    <p class="outAddress text-[10px] text-slate-500 max-w-xs mt-1"></p>
+                    <p class="outCoEmail text-xs text-blue-600 font-bold mt-2"></p>
+                </div>
+                <img src="https://i.imgur.com/vH9eHwO.png" alt="INZ Logo" class="inz-logo">
+            </div>
 
-    <h2>Parties to the Agreement</h2>
-    <table>
-        <tr><td class="label">Employer Entity</td><td><span id="v_comp">__________</span></td></tr>
-        <tr><td class="label">Operating Address</td><td><span id="v_addr">__________</span></td></tr>
-        <tr><td class="label">Candidate Full Name</td><td><span id="v_name">__________</span></td></tr>
-        <tr><td class="label">Date of Birth</td><td><span id="v_dob">__________</span></td></tr>
-        <tr><td class="label">Passport Number</td><td><span id="v_pass">__________</span></td></tr>
-    </table>
+            <p class="text-right font-bold text-slate-900 mb-12 outDate"></p>
 
-    <p style="margin-top: 30px;">Dear <span id="v_name3">Candidate</span>,</p>
-    <p>Following our selection process, we are pleased to formally offer you the position of <strong><span id="v_role">Waiter</span></strong>. This offer is made under the <em>Accredited Employer Work Visa (AEWV)</em> framework and is contingent upon successful visa approval by Immigration New Zealand.</p>
+            <h3 class="bg-blue-900 text-white inline-block px-6 py-2 rounded-full font-black text-sm mb-10 tracking-widest">01 / OFFICIAL AUTHORIZATION</h3>
 
-    <div class="footer">NZ AEWV Compliance Standard | Form AEWV-2026 | Page 1</div>
-</div>
+            <div class="grid grid-cols-2 gap-8 mb-12 bg-blue-50 p-8 rounded-3xl border border-blue-100">
+                <div><span class="data-label">Applicant Name</span><p class="text-xl font-extrabold text-blue-900 outRepName"></p></div>
+                <div><span class="data-label">Passport Number</span><p class="text-xl font-extrabold text-blue-900 outPassport"></p></div>
+                <div><span class="data-label">Nationality</span><p class="text-lg font-bold outNationality"></p></div>
+                <div><span class="data-label">Client Reference</span><p class="text-lg font-bold text-blue-700 outRefNo"></p></div>
+            </div>
 
-<div class="a4-page page-break">
-    <h1>Terms of Employment</h1>
+            <p class="text-slate-700 leading-relaxed mb-8">This formal instrument serves to notify <strong>Immigration New Zealand</strong> that the company named above hereby authorizes the applicant to act as its corporate representative for the <span class="font-black text-blue-900">Accredited Employer Work Visa</span> process.</p>
+            
+            <p class="text-slate-700 leading-relaxed mb-12 italic border-l-4 border-blue-200 pl-6">"The Company confirms it remains fully responsible for all regulatory compliance under the Immigration Act 2009."</p>
 
-    <h2>1. Remuneration & Hours</h2>
-    <table>
-        <tr><td class="label">Hourly Rate of Pay</td><td>$<span id="v_salary">31.61</span> NZD (Median Wage Compliant)</td></tr>
-        <tr><td class="label">Guaranteed Hours</td><td>Minimum 30 hours per week (Max 40)</td></tr>
-        <tr><td class="label">Term of Contract</td><td>Fixed Term - 36 Months (3 Years)</td></tr>
-    </table>
-
-    <h2>2. Health & Welfare Benefits</h2>
-    <div class="benefit-tag">INZ COMPLIANT</div>
-    <p><strong>Medical Coverage:</strong> The Employer shall maintain comprehensive health insurance for the Employee. This includes coverage for general medical consultations and emergency hospital transport services for the duration of the 3-year term.</p>
-
-    <h2>3. Annual Travel Entitlement</h2>
-    <div class="benefit-tag">RETENTION BENEFIT</div>
-    <p><strong>Repatriation Airfare:</strong> Upon completion of <strong>twelve (12) months</strong> of continuous service, the Employer will provide the Employee with one economy-class return air ticket to their home country for annual leave purposes.</p>
-
-    <h2>4. Transportation & Logistics</h2>
-    <p><strong>Workplace Transport:</strong> The Employer provides dedicated transport from company-approved accommodation to the workplace to ensure operational efficiency and employee safety.</p>
-
-    <div class="footer">NZ AEWV Compliance Standard | Form AEWV-2026 | Page 2</div>
-</div>
-
-<div class="a4-page">
-    <h2>5. Leave & Statutory Rights</h2>
-    <p>All employment conditions comply with the <em>Holidays Act 2003</em> and the <em>Employment Relations Act 2000</em>:</p>
-    <ul>
-        <li><strong>Annual Leave:</strong> 4 weeks paid leave per year.</li>
-        <li><strong>Sick Leave:</strong> 10 days per year (after 6 months).</li>
-        <li><strong>Public Holidays:</strong> Paid at time-and-a-half plus a day in lieu if worked.</li>
-    </ul>
-
-    <h2>6. Execution of Agreement</h2>
-    <div style="display: flex; justify-content: space-between; margin-top: 70px;">
-        <div style="border-top: 1.5px solid #000; width: 45%; text-align: center; padding-top: 12px;">
-            <strong>For <span id="v_comp2">[Employer Name]</span></strong><br>
-            <small>Authorized Signing Officer</small>
+            <div class="mt-32">
+                <div class="w-64 h-1 bg-blue-900 mb-2"></div>
+                <p class="font-black outDirector text-xl text-blue-900 uppercase"></p>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Managing Director | Authorized Signatory</p>
+            </div>
         </div>
-        <div style="border-top: 1.5px solid #000; width: 45%; text-align: center; padding-top: 12px;">
-            <strong>The Employee: <span id="v_name2">[Full Name]</span></strong><br>
-            <small>Candidate Signature</small>
+
+        <div class="max-w-4xl mx-auto bg-white p-16 shadow-2xl mb-12 doc-shadow page-break min-h-[1100px]">
+            <h3 class="bg-blue-900 text-white inline-block px-6 py-2 rounded-full font-black text-sm mb-10 tracking-widest uppercase">02 / Letter of Offer</h3>
+            <p class="text-2xl font-light mb-8">Dear <span class="outRepName font-bold"></span>,</p>
+            <p class="mb-10 text-slate-600 leading-relaxed">We are delighted to invite you to join <strong><span class="outCoName"></span></strong>. This position is vital to our operations within the New Zealand hospitality and logistics sector.</p>
+            
+            <div class="border-2 border-blue-900 rounded-3xl overflow-hidden mb-12">
+                <div class="bg-blue-900 text-white p-4 font-bold text-center">CORE EMPLOYMENT TERMS</div>
+                <div class="grid grid-cols-2 text-sm">
+                    <div class="p-4 border-b border-r bg-slate-50 font-bold">Designated Role</div><div class="p-4 border-b outJobCat font-extrabold text-blue-800 uppercase"></div>
+                    <div class="p-4 border-b border-r bg-slate-50 font-bold">Remuneration</div><div class="p-4 border-b font-black text-green-700"><span class="outPayRate"></span> Per Hour</div>
+                    <div class="p-4 border-r bg-slate-50 font-bold">Guaranteed Hours</div><div class="p-4 italic">30 Hours Minimum (AEWV Compliant)</div>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 p-8 rounded-3xl mb-10 border border-blue-100">
+                <h4 class="font-black text-blue-900 mb-4 text-xs uppercase tracking-widest italic">Specific Duties & Responsibilities:</h4>
+                <div id="dutyList" class="text-sm text-slate-700 space-y-3 font-medium"></div>
+            </div>
+
+            <p class="text-xs text-slate-400 mt-20 italic font-serif leading-relaxed text-center">This offer is subject to the granting of a New Zealand work visa and satisfactory reference checks.</p>
+        </div>
+
+        <div class="max-w-4xl mx-auto bg-white p-16 shadow-2xl doc-shadow page-break min-h-[1100px]">
+            <h3 class="bg-blue-900 text-white inline-block px-6 py-2 rounded-full font-black text-sm mb-10 tracking-widest uppercase">03 / Agreement Summary</h3>
+            <div class="space-y-6 text-[13px] text-slate-700 leading-relaxed">
+                <p><strong>1. HOLIDAYS:</strong> As per the <em>Holidays Act 2003</em>, the employee is entitled to 4 weeks annual leave and 10 days sick leave (after 6 months).</p>
+                <p><strong>2. PUBLIC HOLIDAYS:</strong> Work on public holidays is paid at "Time and a Half" ($T_{1.5}$) plus an alternative day of rest.</p>
+                <p><strong>3. EMPLOYEE PROTECTION:</strong> This agreement includes standard New Zealand employment protection provisions regarding company restructuring.</p>
+                <p><strong>4. DISPUTE RESOLUTION:</strong> If an employment problem arises, parties will use the <em>Employment Relations Act 2000</em> mediation services.</p>
+            </div>
+
+            <div class="mt-40 grid grid-cols-2 gap-20">
+                <div class="text-center">
+                    <div class="w-full h-px bg-slate-300 mb-4"></div>
+                    <p class="text-[10px] font-black text-blue-900 uppercase">Authorized Employer Signature</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-full h-px bg-slate-300 mb-4"></div>
+                    <p class="text-[10px] font-black text-blue-900 uppercase">Employee Acceptance Signature</p>
+                </div>
+            </div>
+
+            <div class="no-print mt-20 flex justify-center">
+                <button onclick="window.print()" class="bg-blue-600 text-white px-12 py-4 rounded-full font-black shadow-2xl hover:bg-blue-700 transition transform hover:scale-105">
+                    ⬇️ DOWNLOAD FULL PDF PACK
+                </button>
+            </div>
         </div>
     </div>
 
-    <div style="margin-top: 110px; border: 3px dashed #e2e8f0; padding: 50px; text-align: center; color: #a0aec0; font-weight: 700; border-radius: 10px;">
-        OFFICIAL COMPANY SEAL / STAMP REQUIRED
-    </div>
-
-    <div class="footer">NZ AEWV Compliance Standard | Form AEWV-2026 | Page 3</div>
-</div>
-
-<script>
-    function sync() {
-        const fields = {
-            'in_issue': ['v_issue'],
-            'in_name': ['v_name', 'v_name2', 'v_name3'],
-            'in_dob': ['v_dob'],
-            'in_pass': ['v_pass'],
-            'in_salary': ['v_salary'],
-            'in_role': ['v_role'],
-            'in_comp': ['v_comp', 'v_comp2'],
-            'in_addr': ['v_addr']
+    <script>
+        const dutySet = {
+            "Waiter (Hotel Service)": [
+                "Greet and seat guests in the hotel dining facilities.",
+                "Process complex food and beverage orders via digital POS systems.",
+                "Maintain high-level mise-en-place and table service standards.",
+                "Coordinate with kitchen staff regarding dietary requirements.",
+                "Ensure all beverage service complies with Sale and Supply of Alcohol Act."
+            ],
+            "Hotel Service Associate": [
+                "Provide frontline guest services and concierge assistance.",
+                "Ensure common areas meet 5-star hotel hygiene standards.",
+                "Manage hotel inventory and service supply logistics.",
+                "Respond to guest inquiries and manage room service delivery.",
+                "Monitor and maintain hotel facilities for health and safety compliance."
+            ],
+            "Packer & Inventory Specialist": [
+                "Accurately pick and pack stock for commercial distribution.",
+                "Utilize inventory management software for stock tracking.",
+                "Ensuring all outgoing shipments meet NZ export/domestic standards.",
+                "Operate warehouse equipment safely (Forklift/MHE if qualified).",
+                "Perform regular cycle counts and inventory reconciliations."
+            ]
         };
-        for(let key in fields) {
-            let val = document.getElementById(key).value || "__________";
-            fields[key].forEach(id => {
-                const element = document.getElementById(id);
-                if(element) element.innerText = val;
+
+        function generateDocuments() {
+            const keys = ['coName', 'nzbn', 'address', 'coEmail', 'repName', 'passport', 'dob', 'nationality', 'jobCat', 'refNo', 'payRate', 'director'];
+            keys.forEach(k => {
+                const val = document.getElementById(k).value || "---";
+                document.querySelectorAll('.out' + k.charAt(0).toUpperCase() + k.slice(1)).forEach(el => el.innerText = val);
             });
+
+            const currentJob = document.getElementById('jobCat').value;
+            const dutyList = document.getElementById('dutyList');
+            dutyList.innerHTML = dutySet[currentJob].map(d => `<div class="flex gap-2"><span>▶</span> <p>${d}</p></div>`).join('');
+
+            document.querySelectorAll('.outDate').forEach(el => {
+                el.innerText = new Date().toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' });
+            });
+
+            document.getElementById('document-pack').classList.remove('hidden');
+            window.scrollTo({ top: document.getElementById('document-pack').offsetTop, behavior: 'smooth' });
         }
-    }
-    // Initialize date placeholders
-    document.addEventListener('DOMContentLoaded', () => {
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('in_issue').value = today;
-        sync();
-    });
-</script>
+    </script>
 </body>
-                                    </html>
+</html>
