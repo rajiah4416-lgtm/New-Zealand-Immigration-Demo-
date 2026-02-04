@@ -2,72 +2,84 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <title>Azərbaycan Respublikası - Müvəqqəti Yaşamaq Üçün İcazə</title>
+    <title>Azərbaycan Respublikası Dövlət Miqrasiya Xidməti</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=OCR+A+Std&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Share+Tech+Mono&display=swap');
         
         :root {
             --az-blue: #0092bc;
             --az-red: #e4181c;
-            --az-green: #009739;
-            --card-base: #f1f8e9; /* Authentic pale mint/cream base */
+            --card-base: #f4fbf1; /* The specific pale mint-yellow from card-id.jpg */
         }
 
         body { 
             font-family: 'Roboto Condensed', sans-serif; 
-            background: #111827; 
+            background: #0f172a; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             padding: 40px; 
         }
 
-        .trc-card {
+        .trc-master {
             width: 850px;
             height: 540px;
-            background: radial-gradient(circle at 70% 30%, #f0fdf4, #fefce8 60%, #e0f2fe 100%);
-            border-radius: 18px;
+            background: var(--card-base);
+            border-radius: 14px;
             position: relative;
             padding: 30px 45px;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-            border: 1px solid #94a3b8;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.6);
+            border: 1px solid #cbd5e1;
             overflow: hidden;
         }
 
-        /* Official Azerbaijan Security Background Pattern */
-        .security-bg {
+        /* High-fidelity security background pattern from card-id.jpg */
+        .security-pattern {
             position: absolute;
             inset: 0;
-            opacity: 0.1;
-            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='0' y='20' font-family='Arial' font-size='10' fill='%230092bc'%3EAZ%3C/text%3E%3C/svg%3E");
+            opacity: 0.15;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230092bc' fill-opacity='0.2'%3E%3Cpath d='M40 40c0-11.046-8.954-20-20-20S0 28.954 0 40s8.954 20 20 20 20-8.954 20-20zm40 0c0-11.046-8.954-20-20-20S40 28.954 40 40s8.954 20 20 20 20-8.954 20-20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
             pointer-events: none;
         }
 
-        /* Right-side State Migration Service Hologram (Azerbaijan Only) */
-        .az-hologram {
+        /* Right-side Security Hologram (Pure Azerbaijan) */
+        .az-hologram-seal {
             position: absolute;
             top: 40px;
             right: 45px;
-            width: 110px;
-            height: 110px;
+            width: 115px;
+            height: 115px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #818cf8 0%, #34d399 50%, #60a5fa 100%);
-            mix-blend-mode: multiply;
-            opacity: 0.4;
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%);
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
-        .mrz-zone { font-family: 'OCR A Std', monospace; letter-spacing: 6px; font-size: 21px; color: #111; }
-        .field-label { font-size: 13px; font-weight: 700; color: #1e293b; line-height: 1.1; }
-        .field-sub { font-size: 11px; font-weight: 400; color: #475569; font-style: italic; }
-        .field-data { font-size: 18px; font-weight: 700; color: #000; text-transform: uppercase; margin-top: 2px; }
-        .expiry-official { color: var(--az-red) !important; }
+        .az-hologram-seal::before {
+            content: "";
+            position: absolute;
+            inset: -50%;
+            background: linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.8) 50%, transparent 55%);
+            background-size: 200% 200%;
+            animation: holo-shine 6s infinite linear;
+        }
 
-        .biometric-img {
+        @keyframes holo-shine {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+
+        .mrz-font { font-family: 'Share Tech Mono', monospace; letter-spacing: 5px; font-size: 20px; color: #111; line-height: 1.2; }
+        .label-az { font-size: 13px; font-weight: 700; color: #1e293b; line-height: 1; }
+        .label-en { font-size: 11px; font-weight: 400; color: #475569; font-style: italic; }
+        .data-value { font-size: 18px; font-weight: 700; color: #000; text-transform: uppercase; margin-top: 2px; }
+        .expiry-red { color: var(--az-red) !important; }
+
+        .biometric-box {
             width: 215px;
             height: 275px;
             background: #fff;
@@ -79,93 +91,94 @@
 </head>
 <body>
 
-    <div class="no-print bg-white p-8 rounded-3xl shadow-2xl w-[850px] mb-12 border-t-8 border-[#0092bc]">
-        <h1 class="text-xl font-black mb-6 text-slate-800 uppercase">Dövlət Miqrasiya Xidməti - Məlumat Girişi</h1>
+    <div class="no-print bg-white p-8 rounded-2xl shadow-2xl w-[850px] mb-12 border-t-8 border-[#0092bc]">
+        <h2 class="text-xl font-black mb-6 text-slate-800 tracking-tight">AZƏRBAYCAN DÖVLƏT MİQRASİYA SİSTEMİ</h2>
         <div class="grid grid-cols-3 gap-6">
-            <input type="file" class="text-xs p-2 border rounded" onchange="loadPhoto(this)">
-            <input id="inSurname" placeholder="Soyad / Surname" class="p-3 border rounded-xl">
-            <input id="inName" placeholder="Ad / Given Name" class="p-3 border rounded-xl">
-            <input id="inNation" placeholder="Vətəndaşlıq / Nationality" class="p-3 border rounded-xl">
-            <input id="inIssue" placeholder="Verilmə Tarixi (DD.MM.YYYY)" class="p-3 border rounded-xl">
-            <input id="inExpiry" placeholder="Etibarlılıq Müddəti (DD.MM.YYYY)" class="p-3 border rounded-xl">
+            <input type="file" class="text-xs p-2 border rounded" onchange="uploadPhoto(this)">
+            <input id="inSurname" placeholder="Soyad / Surname" class="p-3 border rounded-xl outline-none">
+            <input id="inName" placeholder="Ad / Name" class="p-3 border rounded-xl outline-none">
+            <input id="inNation" placeholder="Vətəndaşlıq / Nationality" class="p-3 border rounded-xl outline-none">
+            <input id="inIssue" placeholder="Verilmə Tarixi (DD.MM.YYYY)" class="p-3 border rounded-xl outline-none">
+            <input id="inExpiry" placeholder="Etibarlıdır (DD.MM.YYYY)" class="p-3 border rounded-xl outline-none">
         </div>
-        <button onclick="sync()" class="w-full mt-6 bg-[#009739] text-white py-4 rounded-2xl font-black text-lg shadow-lg uppercase">Vəsiqəni Hazırla</button>
+        <button onclick="applyAll()" class="w-full mt-6 bg-[#002D5A] text-white py-4 rounded-xl font-black uppercase tracking-widest hover:brightness-110">Generate Official Document</button>
     </div>
 
-    <div class="trc-card">
-        <div class="security-bg"></div>
+    <div class="trc-master" id="printArea">
+        <div class="security-pattern"></div>
         
         <div class="flex justify-between items-start">
             <div class="flex gap-6">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-24">
                 <div class="pt-2">
-                    <p class="font-bold text-[15px] leading-tight">AZƏRBAYCAN RESPUBLİKASININ ƏRAZİSİNDƏ</p>
-                    <p class="font-bold text-[15px] leading-tight">MÜVƏQQƏTİ YAŞAMAQ ÜÇÜN İCAZƏ VƏSİQƏSİ</p>
-                    <p class="font-bold text-[13px] text-[#0092bc] mt-1 uppercase">Permit for Temporary Residence</p>
-                    <p class="font-medium text-[10px] text-slate-500 uppercase tracking-tighter">In the territory of the Republic of Azerbaijan</p>
+                    <p class="font-bold text-[15px] leading-tight text-slate-900">AZƏRBAYCAN RESPUBLİKASININ ƏRAZİSİNDƏ</p>
+                    <p class="font-bold text-[15px] leading-tight text-slate-900">MÜVƏQQƏTİ YAŞAMAQ ÜÇÜN İCAZƏ VƏSİQƏSİ</p>
+                    <p class="font-bold text-[13px] text-[#0092bc] mt-1">PERMIT FOR TEMPORARY RESIDENCE</p>
+                    <p class="font-medium text-[9px] text-slate-500 uppercase tracking-tighter">In the territory of the Republic of Azerbaijan</p>
                 </div>
             </div>
+            
             <div class="text-right pr-32">
-                <p class="text-[12px] font-bold">Seriya/Series <span class="text-[#e4181c]">MYİ</span> № <span id="outNo">1234567</span></p>
+                <p class="text-[12px] font-bold text-slate-700">Seriya/Series <span class="text-[#e4181c]">MYİ</span> № <span id="outNo">6810911</span></p>
             </div>
         </div>
 
-        <div class="az-hologram">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="w-16 opacity-30">
+        <div class="az-hologram-seal">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="w-16 opacity-30 grayscale">
         </div>
 
-        <div class="flex gap-16 mt-10">
-            <div class="biometric-img overflow-hidden">
+        <div class="flex gap-16 mt-10 px-2">
+            <div class="biometric-box overflow-hidden">
                 <img id="outPic" class="w-full h-full object-cover hidden">
             </div>
 
-            <div class="flex-1 grid grid-cols-2 gap-y-6">
+            <div class="flex-1 grid grid-cols-2 gap-y-6 pt-2">
                 <div>
-                    <p class="field-label">Soyad/</p><p class="field-sub">Surname</p>
-                    <p id="outSurname" class="field-data">RAHAT</p>
+                    <p class="label-az">Soyad/</p><p class="label-en">Surname</p>
+                    <p id="outSurname" class="data-value">RAHAT</p>
                 </div>
                 <div class="pl-12">
-                    <p class="field-label">Soyad</p>
-                    <p id="outSurnameAz" class="field-data">RAHAT</p>
+                    <p class="label-az">Soyad</p>
+                    <p id="outSurnameAz" class="data-value">RAHAT</p>
                 </div>
 
                 <div>
-                    <p class="field-label">Ad/</p><p class="field-sub">Name</p>
-                    <p id="outName" class="field-data">ALI</p>
+                    <p class="label-az">Ad/</p><p class="label-en">Name</p>
+                    <p id="outName" class="data-value">ALI</p>
                 </div>
                 <div class="pl-12">
-                    <p class="field-label">Ad</p>
-                    <p id="outNameAz" class="field-data">ALI</p>
+                    <p class="label-az">Ad</p>
+                    <p id="outNameAz" class="data-value">ALI</p>
                 </div>
 
                 <div>
-                    <p class="field-label">Vətəndaşlıq/</p><p class="field-sub">Nationality</p>
-                    <p id="outNation" class="field-data">PAKISTAN</p>
+                    <p class="label-az">Vətəndaşlıq/</p><p class="label-en">Nationality</p>
+                    <p id="outNation" class="data-value">PAKISTAN</p>
                 </div>
                 <div class="pl-12">
-                    <p class="field-label">Vətəndaşlıq</p>
-                    <p id="outNationAz" class="field-data">PAKISTAN</p>
+                    <p class="label-az">Vətəndaşlıq</p>
+                    <p id="outNationAz" class="data-value">PAKISTAN</p>
                 </div>
 
                 <div>
-                    <p class="field-label">İcazənin verilmə tarixi/</p><p class="field-sub">Date of issue</p>
-                    <p id="outIssue" class="field-data">05.02.2026</p>
+                    <p class="label-az">İcazənin verilmə tarixi/</p><p class="label-en">Date of issue</p>
+                    <p id="outIssue" class="data-value">05.02.2026</p>
                 </div>
                 <div class="pl-12">
-                    <p class="field-label">Etibarlıdır/</p><p class="field-sub">Date of expiry</p>
-                    <p id="outExpiry" class="field-data expiry-official">04.02.2027</p>
+                    <p class="label-az">Etibarlıdır/</p><p class="label-en">Date of expiry</p>
+                    <p id="outExpiry" class="data-value expiry-red">04.02.2027</p>
                 </div>
             </div>
         </div>
 
         <div class="absolute bottom-10 left-[45px] right-[45px] pt-4 border-t border-slate-300">
-            <p class="mrz-zone" id="m1">ITAZE1234567<<RAHAT<<<<<<<<<<<<</p>
-            <p class="mrz-zone" id="m2">9001011M2901017AZE<<<<<<<<<<<<0</p>
+            <p class="mrz-font" id="m1">ITAZE6810911<<RAHAT<<<<<<<<<<<<</p>
+            <p class="mrz-font" id="m2">9001011M2901017AZE<<<<<<<<<<<<0</p>
         </div>
     </div>
 
     <script>
-        function loadPhoto(input) {
+        function uploadPhoto(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
@@ -176,7 +189,7 @@
             }
         }
 
-        function sync() {
+        function applyAll() {
             const val = (id) => document.getElementById(id).value.toUpperCase();
             if(val('inSurname')) {
                 document.getElementById('outSurname').innerText = val('inSurname');
