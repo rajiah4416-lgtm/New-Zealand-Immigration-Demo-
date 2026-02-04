@@ -2,82 +2,101 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azərbaycan Respublikası - Müvəqqəti Yaşamaq Üçün İcazə</title>
+    <title>Azərbaycan Respublikası - Dövlət Miqrasiya Xidməti</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Share+Tech+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Arimo:wght@400;700&display=swap');
         
         :root {
             --az-blue: #0092bc;
             --az-red: #e4181c;
-            /* Exact mint-green to pale-yellow security gradient from card-id.jpg */
-            --bg-gradient: radial-gradient(circle at 50% 50%, #f7fee7 0%, #ecfccb 40%, #e0f2fe 100%);
+            /* Accurate mint-to-yellowish security tint */
+            --bg-base: radial-gradient(circle at 60% 40%, #f9fafb, #f1f8e9 40%, #e0f2fe 100%);
         }
 
         body { 
-            font-family: 'Roboto Condensed', sans-serif; 
-            background: #1e293b; 
+            font-family: 'Arimo', sans-serif; 
+            background: #020617; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             padding: 20px; 
+            color: #111;
         }
 
         .trc-card {
             width: 850px;
             height: 540px;
-            background: var(--bg-gradient);
-            border-radius: 12px;
+            background: var(--bg-base);
+            border-radius: 20px;
             position: relative;
-            padding: 25px 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            border: 1px solid #94a3b8;
+            padding: 30px 45px;
+            box-shadow: 0 0 80px rgba(0,0,0,0.9);
+            border: 1.5px solid #cbd5e1;
             overflow: hidden;
         }
 
-        /* Intricate Guilloche Security Pattern Overlay */
-        .guilloche {
+        /* Prismatic Hologram (The Circled Element) */
+        .prism-hologram {
+            position: absolute;
+            top: 35px;
+            right: 45px;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+            background-size: 400% 400%;
+            animation: prismatic 8s ease infinite;
+            opacity: 0.35;
+            mix-blend-mode: color-dodge;
+            border: 1px solid rgba(255,255,255,0.4);
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prism-hologram img {
+            width: 70px;
+            filter: invert(1) brightness(2);
+            opacity: 0.8;
+        }
+
+        @keyframes prismatic {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Guilloche Security Patterns */
+        .guilloche-overlay {
             position: absolute;
             inset: 0;
-            opacity: 0.08;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0c16.569 0 30 13.431 30 30s-13.431 30-30 30S0 46.569 0 30 13.431 0 30 0zm0 2C14.536 2 2 14.536 2 30s12.536 28 28 28 28-12.536 28-28S45.464 2 30 2z' fill='%230092bc'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50m-40 0a40 40 0 1 0 80 0a40 40 0 1 0 -80 0' fill='none' stroke='%230092bc' stroke-opacity='0.05' stroke-width='0.5'/%3E%3C/svg%3E");
             pointer-events: none;
         }
 
-        /* Top Right Security Feature (The Blue/Green Latent Image) */
-        .latent-image {
-            position: absolute;
-            top: 25px;
-            right: 40px;
-            width: 130px;
-            height: 70px;
-            background: linear-gradient(135deg, #7dd3fc 0%, #4ade80 100%);
-            mask-image: radial-gradient(circle, black 2px, transparent 2px);
-            mask-size: 6px 6px;
-            opacity: 0.4;
-            filter: blur(1px);
-        }
+        .label-group { display: flex; flex-direction: column; line-height: 1; margin-bottom: 2px; }
+        .label-az { font-size: 13px; font-weight: 700; color: #1e293b; }
+        .label-en { font-size: 11px; font-weight: 400; color: #64748b; font-style: italic; }
+        .data-text { font-size: 19px; font-weight: 700; color: #000; letter-spacing: 0.2px; text-transform: uppercase; }
+        .expiry-official { color: var(--az-red) !important; font-weight: 800; }
 
-        .label-az { font-size: 13px; font-weight: 700; color: #1e293b; line-height: 1.1; }
-        .label-en { font-size: 11px; font-weight: 400; color: #4b5563; margin-top: -1px; }
-        .data-text { font-size: 18px; font-weight: 700; color: #000; text-transform: uppercase; margin-top: 1px; }
-        .expiry-red { color: var(--az-red) !important; }
-
-        .mrz { 
-            font-family: 'Share Tech Mono', monospace; 
-            letter-spacing: 5.5px; 
-            font-size: 21px; 
-            color: #111; 
+        .mrz-section {
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 6.5px;
+            font-size: 22px;
+            color: #111;
             line-height: 1.1;
+            border-top: 1px solid rgba(0,0,0,0.1);
         }
 
-        .photo-area {
-            width: 210px;
-            height: 275px;
-            background: rgba(255, 255, 255, 0.8);
+        .biometric-frame {
+            width: 220px;
+            height: 285px;
+            background: #fff;
             border: 1px solid #cbd5e1;
-            margin-top: 5px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
         }
 
         @media print { .no-print { display: none !important; } }
@@ -85,137 +104,114 @@
 </head>
 <body>
 
-    <div class="no-print bg-white p-6 rounded-2xl shadow-xl w-[850px] mb-10 border-b-4 border-[#0092bc]">
-        <h2 class="font-black text-gray-800 mb-4 uppercase text-center">Azerbaijan State Migration Service - TRC Editor</h2>
-        <div class="grid grid-cols-3 gap-4">
-            <input type="file" class="text-xs p-2 border rounded" onchange="preview(this)">
-            <input id="inSurname" placeholder="Surname" class="p-2 border rounded text-sm">
-            <input id="inName" placeholder="Given Name" class="p-2 border rounded text-sm">
-            <input id="inNation" placeholder="Nationality" class="p-2 border rounded text-sm">
-            <input id="inBday" placeholder="Place & Date of Birth" class="p-2 border rounded text-sm">
-            <input id="inIssue" placeholder="Date of Issue" class="p-2 border rounded text-sm">
-            <input id="inExpiry" placeholder="Date of Expiry" class="p-2 border rounded text-sm">
-            <input id="inSeria" placeholder="Series Number (e.g. 1234567)" class="p-2 border rounded text-sm">
+    <div class="no-print bg-white p-8 rounded-3xl shadow-2xl w-[850px] mb-10 border-t-8 border-[#0092bc]">
+        <div class="grid grid-cols-3 gap-6">
+            <div class="col-span-3 pb-2 border-b"><h1 class="font-black text-slate-800">DATA MANAGEMENT SYSTEM</h1></div>
+            <input type="file" class="text-xs" onchange="preview(this)">
+            <input id="inSur" placeholder="Surname" class="p-3 border rounded-xl outline-none">
+            <input id="inNam" placeholder="Given Name" class="p-3 border rounded-xl outline-none">
+            <input id="inNat" placeholder="Nationality" class="p-3 border rounded-xl outline-none">
+            <input id="inIss" placeholder="Date of Issue (DD.MM.YYYY)" class="p-3 border rounded-xl outline-none">
+            <input id="inExp" placeholder="Date of Expiry (DD.MM.YYYY)" class="p-3 border rounded-xl outline-none">
         </div>
-        <button onclick="update()" class="w-full mt-4 bg-[#002D5A] text-white py-3 rounded-lg font-bold uppercase hover:bg-blue-800">Update Document</button>
+        <button onclick="update()" class="w-full mt-6 bg-[#002D5A] text-white py-4 rounded-2xl font-black text-lg shadow-lg hover:brightness-125 transition-all">SYNCHRONIZE DOCUMENT</button>
     </div>
 
     <div class="trc-card" id="card">
-        <div class="guilloche"></div>
-        <div class="latent-image"></div>
+        <div class="guilloche-overlay"></div>
         
-        <div class="flex gap-6 mb-6">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-24">
-            <div class="pt-2">
-                <p class="font-bold text-[16px] text-gray-900">AZƏRBAYCAN RESPUBLİKASININ ƏRAZİSİNDƏ</p>
-                <p class="font-bold text-[16px] text-gray-900">MÜVƏQQƏTİ YAŞAMAQ ÜÇÜN İCAZƏ VƏSİQƏSİ</p>
+        <div class="flex gap-8">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="h-28">
+            <div class="pt-3">
+                <p class="font-bold text-[16px] leading-tight">AZƏRBAYCAN RESPUBLİKASININ ƏRAZİSİNDƏ</p>
+                <p class="font-bold text-[16px] leading-tight">MÜVƏQQƏTİ YAŞAMAQ ÜÇÜN İCAZƏ VƏSİQƏSİ</p>
                 <p class="font-bold text-[14px] text-[#0092bc] mt-1">PERMIT FOR TEMPORARY RESIDENCE</p>
-                <p class="font-medium text-[10px] text-gray-500 uppercase tracking-tighter">In the territory of the Republic of Azerbaijan</p>
+                <p class="font-medium text-[10px] text-slate-500 uppercase">In the territory of the Republic of Azerbaijan</p>
             </div>
         </div>
 
-        <div class="absolute top-32 left-[310px] w-full">
-             <p class="text-[14px] font-bold text-gray-800">Seriya/Series <span class="text-[#e4181c] font-black">MYİ</span> № <span id="outSeria">1234567</span></p>
+        <div class="prism-hologram">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg">
         </div>
 
-        <div class="flex gap-14 mt-12">
-            <div class="photo-area overflow-hidden shadow-inner">
+        <div class="absolute top-36 left-[320px]">
+            <p class="text-[14px] font-bold">Seriya/Series <span class="text-[#e4181c]">MYİ</span> № <span id="outNo">6810911</span></p>
+        </div>
+
+        <div class="flex gap-16 mt-14 px-2">
+            <div class="biometric-frame overflow-hidden">
                 <img id="outImg" class="w-full h-full object-cover hidden">
             </div>
 
-            <div class="flex-1 grid grid-cols-2 gap-y-5">
+            <div class="flex-1 grid grid-cols-2 gap-y-7 pt-2">
                 <div>
-                    <p class="label-az">Soyad/</p><p class="label-en">Surname</p>
-                    <p id="outSurname" class="data-text">RAHAT</p>
+                    <div class="label-group"><span class="label-az">Soyad/</span><span class="label-en">Surname</span></div>
+                    <p id="outSur" class="data-text">RAHAT</p>
                 </div>
-                <div class="pl-10">
-                    <p class="label-az">Soyad</p>
-                    <p id="outSurnameAz" class="data-text">RAHAT</p>
+                <div class="pl-14">
+                    <div class="label-group"><span class="label-az">Soyad</span></div>
+                    <p id="outSurAz" class="data-text">RAHAT</p>
                 </div>
 
                 <div>
-                    <p class="label-az">AD/</p><p class="label-en">Name</p>
-                    <p id="outName" class="data-text">ALI</p>
+                    <div class="label-group"><span class="label-az">AD/</span><span class="label-en">Name</span></div>
+                    <p id="outNam" class="data-text">ALI</p>
                 </div>
-                <div class="pl-10">
-                    <p class="label-az">AD</p>
-                    <p id="outNameAz" class="data-text">ALI</p>
-                </div>
-
-                <div>
-                    <p class="label-az">Vətəndaşlıq/</p><p class="label-en">Nationality</p>
-                    <p id="outNation" class="data-text">PAKISTAN</p>
-                </div>
-                <div class="pl-10">
-                    <p class="label-az">Vətəndaşlıq</p>
-                    <p id="outNationAz" class="data-text">PAKISTAN</p>
+                <div class="pl-14">
+                    <div class="label-group"><span class="label-az">AD</span></div>
+                    <p id="outNamAz" class="data-text">ALI</p>
                 </div>
 
                 <div>
-                    <p class="label-az">Doğulduğu yer və tarix/</p><p class="label-en">Place and date of birth</p>
-                    <p id="outBday" class="data-text">LAHORE, 01.01.1990</p>
+                    <div class="label-group"><span class="label-az">Vətəndaşlıq/</span><span class="label-en">Nationality</span></div>
+                    <p id="outNat" class="data-text">PAKISTAN</p>
                 </div>
-                <div class="pl-10">
-                    <p class="label-az">Doğulduğu yer və tarix</p>
-                    <p id="outBdayAz" class="data-text">LAHORE, 01.01.1990</p>
-                </div>
-
-                <div>
-                    <p class="label-az">İcazənin verilmə tarixi/</p><p class="label-en">Date of issue</p>
-                    <p id="outIssue" class="data-text">05.02.2026</p>
-                </div>
-                <div class="pl-10">
-                    <p class="label-az">İcazənin verilmə tarixi</p>
-                    <p id="outIssueAz" class="data-text">05.02.2026</p>
+                <div class="pl-14">
+                    <div class="label-group"><span class="label-az">Vətəndaşlıq</span></div>
+                    <p id="outNatAz" class="data-text">PAKISTAN</p>
                 </div>
 
                 <div>
-                    <p class="label-az">Etibarlıdır/</p><p class="label-en">Date of expiry</p>
-                    <p id="outExpiry" class="data-text expiry-red">04.02.2027</p>
+                    <div class="label-group"><span class="label-az">İcazənin verilmə tarixi/</span><span class="label-en">Date of issue</span></div>
+                    <p id="outIss" class="data-text">05.02.2026</p>
                 </div>
-                <div class="pl-10">
-                    <p class="label-az">Etibarlıdır</p>
-                    <p id="outExpiryAz" class="data-text expiry-red">04.02.2027</p>
+                <div class="pl-14">
+                    <div class="label-group"><span class="label-az">Etibarlıdır/</span><span class="label-en">Date of expiry</span></div>
+                    <p id="outExp" class="data-text expiry-official">04.02.2027</p>
                 </div>
             </div>
         </div>
 
-        <div class="absolute bottom-8 left-[40px] right-[40px] pt-4 border-t border-gray-300">
-            <p class="mrz" id="mrz1">ITAZE1234567<<RAHAT<<<<<<<<<<<<</p>
-            <p class="mrz" id="mrz2">1234567<<<1A2BC123456789123456789112B<0</p>
+        <div class="absolute bottom-10 left-[45px] right-[45px] pt-5 mrz-section">
+            <p id="m1">ITAZE6810911<<RAHAT<<<<<<<<<<<<</p>
+            <p id="m2">9001011M2901017AZE<<<<<<<<<<<<0</p>
         </div>
     </div>
 
     <script>
         function preview(input) {
             if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = (e) => {
+                var r = new FileReader();
+                r.onload = (e) => { 
                     document.getElementById('outImg').src = e.target.result;
                     document.getElementById('outImg').classList.remove('hidden');
-                }
-                reader.readAsDataURL(input.files[0]);
+                };
+                r.readAsDataURL(input.files[0]);
             }
         }
 
         function update() {
-            const val = (id) => document.getElementById(id).value.toUpperCase();
-            const fields = ['Surname', 'Name', 'Nation', 'Bday', 'Issue', 'Expiry'];
-            
-            fields.forEach(f => {
-                if(val(`in${f}`)) {
-                    document.getElementById(`out${f}`).innerText = val(`in${f}`);
-                    document.getElementById(`out${f}Az`).innerText = val(`in${f}`);
+            const get = (id) => document.getElementById(id).value.toUpperCase();
+            const keys = ['Sur', 'Nam', 'Nat', 'Iss', 'Exp'];
+            keys.forEach(k => {
+                if(get(`in${k}`)) {
+                    document.getElementById(`out${k}`).innerText = get(`in${k}`);
+                    if(document.getElementById(`out${k}Az`)) 
+                        document.getElementById(`out${k}Az`).innerText = get(`in${k}`);
                 }
             });
-
-            if(val('inSeria')) document.getElementById('outSeria').innerText = val('inSeria');
-            
-            // Sync MRZ
-            const sn = document.getElementById('outSeria').innerText;
-            const sur = document.getElementById('outSurname').innerText;
-            document.getElementById('mrz1').innerText = `ITAZE${sn}<<${sur.padEnd(12, '<')}`;
-            document.getElementById('mrz2').innerText = `${sn}<<<1A2BC123456789123456789112B<0`;
+            const sn = get('inSur') || 'RAHAT';
+            document.getElementById('m1').innerText = `ITAZE6810911<<${sn.padEnd(12, '<')}`;
         }
     </script>
 </body>
