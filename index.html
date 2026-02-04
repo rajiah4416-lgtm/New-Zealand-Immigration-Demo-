@@ -1,312 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Client Visa System</title>
+import datetime
 
-<style>
+def generate_nz_auth_letter():
+    print("--- NZ Company Authorization Letter Generator ---")
+    
+    # Gathering Input
+    company_name = input("Enter Company Name: ")
+    nzbn = input("Enter NZBN: ")
+    address = input("Enter Registered Office Address: ")
+    appointee_name = input("Enter Full Name of Appointee: ")
+    id_details = input("Enter Appointee ID Details (e.g., Passport #12345): ")
+    scope = input("Enter Scope of Authority (e.g., Signing bank documents): ")
+    director_name = input("Enter Director's Full Name: ")
+    
+    current_date = datetime.date.today().strftime("%B %d, %Y")
 
-/* ====== GLOBAL ====== */
-* {
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    # The Template
+    letter_content = f"""
+{company_name.upper()}
+NZBN: {nzbn}
+Registered Address: {address}
 
-body {
-  background: #eef2f5;
-  margin: 0;
-  padding: 0;
-}
+Date: {current_date}
 
-h2, h3 {
-  color: #002a60;
-}
+TO WHOM IT MAY CONCERN
 
-/* ====== HEADER ====== */
-header {
-  background: #003a8f;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-}
+RE: Letter of Authorization for {appointee_name}
 
-/* ====== CONTAINER ====== */
-.container {
-  width: 95%;
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px;
-}
+This letter serves to formally notify that {company_name} (the "Company") hereby 
+authorizes {appointee_name}, holding {id_details}, to act on behalf of the 
+Company in the following capacity:
 
-/* ====== CARD ====== */
-.card {
-  background: white;
-  margin: 20px 0;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
+Scope of Authority:
+* {scope}
 
-/* ====== INPUTS ====== */
-input, textarea {
-  width: 100%;
-  padding: 12px;
-  margin-top: 8px;
-  margin-bottom: 15px;
-  border: 1px solid #ccd1d9;
-  border-radius: 6px;
-  font-size: 16px;
-}
+This authorization is effective from {current_date} and shall remain valid until 
+further notice or unless revoked in writing. 
 
-input:focus, textarea:focus {
-  outline: none;
-  border: 2px solid #005fcc;
-}
+The Company confirms that any actions taken by {appointee_name} within the scope 
+defined above shall be legally binding upon the Company.
 
-/* ====== BUTTON ====== */
-button {
-  background: #005fcc;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor:pointer;
-  transition: 0.3s ease;
-}
+Should you require further verification, please contact the undersigned.
 
-button:hover {
-  background: #0041a8;
-}
+Yours faithfully,
 
-/* ====== TABLE ====== */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+(Signature)
 
-th, td {
-  border-bottom: 1px solid #d7dde4;
-  padding: 10px;
-  text-align: left;
-}
+{director_name}
+Director
+{company_name}
+"""
 
-th {
-  background: #f4f6fa;
-  color: #333;
-}
+    # Saving to a file
+    filename = f"Authorization_Letter_{appointee_name.replace(' ', '_')}.txt"
+    with open(filename, "w") as file:
+        file.write(letter_content)
+    
+    print(f"\nSuccess! Letter generated and saved as: {filename}")
 
-/* ====== LETTER ====== */
-#letter {
-  background: white;
-  padding: 35px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  margin-top: 10px;
-}
-
-#letter img {
-  max-height: 80px;
-  display: block;
-  margin-bottom: 10px;
-}
-
-#letter h3 {
-  margin-top: 0;
-  color: #003a8f;
-}
-
-/* ====== RESPONSIVE ====== */
-@media(max-width: 768px){
-  header {
-    font-size: 20px;
-  }
-
-  button {
-    width: 100%;
-    padding: 14px;
-  }
-}
-
-</style>
-
-</head>
-<body>
-
-<header>Beautiful Visa Client System</header>
-
-<div class="container">
-
-  <!-- ====== ADD CLIENT ====== -->
-  <div class="card">
-    <h3>Add New Client</h3>
-
-    <label>Client Name</label>
-    <input id="name">
-
-    <label>Passport No</label>
-    <input id="passport">
-
-    <label>Visa Type</label>
-    <input id="visa">
-
-    <label>Upload Visa PDF</label>
-    <input type="file" id="pdfUpload">
-
-    <button onclick="saveClient()">Add Client</button>
-  </div>
-
-  <!-- ====== UPLOAD LOGO ====== -->
-  <div class="card">
-    <h3>Upload Company Logo</h3>
-    <input type="file" onchange="uploadLogo(event)">
-  </div>
-
-  <!-- ====== CLIENT DASHBOARD ====== -->
-  <div class="card">
-    <h3>Client Dashboard</h3>
-    <table id="clientTable">
-      <tr>
-        <th>Name</th>
-        <th>Passport</th>
-        <th>Visa Type</th>
-        <th>Actions</th>
-      </tr>
-    </table>
-  </div>
-
-  <!-- ====== VISA LETTER ====== -->
-  <div class="card">
-    <h3>Visa Letter Preview</h3>
-
-    <div id="letter">
-      <img id="logo">
-      <h3>VISA APPROVAL LETTER</h3>
-      <p id="letterContent"></p>
-    </div>
-
-    <br>
-
-    <button onclick="window.print()">🖨 Print</button>
-    <button onclick="downloadPDF()">📥 Download PDF</button>
-    <button onclick="downloadZIP()">📦 Export ZIP</button>
-  </div>
-
-</div>
-
-
-<script>
-
-/* ====== STORAGE ====== */
-let clients = JSON.parse(localStorage.getItem("clients") || "[]");
-
-/* ====== SAVE CLIENT ====== */
-function saveClient(){
-
-  let file = document.getElementById("pdfUpload").files[0];
-  let reader = new FileReader();
-
-  reader.onload = function(){
-    let client = {
-      name: name.value,
-      passport: passport.value,
-      visa: visa.value,
-      pdf: reader.result
-    };
-
-    clients.push(client);
-    localStorage.setItem("clients", JSON.stringify(clients));
-    loadClients();
-  };
-
-  if(file) reader.readAsDataURL(file);
-  else reader.onload();
-
-}
-
-/* ====== LOAD CLIENTS ====== */
-function loadClients(){
-  let table = document.getElementById("clientTable");
-
-  table.innerHTML = `
-    <tr>
-      <th>Name</th>
-      <th>Passport</th>
-      <th>Visa Type</th>
-      <th>Actions</th>
-    </tr>
-  `;
-
-  clients.forEach((c,i) => {
-    table.innerHTML += `
-    <tr>
-      <td>${c.name}</td>
-      <td>${c.passport}</td>
-      <td>${c.visa}</td>
-      <td>
-        <button onclick="viewLetter(${i})">View</button>
-        <button onclick="deleteClient(${i})">Delete</button>
-      </td>
-    </tr>
-    `;
-  });
-}
-
-/* ====== DELETE ====== */
-function deleteClient(i){
-  clients.splice(i,1);
-  localStorage.setItem("clients", JSON.stringify(clients));
-  loadClients();
-}
-
-/* ====== VIEW LETTER ====== */
-function viewLetter(i){
-  let c = clients[i];
-  document.getElementById("letterContent").innerHTML = `
-This letter confirms that <strong>${c.name}</strong>,
-passport number <strong>${c.passport}</strong>,
-has been granted a <strong>${c.visa}</strong> visa.
-  `;
-}
-
-/* ====== UPLOAD LOGO ====== */
-function uploadLogo(e){
-  let reader = new FileReader();
-
-  reader.onload = function(){
-    localStorage.setItem("logo", reader.result);
-    document.getElementById("logo").src = reader.result;
-  };
-
-  reader.readAsDataURL(e.target.files[0]);
-}
-
-document.getElementById("logo").src = localStorage.getItem("logo");
-
-/* ====== PDF DOWNLOAD ====== */
-function downloadPDF(){
-  let content = document.getElementById("letter").innerHTML;
-  let win = window.open("");
-  win.document.write(content);
-  win.print();
-}
-
-/* ====== ZIP EXPORT ====== */
-function downloadZIP(){
-  let zipData = JSON.stringify(clients);
-  let blob = new Blob([zipData], {type:"application/zip"});
-  let a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "clients.zip";
-  a.click();
-}
-
-/* ====== INITIAL LOAD ====== */
-loadClients();
-
-</script>
-
-</body>
-</html>
+if __name__ == "__main__":
+    generate_nz_auth_letter()
