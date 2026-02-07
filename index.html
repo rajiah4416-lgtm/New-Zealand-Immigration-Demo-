@@ -1,8 +1,4 @@
-<h2>1. Official Photo</h2>
-<div class="input-group">
-    <label>Upload Passport Photo</label>
-    <input type="file" id="photo_upload" accept="image/*" onchange="previewPhoto(event)" style="border: 1px dashed var(--nz-teal); padding: 8px;">
-</div><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,19 +16,20 @@
 
         body { font-family: 'Inter', sans-serif; margin: 0; background: #64748b; color: #1e293b; display: flex; }
         
+        /* Dashboard Sidebar */
         .sidebar { 
             width: 420px; height: 100vh; background: var(--sidebar-bg); position: fixed; 
             left: 0; top: 0; padding: 30px; box-sizing: border-box; overflow-y: auto; color: white;
             box-shadow: 10px 0 30px rgba(0,0,0,0.3); border-right: 4px solid var(--nz-teal);
         }
 
-        .sidebar h2 { font-size: 1rem; color: var(--nz-teal); text-transform: uppercase; letter-spacing: 2px; margin: 25px 0 15px 0; display: flex; align-items: center; gap: 10px; }
+        .sidebar h2 { font-size: 0.9rem; color: var(--nz-teal); text-transform: uppercase; letter-spacing: 2px; margin: 25px 0 15px 0; display: flex; align-items: center; gap: 10px; }
         .sidebar h2::before { content: '→'; color: var(--nz-red); }
         
         .input-group { margin-bottom: 12px; }
         label { font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 5px; display: block; }
         input, select { 
-            width: 100%; padding: 12px; border: 1px solid #334155; border-radius: 8px; 
+            width: 100%; padding: 10px; border: 1px solid #334155; border-radius: 8px; 
             font-size: 13px; background: #1e293b; color: white; transition: 0.3s;
         }
 
@@ -42,12 +39,13 @@
             margin-top: 30px; text-transform: uppercase; letter-spacing: 1px;
         }
 
+        /* Paper Preview Area */
         .preview-area { margin-left: 420px; flex-grow: 1; padding: 60px 0; display: flex; flex-direction: column; align-items: center; }
         
         .a4-page {
             width: 210mm; min-height: 297mm; padding: 25mm; margin-bottom: 60px;
             background: white; box-shadow: 0 0 50px rgba(0,0,0,0.3); box-sizing: border-box; position: relative;
-            border-left: 15px solid var(--nz-blue);
+            border-left: 15px solid var(--nz-blue); overflow: hidden;
         }
 
         .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 4px solid var(--nz-teal); padding-bottom: 20px; }
@@ -57,25 +55,28 @@
         .govt-title span { font-size: 12px; color: var(--nz-teal); font-weight: 700; }
 
         h1 { color: var(--nz-blue); font-size: 28px; text-align: center; margin: 40px 0; font-weight: 900; text-transform: uppercase; }
-        h2.offer-header { color: var(--nz-blue); font-size: 20px; margin-top: 0; border-bottom: 2px solid var(--nz-blue); padding-bottom: 10px; }
         
-        .page-badge { position: absolute; top: 0; right: 50px; background: var(--nz-red); color: white; padding: 10px 15px; font-size: 12px; font-weight: 800; border-radius: 0 0 10px 10px; }
+        .photo-slot { 
+            width: 35mm; height: 45mm; border: 1px solid #cbd5e1; background: #f8fafc;
+            position: absolute; top: 115px; right: 25mm; display: flex; align-items: center; justify-content: center;
+            font-size: 10px; color: #94a3b8; overflow: hidden; box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+        }
+        .photo-slot img { width: 100%; height: 100%; object-fit: cover; }
 
+        .page-badge { position: absolute; top: 0; right: 50px; background: var(--nz-red); color: white; padding: 10px 15px; font-size: 12px; font-weight: 800; border-radius: 0 0 10px 10px; }
         .section-header { background: #f1f5f9; border-left: 5px solid var(--nz-teal); padding: 10px 15px; color: var(--nz-blue); font-weight: 800; text-transform: uppercase; font-size: 14px; margin: 25px 0 15px 0; }
         
         .data-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
         .data-table td { padding: 12px; border: 1px solid #e2e8f0; font-size: 13px; }
-        .label { font-weight: 700; background: #f8fafc; color: var(--nz-blue); width: 38%; }
+        .label { font-weight: 700; background: #f8fafc; color: var(--nz-blue); width: 40%; }
         
-        .highlight-box { border: 2px solid var(--nz-teal); background: #f0fdfa; padding: 20px; border-radius: 12px; margin: 20px 0; position: relative; }
-
+        .highlight-box { border: 2px solid var(--nz-teal); background: #f0fdfa; padding: 20px; border-radius: 12px; margin: 20px 0; }
         .footer { position: absolute; bottom: 15mm; left: 25mm; right: 25mm; text-align: center; font-size: 10px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 10px; }
-
         .offer-text { font-size: 14px; line-height: 1.7; color: #334155; }
 
         @media print {
             .sidebar { display: none; }
-            .preview-area { margin-left: 0; padding: 0; background: white; }
+            .preview-area { margin-left: 0; padding: 0; }
             .a4-page { margin: 0; box-shadow: none; border-top: 5px solid var(--nz-blue); page-break-after: always; }
         }
     </style>
@@ -83,36 +84,39 @@
 <body>
 
 <aside class="sidebar no-print">
-    <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: white; font-size: 18px; margin: 10px 0;">AEWV BUILDER 2026</h1>
+    <div style="text-align: center; margin-bottom: 25px;">
+        <h1 style="color: white; font-size: 18px; margin: 0;">AEWV BUILDER 2026</h1>
     </div>
 
-    <h2>Employee Data</h2>
-    <div class="input-group"><label>Employee Full Name</label><input type="text" id="in_name" placeholder="As per Passport" oninput="sync()"></div>
-    <div class="input-group"><label>Passport No.</label><input type="text" id="in_pass" oninput="sync()"></div>
-    <div class="input-group"><label>Date of Birth</label><input type="date" id="in_dob" oninput="sync()"></div>
+    <h2>1. Official Photo</h2>
+    <div class="input-group">
+        <label>Passport Photo</label>
+        <input type="file" id="photo_upload" accept="image/*" onchange="previewPhoto(event)">
+    </div>
 
-    <h2>Work Category</h2>
+    <h2>2. Employee & Approval</h2>
+    <div class="input-group"><label>Employee Full Name</label><input type="text" id="in_name" oninput="sync()"></div>
+    <div class="input-group"><label>Passport No.</label><input type="text" id="in_pass" oninput="sync()"></div>
+    <div class="input-group"><label>INZ Reference No.</label><input type="text" id="in_inz_ref" placeholder="2026-AEWV-XXXX" oninput="sync()"></div>
+    <div class="input-group"><label>Job Check ID</label><input type="text" id="in_job_check" placeholder="JC-XXXX-NZL" oninput="sync()"></div>
+
+    <h2>3. Work & Company</h2>
     <div class="input-group">
         <label>Labour Category</label>
         <select id="in_role" onchange="sync()">
             <option value="Restaurant Waiter" data-code="431111">Restaurant Waiter (431111)</option>
-            <option value="Cleaner Worker" data-code="811211">Cleaner Worker (811211) </option>
+            <option value="Cleaner Worker" data-code="811211">Cleaner Worker (811211)</option>
             <option value="Office Boy" data-code="811111">Office Boy (811111)</option>
         </select>
     </div>
-    <div class="input-group"><label>Hourly Rate ($ NZD)</label><input type="number" id="in_salary" value="31.61" step="0.01" oninput="sync()"></div>
-
-    <h2>Company Information</h2>
     <div class="input-group"><label>Employer Legal Name</label><input type="text" id="in_comp" oninput="sync()"></div>
-    <div class="input-group"><label>NZBN / Tax Number</label><input type="text" id="in_tax" placeholder="94290..." oninput="sync()"></div>
     <div class="input-group"><label>Company Email</label><input type="email" id="in_email" oninput="sync()"></div>
 
-    <h2>Third-Party Providers</h2>
-    <div class="input-group"><label>Medical / Ticket Company</label><input type="text" id="in_med" placeholder="Health Group NZ" oninput="sync()"></div>
-    <div class="input-group"><label>Accommodation / Food Co.</label><input type="text" id="in_acc" placeholder="Kiwi Living Ltd" oninput="sync()"></div>
+    <h2>4. Providers</h2>
+    <div class="input-group"><label>Medical / Ticket Co.</label><input type="text" id="in_med" oninput="sync()"></div>
+    <div class="input-group"><label>Accommodation Co.</label><input type="text" id="in_acc" oninput="sync()"></div>
 
-    <button class="btn-download" onclick="window.print()">Print Official 4-Page Contract</button>
+    <button class="btn-download" onclick="window.print()">Generate 4-Page Official PDF</button>
 </aside>
 
 <main class="preview-area">
@@ -123,143 +127,134 @@
                 <rect width="1200" height="600" fill="#00247d"/><g fill="#fff"><rect width="600" height="100" y="250"/><rect width="100" height="600" x="250"/></g>
                 <path d="M0,0 L600,300 M600,0 L0,300" stroke="#fff" stroke-width="60"/><path d="M0,0 L600,300 M600,0 L0,300" stroke="#cc142b" stroke-width="40"/>
                 <g fill="#cc142b"><rect width="600" height="60" y="270"/><rect width="60" height="600" x="270"/></g>
-                <g fill="#fff" transform="translate(900, 300)"><circle r="20" cy="-150"/><circle r="20" cy="150"/><circle r="20" cx="-100"/><circle r="15" cx="100" cy="50"/></g>
             </svg>
             <div class="govt-title">
                 <strong>Ministry of Business, Innovation & Employment</strong>
                 <span>Immigration New Zealand | Labour Division</span>
             </div>
         </div>
+
+        <div class="photo-slot" id="photo_preview_box">AFFIX PHOTO</div>
+
         <h1>Employment Agreement</h1>
-        <div class="section-header">1. Party Identification</div>
+        <div class="section-header">1. Formal Identification</div>
         <table class="data-table">
             <tr><td class="label">Legal Employer</td><td><span id="v_comp">__________</span></td></tr>
-            <tr><td class="label">NZBN (Tax Number)</td><td><span id="v_tax">__________</span></td></tr>
-            <tr><td class="label">Employee Name</td><td><span id="v_name">__________</span></td></tr>
+            <tr><td class="label">Employee Legal Name</td><td><span id="v_name">__________</span></td></tr>
             <tr><td class="label">Passport Number</td><td><span id="v_pass">__________</span></td></tr>
+            <tr><td class="label" style="color:var(--nz-red)">INZ Approval Ref.</td><td><strong id="v_inz_ref">__________</strong></td></tr>
+            <tr><td class="label" style="color:var(--nz-teal)">Job Check ID</td><td><strong id="v_job_check">__________</strong></td></tr>
         </table>
-        <div class="footer">MBIE-LABOUR-AEWV-2026-REF: <span class="v_ref"></span></div>
+
+        <div class="section-header">2. Position & Wages</div>
+        <table class="data-table">
+            <tr><td class="label">Job Title</td><td><span id="v_role">__________</span></td></tr>
+            <tr><td class="label">ANZSCO Code</td><td><strong id="v_code">431111</strong></td></tr>
+            <tr><td class="label">Hourly Wage</td><td>$31.61 NZD</td></tr>
+        </table>
+        <div class="footer">MBIE-AEWV-2026-REF: <span class="v_ref"></span></div>
     </div>
 
     <div class="a4-page">
         <div class="page-badge">PAGE 02</div>
-        <div class="section-header">3. Statutory Provisions (NZ Law)</div>
+        <div class="section-header">3. AEWV Statutory Entitlements</div>
         <div class="highlight-box">
-            <strong>3.1 Salary Protection</strong>
-            <p>Salary payments underwritten via Insurance after 24 months of service.</p>
+            <strong>3.1 Salary Underwriting</strong>
+            <p style="font-size: 13px;">After 24 months of service, the Employee's salary is protected by the Employer's Insurance Group.</p>
         </div>
         <div class="highlight-box">
-            <strong>3.2 Medical & Travel</strong>
-            <p>Annual health coverage and economy air ticket provided by providers.</p>
+            <strong>3.2 Health & Annual Travel</strong>
+            <p style="font-size: 13px;">The Medical Provider manages health welfare and the issuance of the Annual Economy Class Ticket.</p>
         </div>
-        <div class="footer">MBIE-LABOUR-AEWV-2026-REF: <span class="v_ref2"></span></div>
+        <div class="footer">MBIE-AEWV-2026-REF: <span class="v_ref2"></span></div>
     </div>
 
     <div class="a4-page">
         <div class="page-badge">PAGE 03</div>
-        <div class="section-header">4. Schedule of Providers</div>
+        <div class="section-header">4. Designated Service Providers</div>
         <table class="data-table">
-            <tr><td class="label">Medical & Ticket Provider</td><td><span id="v_med">__________</span></td></tr>
+            <tr><td class="label">Medical & Travel Co.</td><td><span id="v_med">__________</span></td></tr>
             <tr><td class="label">Accommodation & Food Co.</td><td><span id="v_acc">__________</span></td></tr>
         </table>
-        <div class="footer">MBIE-LABOUR-AEWV-2026-REF: <span class="v_ref3"></span></div>
+        <div class="section-header">5. Execution</div>
+        <div style="margin-top: 80px; display: flex; justify-content: space-between;">
+            <div style="width: 45%; border-top: 2px solid var(--nz-blue); text-align: center; padding-top: 10px; font-size: 10px; font-weight: 800;">EMPLOYER</div>
+            <div style="width: 45%; border-top: 2px solid var(--nz-blue); text-align: center; padding-top: 10px; font-size: 10px; font-weight: 800;">EMPLOYEE</div>
+        </div>
+        <div class="footer">MBIE-AEWV-2026-REF: <span class="v_ref3"></span></div>
     </div>
 
     <div class="a4-page">
         <div class="page-badge">PAGE 04</div>
         <div class="header-top">
-             <div class="govt-title" style="text-align: left;">
+            <div class="govt-title" style="text-align: left;">
                 <strong id="v_comp_header">__________</strong>
                 <span id="v_email_header">__________</span>
             </div>
-            <div class="govt-title">
-                <strong>OFFICIAL OFFER LETTER</strong>
-                <span id="v_date">DATE: Feb 08, 2026</span>
-            </div>
+            <div class="govt-title"><strong>OFFICIAL OFFER LETTER</strong></div>
         </div>
 
-        <h2 class="offer-header">Letter of Offer & Working Policy</h2>
-        
+        <h2 style="color: var(--nz-blue); border-bottom: 2px solid var(--nz-blue); padding-bottom: 10px;">Letter of Offer</h2>
         <div class="offer-text">
             <p>Dear <strong id="v_name_offer">__________</strong>,</p>
+            <p>We officially offer you the position of <strong id="v_role_offer">__________</strong>. This offer is governed by the following policies:</p>
             
-            <p>We are pleased to formally extend this offer of employment for the position of <strong id="v_role_offer">__________</strong>. This offer is issued under the 2026 AEWV framework and is subject to the following official company policies:</p>
-
             <div class="section-header">Working Hours Policy</div>
-            <p>The Company operates under a strict compliance policy regarding work-life balance and productivity. Your standard working hours will be <strong>30 to 40 hours per week</strong>. Any additional hours will be subject to New Zealand labour laws and mutual agreement. The employee is expected to maintain a professional attendance record.</p>
+            <p>Standard hours are 30–40 hours per week. The employee must follow the company's shift policy and New Zealand's safety standards.</p>
 
             <div class="section-header">Mutual Responsibility Agreement</div>
-            <p><strong>Employee Responsibility:</strong> By accepting this offer, the client (Employee) agrees to carry out all assigned duties responsibly, with integrity, and in full alignment with the company's operational standards and New Zealand safety regulations.</p>
-            
-            <p><strong>Company Responsibility:</strong> The Company assumes full responsibility for the employee's welfare, professional guidance, and strict adherence to the policies outlined in this official agreement. We commit to providing a safe, fair, and legally compliant working environment.</p>
-
-            <div class="highlight-box" style="margin-top: 30px;">
-                <p style="margin: 0; font-size: 13px;">This offer is legally binding upon signature and is a mandatory component of the AEWV visa application process for 2026.</p>
-            </div>
+            <p><strong>Client (Employee) Responsibility:</strong> The client will carry out all duties responsibly and follow all company policies with integrity.</p>
+            <p><strong>Company Responsibility:</strong> The company will be responsible for the employee's legal welfare, providing a safe environment, and following all AEWV 2026 mandates.</p>
         </div>
-
-        <div style="margin-top: 50px; display: flex; justify-content: space-between;">
-            <div style="width: 45%; text-align: center; border-top: 2px solid var(--nz-blue); padding-top: 10px;">
-                <p style="font-size: 10px; font-weight: 800; color: var(--nz-blue);">AUTHORIZED SIGNATORY</p>
-                <p style="font-size: 9px; color: #64748b;">(Employer Seal & Signature)</p>
-            </div>
-            <div style="width: 45%; text-align: center; border-top: 2px solid var(--nz-blue); padding-top: 10px;">
-                <p style="font-size: 10px; font-weight: 800; color: var(--nz-blue);">CANDIDATE ACCEPTANCE</p>
-                <p style="font-size: 9px; color: #64748b;">(I accept this offer responsibly)</p>
-            </div>
+        <div style="margin-top: 60px; display: flex; justify-content: space-between;">
+            <div style="width: 45%; border-top: 2px solid var(--nz-blue); text-align: center; padding-top: 10px; font-size: 10px; font-weight: 800;">AUTHORIZED SIGNATORY</div>
+            <div style="width: 45%; border-top: 2px solid var(--nz-blue); text-align: center; padding-top: 10px; font-size: 10px; font-weight: 800;">CANDIDATE ACCEPTANCE</div>
         </div>
-
-        <div class="footer">MBIE-LABOUR-AEWV-2026-REF: <span class="v_ref4"></span></div>
+        <div class="footer">MBIE-AEWV-2026-REF: <span class="v_ref4"></span></div>
     </div>
 </main>
 
 <script>
+    function previewPhoto(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            document.getElementById('photo_preview_box').innerHTML = `<img src="${reader.result}">`;
+        };
+        if(event.target.files[0]) reader.readAsDataURL(event.target.files[0]);
+    }
+
     function sync() {
-        const fields = {
+        const map = {
             'in_name': ['v_name', 'v_name_offer'],
             'in_pass': ['v_pass'],
-            'in_salary': ['v_salary'],
+            'in_inz_ref': ['v_inz_ref'],
+            'in_job_check': ['v_job_check'],
             'in_comp': ['v_comp', 'v_comp_header'],
-            'in_tax': ['v_tax'],
-            'in_email': ['v_email', 'v_email_header'],
+            'in_email': ['v_email_header'],
             'in_med': ['v_med'],
             'in_acc': ['v_acc']
         };
 
-        for (let key in fields) {
-            let val = document.getElementById(key).value || "__________";
-            fields[key].forEach(id => {
-                let el = document.getElementById(id);
-                if (el) el.innerText = val;
+        for (let id in map) {
+            let val = document.getElementById(id).value || "__________";
+            map[id].forEach(target => {
+                let el = document.getElementById(target);
+                if(el) el.innerText = val;
             });
         }
 
-        const roleSelect = document.getElementById('in_role');
-        const selected = roleSelect.options[roleSelect.selectedIndex];
+        const role = document.getElementById('in_role');
+        const selected = role.options[role.selectedIndex];
         document.getElementById('v_role').innerText = selected.value;
         document.getElementById('v_role_offer').innerText = selected.value;
         document.getElementById('v_code').innerText = selected.getAttribute('data-code');
     }
 
     window.onload = () => {
-        const ref = "NZ-LAB-" + Math.floor(100000 + Math.random() * 900000);
-        const refElements = ['v_ref', 'v_ref2', 'v_ref3', 'v_ref4'];
-        refElements.forEach(id => {
-            document.querySelector('.' + id || '#' + id).innerText = ref;
-        });
+        const ref = "NZ-LAB-" + Math.floor(Math.random() * 900000 + 100000);
+        document.querySelectorAll('.v_ref, .v_ref2, .v_ref3, .v_ref4').forEach(e => e.innerText = ref);
         sync();
     };
 </script>
 </body>
-</html> <div id="photo_preview_box" style="width: 35mm; height: 45mm; border: 1px solid #cbd5e1; background: #f8fafc; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #94a3b8; overflow: hidden; position: absolute; top: 110px; right: 25mm; z-index: 5; box-shadow: 2px 2px 10px rgba(0,0,0,0.05);">
-    <span>AFFIX PHOTO</span>
-</div> function previewPhoto(event) {
-    const reader = new FileReader();
-    reader.onload = function() {
-        const output = document.getElementById('photo_preview_box');
-        output.innerHTML = `<img src="${reader.result}" style="width: 100%; height: 100%; object-fit: cover;">`;
-    };
-    if(event.target.files[0]) {
-        reader.readAsDataURL(event.target.files[0]);
-    }
-}
+</html>
