@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NZ AEWV Official Contract Generator | 2026</title>
+    <title>NZ AEWV Official Contract | 2026 Legal Framework</title>
     <style>
         :root { 
-            --nz-blue: #00247d; --nz-red: #cc142b; --sidebar-width: 400px; --bg-canvas: #f4f7f9; 
+            --nz-blue: #00247d; --nz-red: #cc142b; --sidebar-width: 400px; --bg-canvas: #f0f2f5; 
         }
 
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg-canvas); color: #2d3748; display: flex; }
@@ -19,10 +19,8 @@
         }
 
         .sidebar h2 { font-size: 1.1rem; color: var(--nz-blue); margin-bottom: 20px; border-bottom: 2px solid #f0f4f8; padding-bottom: 10px; }
-
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .full-width { grid-column: span 2; }
-
         .input-group { margin-bottom: 15px; }
         label { font-size: 10px; font-weight: 700; color: #718096; text-transform: uppercase; margin-bottom: 4px; display: block; }
         input, select { 
@@ -42,20 +40,21 @@
         .a4-page {
             width: 210mm; min-height: 297mm; padding: 20mm 25mm; margin-bottom: 40px;
             background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-            box-sizing: border-box; line-height: 1.5; position: relative; border-top: 15px solid var(--nz-blue);
+            box-sizing: border-box; line-height: 1.6; position: relative; border-top: 15px solid var(--nz-blue);
         }
 
         .nz-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 25px; }
         .nz-govt-text strong { color: var(--nz-blue); font-size: 16px; display: block; }
-        .nz-govt-text span { font-size: 11px; color: #718096; }
-
-        h1 { color: #1a202c; font-size: 20px; text-align: center; margin: 20px 0; text-transform: uppercase; letter-spacing: 1px; }
+        
+        h1 { color: #1a202c; font-size: 20px; text-align: center; margin: 20px 0; text-transform: uppercase; }
         h3 { font-size: 14px; color: var(--nz-blue); border-bottom: 1px solid #f0f4f8; padding-bottom: 5px; margin-top: 25px; }
         
         .data-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-        .data-table td { padding: 8px 12px; border: 1px solid #f1f5f9; font-size: 12px; }
+        .data-table td { padding: 10px; border: 1px solid #f1f5f9; font-size: 12px; }
         .label { font-weight: 600; background: #f8fafc; color: #4a5568; width: 35%; }
         
+        .legal-note { background: #fffaf0; border: 1px solid #feebc8; padding: 12px; border-radius: 6px; font-size: 11px; color: #744210; margin: 15px 0; }
+
         .footer { position: absolute; bottom: 15mm; left: 0; width: 100%; text-align: center; font-size: 9px; color: #cbd5e0; }
 
         @media print {
@@ -68,35 +67,33 @@
 <body>
 
 <aside class="sidebar no-print">
-    <h2>1. Employee Details</h2>
+    <h2>1. Candidate Identity</h2>
     <div class="input-grid">
         <div class="input-group full-width"><label>Full Name</label><input type="text" id="in_name" placeholder="John Doe" oninput="sync()"></div>
         <div class="input-group"><label>Passport No.</label><input type="text" id="in_pass" oninput="sync()"></div>
-        <div class="input-group"><label>Date of Birth</label><input type="date" id="in_dob" oninput="sync()"></div>
-        <div class="input-group full-width"><label>Home Country</label><input type="text" id="in_country" placeholder="e.g. Philippines" oninput="sync()"></div>
+        <div class="input-group"><label>Country</label><input type="text" id="in_country" oninput="sync()"></div>
     </div>
 
-    <h2>2. Employment Info</h2>
+    <h2>2. Role & Salary</h2>
+    <div class="input-group">
+        <label>Job Category</label>
+        <select id="in_role" onchange="sync()">
+            <option value="Restaurant Waiter" data-code="431111">Restaurant Waiter (431111)</option>
+            <option value="Cleaner Worker" data-code="811211">Cleaner Worker (811211)</option>
+            <option value="Office Boy" data-code="811111">Office Boy (811111)</option>
+        </select>
+    </div>
     <div class="input-grid">
-        <div class="input-group full-width">
-            <label>Job Category</label>
-            <select id="in_role" onchange="sync()">
-                <option value="Restaurant Waiter" data-code="431111">Restaurant Waiter</option>
-                <option value="Cleaner Worker" data-code="811211">Cleaner Worker</option>
-                <option value="Office Boy" data-code="811111">Office Boy</option>
-            </select>
-        </div>
-        <div class="input-group"><label>Hourly Salary</label><input type="number" id="in_salary" value="31.61" step="0.01" oninput="sync()"></div>
+        <div class="input-group"><label>Hourly Wage</label><input type="number" id="in_salary" value="31.61" step="0.01" oninput="sync()"></div>
         <div class="input-group"><label>Join Date</label><input type="date" id="in_join" oninput="sync()"></div>
     </div>
 
-    <h2>3. Company Details</h2>
+    <h2>3. Employer Info</h2>
     <div class="input-group"><label>Company Name</label><input type="text" id="in_comp" oninput="sync()"></div>
-    <div class="input-group"><label>Tax/GST Number</label><input type="text" id="in_tax" placeholder="NZBN 123-456-789" oninput="sync()"></div>
-    <div class="input-group"><label>Email</label><input type="email" id="in_email" oninput="sync()"></div>
-    <div class="input-group"><label>Physical Address</label><input type="text" id="in_addr" oninput="sync()"></div>
+    <div class="input-group"><label>Tax NZBN</label><input type="text" id="in_tax" oninput="sync()"></div>
+    <div class="input-group"><label>Address</label><input type="text" id="in_addr" oninput="sync()"></div>
 
-    <button class="btn-download" onclick="window.print()">PRINT / SAVE AS PDF</button>
+    <button class="btn-download" onclick="window.print()">GENERATE LEGAL PDF</button>
 </aside>
 
 <main class="preview-area">
@@ -104,86 +101,85 @@
         <div class="nz-header">
             <div class="nz-govt-text">
                 <strong>Immigration New Zealand</strong>
-                <span>AEWV Accredited Employer Program (2026)</span>
+                <span>Employment Standards | AEWV Framework 2026</span>
             </div>
-            <div style="text-align: right; font-size: 10px; color: #a0aec0;">
-                INZ Ref: <span id="v_inz_ref">NZ-AEWV-2026-8842</span><br>
-                Date of Issue: <span id="v_issue_date"></span>
+            <div style="text-align: right; font-size: 10px;">
+                Ref: <span id="v_inz_ref"></span><br>
+                Issued: <span id="v_issue_date"></span>
             </div>
         </div>
 
-        <h1>Letter of Employment Offer</h1>
+        <h1>Individual Employment Agreement</h1>
 
-        <h3>I. The Employer</h3>
+        <div class="legal-note">
+            <strong>Compliance Note:</strong> This contract is governed by the Employment Relations Act 2000 and the Holidays Act 2003. All third-party provisions (Insurance/Medical/Accommodation) are managed by the Employer under New Zealand Labour Standards.
+        </div>
+
+        <h3>1. Parties to Agreement</h3>
         <table class="data-table">
-            <tr><td class="label">Legal Entity Name</td><td><span id="v_comp">__________</span></td></tr>
-            <tr><td class="label">NZBN / Tax Number</td><td><span id="v_tax">__________</span></td></tr>
-            <tr><td class="label">Company Email</td><td><span id="v_email">__________</span></td></tr>
-            <tr><td class="label">Registered Address</td><td><span id="v_addr">__________</span></td></tr>
+            <tr><td class="label">Employer Entity</td><td><span id="v_comp">__________</span> (NZBN: <span id="v_tax">__________</span>)</td></tr>
+            <tr><td class="label">Physical Address</td><td><span id="v_addr">__________</span></td></tr>
+            <tr><td class="label">Employee Name</td><td><span id="v_name">__________</span></td></tr>
+            <tr><td class="label">Passport / Country</td><td><span id="v_pass">__________</span> / <span id="v_country">__________</span></td></tr>
         </table>
 
-        <h3>II. The Employee</h3>
+        <h3>2. Position Details</h3>
         <table class="data-table">
-            <tr><td class="label">Full Legal Name</td><td><span id="v_name">__________</span></td></tr>
-            <tr><td class="label">Passport Number</td><td><span id="v_pass">__________</span></td></tr>
-            <tr><td class="label">Date of Birth</td><td><span id="v_dob">__________</span></td></tr>
-            <tr><td class="label">Country of Origin</td><td><span id="v_country">__________</span></td></tr>
+            <tr><td class="label">Designation</td><td><span id="v_role">__________</span></td></tr>
+            <tr><td class="label">ANZSCO Code</td><td><strong id="v_code"></strong></td></tr>
+            <tr><td class="label">Agreed Wage</td><td>$<span id="v_salary"></span> NZD per hour</td></tr>
+            <tr><td class="label">Start Date</td><td><span id="v_join">__________</span></td></tr>
         </table>
 
-        <h3>III. Position & Schedule</h3>
-        <table class="data-table">
-            <tr><td class="label">Job Title</td><td><span id="v_role">__________</span></td></tr>
-            <tr><td class="label">ANZSCO Job Code</td><td><strong id="v_code">431111</strong></td></tr>
-            <tr><td class="label">Proposed Start Date</td><td><span id="v_join">__________</span></td></tr>
-            <tr><td class="label">Remuneration</td><td>$<span id="v_salary">31.61</span> NZD Per Hour</td></tr>
-        </table>
-
-        <div class="footer">Form AEWV-2026-OFFER | Confidential Page 1</div>
+        <div class="footer">NZ Employment Standard AEWV-26 | Page 1 of 2</div>
     </div>
 
     <div class="a4-page">
-        <h3>IV. Terms & Conditions</h3>
-        <p style="font-size: 12px;">This agreement is drafted to meet the requirements of the <em>Employment Relations Act 2000</em> and the <em>Accredited Employer Work Visa</em> policy. </p>
+        <h3>3. Specialized Benefits & Clauses</h3>
         
-        <p style="font-size: 12px;"><strong>1. Minimum Hours:</strong> The Employer guarantees a minimum of 30 hours of work per week. Actual hours may fluctuate up to 40 hours based on operational requirements.</p>
-        
-        <p style="font-size: 12px;"><strong>2. Leave Entitlements:</strong> The Employee is entitled to 4 weeks of annual leave and 10 days of sick leave per annum (after the initial 6-month qualifying period) as per the <em>Holidays Act 2003</em>.</p>
+        <p><strong>3.1 Salary & Insurance Transaction:</strong><br>
+        After the completion of **twenty-four (24) months (2 years)** of continuous service, the Employee's salary disbursements may be processed through the Employer’s designated Insurance Underwriter to ensure long-term income protection and statutory compliance for international workers.</p>
 
-        <h3>V. Execution</h3>
-        <div style="margin-top: 50px; display: flex; justify-content: space-between;">
+        <p><strong>3.2 Medical & Travel Entitlement:</strong><br>
+        The Employer has partnered with a registered Medical Services Provider. This provider will manage the Employee’s health welfare and will be responsible for issuing the **Annual Repatriation Ticket** to the Employee's home country, subject to the medical provider's clearance and company policy.</p>
+
+        <p><strong>3.3 Food & Accommodation:</strong><br>
+        Residential services are managed by the Employer's contracted Accommodation Company. This facility provides full board, including **nutritional food services**, ensuring the Employee meets health and safety standards while residing in company-approved housing.</p>
+
+        <h3>4. Formal Acceptance</h3>
+        <p style="font-size: 11px;">By signing this document, both parties agree to the terms herein and acknowledge that these provisions meet the 2026 NZ Immigration Accredited Employer requirements.</p>
+
+        <div style="margin-top: 40px; display: flex; justify-content: space-between;">
             <div style="width: 45%;">
-                <div style="border-bottom: 1px solid #000; height: 60px;"></div>
-                <p style="font-size: 11px;">Signed for and on behalf of:<br><strong id="v_comp2">[Company]</strong></p>
+                <div style="border-bottom: 1.5px solid #000; height: 50px;"></div>
+                <p style="font-size: 11px;">Authorized Signatory for:<br><strong id="v_comp2">[Employer]</strong></p>
             </div>
             <div style="width: 45%;">
-                <div style="border-bottom: 1px solid #000; height: 60px;"></div>
-                <p style="font-size: 11px;">Employee Signature:<br><strong id="v_name2">[Full Name]</strong></p>
+                <div style="border-bottom: 1.5px solid #000; height: 50px;"></div>
+                <p style="font-size: 11px;">Employee Signature:<br><strong id="v_name2">[Employee]</strong></p>
             </div>
         </div>
 
-        <div style="margin-top: 100px; text-align: center;">
-            <div style="border: 2px dashed #cbd5e0; padding: 40px; color: #cbd5e0; border-radius: 10px; display: inline-block; width: 60%;">
-                OFFICIAL COMPANY STAMP / SEAL
+        <div style="margin-top: 60px; text-align: center;">
+            <div style="border: 2px dashed #e2e8f0; padding: 30px; color: #a0aec0; font-size: 12px; border-radius: 8px;">
+                NOTARY / CORPORATE SEAL AREA
             </div>
         </div>
 
-        <div class="footer">Form AEWV-2026-OFFER | Confidential Page 2</div>
+        <div class="footer">NZ Employment Standard AEWV-26 | Page 2 of 2</div>
     </div>
 </main>
 
 <script>
     function sync() {
-        // Basic Mappings
         const fields = {
             'in_name': ['v_name', 'v_name2'],
             'in_pass': ['v_pass'],
-            'in_dob': ['v_dob'],
             'in_country': ['v_country'],
             'in_salary': ['v_salary'],
             'in_join': ['v_join'],
             'in_comp': ['v_comp', 'v_comp2'],
             'in_tax': ['v_tax'],
-            'in_email': ['v_email'],
             'in_addr': ['v_addr']
         };
 
@@ -194,25 +190,18 @@
             });
         }
 
-        // Role and Code Mapping
         const roleSelect = document.getElementById('in_role');
-        const selectedOption = roleSelect.options[roleSelect.selectedIndex];
-        document.getElementById('v_role').innerText = selectedOption.value;
-        document.getElementById('v_code').innerText = selectedOption.getAttribute('data-code');
+        const selected = roleSelect.options[roleSelect.selectedIndex];
+        document.getElementById('v_role').innerText = selected.value;
+        document.getElementById('v_code').innerText = selected.getAttribute('data-code');
     }
 
-    // Initialize with random INZ ref and Today's date
     window.onload = () => {
-        const today = new Date().toLocaleDateString('en-NZ', { day: '2-digit', month: 'long', year: 'numeric' });
+        const today = new Date().toLocaleDateString('en-NZ', { day: '2-digit', month: 'short', year: 'numeric' });
         document.getElementById('v_issue_date').innerText = today;
-        
-        // Random Reference Number
-        const rand = Math.floor(100000 + Math.random() * 900000);
-        document.getElementById('v_inz_ref').innerText = `NZ-AEWV-2026-${rand}`;
-        
+        document.getElementById('v_inz_ref').innerText = `NZ-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
         sync();
     };
 </script>
-
 </body>
-            </html>
+</html>
