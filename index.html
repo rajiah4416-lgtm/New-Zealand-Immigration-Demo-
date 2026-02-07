@@ -60,8 +60,13 @@
         .label { font-weight: 700; background: #f8fafc; color: var(--nz-blue); width: 35%; }
         
         .highlight-box { border: 2px solid var(--nz-teal); background: #f0fdfa; padding: 15px; border-radius: 10px; margin: 15px 0; }
-        .footer { position: absolute; bottom: 12mm; left: 25mm; right: 25mm; text-align: center; font-size: 9px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 8px; }
+        .footer { position: absolute; bottom: 12mm; left: 25mm; right: 25mm; text-align: center; font-size: 8.5px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 8px; font-style: italic; }
         .offer-text { font-size: 13px; line-height: 1.6; color: #334155; }
+
+        /* QR Code Styling */
+        .qr-container { margin-top: 15px; display: flex; flex-direction: column; align-items: center; }
+        .qr-container img { width: 80px; height: 80px; border: 1px solid #e2e8f0; padding: 5px; }
+        .qr-label { font-size: 8px; color: #94a3b8; margin-top: 4px; font-weight: bold; }
 
         @media print {
             .sidebar { display: none; }
@@ -135,7 +140,7 @@
             <tr><td class="label" style="color:var(--nz-red)">INZ Reference No.</td><td><strong id="v_inz_ref">__________</strong></td></tr>
             <tr><td class="label" style="color:var(--nz-teal)">Job Check ID</td><td><strong id="v_job_check">__________</strong></td></tr>
         </table>
-        <div class="footer">MBIE-AEWV-2026-REF: <span class="v_ref"></span></div>
+        <div class="footer">MBIE-AEWV-2026-REF: <span class="v_ref"></span> - Official Government Document. Unauthorized reproduction is prohibited.</div>
     </div>
 
     <div class="a4-page">
@@ -151,13 +156,13 @@
         <div class="section-header">4. Statutory Welfare</div>
         <div class="highlight-box">
             <strong>4.1 Financial Protection</strong>
-            <p style="font-size: 12px;">Salary payments are secured under the AEWV 2026 Insurance framework after a qualifying period of service.</p>
+            <p style="font-size: 12px;">Salary payments are secured under the AEWV 2026 Insurance framework after a qualifying period of service. This protects both employer and employee interests.</p>
         </div>
         <div class="highlight-box">
             <strong>4.2 Healthcare & Repatriation</strong>
-            <p style="font-size: 12px;">The designated Medical Provider (<span id="v_med_ref">...</span>) handles health insurance and annual travel ticket logistics.</p>
+            <p style="font-size: 12px;">The designated Medical Provider (<span id="v_med_ref">...</span>) handles health insurance and annual travel ticket logistics as per NZ employment law.</p>
         </div>
-        <div class="footer">MBIE-AEWV-2026-REF: <span class="v_ref2"></span></div>
+        <div class="footer">MBIE-AEWV-2026-REF: <span class="v_ref2"></span> - Page 2 of 4 - Statutory Compliance Check.</div>
     </div>
 
     <div class="a4-page">
@@ -173,7 +178,7 @@
             <div style="width: 45%; border-top: 1px solid black; text-align: center; padding-top: 5px; font-size: 10px;">For the Company (Stamp & Sign)</div>
             <div style="width: 45%; border-top: 1px solid black; text-align: center; padding-top: 5px; font-size: 10px;">The Employee (Signature)</div>
         </div>
-        <div class="footer">MBIE-AEWV-2026-REF: <span class="v_ref3"></span></div>
+        <div class="footer">MBIE-AEWV-2026-REF: <span class="v_ref3"></span> - Page 3 of 4 - Formal Execution.</div>
     </div>
 
     <div class="a4-page">
@@ -185,18 +190,28 @@
         <h2 style="color: var(--nz-blue); border-bottom: 2px solid var(--nz-blue); padding-bottom: 5px;">Letter of Offer</h2>
         <div class="offer-text">
             <p>Dear <strong id="v_name_offer">__________</strong>,</p>
-            <p>We are pleased to offer you the role of <strong id="v_role_offer">__________</strong>. This offer remains valid subject to the 2026 AEWV regulations.</p>
+            <p>We are pleased to offer you the role of <strong id="v_role_offer">__________</strong>. This offer remains valid subject to the 2026 AEWV regulations and official Job Check ID verification.</p>
             <div class="section-header">Working Hours Policy</div>
-            <p>Your work schedule is fixed at 30–40 hours per week. Overtime must be agreed upon in writing under New Zealand Labour Standards.</p>
+            <p>Your work schedule is fixed at 30–40 hours per week. Overtime must be agreed upon in writing under New Zealand Labour Standards. Unauthorized absenteeism may result in contract review.</p>
             <div class="section-header">Mutual Responsibility Agreement</div>
-            <p><strong>Employee:</strong> You agree to fulfill all job duties with high integrity and professionalism.</p>
-            <p><strong>Employer:</strong> We assume full responsibility for your legal employment status, workplace safety, and welfare during the contract term.</p>
+            <p><strong>Employee:</strong> You agree to fulfill all job duties with high integrity, professionalism, and adherence to New Zealand's safety protocols.</p>
+            <p><strong>Employer:</strong> We assume full responsibility for your legal employment status, workplace safety, and welfare during the contract term under the Accredited Employer programme.</p>
         </div>
-        <div style="margin-top: 60px; display: flex; justify-content: space-between;">
-            <div style="width: 45%; border-top: 1px solid black; text-align: center; padding-top: 5px; font-size: 10px;">AUTHORIZED SIGNATORY</div>
-            <div style="width: 45%; border-top: 1px solid black; text-align: center; padding-top: 5px; font-size: 10px;">CANDIDATE ACCEPTANCE</div>
+        
+        <div style="margin-top: 60px; display: flex; justify-content: space-between; align-items: flex-start;">
+            <div style="width: 40%; border-top: 1px solid black; text-align: center; padding-top: 5px; font-size: 10px;">AUTHORIZED SIGNATORY</div>
+            
+            <div style="width: 40%; display: flex; flex-direction: column; align-items: center;">
+                <div style="width: 100%; border-top: 1px solid black; text-align: center; padding-top: 5px; font-size: 10px;">CANDIDATE ACCEPTANCE</div>
+                
+                <div class="qr-container" id="qr_box">
+                    <img id="qr_img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=VALIDATING..." alt="Validation QR">
+                    <div class="qr-label">SECURE VERIFICATION QR</div>
+                </div>
+            </div>
         </div>
-        <div class="footer">MBIE-AEWV-2026-REF: <span class="v_ref4"></span></div>
+
+        <div class="footer">MBIE-AEWV-2026-REF: <span class="v_ref4"></span> - Page 4 of 4 - Final Offer & Secure QR.</div>
     </div>
 </main>
 
@@ -234,6 +249,12 @@
         document.getElementById('v_role').innerText = selected.value;
         document.getElementById('v_role_offer').innerText = selected.value;
         document.getElementById('v_code').innerText = selected.getAttribute('data-code');
+
+        // Update QR Code
+        const qrName = document.getElementById('in_name').value || "NO_NAME";
+        const qrRef = document.getElementById('in_inz_ref').value || "NO_REF";
+        const qrData = encodeURIComponent(`AEWV-2026-VERIFY:${qrName}-${qrRef}`);
+        document.getElementById('qr_img').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrData}`;
     }
 
     window.onload = () => {
