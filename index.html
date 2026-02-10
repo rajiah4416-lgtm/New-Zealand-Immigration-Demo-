@@ -260,3 +260,58 @@ This is absolutely correct, don't change it, everything is absolutely perfect. B
     }
     sync();
 </script>
+<script>
+    const canvas = document.getElementById('signature-canvas');
+    const signaturePad = new SignaturePad(canvas);
+
+    function sync() {
+        const name = document.getElementById('c-name').value || '---';
+        const passport = document.getElementById('c-passport').value || '---';
+        const dob = document.getElementById('c-dob').value || '---';
+        const country = document.getElementById('c-country').value || '---';
+        const category = document.getElementById('c-cat').value;
+        const salary = document.getElementById('c-salary').value || '---';
+        const coName = document.getElementById('co-name').value || '---';
+        const ref = "NZ-GOV-" + Math.floor(100000 + Math.random() * 900000);
+        
+        // Update the visual text on the pages
+        document.getElementById('out-name').innerText = name;
+        document.getElementById('out-name2').innerText = name;
+        document.getElementById('out-name3').innerText = name;
+        document.getElementById('out-passport').innerText = passport;
+        document.getElementById('out-dob').innerText = dob;
+        document.getElementById('out-country').innerText = country;
+        document.getElementById('out-salary').innerText = salary;
+        document.getElementById('out-cat').innerText = category;
+        document.getElementById('out-co-name').innerText = coName;
+        document.getElementById('out-co-num').innerText = document.getElementById('co-num').value || '---';
+        document.getElementById('out-co-tax').innerText = document.getElementById('co-tax').value || '---';
+        document.getElementById('out-co-addr').innerText = document.getElementById('co-addr').value || '---';
+        document.getElementById('out-ref').innerText = ref;
+        document.getElementById('out-ref2').innerText = ref;
+        
+        // CREATE DATA STRING FOR QR SCANNER
+        // When scanned, this shows all details in a clean list
+        const qrData = `NZ OFFICIAL VERIFICATION%0A--------------------%0AREF: ${ref}%0ANAME: ${name}%0APASSPORT: ${passport}%0ADOB: ${dob}%0AORIGIN: ${country}%0AJOB: ${category}%0ASALARY: ${salary}%0ACOMPANY: ${coName}%0ASTATUS: VERIFIED`;
+
+        document.getElementById('out-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrData}`;
+    }
+
+    async function download() {
+        if (!signaturePad.isEmpty()) {
+            document.getElementById('out-sig').src = signaturePad.toDataURL();
+        }
+        
+        const element = document.getElementById('pdf-export');
+        const opt = {
+            margin: 0,
+            filename: 'Official_NZ_Employment_Agreement.pdf',
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        
+        html2pdf().set(opt).from(element).save();
+    }
+    sync();
+                    </script>
