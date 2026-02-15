@@ -1,78 +1,4 @@
-<script>
-    const canvas = document.getElementById('signature-canvas');
-    const signaturePad = new SignaturePad(canvas);
-
-    function sync() {
-        // Capture all input values
-        const name = document.getElementById('c-name').value || 'John Doe';
-        const passport = document.getElementById('c-passport').value || 'L8900123';
-        const dob = document.getElementById('c-dob').value || '1990-05-15';
-        const country = document.getElementById('c-country').value || 'Philippines';
-        const category = document.getElementById('c-cat').value;
-        const salary = document.getElementById('c-salary').value || '$30.00/hr';
-        const coName = document.getElementById('co-name').value || 'ABC Catering NZ';
-        
-        // Use a persistent ref or generate a new one
-        const ref = document.getElementById('out-ref').innerText === '---' 
-                    ? "NZ-GOV-" + Math.floor(100000 + Math.random() * 900000) 
-                    : document.getElementById('out-ref').innerText;
-        
-        // Update the visual document text
-        document.getElementById('out-name').innerText = name;
-        document.getElementById('out-name2').innerText = name;
-        document.getElementById('out-name3').innerText = name;
-        document.getElementById('out-passport').innerText = passport;
-        document.getElementById('out-dob').innerText = dob;
-        document.getElementById('out-country').innerText = country;
-        document.getElementById('out-salary').innerText = salary;
-        document.getElementById('out-cat').innerText = category;
-        document.getElementById('out-co-name').innerText = coName;
-        document.getElementById('out-co-num').innerText = document.getElementById('co-num').value || '---';
-        document.getElementById('out-co-tax').innerText = document.getElementById('co-tax').value || '---';
-        document.getElementById('out-co-addr').innerText = document.getElementById('co-addr').value || '---';
-        document.getElementById('out-ref').innerText = ref;
-        document.getElementById('out-ref2').innerText = ref;
-        
-        // CREATE FULL DATA STRING FOR QR CODE
-        // This format is optimized for mobile scanners to show a clean list
-        const qrText = `REF: ${ref}\n` +
-                       `NAME: ${name}\n` +
-                       `PASSPORT: ${passport}\n` +
-                       `DOB: ${dob}\n` +
-                       `ORIGIN: ${country}\n` +
-                       `JOB: ${category}\n` +
-                       `SALARY: ${salary}\n` +
-                       `COMPANY: ${coName}\n` +
-                       `STATUS: VERIFIED`;
-
-        // Encode the text for the URL
-        const encodedData = encodeURIComponent(qrText);
-
-        // Update QR Image (Size 200x200 for high density)
-        document.getElementById('out-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedData}`;
-    }
-
-    async function download() {
-        // Finalize Signature
-        if (!signaturePad.isEmpty()) {
-            document.getElementById('out-sig').src = signaturePad.toDataURL();
-        }
-        
-        const element = document.getElementById('pdf-export');
-        const opt = {
-            margin: 0,
-            filename: `NZ_Agreement_${document.getElementById('c-name').value || 'Client'}.pdf`,
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: { scale: 3, useCORS: true }, // Higher scale for better QR scan
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        
-        html2pdf().set(opt).from(element).save();
-    }
-    
-    // Run sync on load to show initial QR
-    sync();
-</script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -83,46 +9,44 @@
         :root { --nz-blue: #00247D; --nz-red: #CC142B; --text: #1a1a1a; }
         body { font-family: 'Times New Roman', serif; background: #444; margin: 0; padding: 20px; color: var(--text); }
         
-        /* Control Panel */
         #ui-panel { background: white; max-width: 900px; margin: 0 auto 30px; padding: 25px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); font-family: Arial, sans-serif; }
         .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
         input, select { padding: 8px; border: 1px solid #bbb; border-radius: 4px; width: 100%; box-sizing: border-box; }
         .btn-main { background: #0066cc; color: white; border: none; padding: 15px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 15px; font-size: 16px; }
         
-        /* PDF Layout */
         #pdf-export { width: 210mm; margin: 0 auto; background: white; }
         .page { height: 297mm; width: 210mm; padding: 25mm 20mm; box-sizing: border-box; position: relative; page-break-after: always; line-height: 1.4; border-top: 20px solid var(--nz-blue); }
         
-        /* Headers & Typography */
         .govt-header { text-align: center; border-bottom: 2px solid var(--nz-red); margin-bottom: 20px; padding-bottom: 10px; }
         .nz-flag { width: 110px; position: absolute; top: 25mm; right: 20mm; }
         .kia-ora { font-size: 28px; color: var(--nz-blue); font-weight: bold; margin: 15px 0; border-bottom: 1px solid #eee; }
-        h3 { color: var(--nz-blue); border-left: 4px solid var(--nz-red); padding-left: 10px; margin-top: 20px; text-transform: uppercase; font-size: 16px; }
+        h3 { color: var(--nz-blue); border-left: 4px solid var(--nz-red); padding-left: 10px; margin-top: 20px; text-transform: uppercase; font-size: 14px; }
         p, li { font-size: 13px; text-align: justify; }
 
-        /* Tables */
         table { width: 100%; border-collapse: collapse; margin: 10px 0; }
-        td { border: 1px solid #ccc; padding: 10px; font-size: 13px; }
-        .label { background: #f2f2f2; font-weight: bold; width: 30%; }
+        td { border: 1px solid #ccc; padding: 8px; font-size: 13px; }
+        .label { background: #f2f2f2; font-weight: bold; width: 35%; }
         
-        .signature-box { border: 1px solid #000; width: 100%; height: 120px; margin-top: 10px; background: #fff; }
-        .qr-code { text-align: right; margin-top: 10px; }
+        .signature-box { border: 1px solid #000; width: 100%; height: 100px; margin-top: 10px; background: #fff; }
+        .sig-container { display: flex; justify-content: space-between; margin-top: 40px; }
+        .sig-block { width: 45%; text-align: center; border-top: 1px solid #000; padding-top: 10px; }
     </style>
 </head>
 <body>
 
 <div id="ui-panel">
-    <h2 style="margin-top:0">🇳🇿 NZ Labour Agreement Professional Generator</h2>
+    <h2 style="margin-top:0">🇳🇿 NZ Labour Agreement Generator</h2>
     <div class="grid">
         <input type="text" id="c-name" placeholder="Client Full Name" oninput="sync()">
         <input type="text" id="c-passport" placeholder="Passport Number" oninput="sync()">
         <input type="date" id="c-dob" oninput="sync()">
         <input type="text" id="c-country" placeholder="Client Country" oninput="sync()">
-        <input type="text" id="c-salary" placeholder="Salary (e.g. $30.00/hr)" oninput="sync()">
+        <input type="text" id="c-salary" placeholder="Salary (e.g. $31.50/hr)" oninput="sync()">
         <select id="c-cat" onchange="sync()">
             <option value="Restaurant Waiter">Restaurant Waiter</option>
             <option value="Cleaner Worker">Cleaner Worker</option>
             <option value="Mart Worker">Mart Worker</option>
+            <option value="General Labourer">General Labourer</option>
         </select>
         <input type="text" id="co-name" placeholder="Company Name" oninput="sync()">
         <input type="text" id="co-num" placeholder="NZBN (Company No)" oninput="sync()">
@@ -131,12 +55,12 @@
     </div>
     
     <div style="margin-top:15px;">
-        <label><b>Client Signature (Touch/Mouse):</b></label>
+        <label><b>Draw Client Signature:</b></label>
         <canvas id="signature-canvas" class="signature-box" style="border: 2px dashed #0066cc;"></canvas>
         <button onclick="signaturePad.clear()" style="padding:5px; margin-top:5px;">Clear Signature</button>
     </div>
     
-    <button class="btn-main" onclick="download()">Generate 3-Page Official PDF</button>
+    <button class="btn-main" onclick="download()">Generate & Download PDF</button>
 </div>
 
 <div id="pdf-export">
@@ -147,87 +71,66 @@
             <p style="margin:0; font-weight:bold;">Te Ratonga Whakawhitiwhiti Kaimahi</p>
         </div>
 
-        <div style="background:#f0f0f0; padding:10px; border:1px solid #000; margin-bottom:20px;">
-            <strong>OFFICIAL AUTHORIZATION REF:</strong> <span id="out-ref" style="color:var(--nz-red)">---</span>
+        <div style="background:#f0f0f0; padding:10px; border:1px solid #000; margin-bottom:20px; font-weight: bold;">
+            REF: <span id="out-ref" style="color:var(--nz-red)">NZ-GOV-772183</span>
         </div>
 
-        <h3>1. LEGAL JURISDICTION & STATEMENT</h3>
-        <p>This employment agreement is drafted in accordance with the <b>Employment Relations Act 2000</b>, the <b>Holidays Act 2003</b>, and the <b>Minimum Wage Act 1983</b>. The Employer, being a registered entity in New Zealand, agrees to sponsor the foreign national named herein under the Accredited Employer Work Visa (AEWV) scheme.</p>
+        <h3>1. LEGAL JURISDICTION</h3>
+        <p>This agreement is governed by the laws of New Zealand. Both parties agree to the terms set out under the Employment Relations Act 2000.</p>
 
-        <h3>2. EMPLOYER IDENTIFICATION</h3>
+        <h3>2. EMPLOYER & APPLICANT DETAILS</h3>
         <table>
-            <tr><td class="label">Legal Company Name</td><td id="out-co-name">---</td></tr>
-            <tr><td class="label">Company Number (NZBN)</td><td id="out-co-num">---</td></tr>
-            <tr><td class="label">Tax Identification (IRD)</td><td id="out-co-tax">---</td></tr>
-            <tr><td class="label">Registered Office</td><td id="out-co-addr">---</td></tr>
-        </table>
-
-        <h3>3. APPLICANT (CLIENT) PROFILE</h3>
-        <table>
-            <tr><td class="label">Full Legal Name</td><td id="out-name">---</td></tr>
+            <tr><td class="label">Employer Name</td><td id="out-co-name">---</td></tr>
+            <tr><td class="label">NZBN / IRD</td><td><span id="out-co-num">---</span> / <span id="out-co-tax">---</span></td></tr>
+            <tr><td class="label">Company Address</td><td id="out-co-addr">---</td></tr>
+            <tr><td colspan="2" style="background:#eee; height:5px;"></td></tr>
+            <tr><td class="label">Client Name</td><td id="out-name">---</td></tr>
             <tr><td class="label">Passport Number</td><td id="out-passport">---</td></tr>
-            <tr><td class="label">Date of Birth</td><td id="out-dob">---</td></tr>
             <tr><td class="label">Country of Origin</td><td id="out-country">---</td></tr>
         </table>
         
-        <h3>4. POSITION DATA</h3>
-        <p>The applicant is offered the role of <b><span id="out-cat">---</span></b>. This role is essential to the New Zealand labor market and complies with the median wage requirements set by Immigration New Zealand.</p>
+        <h3>3. POSITION DATA</h3>
+        <p>The applicant is offered the role of <b><span id="out-cat">---</span></b>. This is a full-time position requiring 40 hours per week.</p>
     </div>
 
     <div class="page">
         <div class="kia-ora">KIA ORA, <span id="out-name2">---</span></div>
-        
-        <h3>5. REMUNERATION & WORKING HOURS</h3>
-        <p>Your base salary is set at <b><span id="out-salary">---</span></b> per hour. Standard working hours are 40 hours per week. Any hours worked in excess of 40 hours shall be compensated as overtime or as time-off-in-lieu, as per the company's internal policy and New Zealand law.</p>
+        <h3>4. REMUNERATION</h3>
+        <p>Your base salary is <b><span id="out-salary">---</span></b>. Payment will be made weekly into a nominated NZ bank account.</p>
 
-        <h3>6. ACCOMMODATION & FOOD PROVISIONS</h3>
-        <p>The <b>Food Company</b> associated with the employer will provide three (3) nutritional meals per day or a weekly grocery stipend of $150 NZD. High-standard accommodation will be provided near the worksite, subject to the <i>Residential Tenancies Act 1986</i>.</p>
+        <h3>5. ACCOMMODATION & FOOD</h3>
+        <p>The employer agrees to facilitate suitable accommodation. Daily meal allowances or provisions are included as part of the foreign worker support package.</p>
 
-        <h3>7. MEDICAL & ACC COVERAGE</h3>
-        <p>Under New Zealand law, you are covered by the <b>Accident Compensation Corporation (ACC)</b> for any workplace injuries. Additionally, the <b>Medical Company</b> (Southern Cross/Bupa) will provide comprehensive health insurance for non-work-related illness for the duration of the visa.</p>
-
-        <h3>8. TRAVEL & LOGISTICS</h3>
-        <p>The <b>Ticket Company</b> (Air New Zealand or approved partner) will facilitate your international travel. The employer shall bear the cost of the initial flight to New Zealand and the return flight upon successful completion of the term.</p>
-
-        <h3>9. LEAVE ENTITLEMENTS</h3>
-        <ul>
-            <li><b>Annual Leave:</b> 4 weeks paid leave per annum after 12 months of continuous service.</li>
-            <li><b>Sick Leave:</b> 10 days paid sick leave per annum after 6 months of service.</li>
-            <li><b>Public Holidays:</b> 12 days of statutory holidays as observed in New Zealand.</li>
-        </ul>
+        <h3>6. TRAVEL & INSURANCE</h3>
+        <p>Airfare to Auckland/Wellington will be covered. All workers are protected by ACC (Accident Compensation Corporation) for workplace safety.</p>
     </div>
 
     <div class="page">
-        <h3>10. PRIVACY & DATA PROTECTION</h3>
-        <p>Information collected in this form is subject to the <b>Privacy Act 2020</b>. The Employer and Immigration NZ will use this data solely for the purposes of employment verification and visa processing.</p>
+        <h3>7. EXECUTION & AUTHORIZATION</h3>
+        <p>This document constitutes a binding agreement between the Employer and the Employee.</p>
 
-        <h3>11. COMPANY RULES & CONDUCT</h3>
-        <p>The employee agrees to follow all lawful instructions, health and safety protocols under the <i>Health and Safety at Work Act 2015</i>, and maintain the professional standards of the company.</p>
-
-        <h3>12. EXECUTION OF AGREEMENT</h3>
-        <p>This document is legally binding. By signing below, the client acknowledges they have had the opportunity to seek independent legal advice before signing.</p>
-
-        <table style="margin-top:30px;">
-            <tr><td class="label">Issue Date</td><td>2026-02-11</td></tr>
-            <tr><td class="label">Proposed Join Date</td><td>2026-03-25</td></tr>
-            <tr><td class="label">Agreement Status</td><td><b>FULLY APPROVED</b></td></tr>
-        </table>
-
-        <div style="margin-top:50px; display:flex; justify-content:space-between; align-items:flex-end;">
-            <div style="width:60%;">
-                <p><b>CLIENT ACCEPTANCE SIGNATURE:</b></p>
-                <img id="out-sig" style="width:250px; border-bottom:2px solid #000; min-height:50px;">
-                <p><small>Signed by: <span id="out-name3">---</span></small></p>
+        <div class="sig-container">
+            <div class="sig-block">
+                <img id="out-sig" style="width:180px; height:60px; object-fit:contain;">
+                <p><b>Client Signature</b><br><small id="out-name3">---</small></p>
             </div>
-            <div class="qr-code">
-                <img id="out-qr" src="" style="width:110px; border:1px solid #ddd;">
-                <p style="font-size:9px; text-align:center;">VERIFY REF:<br><b id="out-ref2">---</b></p>
+            <div class="sig-block">
+                <div style="height:60px; font-style:italic; font-family:serif; font-size:20px; color:darkblue; padding-top:10px;">
+                    [DIRECTOR SIGNED]
+                </div>
+                <p><b>Authorized Employer</b><br><small>Hiring Manager / Director</small></p>
             </div>
         </div>
 
-        <div style="margin-top:60px; border-top:1px solid #ccc; padding-top:10px; text-align:center; font-size:10px; color:#666;">
-            Ministry of Business, Innovation & Employment - Labour Inspectorate<br>
-            Level 2, 15 Stout Street, Wellington 6011, New Zealand
+        <div style="margin-top:50px; display:flex; justify-content:space-between; align-items:center; border:2px solid #eee; padding:20px;">
+            <div>
+                <p style="margin:0; font-size:12px;"><b>SCAN TO VERIFY DOCUMENT</b></p>
+                <p style="margin:0; font-size:10px; color:#666;">Ministry of Business, Innovation & Employment</p>
+            </div>
+            <div style="text-align:right;">
+                <img id="out-qr" style="width:130px;">
+                <p style="font-size:10px; margin:0;"><b id="out-ref2">NZ-GOV-772183</b></p>
+            </div>
         </div>
     </div>
 </div>
@@ -235,27 +138,41 @@
 <script>
     const canvas = document.getElementById('signature-canvas');
     const signaturePad = new SignaturePad(canvas);
+    
+    // Generate Ref once so it doesn't change every keystroke
+    const globalRef = "NZ-GOV-" + Math.floor(100000 + Math.random() * 900000);
 
     function sync() {
-        const name = document.getElementById('c-name').value || '---';
-        const ref = "NZ-GOV-" + Math.floor(100000 + Math.random() * 900000);
+        const val = (id) => document.getElementById(id).value || '---';
         
-        document.getElementById('out-name').innerText = name;
-        document.getElementById('out-name2').innerText = name;
-        document.getElementById('out-name3').innerText = name;
-        document.getElementById('out-passport').innerText = document.getElementById('c-passport').value || '---';
-        document.getElementById('out-dob').innerText = document.getElementById('c-dob').value || '---';
-        document.getElementById('out-country').innerText = document.getElementById('c-country').value || '---';
-        document.getElementById('out-salary').innerText = document.getElementById('c-salary').value || '---';
+        // Update PDF Text
+        document.getElementById('out-name').innerText = val('c-name');
+        document.getElementById('out-name2').innerText = val('c-name');
+        document.getElementById('out-name3').innerText = val('c-name');
+        document.getElementById('out-passport').innerText = val('c-passport');
+        document.getElementById('out-country').innerText = val('c-country');
+        document.getElementById('out-salary').innerText = val('c-salary');
         document.getElementById('out-cat').innerText = document.getElementById('c-cat').value;
-        document.getElementById('out-co-name').innerText = document.getElementById('co-name').value || '---';
-        document.getElementById('out-co-num').innerText = document.getElementById('co-num').value || '---';
-        document.getElementById('out-co-tax').innerText = document.getElementById('co-tax').value || '---';
-        document.getElementById('out-co-addr').innerText = document.getElementById('co-addr').value || '---';
-        document.getElementById('out-ref').innerText = ref;
-        document.getElementById('out-ref2').innerText = ref;
+        document.getElementById('out-co-name').innerText = val('co-name');
+        document.getElementById('out-co-num').innerText = val('co-num');
+        document.getElementById('out-co-tax').innerText = val('co-tax');
+        document.getElementById('out-co-addr').innerText = val('co-addr');
+        document.getElementById('out-ref').innerText = globalRef;
+        document.getElementById('out-ref2').innerText = globalRef;
         
-        document.getElementById('out-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=VALID-NZ-DOC-${ref}`;
+        // QR Code Data String
+        const qrData = `NZ GOV VERIFIED DOCUMENT\n` +
+                       `------------------------\n` +
+                       `REF: ${globalRef}\n` +
+                       `NAME: ${val('c-name')}\n` +
+                       `PASSPORT: ${val('c-passport')}\n` +
+                       `JOB: ${document.getElementById('c-cat').value}\n` +
+                       `SALARY: ${val('c-salary')}\n` +
+                       `EMPLOYER: ${val('co-name')}\n` +
+                       `STATUS: LEGALLY BINDING`;
+
+        const encodedData = encodeURIComponent(qrData);
+        document.getElementById('out-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodedData}`;
     }
 
     async function download() {
@@ -266,126 +183,18 @@
         const element = document.getElementById('pdf-export');
         const opt = {
             margin: 0,
-            filename: 'Official_NZ_Employment_Agreement.pdf',
+            filename: `NZ_Agreement_${document.getElementById('c-name').value || 'Draft'}.pdf`,
             image: { type: 'jpeg', quality: 1 },
-            html2canvas: { scale: 2, useCORS: true },
+            html2canvas: { scale: 3, useCORS: true },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
         
         html2pdf().set(opt).from(element).save();
     }
+
+    // Initial Sync
     sync();
 </script>
 
 </body>
-</html>
-This is absolutely correct, don't change it, everything is absolutely perfect. But in the QR code at the end It shows total information when scanned. <script>
-    const canvas = document.getElementById('signature-canvas');
-    const signaturePad = new SignaturePad(canvas);
-
-    function sync() {
-        const name = document.getElementById('c-name').value || '---';
-        const passport = document.getElementById('c-passport').value || '---';
-        const dob = document.getElementById('c-dob').value || '---';
-        const country = document.getElementById('c-country').value || '---';
-        const category = document.getElementById('c-cat').value;
-        const salary = document.getElementById('c-salary').value || '---';
-        const coName = document.getElementById('co-name').value || '---';
-        const ref = "NZ-GOV-" + Math.floor(100000 + Math.random() * 900000);
-        
-        // Update the visual text on the pages
-        document.getElementById('out-name').innerText = name;
-        document.getElementById('out-name2').innerText = name;
-        document.getElementById('out-name3').innerText = name;
-        document.getElementById('out-passport').innerText = passport;
-        document.getElementById('out-dob').innerText = dob;
-        document.getElementById('out-country').innerText = country;
-        document.getElementById('out-salary').innerText = salary;
-        document.getElementById('out-cat').innerText = category;
-        document.getElementById('out-co-name').innerText = coName;
-        document.getElementById('out-co-num').innerText = document.getElementById('co-num').value || '---';
-        document.getElementById('out-co-tax').innerText = document.getElementById('co-tax').value || '---';
-        document.getElementById('out-co-addr').innerText = document.getElementById('co-addr').value || '---';
-        document.getElementById('out-ref').innerText = ref;
-        document.getElementById('out-ref2').innerText = ref;
-        
-        // CREATE DATA STRING FOR QR SCANNER
-        // When scanned, this shows all details in a clean list
-        const qrData = `NZ OFFICIAL VERIFICATION%0A--------------------%0AREF: ${ref}%0ANAME: ${name}%0APASSPORT: ${passport}%0ADOB: ${dob}%0AORIGIN: ${country}%0AJOB: ${category}%0ASALARY: ${salary}%0ACOMPANY: ${coName}%0ASTATUS: VERIFIED`;
-
-        document.getElementById('out-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrData}`;
-    }
-
-    async function download() {
-        if (!signaturePad.isEmpty()) {
-            document.getElementById('out-sig').src = signaturePad.toDataURL();
-        }
-        
-        const element = document.getElementById('pdf-export');
-        const opt = {
-            margin: 0,
-            filename: 'Official_NZ_Employment_Agreement.pdf',
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: { scale: 2, useCORS: true },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        
-        html2pdf().set(opt).from(element).save();
-    }
-    sync();
-</script>
-<script>
-    const canvas = document.getElementById('signature-canvas');
-    const signaturePad = new SignaturePad(canvas);
-
-    function sync() {
-        const name = document.getElementById('c-name').value || '---';
-        const passport = document.getElementById('c-passport').value || '---';
-        const dob = document.getElementById('c-dob').value || '---';
-        const country = document.getElementById('c-country').value || '---';
-        const category = document.getElementById('c-cat').value;
-        const salary = document.getElementById('c-salary').value || '---';
-        const coName = document.getElementById('co-name').value || '---';
-        const ref = "NZ-GOV-" + Math.floor(100000 + Math.random() * 900000);
-        
-        // Update the visual text on the pages
-        document.getElementById('out-name').innerText = name;
-        document.getElementById('out-name2').innerText = name;
-        document.getElementById('out-name3').innerText = name;
-        document.getElementById('out-passport').innerText = passport;
-        document.getElementById('out-dob').innerText = dob;
-        document.getElementById('out-country').innerText = country;
-        document.getElementById('out-salary').innerText = salary;
-        document.getElementById('out-cat').innerText = category;
-        document.getElementById('out-co-name').innerText = coName;
-        document.getElementById('out-co-num').innerText = document.getElementById('co-num').value || '---';
-        document.getElementById('out-co-tax').innerText = document.getElementById('co-tax').value || '---';
-        document.getElementById('out-co-addr').innerText = document.getElementById('co-addr').value || '---';
-        document.getElementById('out-ref').innerText = ref;
-        document.getElementById('out-ref2').innerText = ref;
-        
-        // CREATE DATA STRING FOR QR SCANNER
-        // When scanned, this shows all details in a clean list
-        const qrData = `NZ OFFICIAL VERIFICATION%0A--------------------%0AREF: ${ref}%0ANAME: ${name}%0APASSPORT: ${passport}%0ADOB: ${dob}%0AORIGIN: ${country}%0AJOB: ${category}%0ASALARY: ${salary}%0ACOMPANY: ${coName}%0ASTATUS: VERIFIED`;
-
-        document.getElementById('out-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrData}`;
-    }
-
-    async function download() {
-        if (!signaturePad.isEmpty()) {
-            document.getElementById('out-sig').src = signaturePad.toDataURL();
-        }
-        
-        const element = document.getElementById('pdf-export');
-        const opt = {
-            margin: 0,
-            filename: 'Official_NZ_Employment_Agreement.pdf',
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: { scale: 2, useCORS: true },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        
-        html2pdf().set(opt).from(element).save();
-    }
-    sync();
-                    </script>
+            </html>
