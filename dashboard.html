@@ -2,217 +2,119 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NZ Official Employment Agreement</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OFFICIAL NZ AEWV CONTRACT | MBIE 2026</title>
     <style>
-        :root { --nz-blue: #00247D; --nz-red: #CC142B; --text: #1a1a1a; }
-        body { font-family: Arial, sans-serif; background: #555; margin: 0; padding: 20px; }
-        
-        #ui-panel { background: white; max-width: 900px; margin: 0 auto 30px; padding: 25px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
-        input, select { padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 100%; box-sizing: border-box; }
-        .btn-main { background: #00247D; color: white; border: none; padding: 18px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 20px; font-size: 18px; text-transform: uppercase; }
-        
-        /* PDF Container - Hidden from view but ready for export */
-        #pdf-export { width: 210mm; background: white; font-family: 'Times New Roman', serif; color: var(--text); }
-        .page { 
-            height: 297mm; 
-            width: 210mm; 
-            padding: 20mm; 
-            box-sizing: border-box; 
-            position: relative; 
-            border-top: 15px solid var(--nz-blue); 
-            border-bottom: 15px solid var(--nz-red); 
-            overflow: hidden; 
-        }
-        
-        .govt-header { text-align: center; border-bottom: 3px double var(--nz-blue); margin-bottom: 25px; padding-bottom: 10px; }
-        .nz-logo { width: 120px; position: absolute; top: 20mm; right: 20mm; opacity: 0.9; }
-        .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 100px; color: rgba(0, 36, 125, 0.05); white-space: nowrap; pointer-events: none; font-weight: bold; z-index: 0; }
-        
-        h2 { color: var(--nz-blue); font-size: 20px; border-bottom: 1px solid #ddd; margin-top: 25px; }
-        p, li { font-size: 13.5px; text-align: justify; margin: 8px 0; line-height: 1.5; }
-        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-        td { border: 1px solid #aaa; padding: 10px; font-size: 13px; }
-        .label { background: #f8f8f8; font-weight: bold; width: 35%; color: #333; }
-        
-        .sig-container { display: flex; justify-content: space-between; margin-top: 50px; }
-        .sig-box { width: 45%; border-top: 2px solid #000; text-align: center; padding-top: 10px; }
-        .sig-canvas-ui { border: 2px dashed var(--nz-blue); width: 100%; height: 120px; background: #fff; margin-top: 10px; cursor: crosshair; }
-        .qr-section { display: flex; align-items: center; gap: 20px; margin-top: 40px; border: 1px solid #eee; padding: 15px; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        :root { --nz-blue: #00247d; --nz-red: #cc142b; --nz-teal: #007681; --sidebar-bg: #0f172a; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: #64748b; color: #1e293b; display: flex; }
+        .sidebar { width: 420px; height: 100vh; background: var(--sidebar-bg); position: fixed; left: 0; top: 0; padding: 30px; box-sizing: border-box; overflow-y: auto; color: white; box-shadow: 10px 0 30px rgba(0,0,0,0.3); border-right: 4px solid var(--nz-teal); }
+        .sidebar h2 { font-size: 0.85rem; color: var(--nz-teal); text-transform: uppercase; letter-spacing: 2px; margin: 25px 0 15px 0; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #1e293b; padding-bottom: 5px; }
+        .input-group { margin-bottom: 12px; }
+        label { font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 5px; display: block; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #334155; border-radius: 8px; font-size: 13px; background: #1e293b; color: white; }
+        .btn-download { background: linear-gradient(135deg, var(--nz-blue), var(--nz-teal)); color: white; border: none; padding: 20px; width: 100%; border-radius: 12px; font-weight: 900; cursor: pointer; margin-top: 30px; text-transform: uppercase; }
+        .preview-area { margin-left: 420px; flex-grow: 1; padding: 60px 0; display: flex; flex-direction: column; align-items: center; }
+        .a4-page { width: 210mm; min-height: 297mm; padding: 25mm; margin-bottom: 60px; background: white; box-shadow: 0 0 50px rgba(0,0,0,0.3); box-sizing: border-box; position: relative; border-left: 15px solid var(--nz-blue); }
+        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 4px solid var(--nz-teal); padding-bottom: 20px; }
+        .nz-flag-mini { width: 80px; height: 40px; }
+        .govt-title { text-align: right; }
+        .govt-title strong { color: var(--nz-blue); font-size: 16px; display: block; }
+        h1 { color: var(--nz-blue); font-size: 26px; text-align: center; margin: 30px 0; font-weight: 900; text-transform: uppercase; }
+        .section-header { background: #f1f5f9; border-left: 5px solid var(--nz-teal); padding: 8px 15px; color: var(--nz-blue); font-weight: 800; font-size: 13px; margin: 20px 0 12px 0; }
+        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        .data-table td { padding: 10px; border: 1px solid #e2e8f0; font-size: 12px; }
+        .label { font-weight: 700; background: #f8fafc; color: var(--nz-blue); width: 35%; }
+        .qr-container { margin-top: 15px; display: flex; flex-direction: column; align-items: center; }
+        .qr-container img { width: 90px; height: 90px; border: 1px solid #e2e8f0; }
+        .footer { position: absolute; bottom: 12mm; left: 25mm; right: 25mm; text-align: center; font-size: 8.5px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 8px; }
+        @media print { .sidebar { display: none; } .preview-area { margin-left: 0; } .a4-page { margin: 0; box-shadow: none; page-break-after: always; } }
     </style>
 </head>
 <body>
 
-<div id="ui-panel">
-    <h2 style="margin-top:0; border:none; color:#1a1a1a;">🇳🇿 New Zealand Employment Agreement Wizard</h2>
-    <div class="grid">
-        <input type="text" id="c-name" placeholder="Full Legal Name" oninput="sync()">
-        <input type="text" id="c-passport" placeholder="Passport Number" oninput="sync()">
-        <input type="date" id="c-dob" oninput="sync()">
-        <input type="text" id="c-country" placeholder="Country of Origin" oninput="sync()">
-        <input type="text" id="c-salary" placeholder="Hourly Rate (e.g. $31.50)" oninput="sync()">
-        <select id="c-cat" onchange="sync()">
-            <option value="Restaurant Waiter">Restaurant Waiter</option>
-            <option value="Cleaner Worker">Cleaner Worker</option>
-            <option value="Mart Worker">Mart Worker</option>
-            <option value="General Labourer">General Labourer</option>
+<aside class="sidebar no-print">
+    <h1 style="color: white; font-size: 18px; margin-bottom: 20px;">AEWV BUILDER 2026</h1>
+    <h2>1. Client Details</h2>
+    <div class="input-group"><label>Full Name</label><input type="text" id="in_name" placeholder="John Doe" oninput="sync()"></div>
+    <div class="input-group"><label>Passport No.</label><input type="text" id="in_pass" placeholder="L1234567" oninput="sync()"></div>
+    <div class="input-group"><label>Date of Birth</label><input type="date" id="in_dob" oninput="sync()"></div>
+    <div class="input-group"><label>Country</label><input type="text" id="in_country" oninput="sync()"></div>
+
+    <h2>2. Company Details</h2>
+    <div class="input-group"><label>Company Name</label><input type="text" id="in_comp" oninput="sync()"></div>
+    <div class="input-group"><label>NZBN / Tax No.</label><input type="text" id="in_tax" oninput="sync()"></div>
+    <div class="input-group"><label>Address</label><input type="text" id="in_addr" oninput="sync()"></div>
+    <div class="input-group"><label>Email</label><input type="email" id="in_email" oninput="sync()"></div>
+
+    <h2>3. Employment</h2>
+    <div class="input-group">
+        <label>Role</label>
+        <select id="in_role" onchange="sync()">
+            <option value="Restaurant Waiter" data-code="431111">Restaurant Waiter</option>
+            <option value="Cleaner Worker" data-code="811211">Cleaner Worker</option>
+            <option value="Office Boy" data-code="811111">Office Boy</option>
         </select>
-        <input type="text" id="co-name" placeholder="NZ Company Name" oninput="sync()">
-        <input type="text" id="co-num" placeholder="NZBN (13 digits)" oninput="sync()">
-        <input type="text" id="co-tax" placeholder="IRD Number" oninput="sync()">
-        <input type="text" id="co-addr" placeholder="Registered NZ Address" oninput="sync()">
     </div>
-    
-    <div style="margin-top:20px;">
-        <label><b>Client Signature (Touch or Mouse):</b></label>
-        <canvas id="signature-canvas" class="sig-canvas-ui"></canvas>
-        <button onclick="signaturePad.clear()" style="padding:5px 15px; cursor:pointer;">Clear Canvas</button>
-    </div>
-    
-    <button class="btn-main" onclick="download()">Generate 3-Page Official PDF</button>
-</div>
+    <div class="input-group"><label>Hourly Rate ($)</label><input type="text" id="in_salary" value="31.61" oninput="sync()"></div>
+    <div class="input-group"><label>INZ Reference</label><input type="text" id="in_inz_ref" placeholder="2026-AEWV-999" oninput="sync()"></div>
+    <button class="btn-download" onclick="window.print()">Print Official Contract</button>
+</aside>
 
-<div id="pdf-export">
-    <div class="page" style="page-break-after: always;">
-        <div class="watermark">OFFICIAL DOCUMENT</div>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" class="nz-logo">
-        <div class="govt-header">
-            <h1 style="margin:0; font-size: 26px; color: var(--nz-blue);">EMPLOYMENT AGREEMENT</h1>
-            <p style="margin:0; font-weight:bold; letter-spacing: 2px;">IN ACCORDANCE WITH THE EMPLOYMENT RELATIONS ACT 2000</p>
+<main class="preview-area">
+    <div class="a4-page">
+        <div class="header-top">
+            <svg class="nz-flag-mini" viewBox="0 0 1200 600"><rect width="1200" height="600" fill="#00247d"/><g fill="#fff"><rect width="600" height="100" y="250"/><rect width="100" height="600" x="250"/></g></svg>
+            <div class="govt-title"><strong>Ministry of Business, Innovation & Employment</strong><span>Immigration New Zealand</span></div>
         </div>
-
-        <div style="border-left: 5px solid var(--nz-red); padding-left: 15px; background: #f9f9f9; padding: 10px;">
-            <strong>Ref No:</strong> <span id="out-ref">---</span><br>
-            <strong>Date of Issue:</strong> February 15, 2026
-        </div>
-
-        <h2>1. PARTIES</h2>
-        <table>
-            <tr><td class="label">The Employer</td><td id="out-co-name">---</td></tr>
-            <tr><td class="label">NZBN / IRD</td><td><span id="out-co-num">---</span> / <span id="out-co-tax">---</span></td></tr>
-            <tr><td class="label">Employer Address</td><td id="out-co-addr">---</td></tr>
-            <tr><td class="label">The Employee</td><td id="out-name">---</td></tr>
-            <tr><td class="label">Passport / DOB</td><td><span id="out-passport">---</span> / <span id="out-dob">---</span></td></tr>
+        <h1>Employment Agreement</h1>
+        <div class="section-header">1. Identification of Parties</div>
+        <table class="data-table">
+            <tr><td class="label">Employer</td><td><span id="v_comp">__________</span></td></tr>
+            <tr><td class="label">Tax / NZBN</td><td><span id="v_tax">__________</span></td></tr>
+            <tr><td class="label">Employee</td><td><span id="v_name">__________</span></td></tr>
+            <tr><td class="label">Passport</td><td><span id="v_pass">__________</span></td></tr>
+            <tr><td class="label">Country</td><td><span id="v_country">__________</span></td></tr>
         </table>
-
-        <h2>2. POSITION AND DUTIES</h2>
-        <p>The Employer appoints the Employee to the position of <b><span id="out-cat">---</span></b>. The Employee shall perform duties consistent with this role.</p>
-        
-        <h2>3. TYPE OF AGREEMENT</h2>
-        <p>This is an Individual Employment Agreement as required for the Accredited Employer Work Visa (AEWV) scheme. Both parties agree to act in good faith.</p>
-    </div>
-
-    <div class="page" style="page-break-after: always;">
-        <div class="watermark">NEW ZEALAND LAW</div>
-        <h2 style="margin-top:0;">4. REMUNERATION</h2>
-        <p>The Employee’s base rate of pay shall be <b><span id="out-salary">---</span> per hour</b>. Wages will be paid weekly. The Employer will ensure all deductions for PAYE tax are made.</p>
-
-        <h2>5. HOURS OF WORK</h2>
-        <p>The Employee is guaranteed a minimum of **40 hours per week**. Any variations will be agreed upon in writing 48 hours in advance.</p>
-
-        <h2>6. HOLIDAYS AND LEAVE</h2>
-        <ul>
-            <li><b>Annual Leave:</b> 4 weeks’ paid annual holidays per year.</li>
-            <li><b>Sick Leave:</b> 10 days’ paid sick leave per year.</li>
-            <li><b>Public Holidays:</b> Paid at "Time and a Half" plus an alternative day off if worked.</li>
-        </ul>
-
-        <h2>7. KIWISAVER</h2>
-        <p>Employer will make contributions to the Employee's KiwiSaver fund if eligible and enrolled.</p>
-    </div>
-
-    <div class="page">
-        <div class="watermark">VALIDATED</div>
-        <h2 style="margin-top:0;">8. HEALTH AND SAFETY</h2>
-        <p>Both parties will comply with the Health and Safety at Work Act 2015. The Employer will provide a safe environment and PPE.</p>
-
-        <h2>9. CONFIDENTIALITY AND PRIVACY</h2>
-        <p>The Employee shall not disclose sensitive information. Data is protected under the Privacy Act 2020.</p>
-
-        <h2>10. EXECUTION</h2>
-        <p>By signing, both parties acknowledge agreement to all terms.</p>
-
-        <div class="sig-container">
-            <div class="sig-box">
-                <img id="out-sig" style="width:180px; height:70px; object-fit:contain;">
-                <p><b>Employee Signature</b><br><small id="out-name2">---</small></p>
-            </div>
-            <div class="sig-box">
-                <div style="height:70px; border-bottom:1px dotted #aaa; margin-bottom:5px; font-family: 'Brush Script MT', cursive; font-size: 24px; color: var(--nz-blue);">
-                    Employer Signed
-                </div>
-                <p><b>Company Authorized Signatory</b><br><small id="out-co-name2">---</small></p>
-            </div>
+        <div class="section-header">2. Remuneration</div>
+        <table class="data-table">
+            <tr><td class="label">Job Role</td><td><span id="v_role">__________</span> (ANZSCO: <span id="v_code"></span>)</td></tr>
+            <tr><td class="label">Hourly Rate</td><td>$<span id="v_salary"></span> NZD</td></tr>
+            <tr><td class="label">INZ Reference</td><td><strong id="v_inz_ref"></strong></td></tr>
+        </table>
+        <div class="qr-container">
+            <img id="qr_img" src="" alt="QR">
+            <div style="font-size:8px; margin-top:5px;">SECURE VERIFICATION QR</div>
         </div>
-
-        <div class="qr-section">
-            <img id="out-qr" style="width:120px; border:1px solid #ccc;">
-            <div style="font-size:12px;">
-                <strong>DIGITAL VERIFICATION</strong><br>
-                Scan code to verify authenticity. <br>
-                <strong>Ref:</strong> <span id="out-ref2">---</span><br>
-                <strong>Status:</strong> <span style="color:green;">ACTIVE/VERIFIED</span>
-            </div>
-        </div>
-
-        <div style="position:absolute; bottom:20mm; width:170mm; font-size:10px; color:#777; border-top:1px solid #ddd; padding-top:10px;">
-            Ministry of Business, Innovation & Employment (MBIE) Compliance Office.<br>
-            Verification Portal: employment.govt.nz
-        </div>
+        <div class="footer">MBIE-AEWV-2026-REF: <span class="v_ref"></span> - Official Document.</div>
     </div>
-</div>
+</main>
 
 <script>
-    const canvas = document.getElementById('signature-canvas');
-    const signaturePad = new SignaturePad(canvas);
-    const globalRef = "NZ-AUTH-" + Math.floor(100000 + Math.random() * 899999);
-
     function sync() {
-        const val = (id) => document.getElementById(id).value || '---';
-        document.getElementById('out-name').innerText = val('c-name');
-        document.getElementById('out-name2').innerText = val('c-name');
-        document.getElementById('out-passport').innerText = val('c-passport');
-        document.getElementById('out-dob').innerText = val('c-dob');
-        document.getElementById('out-salary').innerText = val('c-salary');
-        document.getElementById('out-cat').innerText = document.getElementById('c-cat').value;
-        document.getElementById('out-co-name').innerText = val('co-name');
-        document.getElementById('out-co-name2').innerText = val('co-name');
-        document.getElementById('out-co-num').innerText = val('co-num');
-        document.getElementById('out-co-tax').innerText = val('co-tax');
-        document.getElementById('out-co-addr').innerText = val('co-addr');
-        document.getElementById('out-ref').innerText = globalRef;
-        document.getElementById('out-ref2').innerText = globalRef;
+        // Field Mapping
+        const fields = ['name', 'pass', 'dob', 'country', 'comp', 'tax', 'addr', 'email', 'salary', 'inz_ref'];
+        fields.forEach(f => {
+            const val = document.getElementById('in_' + f).value || "__________";
+            const target = document.getElementById('v_' + f);
+            if(target) target.innerText = val;
+        });
 
-        const qrContent = `REF: ${globalRef} - EMP: ${val('c-name')} - NZBN: ${val('co-num')}`;
-        document.getElementById('out-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrContent)}`;
+        // Role & Code
+        const roleEl = document.getElementById('in_role');
+        document.getElementById('v_role').innerText = roleEl.value;
+        document.getElementById('v_code').innerText = roleEl.options[roleEl.selectedIndex].getAttribute('data-code');
+
+        // Dynamic QR Generation
+        const qrData = `NZ-AEWV-2026|Emp:${document.getElementById('in_name').value}|ID:${document.getElementById('in_pass').value}|Ref:${document.getElementById('in_inz_ref').value}`;
+        document.getElementById('qr_img').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrData)}`;
     }
 
-    async function download() {
-        if (!signaturePad.isEmpty()) {
-            document.getElementById('out-sig').src = signaturePad.toDataURL();
-        }
-        
-        const element = document.getElementById('pdf-export');
-        const opt = {
-            margin: 0,
-            filename: `NZ_Agreement_${document.getElementById('c-name').value}.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        
-        // Use the Worker API to manually trim extra pages
-        html2pdf().set(opt).from(element).toPdf().get('pdf').then(function (pdf) {
-            const totalPages = pdf.internal.getNumberOfPages();
-            for (let i = totalPages; i > 3; i--) {
-                pdf.deletePage(i);
-            }
-        }).save();
-    }
-    sync();
+    window.onload = () => {
+        const ref = "NZ-LAB-" + Math.floor(Math.random() * 900000 + 100000);
+        document.querySelector('.v_ref').innerText = ref;
+        sync();
+    };
 </script>
-
 </body>
-    </html>
+                                                       </html>
