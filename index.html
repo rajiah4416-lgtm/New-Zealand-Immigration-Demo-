@@ -2,90 +2,200 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NZ Employment Agreement Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
     <style>
-        body { font-family: 'Helvetica', Arial, sans-serif; line-height: 1.4; color: #333; margin: 0; padding: 0; }
-        .page { width: 210mm; height: 297mm; padding: 20mm; margin: auto; border: 1px solid #eee; page-break-after: always; position: relative; }
-        h1 { text-align: center; color: #1a3c5e; border-bottom: 2px solid #1a3c5e; }
-        h2 { color: #1a3c5e; border-bottom: 1px solid #ccc; margin-top: 20px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .field { font-weight: bold; font-size: 0.9em; }
-        .value { border-bottom: 1px solid #999; min-height: 1.2em; font-weight: normal; }
-        .policy-text { font-size: 0.8em; text-align: justify; }
-        .qr-placeholder { position: absolute; bottom: 40px; right: 40px; width: 120px; height: 120px; border: 1px solid #000; text-align: center; font-size: 10px; }
+        :root {
+            --nz-blue: #1a3c5e;
+            --nz-red: #d52b1e;
+            --light-bg: #f4f7f9;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--light-bg); margin: 0; padding: 20px; }
+        
+        /* Dashboard UI */
+        .admin-panel { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 8px solid var(--nz-blue); }
+        h1 { color: var(--nz-blue); text-align: center; margin-bottom: 30px; }
+        .form-section { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; }
+        .form-section h2 { grid-column: 1 / -1; font-size: 1.2rem; color: var(--nz-red); margin-top: 0; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.9rem; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        .btn-container { text-align: center; margin-top: 30px; }
+        button { background: var(--nz-blue); color: white; padding: 15px 40px; border: none; border-radius: 50px; font-size: 1.1rem; cursor: pointer; transition: 0.3s; }
+        button:hover { background: var(--nz-red); transform: translateY(-2px); }
+
+        /* PDF Styles (Hidden in Browser, Visible in PDF) */
+        #pdf-content { width: 210mm; background: white; display: none; margin: 0 auto; }
+        .pdf-page { width: 210mm; height: 296mm; padding: 20mm; box-sizing: border-box; position: relative; page-break-after: always; color: #333; }
+        .pdf-header { border-bottom: 4px solid var(--nz-blue); margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .pdf-header h1 { font-size: 22pt; margin: 0; color: var(--nz-blue); border: none; }
+        .legal-box { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-left: 5px solid var(--nz-blue); background: #fdfdfd; }
+        .data-row { display: flex; margin-bottom: 10px; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
+        .data-label { font-weight: bold; width: 40%; color: #555; }
+        .policy-text { font-size: 10pt; line-height: 1.5; text-align: justify; color: #444; }
+        .footer-info { position: absolute; bottom: 20mm; width: calc(100% - 40mm); }
+        #qrcode { float: right; margin-top: -20px; }
     </style>
 </head>
 <body>
 
-<div class="page">
-    <h1>EMPLOYMENT AGREEMENT (NEW ZEALAND)</h1>
-    <p style="text-align: center;"><em>Governed by the Employment Relations Act 2000</em></p>
+<div class="admin-panel">
+    <h1>NZ Agreement Generator</h1>
     
-    <h2>1. COMPANY INFORMATION</h2>
-    <div class="grid">
-        <div class="field">Company Name: <div class="value">[Enter Name]</div></div>
-        <div class="field">Company Tax ID (GST/IRD): <div class="value">[Enter Number]</div></div>
-        <div class="field">Address: <div class="value">[Enter Physical Address]</div></div>
-        <div class="field">Email: <div class="value">[Enter Email]</div></div>
+    <div class="form-section">
+        <h2>🏢 Company Information</h2>
+        <div><label>Company Name</label><input type="text" id="compName" placeholder="e.g. Auckland Rentals Ltd"></div>
+        <div><label>Tax ID (GST/IRD)</label><input type="text" id="compTax" placeholder="123-456-789"></div>
+        <div><label>Address</label><input type="text" id="compAddr" placeholder="Street, City, NZ"></div>
+        <div><label>Email</label><input type="email" id="compEmail" placeholder="admin@company.nz"></div>
     </div>
 
-    <h2>2. CLIENT (EMPLOYEE) INFORMATION</h2>
-    <div class="grid">
-        <div class="field">Full Name: <div class="value"></div></div>
-        <div class="field">Passport Number: <div class="value"></div></div>
-        <div class="field">Country of Birth: <div class="value"></div></div>
-        <div class="field">Gender (M/F): <div class="value"></div></div>
+    <div class="form-section">
+        <h2>👤 Client (Worker) Information</h2>
+        <div><label>Full Name</label><input type="text" id="cliName"></div>
+        <div><label>Passport Number</label><input type="text" id="cliPass"></div>
+        <div><label>Country of Birth</label><input type="text" id="cliCountry"></div>
+        <div>
+            <label>Gender</label>
+            <select id="cliGender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
     </div>
 
-    <h2>3. POSITION & DATES</h2>
-    <div class="field">Job Category:</div>
-    <div style="margin-left: 20px;">
-        [ ] Restaurant Waiter | [ ] Mart Worker | [ ] General Worker
+    <div class="form-section">
+        <h2>💼 Job & Dates</h2>
+        <div>
+            <label>Job Category</label>
+            <select id="jobCat">
+                <option value="Restaurant Waiter">Restaurant Waiter</option>
+                <option value="Mart Worker">Mart Worker</option>
+                <option value="General Worker">General Worker</option>
+            </select>
+        </div>
+        <div><label>Salary Option</label><input type="text" id="salary" placeholder="e.g. $25.00 per hour"></div>
+        <div><label>Issue Date</label><input type="date" id="issueDate"></div>
+        <div><label>Job Join Date</label><input type="date" id="joinDate"></div>
     </div>
-    <br>
-    <div class="grid">
-        <div class="field">Issue Date: <div class="value"></div></div>
-        <div class="field">Job Join Date: <div class="value"></div></div>
-        <div class="field">Agreement Term: <div class="value">3 Years (Fixed Term)</div></div>
+
+    <div class="btn-container">
+        <button onclick="generatePDF()">Generate & Download PDF</button>
     </div>
 </div>
 
-<div class="page">
-    <h2>4. PRIVACY & CLIENT POLICY</h2>
-    <div class="policy-text">
-        <p><strong>Privacy Policy:</strong> Pursuant to the Privacy Act 2020, the Company collects personal information for employment purposes. Data will be stored securely and only shared with authorized New Zealand government agencies (e.g., IRD, MBIE) as required by law.</p>
-        <p><strong>Client Policy:</strong> The Client agrees to adhere to New Zealand Workplace Health and Safety standards. Misconduct or breach of apartment rules may result in disciplinary action.</p>
+<div id="pdf-content">
+    <div class="pdf-page">
+        <div class="pdf-header">
+            <h1>EMPLOYMENT AGREEMENT</h1>
+            <div style="color: var(--nz-red); font-weight: bold;">NEW ZEALAND</div>
+        </div>
+        <p><em>This Individual Employment Agreement is made under the Employment Relations Act 2000.</em></p>
+        
+        <h3>1. THE PARTIES</h3>
+        <div class="legal-box">
+            <div class="data-row"><div class="data-label">The Employer:</div><span id="p1-compName"></span></div>
+            <div class="data-row"><div class="data-label">Company Address:</div><span id="p1-compAddr"></span></div>
+            <div class="data-row"><div class="data-label">Tax ID:</div><span id="p1-compTax"></span></div>
+            <div class="data-row"><div class="data-label">The Employee:</div><span id="p1-cliName"></span></div>
+        </div>
+
+        <h3>2. POSITION & TERM</h3>
+        <div class="legal-box">
+            <div class="data-row"><div class="data-label">Job Category:</div><span id="p1-jobCat"></span></div>
+            <div class="data-row"><div class="data-label">Agreement Term:</div><span>3 Years (Fixed Term)</span></div>
+            <div class="data-row"><div class="data-label">Commencement Date:</div><span id="p1-joinDate"></span></div>
+            <div class="data-row"><div class="data-label">Agreement Issue Date:</div><span id="p1-issueDate"></span></div>
+        </div>
+
+        <h3>3. PERSONAL DETAILS</h3>
+        <div class="legal-box">
+            <div class="data-row"><div class="data-label">Passport No:</div><span id="p1-cliPass"></span></div>
+            <div class="data-row"><div class="data-label">Country of Birth:</div><span id="p1-cliCountry"></span></div>
+            <div class="data-row"><div class="data-label">Gender:</div><span id="p1-cliGender"></span></div>
+        </div>
     </div>
 
-    <h2>5. REMUNERATION & BENEFITS</h2>
-    <table style="width: 100%; border-collapse: collapse;">
-        <tr><td class="field">Salary Option:</td><td class="value">[As per NZ Minimum Wage/Negotiated Rate]</td></tr>
-        <tr><td class="field">Medical Side:</td><td class="value">Covered under ACC (Accident Compensation Corporation) & Private Medical.</td></tr>
-        <tr><td class="field">Ticket Side:</td><td class="value">Airfare arrangements as per company policy.</td></tr>
-        <tr><td class="field">Insurance Side:</td><td class="value">Comprehensive liability and health coverage included.</td></tr>
-        <tr><td class="field">Accommodation Side:</td><td class="value">Designated NZ Apartment provided under Residential Tenancies Act.</td></tr>
-    </table>
+    <div class="pdf-page">
+        <h2 style="color:var(--nz-blue)">4. POLICIES & COMPLIANCE</h2>
+        <div class="policy-text">
+            <h4>Privacy Policy (Privacy Act 2020)</h4>
+            <p>The Company collects personal information to manage the employment relationship. Information is stored securely. The employee has the right to access and request correction of any personal information held by the employer.</p>
+            
+            <h4>Client & Workplace Policy</h4>
+            <p>The employee agrees to follow all internal safety regulations. New Zealand's "Good Faith" bargaining rules apply to all interactions between the parties.</p>
+        </div>
+
+        <h2 style="color:var(--nz-blue)">5. REMUNERATION & LOGISTICS</h2>
+        <div class="legal-box">
+            <div class="data-row"><div class="data-label">Salary/Wage:</div><span id="p2-salary"></span></div>
+            <div class="data-row"><div class="data-label">Medical:</div><span>ACC Coverage & Standard NZ Health Provision</span></div>
+            <div class="data-row"><div class="data-label">Insurance:</div><span>Employer Liability & Workplace Insurance Included</span></div>
+            <div class="data-row"><div class="data-label">Ticket:</div><span>Standard Airfare Policy as per Company Handbook</span></div>
+            <div class="data-row"><div class="data-label">Accommodation:</div><span>NZ Apartment provided under NZ Tenancy Law</span></div>
+        </div>
+    </div>
+
+    <div class="pdf-page">
+        <h2 style="color:var(--nz-blue)">6. FINAL DECLARATION</h2>
+        <p>This agreement represents the entire 3-year understanding between the parties under the laws of New Zealand.</p>
+        
+        <div style="margin-top: 80px; display: flex; justify-content: space-between;">
+            <div style="width: 45%; border-top: 2px solid #333; padding-top: 10px; text-align: center;">Employer Signature</div>
+            <div style="width: 45%; border-top: 2px solid #333; padding-top: 10px; text-align: center;">Employee Signature</div>
+        </div>
+
+        <div class="footer-info">
+            <div id="qrcode"></div>
+            <p style="font-size: 9pt;"><strong>Digital Verification:</strong><br>Scan the QR code to verify all company<br>and client data via the central registry.</p>
+        </div>
+    </div>
 </div>
 
-<div class="page">
-    <h2>6. DECLARATION & SIGNATURES</h2>
-    <p>By signing this, both parties agree to the 3-year term and the conditions set forth under New Zealand Law.</p>
-    
-    <div style="margin-top: 100px;" class="grid">
-        <div style="border-top: 1px solid #000; padding-top: 5px;">Company Authorized Signatory</div>
-        <div style="border-top: 1px solid #000; padding-top: 5px;">Client Signature</div>
-    </div>
+<script>
+    function generatePDF() {
+        // Sync values from Form to PDF
+        const fields = ['compName', 'compTax', 'compAddr', 'compEmail', 'cliName', 'cliPass', 'cliCountry', 'cliGender', 'jobCat', 'salary', 'issueDate', 'joinDate'];
+        let qrData = "NZ AGREEMENT VERIFIED:\n";
+        
+        fields.forEach(f => {
+            const val = document.getElementById(f).value;
+            const targetP1 = document.getElementById('p1-' + f);
+            const targetP2 = document.getElementById('p2-' + f);
+            if(targetP1) targetP1.innerText = val;
+            if(targetP2) targetP2.innerText = val;
+            qrData += f + ": " + val + "\n";
+        });
 
-    <div class="qr-placeholder">
-        <br><br>SCANNABLE QR CODE<br>
-        (Client/Company Data)
-    </div>
-    
-    <p style="margin-top: 250px; font-size: 0.7em;">This document is a legally binding agreement in the jurisdiction of New Zealand.</p>
-</div>
+        // Generate QR Code
+        document.getElementById("qrcode").innerHTML = "";
+        new QRCode(document.getElementById("qrcode"), {
+            text: qrData,
+            width: 100,
+            height: 100
+        });
+
+        // Generate PDF
+        const element = document.getElementById('pdf-content');
+        element.style.display = 'block';
+        
+        const opt = {
+            margin:       0,
+            filename:     'NZ_Agreement_' + document.getElementById('cliName').value + '.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save().then(() => {
+            element.style.display = 'none';
+        });
+    }
+</script>
 
 </body>
-</html> "Company": "Name, TaxID, Address",
-  "Client": "Name, Passport, Gender",
-  "Terms": "3 Year Agreement",
-  "Job": "Join Date, Category"
-}
+</html>
