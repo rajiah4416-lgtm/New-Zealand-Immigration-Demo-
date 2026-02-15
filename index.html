@@ -1,4 +1,65 @@
-<!DOCTYPE html>
+const canvas = document.getElementById('signature-canvas');
+    const signaturePad = new SignaturePad(canvas);
+    const globalRef = "NZ-AUTH-" + Math.floor(100000 + Math.random() * 899999);
+
+    function sync() {
+        const val = (id) => document.getElementById(id).value || '---';
+        
+        document.getElementById('out-name').innerText = val('c-name');
+        document.getElementById('out-name2').innerText = val('c-name');
+        document.getElementById('out-passport').innerText = val('c-passport');
+        document.getElementById('out-dob').innerText = val('c-dob');
+        document.getElementById('out-salary').innerText = val('c-salary');
+        document.getElementById('out-cat').innerText = document.getElementById('c-cat').value;
+        document.getElementById('out-co-name').innerText = val('co-name');
+        document.getElementById('out-co-name2').innerText = val('co-name');
+        document.getElementById('out-co-num').innerText = val('co-num');
+        document.getElementById('out-co-tax').innerText = val('co-tax');
+        document.getElementById('out-co-addr').innerText = val('co-addr');
+        document.getElementById('out-ref').innerText = globalRef;
+        document.getElementById('out-ref2').innerText = globalRef;
+
+        const qrContent = `REF: ${globalRef} - EMP: ${val('c-name')} - NZBN: ${val('co-num')}`;
+        document.getElementById('out-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrContent)}`;
+    }
+
+    async function download() {
+        // 1. Sync the signature
+        if (!signaturePad.isEmpty()) {
+            document.getElementById('out-sig').src = signaturePad.toDataURL();
+        }
+
+        // 2. Short delay to ensure images (Sig/QR) are rendered by the browser
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        const element = document.getElementById('pdf-export');
+        const fileName = `NZ_Agreement_${document.getElementById('c-name').value || 'Final'}.pdf`;
+        
+        const opt = {
+            margin: 0,
+            filename: fileName,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { 
+                scale: 2, 
+                useCORS: true,
+                letterRendering: true
+            },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        // 3. Complete worker chain with explicit page trimming
+        html2pdf().set(opt).from(element).toPdf().get('pdf').then(function(pdf) {
+            const totalPages = pdf.internal.getNumberOfPages();
+            // Remove any pages beyond the 3nd one
+            if (totalPages > 3) {
+                for (let i = totalPages; i > 3; i--) {
+                    pdf.deletePage(i);
+                }
+            }
+        }).save();
+    }
+    
+    sync();<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
