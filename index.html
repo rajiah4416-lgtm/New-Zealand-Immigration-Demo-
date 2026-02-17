@@ -81,8 +81,15 @@
         .label-text { font-size: 8px; color: #777; font-weight: bold; text-transform: uppercase; }
         .value-text { font-size: 13px; font-weight: 700; color: var(--nz-dark); }
 
-        .qr-area { position: absolute; bottom: 25px; right: 25px; text-align: center; }
-        #qrcode { background: white; padding: 5px; border: 1px solid #ddd; border-radius: 5px; }
+        /* INCREASED QR AREA FOR READABILITY */
+        .qr-area { position: absolute; bottom: 20px; right: 20px; text-align: center; }
+        #qrcode { 
+            background: white; 
+            padding: 8px; 
+            border: 2px solid var(--nz-blue); 
+            border-radius: 10px;
+            display: inline-block;
+        }
 
         .security-seal {
             position: absolute; top: 15px; right: 25px;
@@ -153,7 +160,7 @@
         <div class="card-body">
             <div class="photo-section">
                 <div class="photo-frame"><img id="out-photo" src=""></div>
-                <div style="margin-top:15px; font-weight:800; color:var(--nz-blue); font-size:12px;">NZ-AKL-2026</div>
+                <div style="margin-top:10px; font-weight:800; color:var(--nz-blue); font-size:11px;">NZ-AKL-2026</div>
             </div>
 
             <div class="info-section">
@@ -191,12 +198,15 @@
     </div>
 
     <script>
+        // FIXED: Increased QR size for better phone focus
         let qr = new QRCode(document.getElementById("qrcode"), { 
-            width: 90, 
-            height: 90, 
-            colorDark : "#00247d",
-            correctLevel : QRCode.CorrectLevel.H // High error correction for density
+            width: 110, 
+            height: 110, 
+            colorDark : "#000000", // Black is better for scanning than blue
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.M // Medium correction allows more text space
         });
+        
         let savedPin = "7788";
 
         function preview(e) {
@@ -221,19 +231,13 @@
             document.getElementById('out-issue').innerText = get('in-issue');
             document.getElementById('out-expiry').innerText = get('in-expiry');
 
-            // COMPILE ALL DATA INTO THE QR CODE FOR VISIBILITY
-            const fullData = `NZ IMMIGRATION SECURE RECORD\n` +
-                             `----------------------------\n` +
-                             `NAME: ${get('in-name').toUpperCase()}\n` +
-                             `REF: ${get('in-ref')}\n` +
-                             `COUNTRY: ${get('in-country')}\n` +
-                             `COMPANY: ${get('in-co')}\n` +
-                             `JOB: ${get('in-job')}\n` +
-                             `PASSPORT: ${get('in-pass')}\n` +
-                             `GENDER: ${get('in-gen')}\n` +
-                             `ISSUE: ${get('in-issue')}\n` +
-                             `EXPIRY: ${get('in-expiry')}\n` +
-                             `AUTHORITY: ${get('in-auth')}`;
+            // FIXED: Standardized text format for easier mobile recognition
+            const fullData = `NZ-ID RECORD\n` +
+                             `Name: ${get('in-name').toUpperCase()}\n` +
+                             `Passport: ${get('in-pass')}\n` +
+                             `Ref: ${get('in-ref')}\n` +
+                             `Exp: ${get('in-expiry')}\n` +
+                             `Co: ${get('in-co')}`;
 
             qr.clear();
             qr.makeCode(fullData);
