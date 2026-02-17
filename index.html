@@ -2,75 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NZ Official Employment Agreement - 2026</title>
+    <title>NZ Immigration Standard Agreement - 2026</title>
     <style>
         :root {
-            --nz-blue: #00247d;
+            /* Official NZ Government / Immigration Palette */
+            --nz-black: #222222;
+            --nz-blue: #004a99;
             --nz-red: #cc142b;
-            --govt-gold: #c5a059;
+            --nz-fern: #000000;
+            --gov-bg: #f2f2f2;
+            --border-stone: #d1d1d1;
         }
 
-        /* Input UI Panel */
+        /* Input UI Panel - Not Printed */
         #input-panel {
             position: fixed; left: 0; top: 0; bottom: 0; width: 340px;
-            background: #1a252f; color: white; padding: 20px;
+            background: var(--nz-black); color: white; padding: 20px;
             overflow-y: auto; z-index: 1000; font-family: 'Segoe UI', sans-serif;
-            font-size: 13px;
         }
+        #input-panel h3 { border-bottom: 2px solid var(--nz-blue); padding-bottom: 5px; color: #fff; }
+        #input-panel label { display: block; margin-top: 10px; font-size: 12px; color: #bbb; }
         #input-panel input, #input-panel select, #input-panel textarea {
-            width: 100%; margin-bottom: 10px; padding: 8px; border-radius: 4px; border: 1px solid #444; background: #2c3e50; color: white;
+            width: 100%; margin-top: 5px; padding: 8px; border-radius: 4px; border: 1px solid #444; background: #333; color: white; box-sizing: border-box;
         }
-        .print-btn { background: #27ae60; color: white; padding: 15px; width: 100%; border: none; cursor: pointer; font-weight: bold; margin-top: 10px; border-radius: 5px; }
+        .print-btn { background: var(--nz-blue); color: white; padding: 15px; width: 100%; border: none; cursor: pointer; font-weight: bold; margin-top: 20px; border-radius: 5px; text-transform: uppercase; }
 
         /* Document Styling */
-        body { margin: 0; padding: 0; background-color: #444; display: flex; justify-content: flex-end; }
+        body { margin: 0; padding: 0; background-color: #555; display: flex; justify-content: flex-end; }
         .document-container { width: calc(100% - 380px); display: flex; flex-direction: column; align-items: center; }
         
         .page {
-            width: 210mm; height: 297mm; padding: 18mm; margin: 10mm auto;
+            width: 210mm; height: 297mm; padding: 20mm; margin: 10mm auto;
             background: white; position: relative; box-sizing: border-box;
-            box-shadow: 0 0 20px rgba(0,0,0,0.4); font-family: 'Times New Roman', serif;
+            box-shadow: 0 0 20px rgba(0,0,0,0.4); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: var(--nz-black);
         }
 
-        /* Official Flag & Header */
-        .header-top { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--nz-blue); padding-bottom: 10px; }
+        /* Official Header Layout */
+        .header-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--nz-black); padding-bottom: 15px; }
         .govt-identity { flex: 1; }
-        .govt-logo-text { font-weight: bold; font-size: 16px; color: #111; text-transform: uppercase; }
-        .dept-name { color: var(--nz-red); font-size: 12px; font-weight: bold; }
+        .govt-logo-text { font-weight: 800; font-size: 18px; color: var(--nz-black); text-transform: uppercase; letter-spacing: -0.5px; }
+        .dept-name { color: var(--nz-blue); font-size: 13px; font-weight: bold; margin-top: 2px; }
         
         .nz-flag-box {
-            width: 80px; height: 40px; border: 1px solid #ccc;
+            width: 90px; height: 45px; border: 1px solid #eee;
             background-image: url('https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg');
-            background-size: cover;
+            background-size: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .meta-container { display: grid; grid-template-columns: 3fr 1fr; background: #f4f7f9; padding: 12px; border: 1px solid #ddd; margin: 15px 0; font-size: 11px; }
-        .qr-box { width: 85px; height: 85px; background: white; border: 2px solid #fff; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+        .meta-container { display: grid; grid-template-columns: 3fr 1fr; background: var(--gov-bg); padding: 15px; border: 1px solid var(--border-stone); margin: 20px 0; font-size: 11px; border-left: 6px solid var(--nz-blue); }
+        .qr-box { width: 90px; height: 90px; background: white; border: 1px solid var(--border-stone); display: flex; align-items: center; justify-content: center; }
 
-        h1 { color: var(--nz-blue); font-size: 20px; text-align: center; text-decoration: underline; margin: 10px 0; }
-        h2 { color: var(--nz-blue); font-size: 14px; border-bottom: 1px solid #ccc; margin-top: 15px; padding-bottom: 3px; text-transform: uppercase; }
+        h1 { color: var(--nz-black); font-size: 24px; text-align: center; margin: 20px 0; font-weight: 900; letter-spacing: 1px; }
+        h2 { color: white; background: var(--nz-blue); font-size: 13px; padding: 6px 12px; margin-top: 25px; text-transform: uppercase; letter-spacing: 1px; display: inline-block; }
         
-        p, li { font-size: 11.5px; line-height: 1.5; margin: 5px 0; text-align: justify; color: #222; }
-        .data-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 11px; }
-        .data-table th, .data-table td { border: 1px solid #bbb; padding: 6px; text-align: left; }
-        .data-table th { background-color: #f9f9f9; width: 30%; font-weight: bold; }
+        p, li { font-size: 12px; line-height: 1.6; margin: 10px 0; text-align: justify; color: #333; }
+        
+        .data-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 12px; border: 1px solid var(--border-stone); }
+        .data-table th { background-color: #fcfcfc; border: 1px solid var(--border-stone); padding: 10px; text-align: left; width: 35%; color: var(--nz-blue); text-transform: uppercase; font-size: 10px; }
+        .data-table td { border: 1px solid var(--border-stone); padding: 10px; font-weight: bold; }
 
-        .footer { position: absolute; bottom: 10mm; left: 18mm; right: 18mm; font-size: 10px; border-top: 1px solid #ccc; padding-top: 5px; color: #666; display: flex; justify-content: space-between; }
+        .benefit-tag { font-weight: bold; color: var(--nz-blue); border-bottom: 1px dotted var(--nz-blue); }
+
+        .footer { position: absolute; bottom: 10mm; left: 20mm; right: 20mm; font-size: 10px; border-top: 1px solid var(--border-stone); padding-top: 10px; color: #888; display: flex; justify-content: space-between; font-weight: bold; }
 
         @media print {
             #input-panel { display: none; }
             body { background: white; display: block; }
             .document-container { width: 100%; }
-            .page { margin: 0; box-shadow: none; page-break-after: always; }
+            .page { margin: 0; box-shadow: none; page-break-after: always; border: none; }
         }
     </style>
 </head>
 <body>
 
 <div id="input-panel">
-    <h3>Data Entry Panel</h3>
+    <h3>Contract Manager</h3>
     <label>Client Full Name</label>
-    <input type="text" id="in_name" placeholder="John Smith" oninput="updateDoc()">
+    <input type="text" id="in_name" placeholder="John Doe" oninput="updateDoc()">
     
     <label>Passport Number</label>
     <input type="text" id="in_passport" oninput="updateDoc()">
@@ -95,22 +104,22 @@
     <label>Company Name</label>
     <input type="text" id="in_comp_name" oninput="updateDoc()">
     
-    <label>Company Address (NZ)</label>
+    <label>Company NZ Address</label>
     <textarea id="in_comp_addr" rows="2" oninput="updateDoc()"></textarea>
 
-    <label>Company Tax (IRD) Number</label>
+    <label>Company Tax (IRD)</label>
     <input type="text" id="in_tax" oninput="updateDoc()">
 
-    <label>Salary (NZD Per Annum)</label>
-    <input type="text" id="in_salary" placeholder="60000" oninput="updateDoc()">
+    <label>Salary (NZD Annum)</label>
+    <input type="text" id="in_salary" placeholder="65000" oninput="updateDoc()">
 
-    <label>Letter Issue Date</label>
+    <label>Issue Date</label>
     <input type="date" id="in_issue" oninput="updateDoc()">
 
-    <label>Job Joining Date</label>
+    <label>Start Date</label>
     <input type="date" id="in_join" oninput="updateDoc()">
 
-    <button class="print-btn" onclick="window.print()">DOWNLOAD PDF</button>
+    <button class="print-btn" onclick="window.print()">Download Official PDF</button>
 </div>
 
 <div class="document-container">
@@ -118,110 +127,108 @@
         <div class="header-top">
             <div class="govt-identity">
                 <div class="govt-logo-text">Ministry of Business, Innovation & Employment</div>
-                <div class="dept-name">Hīkina Whakatutuki | Employment New Zealand</div>
+                <div class="dept-name">Employment New Zealand | Immigration Compliance Division</div>
             </div>
             <div class="nz-flag-box"></div>
         </div>
 
         <div class="meta-container">
             <div>
-                <strong>Reference:</strong> NZL-CONTRACT-2026-XQ<br>
-                <strong>Issue Date:</strong> <span id="out_issue_date">17/02/2026</span><br>
-                <strong>Agreement:</strong> Official Individual Employment Agreement
+                <strong>REFERENCE NO:</strong> <span id="out_ref" style="color:var(--nz-red)">NZL-IEA-2026-IMM</span><br>
+                <strong>ISSUE DATE:</strong> <span id="out_issue_date">17/02/2026</span><br>
+                <strong>DOCUMENT:</strong> INDIVIDUAL EMPLOYMENT AGREEMENT (STRICTLY CONFIDENTIAL)
             </div>
             <div class="qr-box">
-                <img id="qr_img" src="https://api.qrserver.com/v1/create-qr-code/?size=85x85&data=INITIAL" width="85">
+                <img id="qr_img" src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=INITIAL" width="85">
             </div>
         </div>
 
-        <h1>INDIVIDUAL EMPLOYMENT AGREEMENT</h1>
+        <h1>EMPLOYMENT AGREEMENT</h1>
 
-        <h2>1. THE PARTIES</h2>
+        <h2>Section 1: Party Identifiers</h2>
         <table class="data-table">
-            <tr><th>Employer Legal Entity</th><td id="out_comp_name">[Company Name]</td></tr>
-            <tr><th>Company Tax ID (IRD)</th><td id="out_tax">[Tax Number]</td></tr>
-            <tr><th>Company NZ Address</th><td id="out_comp_addr">[Company Address]</td></tr>
-            <tr><th>Employee (The Client)</th><td id="out_name">[Full Name]</td></tr>
+            <tr><th>Employer Entity</th><td id="out_comp_name">[Company Name]</td></tr>
+            <tr><th>Registered NZ Address</th><td id="out_comp_addr">[Address]</td></tr>
+            <tr><th>Company IRD / Tax ID</th><td id="out_tax">[Tax Number]</td></tr>
+            <tr><th>Employee Full Name</th><td id="out_name">[Name]</td></tr>
             <tr><th>Passport Number</th><td id="out_passport">[Passport]</td></tr>
-            <tr><th>Country of Origin</th><td id="out_cob">[Country]</td></tr>
-            <tr><th>Gender Status</th><td id="out_gender">Male</td></tr>
+            <tr><th>Country of Birth / Origin</th><td id="out_cob">[Country]</td></tr>
+            <tr><th>Biological Sex</th><td id="out_gender">Male</td></tr>
         </table>
 
-        <h2>2. POSITION & COMMENCEMENT</h2>
-        <p><strong>2.1 Role:</strong> The Employee is appointed to the position of <strong><span id="out_job">General Worker</span></strong>. The duties are as per the standard industry job description and Employer's requirements.</p>
-        <p><strong>2.2 Joining Date:</strong> The Employee shall commence duties on <strong><span id="out_join_date">01/03/2026</span></strong>.</p>
+        <h2>Section 2: Appointment & Role</h2>
+        <p>The Employer appoints the Employee to the designated role of <strong id="out_job" style="color:var(--nz-blue)">General Worker</strong>. The Employee accepts this appointment starting on <strong id="out_join_date">[Date]</strong>. This role is subject to all New Zealand employment standards and workplace health protocols.</p>
 
-        <h2>3. REMUNERATION & BANKING</h2>
-        <p><strong>3.1 Salary:</strong> The Employer agrees to pay a gross annual salary of <strong>NZD $<span id="out_salary">0.00</span></strong>. Payment shall be made via direct electronic bank deposit into the Employee’s New Zealand bank account on a fortnightly basis.</p>
-        <p><strong>3.2 Deductions:</strong> All payments are subject to PAYE Income Tax and ACC Levies as required by the New Zealand Inland Revenue Department (IRD).</p>
+        <h2>Section 3: Remuneration & Banking</h2>
+        <p>The agreed gross salary for this position is <strong style="color:var(--nz-red)">NZD $<span id="out_salary">0.00</span></strong> per annum. Payments will be disbursed <span class="benefit-tag">fortnightly</span> via electronic transfer directly to the Employee’s nominated New Zealand bank account. All statutory deductions, including PAYE tax and ACC levies, will be managed by the Employer's payroll department.</p>
 
-        <h2>4. COMPANY-PAID BENEFITS (FULL CARE)</h2>
-        <p><strong>4.1 Flight Tickets:</strong> The Employer shall provide one (1) return airfare ticket from the Employee’s country of birth to New Zealand at the start and completion of the contract term.</p>
-        <p><strong>4.2 Medical & Health Insurance:</strong> The Employer will provide comprehensive medical insurance coverage for the duration of employment. This covers general practice visits, emergency care, and required prescriptions.</p>
-
-        <div class="footer"><span>CONFIDENTIAL NZ-GOVT-IEA</span><span>Page 1 of 3</span></div>
+        <div class="footer"><span>IMMIGRATION NZ COMPLIANT - 2026</span><span>PAGE 1 OF 3</span></div>
     </div>
 
     <div class="page">
-        <h2>5. ACCOMMODATION & LIVING STANDARDS</h2>
-        <p><strong>5.1 Housing:</strong> The Employer agrees to provide suitable, safe, and healthy accommodation for the Employee. This accommodation meets the 2026 NZ Healthy Homes Standards. All utility costs (electricity, water, heating) are covered by the Employer.</p>
-        <p><strong>5.2 Transport:</strong> The Employer will provide daily transport to and from the workplace and the provided accommodation at no cost to the Employee.</p>
+        <h2>Section 4: Comprehensive Company Benefits</h2>
+        <p><strong>4.1 Air Travel:</strong> The Employer provides <span class="benefit-tag">fully funded international airfare</span> (Economy Class) for the Employee from their country of origin to New Zealand at the commencement of this contract, and a return ticket upon completion.</p>
+        
+        <p><strong>4.2 Medical & Insurance:</strong> The Employer shall maintain a <span class="benefit-tag">comprehensive health insurance policy</span> for the Employee. This includes primary healthcare, hospital surgical cover, and accidental injury insurance through ACC and private providers.</p>
 
-        <h2>6. COMPANY PRIVACY & CLIENT DATA PROTECTION</h2>
-        <p><strong>6.1 Privacy Policy:</strong> The Employee agrees to abide by the Company’s Privacy Policy. You must protect all client records and business secrets. Unauthorized disclosure of company data is grounds for immediate termination.</p>
-        <p><strong>6.2 Surveillance:</strong> In accordance with NZ law, the workplace may use CCTV for safety and security. All personal data collected will be handled according to the <em>Privacy Act 2020</em>.</p>
+        <p><strong>4.3 Accommodation:</strong> The Employer provides <span class="benefit-tag">subsidized, high-standard accommodation</span>. This includes all utility costs (Water, Power, Heating) and complies with the Healthy Homes Standards 2026.</p>
 
-        <h2>7. HEALTH, SAFETY & WELLBEING</h2>
-        <p>The Employer is responsible for providing a safe working environment under the <em>Health and Safety at Work Act 2015</em>. The Employee must follow all safety instructions and report any hazards immediately to the Health and Safety Representative.</p>
+        <p><strong>4.4 Transportation:</strong> The Employer provides <span class="benefit-tag">dedicated daily transport</span> between the Employee’s residence and the workplace at no cost to the Employee.</p>
 
-        <h2>8. LEAVE & HOLIDAYS</h2>
-        <p><strong>8.1 Annual Leave:</strong> 4 weeks’ paid leave per year. <strong>8.2 Sick Leave:</strong> 10 days per year. <strong>8.3 Public Holidays:</strong> Paid time off for all 11 NZ statutory holidays or time-and-a-half plus a compensatory day if worked.</p>
+        <h2>Section 5: Privacy & Conduct Policies</h2>
+        <p><strong>5.1 Data Privacy:</strong> The Employer and Employee shall adhere to the <em>Privacy Act 2020</em>. The Employer will protect the Employee's personal information, and the Employee shall protect all company trade secrets and client data.</p>
+        
+        <p><strong>5.2 Digital Security:</strong> Any use of company systems must comply with the Cybersecurity Policy. Unauthorized disclosure of company intellectual property is considered a breach of contract.</p>
 
-        <div class="footer"><span>CONFIDENTIAL NZ-GOVT-IEA</span><span>Page 2 of 3</span></div>
+        <h2>Section 6: Health, Safety & Leave</h2>
+        <p>Both parties are bound by the <em>Health and Safety at Work Act 2015</em>. The Employee is entitled to <span class="benefit-tag">4 weeks of annual leave</span> and <span class="benefit-tag">10 days of sick leave</span> as per the 2026 statutory requirements.</p>
+
+        <div class="footer"><span>OFFICIAL DOCUMENT - DO NOT ALTER</span><span>PAGE 2 OF 3</span></div>
     </div>
 
     <div class="page">
-        <h2>9. TERMINATION OF AGREEMENT</h2>
-        <p><strong>9.1 Notice Period:</strong> Either party may terminate this agreement by providing 4 weeks' written notice. <strong>9.2 Redundancy:</strong> The Employer will follow all NZ legal consultation processes in the event of restructuring.</p>
-        <p><strong>9.3 Summary Dismissal:</strong> Immediate termination without notice applies in cases of serious misconduct, including theft, violence, or intoxication on duty.</p>
+        <h2>Section 7: Dispute Resolution (MBIE Standard)</h2>
+        <p>In the event of an employment relationship problem, both parties agree to resolve the issue in <span class="benefit-tag">Good Faith</span>. If unresolved, the parties shall utilize the mediation services provided by <strong>Employment New Zealand (Ministry of Business, Innovation and Employment)</strong>. Personal grievances must be raised within the statutory period of 90 days.</p>
 
-        <h2>10. DISPUTE RESOLUTION (MBIE)</h2>
-        <p>If a problem arises, the parties will first try to resolve it in good faith. If unresolved, the Employee has the right to access free mediation services provided by <strong>Employment New Zealand (MBIE)</strong>. Any personal grievance must be raised within 90 days.</p>
+        <h2>Section 8: Termination of Agreement</h2>
+        <p>This agreement may be terminated by either party giving <span class="benefit-tag">4 weeks' written notice</span>. In cases of serious misconduct (theft, fraud, violence), the Employer may terminate this agreement without notice (Summary Dismissal) following a fair investigation process.</p>
 
-        <h2>11. FINAL DECLARATION</h2>
-        <p>The Employee acknowledges they have been provided with a copy of this agreement, advised of their right to seek independent legal advice, and have accepted the terms voluntarily.</p>
+        <h2>Section 9: Final Declaration & Execution</h2>
+        <p>By signing this agreement, the Employee confirms they have read and understood all clauses, have been advised of their right to independent legal counsel, and accept the offer of employment voluntarily.</p>
 
-        <div style="margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+        <div style="margin-top: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
             <div>
-                <p><strong>Signed for the Employer:</strong></p>
-                <div style="border-top: 1px solid #000; margin-top: 50px; padding-top: 5px;">
-                    Authorized Representative<br>
-                    <span id="out_comp_name2">[Company Name]</span>
+                <p style="font-size: 10px; color: var(--nz-blue); font-weight: bold;">FOR THE EMPLOYER:</p>
+                <div style="border-top: 2px solid var(--nz-black); margin-top: 50px; padding-top: 5px;">
+                    <span id="out_comp_name2" style="font-weight: bold;">[Company Name]</span><br>
+                    Authorized Signatory
                 </div>
+                <p style="font-size: 10px;">Dated: <span id="out_issue2">17/02/2026</span></p>
             </div>
             <div>
-                <p><strong>Signed by the Employee:</strong></p>
-                <div style="border-top: 1px solid #000; margin-top: 50px; padding-top: 5px;">
-                    <span id="out_name2">[Employee Name]</span><br>
-                    Passport: <span id="out_passport2">[No]</span>
+                <p style="font-size: 10px; color: var(--nz-blue); font-weight: bold;">THE EMPLOYEE:</p>
+                <div style="border-top: 2px solid var(--nz-black); margin-top: 50px; padding-top: 5px;">
+                    <span id="out_name2" style="font-weight: bold;">[Employee Name]</span><br>
+                    Passport ID: <span id="out_passport2">[No]</span>
                 </div>
+                <p style="font-size: 10px;">Dated: ____/____/2026</p>
             </div>
         </div>
 
-        <div style="margin-top: 80px; text-align: center; border: 1px solid #ccc; padding: 10px; background: #f9f9f9;">
-            <p style="font-size: 9px;">
-                This Individual Employment Agreement is a legally binding document in New Zealand.<br>
-                For verification, scan the QR code on Page 1 or contact Employment New Zealand at 0800 20 90 20.
+        <div style="margin-top: 70px; padding: 15px; background: #fefefe; border: 1px solid var(--border-stone); text-align: center;">
+            <p style="font-size: 9px; color: #666; margin: 0;">
+                This document is electronically logged with New Zealand Employment Standards.<br>
+                To verify this agreement, scan the QR code located on Page 1 or call 0800 20 90 20.
             </p>
         </div>
 
-        <div class="footer"><span>CONFIDENTIAL NZ-GOVT-IEA</span><span>Page 3 of 3</span></div>
+        <div class="footer"><span>MBIE COMPLIANCE REF: 2026-XQ</span><span>PAGE 3 OF 3</span></div>
     </div>
 </div>
 
 <script>
     function updateDoc() {
-        const fields = {
+        const mapping = {
             'in_name': ['out_name', 'out_name2'],
             'in_passport': ['out_passport', 'out_passport2'],
             'in_cob': ['out_cob'],
@@ -230,27 +237,27 @@
             'in_tax': ['out_tax'],
             'in_salary': ['out_salary'],
             'in_job': ['out_job'],
-            'in_issue': ['out_issue_date'],
+            'in_issue': ['out_issue_date', 'out_issue2'],
             'in_join': ['out_join_date']
         };
 
-        for (let inputId in fields) {
-            const val = document.getElementById(inputId).value;
-            fields[inputId].forEach(outId => {
-                document.getElementById(outId).innerText = val || "[Pending]";
+        for (let input in mapping) {
+            const val = document.getElementById(input).value;
+            mapping[input].forEach(out => {
+                document.getElementById(out).innerText = val || "...";
             });
         }
         
         document.getElementById('out_gender').innerText = document.getElementById('in_gender').value;
 
-        // Dynamic QR encoding all data
-        const name = document.getElementById('in_name').value;
-        const pp = document.getElementById('in_passport').value;
-        const comp = document.getElementById('in_comp_name').value;
-        const qrData = `NZ-IEA-2026|Client:${name}|PP:${pp}|Employer:${comp}|Status:VERIFIED`;
-        document.getElementById('qr_img').src = `https://api.qrserver.com/v1/create-qr-code/?size=85x85&data=${encodeURIComponent(qrData)}`;
+        // Dynamic QR
+        const n = document.getElementById('in_name').value;
+        const p = document.getElementById('in_passport').value;
+        const c = document.getElementById('in_comp_name').value;
+        const data = `VERIFIED:NZ-IMM-2026|NAME:${n}|PASS:${p}|COMP:${c}`;
+        document.getElementById('qr_img').src = `https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=${encodeURIComponent(data)}`;
     }
 </script>
 
 </body>
-                    </html>
+</html>
