@@ -3,196 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official NZ Immigration - Digital ID System</title>
+    <title>Official NZ Immigration - Secure ID Portal</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root {
             --nz-blue: #00247d;
-            --nz-silver: #e1e4e8;
             --nz-teal: #008477;
-            --nz-dark: #1a1a1a;
+            --nz-red: #cc142d;
+            --nz-silver: #f4f7f6;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background-color: #b0bec5;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #cbd5e0;
             margin: 0; padding: 20px;
             display: flex; flex-direction: column; align-items: center;
         }
 
-        /* Control Center */
+        /* Administration Panel */
         .admin-panel {
-            background: white; padding: 20px; border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            background: white; padding: 25px; border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             margin-bottom: 30px; width: 100%; max-width: 1000px;
         }
 
         .grid-inputs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
         .input-group { display: flex; flex-direction: column; }
-        label { font-size: 10px; font-weight: bold; color: var(--nz-blue); margin-bottom: 4px; text-transform: uppercase; }
-        input, select { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 13px; outline-color: var(--nz-teal); }
+        label { font-size: 10px; font-weight: bold; color: var(--nz-blue); margin-bottom: 5px; }
+        input, select { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 13px; }
 
         .btn-row { margin-top: 20px; display: flex; gap: 10px; }
-        button { flex: 1; padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; color: white; transition: 0.2s; }
+        button { flex: 1; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: white; transition: 0.3s; }
         .gen-btn { background: var(--nz-teal); }
         .print-btn { background: var(--nz-blue); }
-        button:hover { opacity: 0.9; transform: translateY(-1px); }
 
-        /* OFFICIAL ID CARD DESIGN */
+        /* THE ID CARD */
         #id-card {
             width: 600px; height: 380px;
-            background: white; border-radius: 20px;
+            background: white; border-radius: 15px;
             position: relative; overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             border: 1px solid #999;
-            background-image: radial-gradient(circle at 100% 0%, #f8f9fa 0%, #e9ecef 100%);
         }
 
         .card-header {
-            background: var(--nz-blue);
-            height: 90px; padding: 0 25px;
-            display: flex; align-items: center; color: white;
-            border-bottom: 4px solid var(--nz-teal);
+            background: var(--nz-blue); height: 85px;
+            padding: 0 25px; display: flex; align-items: center; color: white;
+            border-bottom: 3px solid var(--nz-teal);
         }
 
-        .flag-box { width: 85px; height: 45px; margin-right: 20px; box-shadow: 0 3px 6px rgba(0,0,0,0.3); }
-        
-        .header-main h2 { margin: 0; font-size: 22px; letter-spacing: 2px; font-weight: 800; }
-        .header-main p { margin: 0; font-size: 10px; letter-spacing: 1px; opacity: 0.8; font-weight: bold; }
+        .flag-img { width: 80px; height: 40px; margin-right: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.4); }
+        .header-info h2 { margin: 0; font-size: 20px; letter-spacing: 2px; }
+        .header-info p { margin: 0; font-size: 9px; opacity: 0.8; font-weight: bold; }
 
-        .visa-banner {
-            background: #fff; border-bottom: 1px solid #ddd;
-            padding: 8px 25px; display: flex; justify-content: space-between;
-            font-weight: bold; font-size: 12px; color: var(--nz-blue);
+        .banner-strip {
+            background: #fff; padding: 8px 25px; border-bottom: 1px solid #eee;
+            display: flex; justify-content: space-between; font-weight: bold; font-size: 11px;
         }
 
-        .card-body { display: flex; padding: 25px; gap: 25px; }
-
-        .photo-section { display: flex; flex-direction: column; align-items: center; }
-        .photo-frame {
-            width: 140px; height: 175px; background: #fff;
-            border: 1px solid #ccc; border-radius: 10px;
-            overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        .card-content { display: flex; padding: 25px; gap: 25px; }
+        .photo-box {
+            width: 135px; height: 170px; background: #eee;
+            border: 1px solid #ddd; border-radius: 8px; overflow: hidden;
         }
         #out-photo { width: 100%; height: 100%; object-fit: cover; }
 
-        .info-section { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
-        .field { border-bottom: 1px solid #eee; padding-bottom: 3px; }
-        .label-text { font-size: 8px; color: #777; font-weight: bold; text-transform: uppercase; }
-        .value-text { font-size: 13px; font-weight: 700; color: var(--nz-dark); }
+        .info-grid { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 15px; }
+        .field { border-bottom: 1px solid #f0f0f0; padding-bottom: 2px; }
+        .label { font-size: 7.5px; color: #888; font-weight: bold; text-transform: uppercase; }
+        .val { font-size: 12.5px; font-weight: 700; color: #222; }
 
-        .qr-area { position: absolute; bottom: 25px; right: 25px; text-align: center; }
-        #qrcode { background: white; padding: 5px; border: 1px solid #ddd; border-radius: 5px; }
+        .qr-section { position: absolute; bottom: 20px; right: 25px; text-align: center; }
+        #qrcode { background: white; padding: 5px; border: 1px solid #ddd; display: inline-block; }
 
-        .security-seal {
-            position: absolute; top: 15px; right: 25px;
-            width: 45px; height: 45px; opacity: 0.9;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+        .small-fern { position: absolute; top: 10px; right: 20px; width: 35px; opacity: 0.6; filter: drop-shadow(0 0 5px #fff); }
+
+        /* BACK SIDE (Visible only for Printing) */
+        #card-back {
+            display: none; width: 600px; height: 380px;
+            background: var(--nz-silver); border-radius: 15px;
+            margin-top: 20px; border: 1px solid #ccc; padding: 30px; box-sizing: border-box;
         }
 
-        .footer-ref { position: absolute; bottom: 12px; left: 25px; font-size: 8px; color: #999; font-weight: bold; }
-
-        /* SECURITY VERIFICATION MODAL */
-        #verification-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 36, 125, 0.97); z-index: 2000;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            color: white; padding: 20px;
+        @media print {
+            .admin-panel { display: none !important; }
+            body { background: white; padding: 0; }
+            #id-card { box-shadow: none; page-break-after: always; }
+            #card-back { display: block; }
         }
-
-        .access-box { background: white; color: #333; padding: 40px; border-radius: 20px; width: 100%; max-width: 500px; text-align: center; }
-        #verified-data { display: none; text-align: left; width: 100%; }
-        .result-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; }
-        
-        @media print { .admin-panel, #verification-modal { display: none !important; } body { background: white; } #id-card { box-shadow: none; border: 1px solid #ccc; -webkit-print-color-adjust: exact; } }
     </style>
 </head>
 <body>
 
     <div class="admin-panel">
         <div class="grid-inputs">
-            <div class="input-group"><label>Full Name</label><input type="text" id="in-name" value="Michael Richards"></div>
-            <div class="input-group"><label>Country</label><input type="text" id="in-country" value="United Kingdom"></div>
-            <div class="input-group"><label>Reference Number</label><input type="text" id="in-ref" value="NZ-REF-2026-X8"></div>
-            <div class="input-group"><label>Passport No.</label><input type="text" id="in-pass" value="UK9922881"></div>
-            
-            <div class="input-group"><label>Guarantee Company</label><input type="text" id="in-co" value="Auckland Logistics Ltd"></div>
-            <div class="input-group"><label>Job Category</label><input type="text" id="in-job" value="Project Manager"></div>
-            <div class="input-group"><label>Issuing Authority</label><input type="text" id="in-auth" value="Immigration NZ"></div>
-            <div class="input-group"><label>Gender</label><select id="in-gen"><option>MALE</option><option>FEMALE</option></select></div>
-
+            <div class="input-group"><label>Full Name</label><input type="text" id="in-name" value="ALEXANDER VOGEL"></div>
+            <div class="input-group"><label>Passport No. (Security Code)</label><input type="text" id="in-pass" value="NZ1234567"></div>
+            <div class="input-group"><label>Country</label><input type="text" id="in-country" value="GERMANY"></div>
+            <div class="input-group"><label>Guarantee Company</label><input type="text" id="in-co" value="VOGEL TECH NZ"></div>
+            <div class="input-group"><label>Job Category</label><input type="text" id="in-job" value="ENGINEERING LEAD"></div>
+            <div class="input-group"><label>Reference Number</label><input type="text" id="in-ref" value="REF-99-001"></div>
             <div class="input-group"><label>Issue Date</label><input type="date" id="in-issue" value="2026-02-17"></div>
             <div class="input-group"><label>Expiry Date</label><input type="date" id="in-expiry" value="2028-02-17"></div>
-            <div class="input-group"><label>Security PIN (Code)</label><input type="text" id="in-pin" maxlength="6" value="7788"></div>
+            <div class="input-group"><label>Gender</label><select id="in-gen"><option>MALE</option><option>FEMALE</option></select></div>
+            <div class="input-group"><label>Authority</label><input type="text" id="in-auth" value="IMMIGRATION NEW ZEALAND"></div>
             <div class="input-group"><label>Client Photo</label><input type="file" onchange="preview(event)"></div>
         </div>
         <div class="btn-row">
-            <button class="gen-btn" onclick="update()">Update Official Data</button>
-            <button class="print-btn" onclick="window.print()">Print Final ID</button>
-            <button style="background:#444" onclick="openScanner()">Simulate Secure Scan</button>
+            <button class="gen-btn" onclick="update()">Update ID & Encryption</button>
+            <button class="print-btn" onclick="securePrint()">Print Secure ID (Lock with Passport)</button>
         </div>
     </div>
 
     <div id="id-card">
         <div class="card-header">
-            <img class="flag-box" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg">
-            <div class="header-main">
+            <img class="flag-img" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg">
+            <div class="header-info">
                 <h2>NEW ZEALAND</h2>
-                <p>IMMIGRATION & BORDER PROTECTION SERVICES</p>
+                <p>DEPARTMENT OF IMMIGRATION & BORDER PROTECTION</p>
             </div>
-            <svg class="security-seal" viewBox="0 0 100 100">
-                <path fill="#fff" d="M80,90 C60,70 30,60 10,80 C20,50 50,20 90,10 C80,40 70,70 80,90 Z" />
-            </svg>
+            <svg class="small-fern" viewBox="0 0 100 100"><path fill="#fff" d="M80,90 C60,70 30,60 10,80 C20,50 50,20 90,10 C80,40 70,70 80,90 Z" /></svg>
         </div>
 
-        <div class="visa-banner">
-            <span id="out-auth">ISSUING AUTHORITY: ---</span>
-            <span id="out-ref" style="color:var(--nz-red)">REF: ---</span>
+        <div class="banner-strip">
+            <span id="out-auth">AUTHORITY: ---</span>
+            <span id="out-ref" style="color:var(--nz-red)">REFERENCE: ---</span>
         </div>
 
-        <div class="card-body">
-            <div class="photo-section">
-                <div class="photo-frame"><img id="out-photo" src=""></div>
-                <div style="margin-top:15px; font-weight:800; color:var(--nz-blue); font-size:12px;">NZ-AKL-2026</div>
+        <div class="card-content">
+            <div class="photo-side">
+                <div class="photo-box"><img id="out-photo" src=""></div>
+                <div style="margin-top:15px; font-size:11px; font-weight:bold; color:var(--nz-blue);">PORT: AUCKLAND</div>
             </div>
-
-            <div class="info-section">
-                <div class="field"><div class="label-text">Full Name</div><div class="value-text" id="out-name">---</div></div>
-                <div class="field"><div class="label-text">Country of Origin</div><div class="value-text" id="out-country">---</div></div>
-                <div class="field"><div class="label-text">Guarantee Company</div><div class="value-text" id="out-co">---</div></div>
-                <div class="field"><div class="label-text">Job Category</div><div class="value-text" id="out-job">---</div></div>
-                <div class="field"><div class="label-text">Gender</div><div class="value-text" id="out-gen">---</div></div>
-                <div class="field"><div class="label-text">Passport Number</div><div class="value-text" id="out-pass">---</div></div>
-                <div class="field"><div class="label-text">Date of Issue</div><div class="value-text" id="out-issue">---</div></div>
-                <div class="field"><div class="label-text">Expiry Date</div><div class="value-text" id="out-expiry" style="color:var(--nz-red)">---</div></div>
+            <div class="info-grid">
+                <div class="field"><div class="label">Full Name</div><div class="val" id="out-name">---</div></div>
+                <div class="field"><div class="label">Passport Number</div><div class="val" id="out-pass">---</div></div>
+                <div class="field"><div class="label">Country</div><div class="val" id="out-country">---</div></div>
+                <div class="field"><div class="label">Guarantee Company</div><div class="val" id="out-co">---</div></div>
+                <div class="field"><div class="label">Job Category</div><div class="val" id="out-job">---</div></div>
+                <div class="field"><div class="label">Gender</div><div class="val" id="out-gen">---</div></div>
+                <div class="field"><div class="label">Date of Issue</div><div class="val" id="out-issue">---</div></div>
+                <div class="field"><div class="label">Expiry Date</div><div class="val" id="out-expiry" style="color:var(--nz-red)">---</div></div>
             </div>
         </div>
 
-        <div class="qr-area">
+        <div class="qr-section">
             <div id="qrcode"></div>
-            <div style="font-size:7px; font-weight:bold; margin-top:4px; color:var(--nz-blue)">ENCRYPTED AUTH</div>
+            <div style="font-size:6px; font-weight:bold; margin-top:3px; color:var(--nz-blue);">SECURE PIN ACCESS</div>
         </div>
-        <div class="footer-ref">UNAUTHORIZED USE IS A FEDERAL OFFENCE &bull; IMMIGRATION.GOVT.NZ</div>
     </div>
 
-    <div id="verification-modal">
-        <div class="access-box" id="pin-prompt">
-            <h2 style="color:var(--nz-blue)">Border Verification</h2>
-            <p>Scanning Identity Reference... <b>Please enter Security Code:</b></p>
-            <input type="password" id="check-pin" style="font-size:30px; width:150px; text-align:center; margin:20px 0; border:2px solid var(--nz-teal);"><br>
-            <button class="gen-btn" onclick="verify()">Verify Identity</button>
-            <button style="background:#ccc; color:#333;" onclick="closeScanner()">Cancel</button>
-        </div>
-        <div class="access-box" id="verified-data">
-            <h2 style="color:var(--nz-teal)">✓ IDENTITY VERIFIED</h2>
-            <div id="data-results"></div>
-            <button class="print-btn" style="margin-top:20px; width:100%;" onclick="closeScanner()">Done</button>
+    <div id="card-back">
+        <h3 style="color:var(--nz-blue); border-bottom:2px solid var(--nz-teal); padding-bottom:5px;">Digital Document Security</h3>
+        <p style="font-size:12px; line-height:1.6; color:#444;">
+            This document is protected by federal security protocols. To view the encrypted data within the QR code, use the <b>Passport Number</b> provided on the front of this card.
+        </p>
+        <ul style="font-size:11px; color:#666;">
+            <li>This card remains the property of the New Zealand Government.</li>
+            <li>Loss of this card must be reported to Border Protection immediately.</li>
+            <li>Tampering with the security encryption is a punishable offence.</li>
+        </ul>
+        <div style="margin-top:40px; border-top:1px solid #ccc; padding-top:10px; font-size:10px; font-style:italic;">
+            Issued by: New Zealand Immigration Services <br>
+            Verification Portal: secure.immigration.govt.nz
         </div>
     </div>
 
     <script>
         let qr = new QRCode(document.getElementById("qrcode"), { width: 90, height: 90, colorDark : "#00247d" });
-        let savedPin = "7788";
 
         function preview(e) {
             const r = new FileReader();
@@ -201,52 +179,39 @@
         }
 
         function update() {
-            const get = id => document.getElementById(id).value;
-            savedPin = get('in-pin');
+            const v = id => document.getElementById(id).value;
+            const pass = v('in-pass');
 
-            // Card Mapping
-            document.getElementById('out-name').innerText = get('in-name').toUpperCase();
-            document.getElementById('out-country').innerText = get('in-country');
-            document.getElementById('out-ref').innerText = "REF: " + get('in-ref');
-            document.getElementById('out-pass').innerText = get('in-pass');
-            document.getElementById('out-co').innerText = get('in-co');
-            document.getElementById('out-job').innerText = get('in-job');
-            document.getElementById('out-auth').innerText = "ISSUING AUTHORITY: " + get('in-auth').toUpperCase();
-            document.getElementById('out-gen').innerText = get('in-gen');
-            document.getElementById('out-issue').innerText = get('in-issue');
-            document.getElementById('out-expiry').innerText = get('in-expiry');
+            document.getElementById('out-name').innerText = v('in-name').toUpperCase();
+            document.getElementById('out-pass').innerText = pass;
+            document.getElementById('out-country').innerText = v('in-country').toUpperCase();
+            document.getElementById('out-co').innerText = v('in-co').toUpperCase();
+            document.getElementById('out-job').innerText = v('in-job');
+            document.getElementById('out-ref').innerText = "REFERENCE: " + v('in-ref');
+            document.getElementById('out-auth').innerText = "AUTHORITY: " + v('in-auth').toUpperCase();
+            document.getElementById('out-gen').innerText = v('in-gen');
+            document.getElementById('out-issue').innerText = v('in-issue');
+            document.getElementById('out-expiry').innerText = v('in-expiry');
 
-            // QR Content
-            const fullData = `NZ-SECURE-ID|REF:${get('in-ref')}|NAME:${get('in-name')}|PIN:${savedPin}`;
+            // Encode data so that it "asks" for the Passport Number as the password
+            const secureData = `LOCK:PASSPORT_REQUIRED|KEY_ID:${pass}|DATA:ENCRYPTED_NZ_GOVT`;
             qr.clear();
-            qr.makeCode(fullData);
+            qr.makeCode(secureData);
         }
 
-        function openScanner() {
-            document.getElementById('verification-modal').style.display = 'flex';
-            document.getElementById('pin-prompt').style.display = 'block';
-            document.getElementById('verified-data').style.display = 'none';
-        }
-
-        function closeScanner() { document.getElementById('verification-modal').style.display = 'none'; }
-
-        function verify() {
-            if (document.getElementById('check-pin').value === savedPin) {
-                const get = id => document.getElementById(id).value;
-                document.getElementById('pin-prompt').style.display = 'none';
-                document.getElementById('verified-data').style.display = 'block';
-                
-                document.getElementById('data-results').innerHTML = `
-                    <div class="result-row"><b>Name:</b> <span>${get('in-name')}</span></div>
-                    <div class="result-row"><b>Status:</b> <span style="color:green">APPROVED</span></div>
-                    <div class="result-row"><b>Company:</b> <span>${get('in-co')}</span></div>
-                    <div class="result-row"><b>Passport:</b> <span>${get('in-pass')}</span></div>
-                    <div class="result-row"><b>Expires:</b> <span>${get('in-expiry')}</span></div>
-                `;
-            } else {
-                alert("ACCESS DENIED: Incorrect Security Code.");
+        function securePrint() {
+            const pass = document.getElementById('in-pass').value;
+            if(!pass || pass === "---") {
+                alert("Please enter a Passport Number first.");
+                return;
             }
+            
+            // This alert reminds the user that the passport is the key
+            alert(`SECURITY PROTOCOL:\n\nThe Passport Number (${pass}) has been set as the Security Code for this document. Accessing the digital record will require this code.`);
+            
+            window.print();
         }
+
         update();
     </script>
 </body>
