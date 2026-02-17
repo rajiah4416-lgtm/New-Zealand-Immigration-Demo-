@@ -3,112 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NZ Arrival ID Card Portal</title>
+    <title>Official NZ Immigration ID Card</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root {
-            --nz-blue: #00247d; /* Official Flag Blue */
-            --nz-red: #cc142d;  /* Official Flag Red */
+            --nz-blue: #00247d;
+            --nz-red: #cc142d;
             --nz-teal: #008477;
-            --card-width: 500px;
+            --nz-gold: #c5a059;
         }
 
         body {
-            font-family: 'Segoe UI', Helvetica, sans-serif;
-            background-color: #eef2f3;
-            margin: 0; padding: 40px 20px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #cfd8dc;
+            margin: 0; padding: 20px;
             display: flex; flex-direction: column; align-items: center;
         }
 
-        /* Administration Input Panel */
+        /* Admin Dashboard */
         .admin-panel {
-            background: white; padding: 25px; border-radius: 12px;
+            background: white; padding: 20px; border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            margin-bottom: 40px; width: 100%; max-width: 800px;
+            margin-bottom: 30px; width: 100%; max-width: 900px;
         }
 
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
-        label { font-size: 11px; font-weight: bold; color: #555; text-transform: uppercase; }
-        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-top: 5px; box-sizing: border-box; }
+        .grid-inputs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .input-group { display: flex; flex-direction: column; }
+        label { font-size: 10px; font-weight: bold; color: #555; margin-bottom: 4px; }
+        input, select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; }
 
-        .btn-row { display: flex; gap: 10px; margin-top: 20px; }
-        button { flex: 1; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; transition: 0.2s; }
+        .btn-row { margin-top: 15px; display: flex; gap: 10px; }
+        button { flex: 1; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; }
         .gen-btn { background: var(--nz-teal); }
         .print-btn { background: var(--nz-blue); }
-        button:hover { opacity: 0.9; }
 
-        /* THE ID CARD DESIGN */
+        /* THE ID CARD */
         #id-card {
-            width: var(--card-width);
-            height: 315px; /* ID-1 Ratio */
-            background: white;
-            border-radius: 18px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #ddd;
+            width: 540px; height: 340px;
+            background: #fff; border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative; overflow: hidden;
+            border: 1px solid #aaa;
+            background-image: linear-gradient(135deg, #ffffff 0%, #f1f1f1 100%);
         }
 
-        /* Top Header with Flag */
+        /* Top Header */
         .card-header {
             background: var(--nz-blue);
-            height: 75px;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            color: white;
-            position: relative;
+            height: 80px; padding: 0 20px;
+            display: flex; align-items: center; color: white;
         }
 
-        .nz-flag { width: 60px; height: 30px; border: 1px solid rgba(255,255,255,0.3); margin-right: 15px; }
-        
-        .header-text h2 { margin: 0; font-size: 16px; letter-spacing: 1px; }
-        .header-text p { margin: 0; font-size: 9px; opacity: 0.8; text-transform: uppercase; }
-
-        /* Sub-banner for Visa No */
-        .visa-strip {
-            background: var(--nz-teal);
-            color: white;
-            padding: 5px 20px;
-            font-size: 12px;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
+        /* Official Flag */
+        .nz-flag-container {
+            width: 80px; height: 40px; margin-right: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
-        /* Body Content */
-        .card-body { display: flex; padding: 15px 20px; gap: 20px; }
-
-        /* Photo Section */
-        .photo-area { display: flex; flex-direction: column; align-items: center; }
-        .photo-frame {
-            width: 110px; height: 135px;
-            background: #f0f0f0;
-            border: 2px solid #eee;
-            border-radius: 8px;
-            overflow: hidden;
-            display: flex; align-items: center; justify-content: center;
-        }
-        #photo-out { width: 100%; height: 100%; object-fit: cover; display: none; }
-        .photo-label { font-size: 10px; color: #999; text-align: center; }
-
-        /* Data Section */
-        .info-area { flex: 1; }
-        .data-point { margin-bottom: 8px; border-bottom: 1px solid #f9f9f9; }
-        .data-label { font-size: 8px; color: #888; font-weight: bold; text-transform: uppercase; }
-        .data-val { font-size: 13px; font-weight: 700; color: #222; }
-
-        /* QR and Security */
-        .security-area {
-            position: absolute; bottom: 15px; right: 20px;
-            display: flex; flex-direction: column; align-items: center;
-        }
-        #qrcode { background: white; padding: 4px; border: 1px solid #eee; }
+        .header-text h2 { margin: 0; font-size: 18px; letter-spacing: 1px; }
+        .header-text p { margin: 0; font-size: 10px; opacity: 0.9; }
 
         /* Small Glowing Fern */
         .small-fern {
             position: absolute; top: 10px; right: 20px;
-            width: 30px; opacity: 0.6; filter: drop-shadow(0 0 5px var(--nz-teal));
+            width: 35px; height: 35px; opacity: 0.7;
+            filter: drop-shadow(0 0 8px #fff);
+        }
+
+        /* Visa Number Ribbon */
+        .visa-ribbon {
+            background: var(--nz-teal); color: white;
+            padding: 6px 25px; font-weight: bold; font-size: 13px;
+            display: flex; justify-content: space-between;
+        }
+
+        /* Content Area */
+        .card-content { display: flex; padding: 20px; gap: 20px; }
+
+        .photo-side { display: flex; flex-direction: column; align-items: center; }
+        .photo-box {
+            width: 120px; height: 150px; background: #e0e0e0;
+            border: 3px solid var(--nz-silver); border-radius: 8px;
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+        #out-photo { width: 100%; height: 100%; object-fit: cover; display: none; }
+
+        /* Data Grid */
+        .data-side { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 15px; }
+        .field { border-bottom: 1px solid #eee; padding-bottom: 2px; }
+        .f-label { font-size: 8px; color: #777; font-weight: bold; text-transform: uppercase; }
+        .f-val { font-size: 12px; font-weight: 700; color: #111; }
+
+        /* QR and Bottom Info */
+        .qr-box { position: absolute; bottom: 20px; right: 20px; text-align: center; }
+        #qrcode { background: white; padding: 3px; border: 1px solid #ddd; }
+
+        .footer-note {
+            position: absolute; bottom: 10px; left: 25px;
+            font-size: 7px; color: #888; font-weight: bold;
         }
 
         @media print {
@@ -121,103 +113,111 @@
 <body>
 
     <div class="admin-panel">
-        <h3 style="margin-top:0">Official ID Data Entry</h3>
         <div class="grid-inputs">
-            <input type="text" id="in-name" placeholder="Full Name">
-            <input type="text" id="in-visa" placeholder="Visa Number">
-            <input type="text" id="in-pass" placeholder="Passport No.">
-            <input type="date" id="in-date">
-            <input type="text" id="in-co" placeholder="Company Name">
-            <input type="file" accept="image/*" onchange="previewPhoto(event)">
+            <div class="input-group"><label>Visa Number</label><input type="text" id="in-visa" placeholder="ABC12345"></div>
+            <div class="input-group"><label>Job Category</label><input type="text" id="in-job" placeholder="Skilled Professional"></div>
+            <div class="input-group"><label>Full Name</label><input type="text" id="in-name"></div>
+            <div class="input-group"><label>Passport No.</label><input type="text" id="in-pass"></div>
+            
+            <div class="input-group"><label>Date of Birth</label><input type="date" id="in-dob"></div>
+            <div class="input-group"><label>Gender</label>
+                <select id="in-gen">
+                    <option value="MALE">MALE</option>
+                    <option value="FEMALE">FEMALE</option>
+                </select>
+            </div>
+            <div class="input-group"><label>Issue Date</label><input type="date" id="in-issue"></div>
+            <div class="input-group"><label>Expiry Date</label><input type="date" id="in-expiry"></div>
+            
+            <div class="input-group"><label>Company</label><input type="text" id="in-co"></div>
+            <div class="input-group"><label>Photo</label><input type="file" onchange="preview(event)"></div>
         </div>
         <div class="btn-row">
-            <button class="gen-btn" onclick="update()">Update ID Card</button>
-            <button class="print-btn" onclick="window.print()">Download / Print ID</button>
+            <button class="gen-btn" onclick="update()">Update Official ID</button>
+            <button class="print-btn" onclick="window.print()">Print ID Card</button>
         </div>
     </div>
 
     <div id="id-card">
         <div class="card-header">
-            <div class="nz-flag" style="background: var(--nz-blue); position: relative; overflow: hidden;">
-                <div style="background: white; width: 100%; height: 3px; position: absolute; top: 50%; transform: translateY(-50%);"></div>
-                <div style="background: white; height: 100%; width: 3px; position: absolute; left: 50%; transform: translateX(-50%);"></div>
-                <div style="color: white; font-size: 10px; position: absolute; right: 5px; top: 5px;">★</div>
+            <div class="nz-flag-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" width="80" height="40" alt="NZ Flag">
             </div>
             <div class="header-text">
                 <h2>NEW ZEALAND</h2>
-                <p>Immigration & Border Protection</p>
+                <p>IMMIGRATION & BORDER CONTROL SERVICE</p>
             </div>
             <svg class="small-fern" viewBox="0 0 100 100">
-                <path fill="white" d="M80,90 C60,70 30,60 10,80 C20,50 50,20 90,10 C80,40 70,70 80,90 Z" />
+                <path fill="#fff" d="M80,90 C60,70 30,60 10,80 C20,50 50,20 90,10 C80,40 70,70 80,90 Z" />
             </svg>
         </div>
 
-        <div class="visa-strip">
-            <span>OFFICIAL ARRIVAL PASS</span>
-            <span id="out-visa">VN-00000000</span>
+        <div class="visa-ribbon">
+            <span>OFFICIAL ARRIVAL CREDENTIAL</span>
+            <span id="out-visa">---</span>
         </div>
 
-        <div class="card-body">
-            <div class="photo-area">
-                <div class="photo-frame">
-                    <span id="ph-label" class="photo-label">UPLOAD<br>PHOTO</span>
-                    <img id="photo-out">
+        <div class="card-content">
+            <div class="photo-side">
+                <div class="photo-box">
+                    <span id="ph-msg" style="font-size: 10px; color: #999;">PHOTO</span>
+                    <img id="out-photo">
+                </div>
+                <div style="margin-top: 15px; font-size: 10px; font-weight: bold; color: var(--nz-blue);">
+                    STATUS: <span style="color: var(--nz-teal);">VERIFIED</span>
                 </div>
             </div>
 
-            <div class="info-area">
-                <div class="data-point">
-                    <div class="data-label">Name</div>
-                    <div class="data-val" id="out-name">---</div>
-                </div>
-                <div class="data-point">
-                    <div class="data-label">Passport No.</div>
-                    <div class="data-val" id="out-pass">---</div>
-                </div>
-                <div class="data-point">
-                    <div class="data-label">Arrival Date</div>
-                    <div class="data-val" id="out-date">---</div>
-                </div>
-                <div class="data-point">
-                    <div class="data-label">Sponsoring Entity</div>
-                    <div class="data-val" id="out-co" style="font-size: 11px;">---</div>
-                </div>
+            <div class="data-side">
+                <div class="field"><div class="f-label">Full Name</div><div class="f-val" id="out-name">---</div></div>
+                <div class="field"><div class="f-label">Job Category</div><div class="f-val" id="out-job">---</div></div>
+                <div class="field"><div class="f-label">Date of Birth</div><div class="f-val" id="out-dob">---</div></div>
+                <div class="field"><div class="f-label">Gender</div><div class="f-val" id="out-gen">---</div></div>
+                <div class="field"><div class="f-label">Passport No.</div><div class="f-val" id="out-pass">---</div></div>
+                <div class="field"><div class="f-label">Issue Date</div><div class="f-val" id="out-issue">---</div></div>
+                <div class="field"><div class="f-label">Expiry Date</div><div class="f-val" id="out-expiry" style="color: var(--nz-red);">---</div></div>
+                <div class="field"><div class="f-label">Employer</div><div class="f-val" id="out-co">---</div></div>
             </div>
         </div>
 
-        <div class="security-area">
+        <div class="qr-box">
             <div id="qrcode"></div>
-            <div style="font-size: 7px; margin-top: 3px; color: #999;">SECURE VERIFIED</div>
+            <div style="font-size: 6px; font-weight: bold; margin-top: 2px;">SCAN TO AUTHENTICATE</div>
         </div>
+
+        <div class="footer-note">PROPERTY OF IMMIGRATION NEW ZEALAND | 2026 OFFICIAL ARRIVAL SYSTEM</div>
     </div>
 
     <script>
         let qr = new QRCode(document.getElementById("qrcode"), {
-            width: 70, height: 70,
+            width: 75, height: 75,
             colorDark : "#00247d", colorLight : "#ffffff"
         });
 
-        function previewPhoto(event) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                const output = document.getElementById('photo-out');
-                output.src = reader.result;
-                output.style.display = 'block';
-                document.getElementById('ph-label').style.display = 'none';
-            }
-            reader.readAsDataURL(event.target.files[0]);
+        function preview(e) {
+            const r = new FileReader();
+            r.onload = () => {
+                const o = document.getElementById('out-photo');
+                o.src = r.result; o.style.display = 'block';
+                document.getElementById('ph-msg').style.display = 'none';
+            };
+            r.readAsDataURL(e.target.files[0]);
         }
 
         function update() {
             const v = id => document.getElementById(id).value || "---";
-            document.getElementById('out-name').innerText = v('in-name');
-            document.getElementById('out-visa').innerText = v('in-visa');
+            document.getElementById('out-visa').innerText = "VISA NO: " + v('in-visa');
+            document.getElementById('out-name').innerText = v('in-name').toUpperCase();
+            document.getElementById('out-job').innerText = v('in-job');
+            document.getElementById('out-dob').innerText = v('in-dob');
+            document.getElementById('out-gen').innerText = v('in-gen');
             document.getElementById('out-pass').innerText = v('in-pass');
-            document.getElementById('out-date').innerText = v('in-date');
-            document.getElementById('out-co').innerText = v('in-co').toUpperCase();
+            document.getElementById('out-issue').innerText = v('in-issue');
+            document.getElementById('out-expiry').innerText = v('in-expiry');
+            document.getElementById('out-co').innerText = v('in-co');
 
             qr.clear();
-            qr.makeCode(`NZ-ID:${v('in-visa')}|${v('in-pass')}`);
+            qr.makeCode(`NZ-GOVT-VERIFIED:${v('in-visa')}|${v('in-name')}`);
         }
         update();
     </script>
