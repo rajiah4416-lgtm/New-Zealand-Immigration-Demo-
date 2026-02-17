@@ -29,60 +29,63 @@
         .grid-inputs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
         .input-group { display: flex; flex-direction: column; }
         label { font-size: 10px; font-weight: bold; color: var(--nz-blue); margin-bottom: 4px; text-transform: uppercase; }
-        input, select { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 13px; outline-color: var(--nz-teal); }
+        input, select { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 13px; }
 
         .btn-row { margin-top: 20px; display: flex; gap: 10px; }
-        button { flex: 1; padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; color: white; transition: 0.2s; }
+        button { flex: 1; padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: white; transition: 0.2s; }
         .gen-btn { background: var(--nz-teal); }
         .print-btn { background: var(--nz-blue); }
 
+        /* CARD DESIGN */
         #id-card {
             width: 600px; height: 380px;
-            background: white; border-radius: 20px;
+            background: white; border-radius: 18px;
             position: relative; overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
-            border: 1px solid #999;
-            background-image: radial-gradient(circle at 100% 0%, #f8f9fa 0%, #e9ecef 100%);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid #aaa;
+            background-image: linear-gradient(135deg, #ffffff 0%, #f1f4f8 100%);
         }
 
         .card-header {
-            background: var(--nz-blue); height: 90px; padding: 0 25px;
+            background: var(--nz-blue); height: 85px; padding: 0 25px;
             display: flex; align-items: center; color: white;
-            border-bottom: 4px solid var(--nz-teal);
+            border-bottom: 3px solid var(--nz-teal);
         }
 
-        .flag-box { width: 85px; height: 45px; margin-right: 20px; box-shadow: 0 3px 6px rgba(0,0,0,0.3); }
-        .header-main h2 { margin: 0; font-size: 22px; letter-spacing: 2px; font-weight: 800; }
-        .header-main p { margin: 0; font-size: 10px; letter-spacing: 1px; opacity: 0.8; font-weight: bold; }
+        .flag-box { width: 75px; height: 38px; margin-right: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .header-main h2 { margin: 0; font-size: 20px; letter-spacing: 2px; font-weight: 800; }
+        .header-main p { margin: 0; font-size: 9px; letter-spacing: 1px; opacity: 0.8; }
 
         .visa-banner {
-            background: #fff; border-bottom: 1px solid #ddd;
-            padding: 8px 25px; display: flex; justify-content: space-between;
-            font-weight: bold; font-size: 12px; color: var(--nz-blue);
+            background: #fff; border-bottom: 1px solid #eee;
+            padding: 6px 25px; display: flex; justify-content: space-between;
+            font-weight: bold; font-size: 11px; color: var(--nz-blue);
         }
 
-        .card-body { display: flex; padding: 25px; gap: 25px; }
+        .card-body { display: flex; padding: 20px 25px; gap: 25px; }
         .photo-frame {
-            width: 140px; height: 175px; background: #fff;
-            border: 1px solid #ccc; border-radius: 10px;
-            overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 130px; height: 160px; background: #fff;
+            border: 1px solid #ddd; border-radius: 8px;
+            overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
         #out-photo { width: 100%; height: 100%; object-fit: cover; }
 
-        .info-section { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
-        .field { border-bottom: 1px solid #eee; padding-bottom: 3px; }
-        .label-text { font-size: 8px; color: #777; font-weight: bold; text-transform: uppercase; }
-        .value-text { font-size: 13px; font-weight: 700; color: var(--nz-dark); }
+        .info-section { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 15px; }
+        .field { border-bottom: 1px solid #f0f0f0; padding-bottom: 2px; }
+        .label-text { font-size: 7px; color: #888; font-weight: bold; text-transform: uppercase; }
+        .value-text { font-size: 12px; font-weight: 700; color: #222; }
 
-        /* OPTIMIZED QR AREA */
-        .qr-area { position: absolute; bottom: 20px; right: 20px; text-align: center; }
+        /* MINIMALIST SMALL QR */
+        .qr-area { position: absolute; bottom: 15px; right: 20px; text-align: center; }
         #qrcode { 
-            background: white; padding: 10px; border: 1.5px solid #ddd; border-radius: 8px;
+            background: transparent; padding: 4px; 
+            border-radius: 4px; border: 1px solid #eee;
         }
+        .qr-label { font-size: 6px; font-weight: bold; margin-top: 2px; color: #bbb; }
 
-        .footer-ref { position: absolute; bottom: 12px; left: 25px; font-size: 8px; color: #999; font-weight: bold; }
+        .footer-ref { position: absolute; bottom: 10px; left: 25px; font-size: 7.5px; color: #aaa; font-weight: bold; }
 
-        @media print { .admin-panel { display: none !important; } body { background: white; } #id-card { box-shadow: none; border: 1px solid #ccc; } }
+        @media print { .admin-panel { display: none !important; } body { background: white; } #id-card { box-shadow: none; border: 0.5px solid #ccc; } }
     </style>
 </head>
 <body>
@@ -91,20 +94,19 @@
         <div class="grid-inputs">
             <div class="input-group"><label>Full Name</label><input type="text" id="in-name" value="Michael Richards"></div>
             <div class="input-group"><label>Country</label><input type="text" id="in-country" value="United Kingdom"></div>
-            <div class="input-group"><label>Reference Number</label><input type="text" id="in-ref" value="NZ-REF-2026-X8"></div>
+            <div class="input-group"><label>Reference</label><input type="text" id="in-ref" value="NZ-REF-2026-X8"></div>
             <div class="input-group"><label>Passport No.</label><input type="text" id="in-pass" value="UK9922881"></div>
-            <div class="input-group"><label>Guarantee Company</label><input type="text" id="in-co" value="Auckland Logistics Ltd"></div>
+            <div class="input-group"><label>Guarantee Co.</label><input type="text" id="in-co" value="Auckland Logistics Ltd"></div>
             <div class="input-group"><label>Job Category</label><input type="text" id="in-job" value="Project Manager"></div>
-            <div class="input-group"><label>Issuing Authority</label><input type="text" id="in-auth" value="Immigration NZ"></div>
+            <div class="input-group"><label>Authority</label><input type="text" id="in-auth" value="Immigration NZ"></div>
             <div class="input-group"><label>Gender</label><select id="in-gen"><option>MALE</option><option>FEMALE</option></select></div>
             <div class="input-group"><label>Issue Date</label><input type="date" id="in-issue" value="2026-02-17"></div>
             <div class="input-group"><label>Expiry Date</label><input type="date" id="in-expiry" value="2028-02-17"></div>
-            <div class="input-group"><label>Security PIN</label><input type="text" id="in-pin" value="7788"></div>
-            <div class="input-group"><label>Client Photo</label><input type="file" onchange="preview(event)"></div>
+            <div class="input-group"><label>Photo</label><input type="file" onchange="preview(event)"></div>
         </div>
         <div class="btn-row">
-            <button class="gen-btn" onclick="update()">Update & Clean QR</button>
-            <button class="print-btn" onclick="window.print()">Print Final ID</button>
+            <button class="gen-btn" onclick="update()">Refresh Tiny QR</button>
+            <button class="print-btn" onclick="window.print()">Print ID Card</button>
         </div>
     </div>
 
@@ -118,14 +120,14 @@
         </div>
 
         <div class="visa-banner">
-            <span id="out-auth">ISSUING AUTHORITY: ---</span>
-            <span id="out-ref" style="color:#d32f2f">REF: ---</span>
+            <span id="out-auth">---</span>
+            <span id="out-ref" style="color:#c62828">---</span>
         </div>
 
         <div class="card-body">
-            <div class="photo-section">
+            <div class="photo-side">
                 <div class="photo-frame"><img id="out-photo" src=""></div>
-                <div style="margin-top:10px; font-weight:800; color:var(--nz-blue); font-size:11px;">NZ-AKL-2026</div>
+                <div style="margin-top:8px; font-weight:800; color:var(--nz-blue); font-size:10px; text-align:center;">PORT: AKL</div>
             </div>
 
             <div class="info-section">
@@ -136,24 +138,25 @@
                 <div class="field"><div class="label-text">Job Category</div><div class="value-text" id="out-job">---</div></div>
                 <div class="field"><div class="label-text">Gender</div><div class="value-text" id="out-gen">---</div></div>
                 <div class="field"><div class="label-text">Issue Date</div><div class="value-text" id="out-issue">---</div></div>
-                <div class="field"><div class="label-text">Expiry Date</div><div class="value-text" id="out-expiry" style="color:#d32f2f">---</div></div>
+                <div class="field"><div class="label-text">Expiry Date</div><div class="value-text" id="out-expiry" style="color:#c62828">---</div></div>
             </div>
         </div>
 
         <div class="qr-area">
             <div id="qrcode"></div>
-            <div style="font-size:7px; font-weight:bold; margin-top:4px; color:var(--nz-blue)">VERIFY STATUS</div>
+            <div class="qr-label">SECURITY CHIP</div>
         </div>
         <div class="footer-ref">UNAUTHORIZED USE IS A FEDERAL OFFENCE &bull; IMMIGRATION.GOVT.NZ</div>
     </div>
 
     <script>
+        // Reduced to 65px for a "small chip" look
         let qr = new QRCode(document.getElementById("qrcode"), { 
-            width: 100, 
-            height: 100, 
-            colorDark : "#000000",
+            width: 65, 
+            height: 65, 
+            colorDark : "#00247d",
             colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.H 
+            correctLevel : QRCode.CorrectLevel.L // Low correction for maximum data size in small space
         });
 
         function preview(e) {
@@ -164,25 +167,21 @@
 
         function update() {
             const get = id => document.getElementById(id).value;
-
-            // Visual Mapping
             document.getElementById('out-name').innerText = get('in-name').toUpperCase();
             document.getElementById('out-country').innerText = get('in-country');
             document.getElementById('out-ref').innerText = "REF: " + get('in-ref');
             document.getElementById('out-pass').innerText = get('in-pass');
             document.getElementById('out-co').innerText = get('in-co');
             document.getElementById('out-job').innerText = get('in-job');
-            document.getElementById('out-auth').innerText = "ISSUING AUTHORITY: " + get('in-auth').toUpperCase();
+            document.getElementById('out-auth').innerText = get('in-auth').toUpperCase();
             document.getElementById('out-gen').innerText = get('in-gen');
             document.getElementById('out-issue').innerText = get('in-issue');
             document.getElementById('out-expiry').innerText = get('in-expiry');
 
-            // SHORTENED DATA FOR HIGH VISIBILITY
-            // Only contains the essential verification data
-            const shortData = `PASSPORT: ${get('in-pass')}\nEXPIRY: ${get('in-expiry')}`;
-
+            // Minimal data for small QR scanning success
+            const data = `P:${get('in-pass')}|E:${get('in-expiry')}`;
             qr.clear();
-            qr.makeCode(shortData);
+            qr.makeCode(data);
         }
         update();
     </script>
