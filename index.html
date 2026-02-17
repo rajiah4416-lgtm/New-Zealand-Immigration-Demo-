@@ -3,172 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NZ Arrival Pass & Immigration Verification</title>
+    <title>Immigration New Zealand - Official Arrival Pass</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root {
-            --nz-blue: #00529b; /* Official NZ Govt Blue */
-            --nz-silver: #e1e1e1;
-            --nz-green: #004a26;
-            --light-bg: #f4f7f9;
+            --nz-blue: #003865;      /* Deep NZ Govt Blue */
+            --nz-teal: #008477;      /* Immigration Teal */
+            --nz-silver: #f2f2f2;
+            --nz-gold: #c5a059;
+            --text-main: #333;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: var(--light-bg);
-            margin: 0; padding: 20px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #d1d8e0;
+            margin: 0; padding: 40px 20px;
             display: flex; flex-direction: column; align-items: center;
         }
 
-        /* Control Panel */
+        /* Control Panel - Hidden on Print */
         .admin-panel {
-            background: white; padding: 25px; border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 30px; width: 100%; max-width: 800px;
-            border-top: 5px solid var(--nz-blue);
+            background: white; padding: 25px; border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 40px; width: 100%; max-width: 850px;
+            border-top: 6px solid var(--nz-teal);
         }
 
-        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
-        label { font-size: 11px; font-weight: bold; color: #333; }
-        input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-top: 5px;}
+        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+        label { font-size: 11px; font-weight: bold; color: var(--nz-blue); text-transform: uppercase; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; margin-top: 5px; box-sizing: border-box; }
 
-        .btn-row { display: flex; gap: 10px; margin-top: 20px; }
-        button { flex: 1; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; color: white; }
-        .gen-btn { background: var(--nz-green); }
+        .btn-row { display: flex; gap: 15px; margin-top: 25px; }
+        button { flex: 1; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; color: white; transition: 0.3s; }
+        .gen-btn { background: var(--nz-teal); }
         .print-btn { background: var(--nz-blue); }
+        button:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        /* OFFICIAL DOCUMENT DESIGN */
+        /* OFFICIAL PASSPORT/VISA PASS DESIGN */
         #pass-container {
-            background: white; width: 100%; max-width: 800px;
-            border: 2px solid #000; position: relative;
-            padding-bottom: 20px;
+            background: white; width: 100%; max-width: 850px;
+            border-radius: 4px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            position: relative; overflow: hidden; border: 1px solid #999;
         }
 
-        .govt-header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 40px; border-bottom: 4px solid var(--nz-blue);
-            background: #fff;
-        }
-
-        .govt-logo { font-size: 1.5rem; font-weight: 900; color: #000; text-transform: uppercase; }
-        .immigration-text { color: var(--nz-blue); font-weight: bold; font-size: 1.2rem; }
-
-        .company-banner {
+        .header-top {
             background: var(--nz-blue); color: white;
-            text-align: center; padding: 10px; font-size: 1.1rem; font-weight: bold;
+            padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
         }
 
-        .pass-content { display: flex; padding: 30px 40px; gap: 40px; }
+        .govt-brand h1 { margin: 0; font-size: 1.4rem; letter-spacing: 2px; }
+        .govt-brand p { margin: 0; font-size: 0.8rem; letter-spacing: 4px; opacity: 0.8; }
 
-        /* Left Side */
-        .left-col { flex: 1; text-align: center; border-right: 1px solid #eee; padding-right: 20px; }
-        .photo-box {
-            width: 160px; height: 200px; border: 2px solid #333;
-            margin: 0 auto 20px; display: flex; align-items: center; 
-            justify-content: center; background: #f9f9f9; overflow: hidden;
+        .visa-banner {
+            background: var(--nz-teal); color: white;
+            padding: 12px 40px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .visa-number-display {
+            background: rgba(255,255,255,0.2); padding: 5px 15px;
+            border-radius: 20px; font-family: 'Courier New', monospace;
+            font-weight: bold; font-size: 1.2rem; border: 1px solid white;
+        }
+
+        .pass-content { display: flex; padding: 40px; gap: 40px; background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); }
+
+        /* Left side: Visuals */
+        .left-col { flex: 0.8; display: flex; flex-direction: column; align-items: center; }
+        .photo-id {
+            width: 180px; height: 220px; border: 4px solid var(--nz-silver);
+            background: #fff; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 25px; overflow: hidden;
         }
         #photo-output { width: 100%; height: 100%; object-fit: cover; display: none; }
         
-        .qr-area { background: #f0f0f0; padding: 15px; border-radius: 8px; }
+        .qr-section { text-align: center; border: 1px solid #eee; padding: 15px; border-radius: 10px; background: white; }
 
-        /* Right Side */
+        /* Right side: Data */
         .right-col { flex: 2; }
-        .data-table { width: 100%; border-collapse: collapse; }
-        .data-table td { padding: 10px 5px; border-bottom: 1px solid #eee; }
-        .field-label { font-size: 12px; color: #666; font-weight: bold; }
-        .field-value { font-size: 1rem; font-weight: bold; color: #000; }
+        .data-row { display: flex; border-bottom: 1px solid #eee; padding: 12px 0; }
+        .label { flex: 1; font-size: 0.75rem; color: #777; font-weight: bold; text-transform: uppercase; }
+        .value { flex: 2; font-size: 1.1rem; font-weight: 700; color: #111; }
 
-        .immigration-stamp {
-            margin-top: 30px; padding: 15px; border: 2px solid var(--nz-green);
-            color: var(--nz-green); border-radius: 10px; font-weight: bold;
-            display: flex; align-items: center; gap: 15px;
+        .company-seal {
+            margin-top: 30px; padding: 15px; border-left: 5px solid var(--nz-gold);
+            background: #fdfaf2; font-size: 0.9rem;
         }
 
-        .signature-area {
-            display: flex; justify-content: space-between; margin-top: 40px;
-            padding: 0 40px;
+        .footer-verification {
+            background: #f9f9f9; padding: 20px 40px; border-top: 1px solid #eee;
+            display: flex; justify-content: space-between; align-items: center;
         }
-        .sig-box { border-top: 1px solid #000; width: 200px; text-align: center; font-size: 12px; padding-top: 5px; }
+
+        .official-link { color: var(--nz-teal); font-weight: bold; text-decoration: none; font-size: 0.85rem; }
 
         @media print {
             .admin-panel { display: none !important; }
             body { background: white; padding: 0; }
-            #pass-container { border: none; max-width: 100%; }
+            #pass-container { box-shadow: none; border: 1px solid #ccc; }
         }
     </style>
 </head>
 <body>
 
     <div class="admin-panel">
-        <h3 style="margin:0 0 15px 0">Document Management System</h3>
+        <h2 style="margin-top:0; color:var(--nz-blue)">Arrival Document Generator</h2>
         <div class="grid-inputs">
-            <div class="input-group"><label>Company Name</label><input type="text" id="in-co" value="Auckland Professional Services"></div>
-            <div class="input-group"><label>Client Name</label><input type="text" id="in-name" placeholder="Full Name"></div>
-            <div class="input-group"><label>Passport No.</label><input type="text" id="in-pass" placeholder="Passport ID"></div>
-            <div class="input-group"><label>Landing Date</label><input type="date" id="in-date"></div>
-            <div class="input-group"><label>Landing Time</label><input type="time" id="in-time"></div>
-            <div class="input-group"><label>Receptionist</label><input type="text" id="in-rec" placeholder="Name"></div>
-            <div class="input-group"><label>Contact No.</label><input type="text" id="in-phone" placeholder="Phone"></div>
-            <div class="input-group"><label>Contact Email</label><input type="text" id="in-email" placeholder="Email"></div>
-            <div class="input-group"><label>Client Photo</label><input type="file" id="in-photo" accept="image/*" onchange="previewPhoto(event)"></div>
+            <div class="input-group"><label>Visa Number</label><input type="text" id="in-visa" placeholder="ABC12345678"></div>
+            <div class="input-group"><label>Company Name</label><input type="text" id="in-co" value="New Zealand Global Talent Ltd"></div>
+            <div class="input-group"><label>Client Full Name</label><input type="text" id="in-name" placeholder="Johnathan Doe"></div>
+            <div class="input-group"><label>Passport No.</label><input type="text" id="in-pass" placeholder="L-998877"></div>
+            <div class="input-group"><label>Arrival Date</label><input type="date" id="in-date"></div>
+            <div class="input-group"><label>Arrival Time</label><input type="time" id="in-time"></div>
+            <div class="input-group"><label>Receptionist</label><input type="text" id="in-rec" placeholder="Sarah Jenkins"></div>
+            <div class="input-group"><label>Receptionist Phone</label><input type="text" id="in-phone" placeholder="+64 21 XXX XXXX"></div>
+            <div class="input-group"><label>Client Photo</label><input type="file" onchange="previewPhoto(event)"></div>
         </div>
         <div class="btn-row">
-            <button class="gen-btn" onclick="generate()">Generate Official Document</button>
-            <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+            <button class="gen-btn" onclick="update()">Apply Changes</button>
+            <button class="print-btn" onclick="window.print()">Download Official PDF</button>
         </div>
     </div>
 
     <div id="pass-container">
-        <div class="govt-header">
-            <div class="govt-logo">NEW ZEALAND<br><small>GOVERNMENT</small></div>
-            <div class="immigration-text">IMMIGRATION NEW ZEALAND</div>
+        <div class="header-top">
+            <div class="govt-brand">
+                <h1>NEW ZEALAND</h1>
+                <p>IMMIGRATION</p>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 0.7rem; opacity: 0.8;">PORT OF ENTRY</div>
+                <div style="font-weight: bold;">AUCKLAND (AKL)</div>
+            </div>
         </div>
-        
-        <div class="company-banner" id="out-co">COMPANY NAME LIMITED</div>
+
+        <div class="visa-banner">
+            <div style="font-weight: bold; letter-spacing: 1px;">VISA STATUS: <span style="color: #fff; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 4px;">APPROVED</span></div>
+            <div>VISA NO: <span id="out-visa" class="visa-number-display">----------</span></div>
+        </div>
 
         <div class="pass-content">
             <div class="left-col">
-                <div class="photo-box">
-                    <span id="ph-text" style="color:#999">ID PHOTO</span>
+                <div class="photo-id">
+                    <span id="ph-text">PHOTO REQUIRED</span>
                     <img id="photo-output" src="" alt="">
                 </div>
-                <div class="qr-area">
-                    <div id="qrcode" style="display: flex; justify-content: center;"></div>
-                    <p style="font-size: 10px; margin-top: 10px;">SCAN FOR BORDER<br>VERIFICATION</p>
+                <div class="qr-section">
+                    <div id="qrcode"></div>
+                    <div style="font-size: 0.6rem; margin-top: 8px; font-weight: bold; color: var(--nz-blue);">SECURITY ENCRYPTED</div>
                 </div>
             </div>
 
             <div class="right-col">
-                <table class="data-table">
-                    <tr><td class="field-label">FULL NAME</td><td class="field-value" id="out-name">---</td></tr>
-                    <tr><td class="field-label">PASSPORT NO.</td><td class="field-value" id="out-pass">---</td></tr>
-                    <tr><td class="field-label">PORT OF ENTRY</td><td class="field-value">AUCKLAND INTERNATIONAL AIRPORT (AKL)</td></tr>
-                    <tr><td class="field-label">ARRIVAL SCHEDULE</td><td class="field-value"><span id="out-date">---</span> | <span id="out-time">---</span></td></tr>
-                    <tr><td class="field-label">RECEPTIONIST</td><td class="field-value" id="out-rec">---</td></tr>
-                    <tr><td class="field-label">24/7 CONTACT</td><td class="field-value" id="out-phone">---</td></tr>
-                    <tr><td class="field-label">OFFICIAL EMAIL</td><td class="field-value" id="out-email">---</td></tr>
-                </table>
+                <div class="data-row"><div class="label">Primary Applicant</div><div class="value" id="out-name">---</div></div>
+                <div class="data-row"><div class="label">Passport ID</div><div class="value" id="out-pass">---</div></div>
+                <div class="data-row"><div class="label">Arrival Schedule</div><div class="value"><span id="out-date">---</span> at <span id="out-time">---</span></div></div>
+                <div class="data-row"><div class="label">Reception Officer</div><div class="value" id="out-rec">---</div></div>
+                <div class="data-row"><div class="label">Contact Line</div><div class="value" id="out-phone">---</div></div>
 
-                <div class="immigration-stamp">
-                    <div style="font-size: 24px;">✅</div>
-                    <div>
-                        VERIFIED BY IMMIGRATION NEW ZEALAND<br>
-                        <span style="font-size: 11px; font-weight: normal;">Online Verification: <a href="https://www.immigration.govt.nz" style="color:var(--nz-green)">www.immigration.govt.nz</a></span>
-                    </div>
+                <div class="company-seal">
+                    <strong>SPONSORING ENTITY:</strong><br>
+                    <span id="out-co">COMPANY NAME</span><br>
+                    <small>Authorized for airport pickup and receiving at Auckland International Terminal.</small>
                 </div>
             </div>
         </div>
 
-        <div class="signature-area">
-            <div class="sig-box">Company Authorized Signatory</div>
-            <div class="sig-box">Immigration Acceptance Officer</div>
+        <div class="footer-verification">
+            <div>
+                <img src="https://www.immigration.govt.nz/assets/main-site/logos/inz-logo-footer.png" alt="" style="height: 25px; filter: grayscale(1);">
+            </div>
+            <div style="text-align: right;">
+                <a href="https://www.immigration.govt.nz" class="official-link">Verify at immigration.govt.nz</a><br>
+                <small style="font-size: 0.6rem; color: #aaa;">Document Ref: NZ-AKL-2026-ARR</small>
+            </div>
         </div>
     </div>
 
     <script>
         let qr = new QRCode(document.getElementById("qrcode"), {
             width: 120, height: 120,
-            colorDark : "#00529b", colorLight : "#ffffff"
+            colorDark : "#003865", colorLight : "#ffffff"
         });
 
         function previewPhoto(event) {
@@ -182,20 +195,29 @@
             reader.readAsDataURL(event.target.files[0]);
         }
 
-        function generate() {
-            document.getElementById('out-co').innerText = document.getElementById('in-co').value.toUpperCase();
-            document.getElementById('out-name').innerText = document.getElementById('in-name').value;
-            document.getElementById('out-pass').innerText = document.getElementById('in-pass').value;
-            document.getElementById('out-date').innerText = document.getElementById('in-date').value;
-            document.getElementById('out-time').innerText = document.getElementById('in-time').value;
-            document.getElementById('out-rec').innerText = document.getElementById('in-rec').value;
-            document.getElementById('out-phone').innerText = document.getElementById('in-phone').value;
-            document.getElementById('out-email').innerText = document.getElementById('in-email').value;
+        function update() {
+            const visa = document.getElementById('in-visa').value || '---';
+            const co = document.getElementById('in-co').value || '---';
+            const name = document.getElementById('in-name').value || '---';
+            const pass = document.getElementById('in-pass').value || '---';
+            const date = document.getElementById('in-date').value || '---';
+            const time = document.getElementById('in-time').value || '---';
+            const rec = document.getElementById('in-rec').value || '---';
+            const phone = document.getElementById('in-phone').value || '---';
+
+            document.getElementById('out-visa').innerText = visa;
+            document.getElementById('out-co').innerText = co.toUpperCase();
+            document.getElementById('out-name').innerText = name;
+            document.getElementById('out-pass').innerText = pass;
+            document.getElementById('out-date').innerText = date;
+            document.getElementById('out-time').innerText = time;
+            document.getElementById('out-rec').innerText = rec;
+            document.getElementById('out-phone').innerText = phone;
 
             qr.clear();
-            qr.makeCode(`IMMIGRATION NZ VERIFIED\nClient: ${document.getElementById('in-name').value}\nPassport: ${document.getElementById('in-pass').value}\nCompany: ${document.getElementById('in-co').value}`);
+            qr.makeCode(`VERIFIED VISA: ${visa}\nCLIENT: ${name}\nSPONSOR: ${co}\nCONTACT: ${phone}`);
         }
-        generate();
+        update();
     </script>
 </body>
 </html>
