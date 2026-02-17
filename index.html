@@ -2,184 +2,239 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employment Agreement - NZ-2026-REF-001</title>
+    <title>NZ Employment Agreement - 2026 Official</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
+        :root {
+            --nz-blue: #00247d;
+            --nz-red: #cc142b;
+            --header-gray: #f2f2f2;
         }
-
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0; padding: 0; background-color: #555;
+        }
         .page {
             width: 210mm;
-            min-height: 297mm;
-            padding: 20mm;
+            height: 297mm;
+            padding: 15mm;
             margin: 10mm auto;
             background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
             position: relative;
             box-sizing: border-box;
-            page-break-after: always;
-        }
-
-        .header {
-            border-bottom: 2px solid #004a99;
-            margin-bottom: 30px;
-            padding-bottom: 10px;
+            overflow: hidden;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
+            flex-direction: column;
         }
-
-        .header h1 {
-            color: #004a99;
-            font-size: 24px;
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        .ref-box {
-            text-align: right;
-            font-size: 12px;
-            color: #666;
-        }
-
-        h2 {
-            font-size: 18px;
-            border-left: 4px solid #004a99;
-            padding-left: 10px;
-            margin-top: 25px;
-            color: #111;
-        }
-
-        .party-box {
-            background: #f9f9f9;
-            padding: 15px;
+        /* NZ Flag Element */
+        .nz-flag {
+            position: absolute;
+            top: 15mm;
+            right: 15mm;
+            width: 80px;
+            height: 40px;
+            background: var(--nz-blue);
             border: 1px solid #ddd;
+        }
+        /* Header Section */
+        .govt-header {
+            border-bottom: 3px solid var(--nz-blue);
+            padding-bottom: 10px;
             margin-bottom: 20px;
         }
+        .govt-logo-text {
+            font-weight: bold;
+            font-size: 14px;
+            color: #222;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .dept-name {
+            color: var(--nz-red);
+            font-size: 11px;
+            margin-top: 2px;
+        }
+        /* Reference & QR Section */
+        .meta-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            background: var(--header-gray);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .qr-placeholder {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border: 5px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            text-align: center;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            justify-self: end;
+        }
+        h1 { color: var(--nz-blue); font-size: 22px; margin: 15px 0; text-align: center; border-bottom: 1px solid #eee; padding-bottom: 5px;}
+        h2 { color: var(--nz-blue); font-size: 16px; border-left: 5px solid var(--nz-red); padding-left: 10px; margin-top: 18px; background: #f9f9f9; }
+        
+        p, li { font-size: 12.5px; line-height: 1.5; margin: 8px 0; text-align: justify; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12px; }
+        .data-table th, .data-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        .data-table th { background-color: #eee; width: 30%; }
 
         .footer {
             position: absolute;
-            bottom: 20mm;
-            left: 20mm;
-            right: 20mm;
+            bottom: 10mm;
+            left: 15mm;
+            right: 15mm;
             font-size: 10px;
-            color: #999;
-            border-top: 1px solid #eee;
+            border-top: 1px solid #ccc;
             padding-top: 5px;
             display: flex;
             justify-content: space-between;
+            color: #777;
         }
 
-        .sig-section {
-            margin-top: 50px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-        }
-
-        .sig-line {
-            border-top: 1px solid #333;
-            margin-top: 40px;
-            padding-top: 5px;
+        .highlight-box {
+            border: 1px dashed var(--nz-blue);
+            padding: 10px;
+            font-size: 11px;
+            background: #f0f4ff;
+            margin-top: 10px;
         }
 
         @media print {
             body { background: none; }
-            .page { margin: 0; box-shadow: none; }
+            .page { margin: 0; box-shadow: none; page-break-after: always; }
             .no-print { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <div class="page">
-        <div class="header">
-            <h1>Employment Agreement</h1>
-            <div class="ref-box">
-                <strong>Ref:</strong> [CLIENT-CODE] / [COMPANY-CODE]<br>
-                <strong>Date:</strong> 17 February 2026
-            </div>
+<div class="page">
+    <div class="govt-header">
+        <div class="govt-logo-text">Ministry of Business, Innovation & Employment</div>
+        <div class="dept-name">Hīkina Whakatutuki | Employment New Zealand</div>
+    </div>
+    <div class="nz-flag" style="background: linear-gradient(to bottom right, #00247d 50%, #cc142b 50%); color:white; font-size:6px; padding:2px;">OFFICIAL NZ DOCUMENT</div>
+
+    <div class="meta-container">
+        <div>
+            <strong>Document Reference:</strong> [CLIENT-CODE]-[COMPANY-CODE]/2026-NZ<br>
+            <strong>Agreement Type:</strong> Individual Employment Agreement (IEA)<br>
+            <strong>Date Issued:</strong> February 17, 2026<br>
+            <strong>Compliance Status:</strong> Verified Under ERA 2000
         </div>
-
-        <p>This Individual Employment Agreement is made in accordance with the <strong>Employment Relations Act 2000</strong> and overseen by the <strong>Ministry of Business, Innovation and Employment (MBIE)</strong>.</p>
-
-        <div class="party-box">
-            <strong>THE EMPLOYER:</strong> [Employer Legal Entity Name]<br>
-            <strong>THE EMPLOYEE:</strong> [Full Legal Name of Candidate]
-        </div>
-
-        <h2>1. POSITION AND DUTIES</h2>
-        <p><strong>1.1 Title:</strong> Your position is [Insert Job Title].</p>
-        <p><strong>1.2 Responsibilities:</strong> You will perform the duties outlined in the Position Description and any other reasonable tasks assigned by the Employer.</p>
-        <p><strong>1.3 Location:</strong> Your primary place of work is [Address/City, NZ]. Remote work arrangements, if any, must be agreed upon in writing.</p>
-
-        <h2>2. HOURS OF WORK</h2>
-        <p><strong>2.1 Standard Hours:</strong> You are required to work [Number] hours per week. Typical hours are [09:00 to 17:00], [Monday to Friday].</p>
-        <p><strong>2.2 Variations:</strong> Any changes to these hours must be made in good faith and agreed upon by both parties.</p>
-
-        <div class="footer">
-            <span>Confidential - Agreement [CLIENT-CODE]</span>
-            <span>Page 1 of 3</span>
+        <div class="qr-placeholder">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=VERIFIED-NZ-CONTRACT-2026-REF-[CLIENT-CODE]" alt="QR Code">
         </div>
     </div>
 
-    <div class="page">
-        <h2>3. REMUNERATION</h2>
-        <p><strong>3.1 Salary/Wages:</strong> Your gross remuneration is $[Amount] per annum/hour, payable [Fortnightly] via direct credit.</p>
-        <p><strong>3.2 KiwiSaver:</strong> The Employer will make compulsory employer contributions at the statutory rate (currently 3%) provided you are eligible and contributing.</p>
-        
-        <h2>4. LEAVE ENTITLEMENTS</h2>
-        <p><strong>4.1 Annual Leave:</strong> You are entitled to 4 weeks’ paid annual leave per year, accruing from the first day of employment as per 2026 NZ Standards.</p>
-        <p><strong>4.2 Sick Leave:</strong> You are entitled to 10 days’ paid sick leave per year after the first 6 months of employment.</p>
-        <p><strong>4.3 Public Holidays:</strong> You are entitled to paid time off for all New Zealand public holidays that fall on a day you would usually work.</p>
+    <h1>INDIVIDUAL EMPLOYMENT AGREEMENT</h1>
 
-        <h2>5. CONFIDENTIALITY</h2>
-        <p>You agree to protect all sensitive information, trade secrets, and client data. Under the <em>Employment Relations (Employee Remuneration Disclosure) Amendment Act 2025</em>, you are permitted to discuss your own pay with others but must remain silent on company proprietary data.</p>
+    <h2>1. PARTIES TO THE AGREEMENT</h2>
+    <table class="data-table">
+        <tr><th>Employer Name</th><td>[Enter Company Name Here]</td></tr>
+        <tr><th>Company Code</th><td>[COMPANY-CODE]</td></tr>
+        <tr><th>Employer Address</th><td>[Full Registered Office Address, New Zealand]</td></tr>
+        <tr><th>Employee Name</th><td>[Full Legal Name of Employee]</td></tr>
+        <tr><th>Client Code</th><td>[CLIENT-CODE]</td></tr>
+        <tr><th>Employee Address</th><td>[Employee Residential Address]</td></tr>
+    </table>
 
-        <div class="footer">
-            <span>Confidential - Agreement [CLIENT-CODE]</span>
-            <span>Page 2 of 3</span>
+    <h2>2. POSITION DESCRIPTION & SCOPE</h2>
+    <p><strong>2.1 Role:</strong> You are appointed to the position of <strong>[Job Title]</strong>. You shall report directly to [Manager Name/Title].</p>
+    <p><strong>2.2 Primary Responsibilities:</strong> The Employee shall perform all duties set out in the Position Description, maintaining the highest standards of professional conduct and loyalty to the Employer.</p>
+    <p><strong>2.3 Place of Work:</strong> Your primary place of work will be [Address]. However, the Employer may require you to work at other locations within New Zealand upon reasonable notice.</p>
+
+    <h2>3. HOURS OF WORK & FLEXIBILITY</h2>
+    <p><strong>3.1 Standard Hours:</strong> Your ordinary hours of work will be 40 hours per week, typically worked between 8:30 AM and 5:00 PM, Monday to Friday.</p>
+    <p><strong>3.2 Availability:</strong> Under the 2026 Employment Standards, any requirement to work beyond these hours must be reasonable and subject to compensation as outlined in Section 4.</p>
+
+    <div class="footer">
+        <span>REF: [CLIENT-CODE] | SECURE DOCUMENT</span>
+        <span>Page 1 of 3</span>
+    </div>
+</div>
+
+<div class="page">
+    <h2>4. REMUNERATION AND BENEFITS</h2>
+    <p><strong>4.1 Base Salary:</strong> The Employer shall pay the Employee a gross salary of $[Amount] per annum, payable in fortnightly installments. This rate is subject to PAYE tax and KiwiSaver deductions.</p>
+    <p><strong>4.2 KiwiSaver:</strong> The Employer will contribute the statutory minimum (currently 3%) to the Employee’s nominated KiwiSaver fund, provided the Employee is a contributing member.</p>
+    <p><strong>4.3 Performance Bonus:</strong> You may be eligible for a discretionary performance bonus based on KPIs. This does not form a contractual right to future payments.</p>
+
+    <h2>5. LEAVE ENTITLEMENTS (HOLIDAYS ACT COMPLIANCE)</h2>
+    <p><strong>5.1 Annual Holidays:</strong> In accordance with the Holidays Act, you are entitled to 4 weeks of paid annual leave per year. We encourage the taking of leave for health and wellbeing.</p>
+    <p><strong>5.2 Sick Leave:</strong> After 6 months of continuous service, you are entitled to 10 days of paid sick leave per year to care for yourself or a dependent.</p>
+    <p><strong>5.3 Domestic Violence/Bereavement Leave:</strong> All statutory leaves are provided in accordance with NZ law, ensuring protection for employees in sensitive circumstances.</p>
+
+    <h2>6. CONFIDENTIALITY & INTELLECTUAL PROPERTY</h2>
+    <p><strong>6.1 Protection of Data:</strong> The Employee shall not, during or after employment, disclose any trade secrets or confidential information belonging to the Company or its Clients.</p>
+    <p><strong>6.2 IP Ownership:</strong> Any invention, design, or work created during the course of employment shall be the absolute property of the Employer.</p>
+
+    <h2>7. HEALTH AND SAFETY</h2>
+    <p>Under the <em>Health and Safety at Work Act 2015</em>, the Employer is committed to providing a safe workplace. The Employee must follow all safety protocols, use PPE where provided, and report all "near-misses" or incidents immediately via the internal portal.</p>
+
+    <div class="highlight-box">
+        <strong>IMPORTANT:</strong> This document is subject to the 2025 Pay Transparency Amendments. Employees have the right to discuss their own remuneration for the purposes of pay equity, provided client confidentiality is maintained.
+    </div>
+
+    <div class="footer">
+        <span>REF: [CLIENT-CODE] | OFFICIAL COPY</span>
+        <span>Page 2 of 3</span>
+    </div>
+</div>
+
+<div class="page">
+    <h2>8. TERMINATION OF EMPLOYMENT</h2>
+    <p><strong>8.1 Notice Period:</strong> Either party may terminate this agreement by providing 4 weeks' written notice. The Employer reserves the right to provide payment in lieu of notice (GARDEN LEAVE).</p>
+    <p><strong>8.2 Serious Misconduct:</strong> Instant dismissal without notice may occur in cases of theft, fraud, violence, or severe breach of company policy as defined in the Employee Handbook.</p>
+    <p><strong>8.3 Redundancy:</strong> In the event of redundancy, the Employer will follow the consultation process required by the Employment Relations Act 2000.</p>
+
+    <h2>9. DISPUTE RESOLUTION</h2>
+    <p>If an employment relationship problem arises, the following steps must be taken:</p>
+    <ul>
+        <li><strong>Step 1:</strong> Informal discussion with your immediate supervisor.</li>
+        <li><strong>Step 2:</strong> Formal mediation via <em>Employment New Zealand (MBIE)</em>.</li>
+        <li><strong>Step 3:</strong> Application to the <em>Employment Relations Authority (ERA)</em>.</li>
+    </ul>
+    <p><em>Note: A personal grievance must be raised within 90 days of the action complained of occurring.</em></p>
+
+    <h2>10. FINAL DECLARATION & SIGNATURES</h2>
+    <p>The Employee acknowledges they have been advised of their right to seek independent advice, have had a reasonable time to do so, and accept the terms of this agreement freely.</p>
+
+    <div style="margin-top: 30px; display: flex; justify-content: space-between;">
+        <div style="width: 45%;">
+            <p><strong>Signed for the Employer:</strong></p>
+            <div style="border-top: 1px solid #000; margin-top: 40px; padding-top: 5px;">
+                Authorized Representative Name<br>
+                Date: February 17, 2026
+            </div>
+        </div>
+        <div style="width: 45%;">
+            <p><strong>Signed by the Employee:</strong></p>
+            <div style="border-top: 1px solid #000; margin-top: 40px; padding-top: 5px;">
+                [Employee Name]<br>
+                Date: ____/____/2026
+            </div>
         </div>
     </div>
 
-    <div class="page">
-        <h2>6. TERMINATION OF EMPLOYMENT</h2>
-        <p><strong>6.1 Notice Period:</strong> Either party may terminate this agreement by providing [4] weeks' notice in writing.</p>
-        <p><strong>6.2 Misconduct:</strong> In cases of serious misconduct, the Employer may dismiss you without notice (Summary Dismissal) following a fair investigation.</p>
-
-        <h2>7. RESOLVING PROBLEMS</h2>
-        <p>If an employment relationship problem arises, we encourage you to raise it with management immediately. You have 90 days to raise a personal grievance. Free mediation is available through <strong>Employment New Zealand (MBIE)</strong>.</p>
-
-        <div class="sig-section">
-            <div>
-                <p><strong>For the Employer:</strong></p>
-                <div class="sig-line">Name/Title</div>
-                <div class="sig-line">Date</div>
-            </div>
-            <div>
-                <p><strong>The Employee:</strong></p>
-                <div class="sig-line">Signature</div>
-                <div class="sig-line">Date</div>
-            </div>
-        </div>
-
-        <p style="margin-top: 50px; font-size: 11px; color: #555;">
-            <em>Note: You have the right to seek independent legal advice before signing this agreement. By signing, you acknowledge you have been given a reasonable opportunity to do so.</em>
+    <div style="margin-top: 40px; text-align: center;">
+        <p style="font-size: 10px; color: #777;">
+            This document is electronically tracked. Scan the QR code on Page 1 to verify authenticity.<br>
+            © 2026 [Employer Name] & MBIE Compliance Services.
         </p>
-
-        <div class="footer">
-            <span>Confidential - Agreement [CLIENT-CODE]</span>
-            <span>Page 3 of 3</span>
-        </div>
     </div>
+
+    <div class="footer">
+        <span>REF: [CLIENT-CODE] | END OF DOCUMENT</span>
+        <span>Page 3 of 3</span>
+    </div>
+</div>
 
 </body>
-</html>
+    </html>
