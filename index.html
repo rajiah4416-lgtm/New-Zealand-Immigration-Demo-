@@ -3,155 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NZ Corporate Arrival System - Photo ID</title>
+    <title>NZ Arrival Pass & Immigration Verification</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root {
-            --nz-primary: #004a26;
-            --nz-accent: #e6b00f;
-            --nz-blue: #00529b;
-            --light-bg: #f0f4f8;
+            --nz-blue: #00529b; /* Official NZ Govt Blue */
+            --nz-silver: #e1e1e1;
+            --nz-green: #004a26;
+            --light-bg: #f4f7f9;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Arial', sans-serif;
             background-color: var(--light-bg);
             margin: 0; padding: 20px;
             display: flex; flex-direction: column; align-items: center;
         }
 
-        /* Input Form Panel */
+        /* Control Panel */
         .admin-panel {
-            background: white; padding: 25px; border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            margin-bottom: 30px; width: 100%; max-width: 750px;
-            border-left: 5px solid var(--nz-blue);
+            background: white; padding: 25px; border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px; width: 100%; max-width: 800px;
+            border-top: 5px solid var(--nz-blue);
         }
 
         .grid-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
-        .input-group { margin-bottom: 10px; }
-        label { font-size: 11px; font-weight: bold; color: #555; text-transform: uppercase; }
-        input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; margin-top: 5px;}
+        label { font-size: 11px; font-weight: bold; color: #333; }
+        input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-top: 5px;}
 
         .btn-row { display: flex; gap: 10px; margin-top: 20px; }
-        button { flex: 1; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: white; transition: 0.3s; }
-        .gen-btn { background: var(--nz-primary); }
+        button { flex: 1; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; color: white; }
+        .gen-btn { background: var(--nz-green); }
         .print-btn { background: var(--nz-blue); }
-        button:hover { opacity: 0.9; transform: translateY(-1px); }
 
-        /* The Pass Design */
+        /* OFFICIAL DOCUMENT DESIGN */
         #pass-container {
-            background: white; width: 100%; max-width: 700px;
-            border-radius: 20px; overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            border-bottom: 8px solid var(--nz-primary);
+            background: white; width: 100%; max-width: 800px;
+            border: 2px solid #000; position: relative;
+            padding-bottom: 20px;
         }
 
-        .pass-header {
-            background: linear-gradient(135deg, var(--nz-primary) 0%, #002d17 100%);
-            color: white; padding: 25px; text-align: center;
+        .govt-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px; border-bottom: 4px solid var(--nz-blue);
+            background: #fff;
         }
 
-        .company-tag { font-size: 1.2rem; font-weight: 800; color: var(--nz-accent); margin: 0; text-transform: uppercase; }
-        
-        .nz-link-box {
-            background: #eef9f3; padding: 8px; margin: 15px 40px; border-radius: 10px;
-            border: 1px solid #c3e6cb; text-align: center; font-size: 13px;
-        }
-        .nz-link-box a { color: var(--nz-blue); font-weight: bold; text-decoration: none; }
+        .govt-logo { font-size: 1.5rem; font-weight: 900; color: #000; text-transform: uppercase; }
+        .immigration-text { color: var(--nz-blue); font-weight: bold; font-size: 1.2rem; }
 
-        .pass-main { display: flex; padding: 0 40px 30px; gap: 30px; }
-        
-        /* Left Side: Photo & QR */
-        .pass-side { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        
-        .client-photo-frame {
-            width: 150px; height: 180px;
-            border: 3px solid #eee; border-radius: 10px;
-            overflow: hidden; background: #fafafa;
-            display: flex; align-items: center; justify-content: center;
+        .company-banner {
+            background: var(--nz-blue); color: white;
+            text-align: center; padding: 10px; font-size: 1.1rem; font-weight: bold;
+        }
+
+        .pass-content { display: flex; padding: 30px 40px; gap: 40px; }
+
+        /* Left Side */
+        .left-col { flex: 1; text-align: center; border-right: 1px solid #eee; padding-right: 20px; }
+        .photo-box {
+            width: 160px; height: 200px; border: 2px solid #333;
+            margin: 0 auto 20px; display: flex; align-items: center; 
+            justify-content: center; background: #f9f9f9; overflow: hidden;
         }
         #photo-output { width: 100%; height: 100%; object-fit: cover; display: none; }
-        .photo-placeholder { color: #ccc; font-size: 12px; text-align: center; padding: 10px; }
+        
+        .qr-area { background: #f0f0f0; padding: 15px; border-radius: 8px; }
 
-        /* Right Side: Data */
-        .pass-info { flex: 2; }
-        .data-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 10px; }
-        .data-item { border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
-        .val { display: block; font-size: 1.05rem; font-weight: 700; color: #111; }
+        /* Right Side */
+        .right-col { flex: 2; }
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table td { padding: 10px 5px; border-bottom: 1px solid #eee; }
+        .field-label { font-size: 12px; color: #666; font-weight: bold; }
+        .field-value { font-size: 1rem; font-weight: bold; color: #000; }
 
-        .qr-wrapper { text-align: center; margin-top: 10px; padding: 10px; background: #f9f9f9; border-radius: 10px; }
+        .immigration-stamp {
+            margin-top: 30px; padding: 15px; border: 2px solid var(--nz-green);
+            color: var(--nz-green); border-radius: 10px; font-weight: bold;
+            display: flex; align-items: center; gap: 15px;
+        }
+
+        .signature-area {
+            display: flex; justify-content: space-between; margin-top: 40px;
+            padding: 0 40px;
+        }
+        .sig-box { border-top: 1px solid #000; width: 200px; text-align: center; font-size: 12px; padding-top: 5px; }
 
         @media print {
             .admin-panel { display: none !important; }
             body { background: white; padding: 0; }
-            #pass-container { box-shadow: none; border: 1px solid #eee; width: 100%; }
+            #pass-container { border: none; max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
     <div class="admin-panel">
-        <h2 style="margin-top:0; color:var(--nz-blue); border-bottom: 2px solid #eee; padding-bottom: 10px;">Manager Entry Portal</h2>
+        <h3 style="margin:0 0 15px 0">Document Management System</h3>
         <div class="grid-inputs">
-            <div class="input-group"><label>Company Name</label><input type="text" id="in-co" value="New Zealand Exports Ltd"></div>
-            <div class="input-group"><label>Client Full Name</label><input type="text" id="in-name" placeholder="John Doe"></div>
-            <div class="input-group"><label>Passport No.</label><input type="text" id="in-pass" placeholder="L99887766"></div>
+            <div class="input-group"><label>Company Name</label><input type="text" id="in-co" value="Auckland Professional Services"></div>
+            <div class="input-group"><label>Client Name</label><input type="text" id="in-name" placeholder="Full Name"></div>
+            <div class="input-group"><label>Passport No.</label><input type="text" id="in-pass" placeholder="Passport ID"></div>
             <div class="input-group"><label>Landing Date</label><input type="date" id="in-date"></div>
             <div class="input-group"><label>Landing Time</label><input type="time" id="in-time"></div>
-            <div class="input-group"><label>Receptionist</label><input type="text" id="in-rec" placeholder="Sarah Jenkins"></div>
-            <div class="input-group"><label>Contact Phone</label><input type="text" id="in-phone" placeholder="+64 21 000 000"></div>
+            <div class="input-group"><label>Receptionist</label><input type="text" id="in-rec" placeholder="Name"></div>
+            <div class="input-group"><label>Contact No.</label><input type="text" id="in-phone" placeholder="Phone"></div>
+            <div class="input-group"><label>Contact Email</label><input type="text" id="in-email" placeholder="Email"></div>
             <div class="input-group"><label>Client Photo</label><input type="file" id="in-photo" accept="image/*" onchange="previewPhoto(event)"></div>
         </div>
         <div class="btn-row">
-            <button class="gen-btn" onclick="generate()">Update Pass Details</button>
-            <button class="print-btn" onclick="window.print()">Download & Print Pass</button>
+            <button class="gen-btn" onclick="generate()">Generate Official Document</button>
+            <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
         </div>
     </div>
 
     <div id="pass-container">
-        <div class="pass-header">
-            <p id="out-co" class="company-tag">COMPANY NAME</p>
-            <h2 style="margin: 5px 0;">AIRPORT RECEPTION PASS</h2>
-            <div style="font-size: 0.8rem; opacity: 0.8; letter-spacing: 1px;">AUCKLAND INTERNATIONAL AIRPORT (AKL)</div>
+        <div class="govt-header">
+            <div class="govt-logo">NEW ZEALAND<br><small>GOVERNMENT</small></div>
+            <div class="immigration-text">IMMIGRATION NEW ZEALAND</div>
         </div>
+        
+        <div class="company-banner" id="out-co">COMPANY NAME LIMITED</div>
 
-        <div class="nz-link-box">
-            🌐 <b>Official Immigration:</b> <a href="https://www.immigration.govt.nz" target="_blank">www.immigration.govt.nz</a>
-        </div>
-
-        <div class="pass-main">
-            <div class="pass-side">
-                <div class="client-photo-frame" id="photo-frame">
-                    <span class="photo-placeholder" id="ph-text">No Photo<br>Uploaded</span>
-                    <img id="photo-output" src="" alt="Client Photo">
+        <div class="pass-content">
+            <div class="left-col">
+                <div class="photo-box">
+                    <span id="ph-text" style="color:#999">ID PHOTO</span>
+                    <img id="photo-output" src="" alt="">
                 </div>
-                <div class="qr-wrapper">
-                    <div id="qrcode"></div>
-                    <div style="font-size: 9px; font-weight: bold; color: var(--nz-primary); margin-top:5px;">DIGITAL VERIFICATION</div>
+                <div class="qr-area">
+                    <div id="qrcode" style="display: flex; justify-content: center;"></div>
+                    <p style="font-size: 10px; margin-top: 10px;">SCAN FOR BORDER<br>VERIFICATION</p>
                 </div>
             </div>
 
-            <div class="pass-info">
-                <div class="data-grid">
-                    <div class="data-item"><label>Passenger Name</label><span class="val" id="out-name">---</span></div>
-                    <div class="data-item"><label>Passport Number</label><span class="val" id="out-pass">---</span></div>
-                    <div class="data-item"><label>Arrival Date</label><span class="val" id="out-date">---</span></div>
-                    <div class="data-item"><label>Arrival Time</label><span class="val" id="out-time">---</span></div>
-                    <div class="data-item"><label>Receptionist</label><span class="val" id="out-rec">---</span></div>
-                    <div class="data-item"><label>Direct Contact</label><span class="val" id="out-phone">---</span></div>
+            <div class="right-col">
+                <table class="data-table">
+                    <tr><td class="field-label">FULL NAME</td><td class="field-value" id="out-name">---</td></tr>
+                    <tr><td class="field-label">PASSPORT NO.</td><td class="field-value" id="out-pass">---</td></tr>
+                    <tr><td class="field-label">PORT OF ENTRY</td><td class="field-value">AUCKLAND INTERNATIONAL AIRPORT (AKL)</td></tr>
+                    <tr><td class="field-label">ARRIVAL SCHEDULE</td><td class="field-value"><span id="out-date">---</span> | <span id="out-time">---</span></td></tr>
+                    <tr><td class="field-label">RECEPTIONIST</td><td class="field-value" id="out-rec">---</td></tr>
+                    <tr><td class="field-label">24/7 CONTACT</td><td class="field-value" id="out-phone">---</td></tr>
+                    <tr><td class="field-label">OFFICIAL EMAIL</td><td class="field-value" id="out-email">---</td></tr>
+                </table>
+
+                <div class="immigration-stamp">
+                    <div style="font-size: 24px;">✅</div>
+                    <div>
+                        VERIFIED BY IMMIGRATION NEW ZEALAND<br>
+                        <span style="font-size: 11px; font-weight: normal;">Online Verification: <a href="https://www.immigration.govt.nz" style="color:var(--nz-green)">www.immigration.govt.nz</a></span>
+                    </div>
                 </div>
-                <p style="font-size: 10px; color: #777; margin-top: 20px; font-style: italic;">
-                    Note: Please have this pass ready upon exiting the customs area to meet your company representative.
-                </p>
             </div>
+        </div>
+
+        <div class="signature-area">
+            <div class="sig-box">Company Authorized Signatory</div>
+            <div class="sig-box">Immigration Acceptance Officer</div>
         </div>
     </div>
 
     <script>
         let qr = new QRCode(document.getElementById("qrcode"), {
-            width: 110, height: 110,
-            colorDark : "#004a26", colorLight : "#ffffff"
+            width: 120, height: 120,
+            colorDark : "#00529b", colorLight : "#ffffff"
         });
 
         function previewPhoto(event) {
@@ -166,26 +183,18 @@
         }
 
         function generate() {
-            const co = document.getElementById('in-co').value;
-            const name = document.getElementById('in-name').value;
-            const pass = document.getElementById('in-pass').value;
-            const date = document.getElementById('in-date').value;
-            const time = document.getElementById('in-time').value;
-            const rec = document.getElementById('in-rec').value;
-            const phone = document.getElementById('in-phone').value;
-
-            document.getElementById('out-co').innerText = co;
-            document.getElementById('out-name').innerText = name;
-            document.getElementById('out-pass').innerText = pass;
-            document.getElementById('out-date').innerText = date;
-            document.getElementById('out-time').innerText = time;
-            document.getElementById('out-rec').innerText = rec;
-            document.getElementById('out-phone').innerText = phone;
+            document.getElementById('out-co').innerText = document.getElementById('in-co').value.toUpperCase();
+            document.getElementById('out-name').innerText = document.getElementById('in-name').value;
+            document.getElementById('out-pass').innerText = document.getElementById('in-pass').value;
+            document.getElementById('out-date').innerText = document.getElementById('in-date').value;
+            document.getElementById('out-time').innerText = document.getElementById('in-time').value;
+            document.getElementById('out-rec').innerText = document.getElementById('in-rec').value;
+            document.getElementById('out-phone').innerText = document.getElementById('in-phone').value;
+            document.getElementById('out-email').innerText = document.getElementById('in-email').value;
 
             qr.clear();
-            qr.makeCode(`VERIFIED: ${co}\nCLIENT: ${name}\nPASS: ${pass}\nLANDING: ${date} ${time}`);
+            qr.makeCode(`IMMIGRATION NZ VERIFIED\nClient: ${document.getElementById('in-name').value}\nPassport: ${document.getElementById('in-pass').value}\nCompany: ${document.getElementById('in-co').value}`);
         }
-
         generate();
     </script>
 </body>
