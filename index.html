@@ -20,7 +20,6 @@
             display: flex; flex-direction: column; align-items: center;
         }
 
-        /* Control Center */
         .admin-panel {
             background: white; padding: 20px; border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
@@ -36,9 +35,7 @@
         button { flex: 1; padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; color: white; transition: 0.2s; }
         .gen-btn { background: var(--nz-teal); }
         .print-btn { background: var(--nz-blue); }
-        button:hover { opacity: 0.9; transform: translateY(-1px); }
 
-        /* OFFICIAL ID CARD DESIGN */
         #id-card {
             width: 600px; height: 380px;
             background: white; border-radius: 20px;
@@ -49,14 +46,12 @@
         }
 
         .card-header {
-            background: var(--nz-blue);
-            height: 90px; padding: 0 25px;
+            background: var(--nz-blue); height: 90px; padding: 0 25px;
             display: flex; align-items: center; color: white;
             border-bottom: 4px solid var(--nz-teal);
         }
 
         .flag-box { width: 85px; height: 45px; margin-right: 20px; box-shadow: 0 3px 6px rgba(0,0,0,0.3); }
-        
         .header-main h2 { margin: 0; font-size: 22px; letter-spacing: 2px; font-weight: 800; }
         .header-main p { margin: 0; font-size: 10px; letter-spacing: 1px; opacity: 0.8; font-weight: bold; }
 
@@ -67,8 +62,6 @@
         }
 
         .card-body { display: flex; padding: 25px; gap: 25px; }
-
-        .photo-section { display: flex; flex-direction: column; align-items: center; }
         .photo-frame {
             width: 140px; height: 175px; background: #fff;
             border: 1px solid #ccc; border-radius: 10px;
@@ -81,37 +74,15 @@
         .label-text { font-size: 8px; color: #777; font-weight: bold; text-transform: uppercase; }
         .value-text { font-size: 13px; font-weight: 700; color: var(--nz-dark); }
 
-        /* INCREASED QR AREA FOR READABILITY */
+        /* OPTIMIZED QR AREA */
         .qr-area { position: absolute; bottom: 20px; right: 20px; text-align: center; }
         #qrcode { 
-            background: white; 
-            padding: 8px; 
-            border: 2px solid var(--nz-blue); 
-            border-radius: 10px;
-            display: inline-block;
-        }
-
-        .security-seal {
-            position: absolute; top: 15px; right: 25px;
-            width: 45px; height: 45px; opacity: 0.9;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+            background: white; padding: 10px; border: 1.5px solid #ddd; border-radius: 8px;
         }
 
         .footer-ref { position: absolute; bottom: 12px; left: 25px; font-size: 8px; color: #999; font-weight: bold; }
 
-        /* SECURITY VERIFICATION MODAL */
-        #verification-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 36, 125, 0.97); z-index: 2000;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            color: white; padding: 20px;
-        }
-
-        .access-box { background: white; color: #333; padding: 40px; border-radius: 20px; width: 100%; max-width: 500px; text-align: center; }
-        #verified-data { display: none; text-align: left; width: 100%; }
-        .result-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; }
-        
-        @media print { .admin-panel, #verification-modal { display: none !important; } body { background: white; } #id-card { box-shadow: none; border: 1px solid #ccc; -webkit-print-color-adjust: exact; } }
+        @media print { .admin-panel { display: none !important; } body { background: white; } #id-card { box-shadow: none; border: 1px solid #ccc; } }
     </style>
 </head>
 <body>
@@ -122,21 +93,18 @@
             <div class="input-group"><label>Country</label><input type="text" id="in-country" value="United Kingdom"></div>
             <div class="input-group"><label>Reference Number</label><input type="text" id="in-ref" value="NZ-REF-2026-X8"></div>
             <div class="input-group"><label>Passport No.</label><input type="text" id="in-pass" value="UK9922881"></div>
-            
             <div class="input-group"><label>Guarantee Company</label><input type="text" id="in-co" value="Auckland Logistics Ltd"></div>
             <div class="input-group"><label>Job Category</label><input type="text" id="in-job" value="Project Manager"></div>
             <div class="input-group"><label>Issuing Authority</label><input type="text" id="in-auth" value="Immigration NZ"></div>
             <div class="input-group"><label>Gender</label><select id="in-gen"><option>MALE</option><option>FEMALE</option></select></div>
-
             <div class="input-group"><label>Issue Date</label><input type="date" id="in-issue" value="2026-02-17"></div>
             <div class="input-group"><label>Expiry Date</label><input type="date" id="in-expiry" value="2028-02-17"></div>
-            <div class="input-group"><label>Security PIN (Code)</label><input type="text" id="in-pin" maxlength="6" value="7788"></div>
+            <div class="input-group"><label>Security PIN</label><input type="text" id="in-pin" value="7788"></div>
             <div class="input-group"><label>Client Photo</label><input type="file" onchange="preview(event)"></div>
         </div>
         <div class="btn-row">
-            <button class="gen-btn" onclick="update()">Update Official Data</button>
+            <button class="gen-btn" onclick="update()">Update & Clean QR</button>
             <button class="print-btn" onclick="window.print()">Print Final ID</button>
-            <button style="background:#444" onclick="openScanner()">Simulate Secure Scan</button>
         </div>
     </div>
 
@@ -147,14 +115,11 @@
                 <h2>NEW ZEALAND</h2>
                 <p>IMMIGRATION & BORDER PROTECTION SERVICES</p>
             </div>
-            <svg class="security-seal" viewBox="0 0 100 100">
-                <path fill="#fff" d="M80,90 C60,70 30,60 10,80 C20,50 50,20 90,10 C80,40 70,70 80,90 Z" />
-            </svg>
         </div>
 
         <div class="visa-banner">
             <span id="out-auth">ISSUING AUTHORITY: ---</span>
-            <span id="out-ref" style="color:var(--nz-red)">REF: ---</span>
+            <span id="out-ref" style="color:#d32f2f">REF: ---</span>
         </div>
 
         <div class="card-body">
@@ -165,49 +130,31 @@
 
             <div class="info-section">
                 <div class="field"><div class="label-text">Full Name</div><div class="value-text" id="out-name">---</div></div>
-                <div class="field"><div class="label-text">Country of Origin</div><div class="value-text" id="out-country">---</div></div>
+                <div class="field"><div class="label-text">Country</div><div class="value-text" id="out-country">---</div></div>
+                <div class="field"><div class="label-text">Passport Number</div><div class="value-text" id="out-pass">---</div></div>
                 <div class="field"><div class="label-text">Guarantee Company</div><div class="value-text" id="out-co">---</div></div>
                 <div class="field"><div class="label-text">Job Category</div><div class="value-text" id="out-job">---</div></div>
                 <div class="field"><div class="label-text">Gender</div><div class="value-text" id="out-gen">---</div></div>
-                <div class="field"><div class="label-text">Passport Number</div><div class="value-text" id="out-pass">---</div></div>
-                <div class="field"><div class="label-text">Date of Issue</div><div class="value-text" id="out-issue">---</div></div>
-                <div class="field"><div class="label-text">Expiry Date</div><div class="value-text" id="out-expiry" style="color:var(--nz-red)">---</div></div>
+                <div class="field"><div class="label-text">Issue Date</div><div class="value-text" id="out-issue">---</div></div>
+                <div class="field"><div class="label-text">Expiry Date</div><div class="value-text" id="out-expiry" style="color:#d32f2f">---</div></div>
             </div>
         </div>
 
         <div class="qr-area">
             <div id="qrcode"></div>
-            <div style="font-size:7px; font-weight:bold; margin-top:4px; color:var(--nz-blue)">ENCRYPTED AUTH</div>
+            <div style="font-size:7px; font-weight:bold; margin-top:4px; color:var(--nz-blue)">VERIFY STATUS</div>
         </div>
         <div class="footer-ref">UNAUTHORIZED USE IS A FEDERAL OFFENCE &bull; IMMIGRATION.GOVT.NZ</div>
     </div>
 
-    <div id="verification-modal">
-        <div class="access-box" id="pin-prompt">
-            <h2 style="color:var(--nz-blue)">Border Verification</h2>
-            <p>Scanning Identity Reference... <b>Please enter Security Code:</b></p>
-            <input type="password" id="check-pin" style="font-size:30px; width:150px; text-align:center; margin:20px 0; border:2px solid var(--nz-teal);"><br>
-            <button class="gen-btn" onclick="verify()">Verify Identity</button>
-            <button style="background:#ccc; color:#333;" onclick="closeScanner()">Cancel</button>
-        </div>
-        <div class="access-box" id="verified-data">
-            <h2 style="color:var(--nz-teal)">✓ IDENTITY VERIFIED</h2>
-            <div id="data-results"></div>
-            <button class="print-btn" style="margin-top:20px; width:100%;" onclick="closeScanner()">Done</button>
-        </div>
-    </div>
-
     <script>
-        // FIXED: Increased QR size for better phone focus
         let qr = new QRCode(document.getElementById("qrcode"), { 
-            width: 110, 
-            height: 110, 
-            colorDark : "#000000", // Black is better for scanning than blue
+            width: 100, 
+            height: 100, 
+            colorDark : "#000000",
             colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.M // Medium correction allows more text space
+            correctLevel : QRCode.CorrectLevel.H 
         });
-        
-        let savedPin = "7788";
 
         function preview(e) {
             const r = new FileReader();
@@ -217,9 +164,8 @@
 
         function update() {
             const get = id => document.getElementById(id).value;
-            savedPin = get('in-pin');
 
-            // Card Mapping
+            // Visual Mapping
             document.getElementById('out-name').innerText = get('in-name').toUpperCase();
             document.getElementById('out-country').innerText = get('in-country');
             document.getElementById('out-ref').innerText = "REF: " + get('in-ref');
@@ -231,42 +177,12 @@
             document.getElementById('out-issue').innerText = get('in-issue');
             document.getElementById('out-expiry').innerText = get('in-expiry');
 
-            // FIXED: Standardized text format for easier mobile recognition
-            const fullData = `NZ-ID RECORD\n` +
-                             `Name: ${get('in-name').toUpperCase()}\n` +
-                             `Passport: ${get('in-pass')}\n` +
-                             `Ref: ${get('in-ref')}\n` +
-                             `Exp: ${get('in-expiry')}\n` +
-                             `Co: ${get('in-co')}`;
+            // SHORTENED DATA FOR HIGH VISIBILITY
+            // Only contains the essential verification data
+            const shortData = `PASSPORT: ${get('in-pass')}\nEXPIRY: ${get('in-expiry')}`;
 
             qr.clear();
-            qr.makeCode(fullData);
-        }
-
-        function openScanner() {
-            document.getElementById('verification-modal').style.display = 'flex';
-            document.getElementById('pin-prompt').style.display = 'block';
-            document.getElementById('verified-data').style.display = 'none';
-        }
-
-        function closeScanner() { document.getElementById('verification-modal').style.display = 'none'; }
-
-        function verify() {
-            if (document.getElementById('check-pin').value === savedPin) {
-                const get = id => document.getElementById(id).value;
-                document.getElementById('pin-prompt').style.display = 'none';
-                document.getElementById('verified-data').style.display = 'block';
-                
-                document.getElementById('data-results').innerHTML = `
-                    <div class="result-row"><b>Name:</b> <span>${get('in-name')}</span></div>
-                    <div class="result-row"><b>Status:</b> <span style="color:green">APPROVED</span></div>
-                    <div class="result-row"><b>Company:</b> <span>${get('in-co')}</span></div>
-                    <div class="result-row"><b>Passport:</b> <span>${get('in-pass')}</span></div>
-                    <div class="result-row"><b>Expires:</b> <span>${get('in-expiry')}</span></div>
-                `;
-            } else {
-                alert("ACCESS DENIED: Incorrect Security Code.");
-            }
+            qr.makeCode(shortData);
         }
         update();
     </script>
