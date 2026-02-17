@@ -3,98 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OFFICIAL NZ AEWV CONTRACT | MBIE 2026</title>
+    <title>Employment Agreement - NZ-2026-REF-001</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
-        :root { 
-            --nz-blue: #00247d; 
-            --nz-red: #cc142b;
-            --nz-teal: #007681;
-            --sidebar-bg: #0f172a;
-            --gold: #d4af37;
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
 
-        body { font-family: 'Inter', sans-serif; margin: 0; background: #475569; color: #1e293b; display: flex; }
-        
-        /* SIDEBAR STYLING */
-        .sidebar { 
-            width: 420px; height: 100vh; background: var(--sidebar-bg); position: fixed; 
-            left: 0; top: 0; padding: 25px; box-sizing: border-box; overflow-y: auto; color: white;
-            border-right: 5px solid var(--nz-teal); z-index: 1000;
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 10mm auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+            box-sizing: border-box;
+            page-break-after: always;
         }
 
-        .sidebar h2 { font-size: 0.8rem; color: var(--nz-teal); text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 0; border-bottom: 1px solid #334155; padding-bottom: 5px; }
-        .input-group { margin-bottom: 12px; }
-        label { font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px; display: block; }
-        input, select { 
-            width: 100%; padding: 10px; border: 1px solid #334155; border-radius: 6px; 
-            font-size: 13px; background: #1e293b; color: white; transition: 0.2s;
-        }
-        input:focus { border-color: var(--nz-teal); outline: none; background: #0f172a; }
-
-        .btn-print { 
-            background: linear-gradient(135deg, var(--nz-blue), var(--nz-teal)); color: white; border: none; 
-            padding: 18px; width: 100%; border-radius: 10px; font-weight: 900; cursor: pointer; 
-            margin-top: 25px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        .header {
+            border-bottom: 2px solid #004a99;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
         }
 
-        /* PREVIEW AREA */
-        .preview-area { margin-left: 420px; flex-grow: 1; padding: 50px 0; display: flex; flex-direction: column; align-items: center; }
-        
-        .a4-page {
-            width: 210mm; height: 297mm; padding: 20mm; margin-bottom: 40px;
-            background: white; box-shadow: 0 0 50px rgba(0,0,0,0.5); box-sizing: border-box; position: relative;
-            border-top: 15px solid var(--nz-blue); overflow: hidden;
+        .header h1 {
+            color: #004a99;
+            font-size: 24px;
+            margin: 0;
+            text-transform: uppercase;
         }
 
-        /* DECORATIVE ELEMENTS */
-        .page-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--nz-teal); padding-bottom: 15px; margin-bottom: 25px; }
-        .nz-logo { display: flex; align-items: center; gap: 15px; }
-        .nz-flag { width: 60px; height: 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .govt-text strong { color: var(--nz-blue); font-size: 16px; display: block; text-transform: uppercase; }
-        .govt-text span { color: var(--nz-teal); font-size: 10px; font-weight: 800; }
-
-        h1 { color: var(--nz-blue); font-size: 28px; text-align: center; margin: 20px 0; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; }
-        
-        .section-header { 
-            background: linear-gradient(to right, #f1f5f9, white); border-left: 6px solid var(--nz-teal); 
-            padding: 8px 15px; color: var(--nz-blue); font-weight: 900; text-transform: uppercase; 
-            font-size: 13px; margin: 20px 0 12px 0; display: flex; justify-content: space-between;
+        .ref-box {
+            text-align: right;
+            font-size: 12px;
+            color: #666;
         }
 
-        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; table-layout: fixed; }
-        .data-table td { padding: 10px; border: 1px solid #e2e8f0; font-size: 12px; line-height: 1.4; word-wrap: break-word; }
-        .label { font-weight: 800; background: #f8fafc; color: var(--nz-blue); width: 35%; text-transform: uppercase; font-size: 10px; }
-        
-        .policy-box { border: 1.5px solid #e2e8f0; padding: 15px; border-radius: 8px; background: #fafafa; margin-bottom: 15px; }
-        .policy-box h3 { margin-top: 0; font-size: 12px; color: var(--nz-teal); text-transform: uppercase; }
-        .policy-text { font-size: 11px; color: #475569; line-height: 1.6; text-align: justify; }
+        h2 {
+            font-size: 18px;
+            border-left: 4px solid #004a99;
+            padding-left: 10px;
+            margin-top: 25px;
+            color: #111;
+        }
 
-        .footer { position: absolute; bottom: 12mm; left: 20mm; right: 20mm; text-align: center; font-size: 9px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 10px; }
-        .page-num { position: absolute; top: 10mm; right: 20mm; font-weight: 900; color: var(--nz-red); font-size: 12px; }
+        .party-box {
+            background: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
 
-        .qr-area { display: flex; flex-direction: column; align-items: center; margin-top: 30px; }
-        .qr-area img { width: 130px; height: 130px; border: 4px solid var(--nz-blue); padding: 5px; border-radius: 10px; }
+        .footer {
+            position: absolute;
+            bottom: 20mm;
+            left: 20mm;
+            right: 20mm;
+            font-size: 10px;
+            color: #999;
+            border-top: 1px solid #eee;
+            padding-top: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .sig-section {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .sig-line {
+            border-top: 1px solid #333;
+            margin-top: 40px;
+            padding-top: 5px;
+        }
 
         @media print {
-            .sidebar { display: none; }
-            .preview-area { margin-left: 0; padding: 0; }
-            .a4-page { margin: 0; box-shadow: none; page-break-after: always; border-top: 15px solid var(--nz-blue); }
+            body { background: none; }
+            .page { margin: 0; box-shadow: none; }
+            .no-print { display: none; }
         }
     </style>
 </head>
 <body>
 
-<aside class="sidebar no-print">
-    <h1 style="color: white; font-size: 18px; margin-bottom: 5px;">AEWV BUILDER 2026</h1>
-    <p style="font-size: 10px; color: var(--nz-teal); font-weight: 800; margin-bottom: 25px;">OFFICIAL COMPLIANCE TOOL</p>
+    <div class="page">
+        <div class="header">
+            <h1>Employment Agreement</h1>
+            <div class="ref-box">
+                <strong>Ref:</strong> [CLIENT-CODE] / [COMPANY-CODE]<br>
+                <strong>Date:</strong> 17 February 2026
+            </div>
+        </div>
 
-    <h2>1. Employee (Client) Data</h2>
-    <div class="input-group"><label>Full Legal Name</label><input type="text" id="in_name" placeholder="Johnathan Doe" oninput="sync()"></div>
-    <div class="input-group"><label>Passport Number</label><input type="text" id="in_pass" placeholder="L1234567" oninput="sync()"></div>
-    <div class="input-group"><label>Date of Birth</label><input type="date" id="in_dob" oninput="sync()"></div>
-    <div class="input-group"><label>Country of Origin</label><input type="text" id="in_country" oninput="sync()"></div>
+        <p>This Individual Employment Agreement is made in accordance with the <strong>Employment Relations Act 2000</strong> and overseen by the <strong>Ministry of Business, Innovation and Employment (MBIE)</strong>.</p>
 
-    <h2>2. Employer & Logistics</h2>
-    <div class="input-group"><label>Company Name</label><input type="text" id="in_comp" oninput="sync()"></div>
+        <div class="party-box">
+            <strong>THE EMPLOYER:</strong> [Employer Legal Entity Name]<br>
+            <strong>THE EMPLOYEE:</strong> [Full Legal Name of Candidate]
+        </div>
+
+        <h2>1. POSITION AND DUTIES</h2>
+        <p><strong>1.1 Title:</strong> Your position is [Insert Job Title].</p>
+        <p><strong>1.2 Responsibilities:</strong> You will perform the duties outlined in the Position Description and any other reasonable tasks assigned by the Employer.</p>
+        <p><strong>1.3 Location:</strong> Your primary place of work is [Address/City, NZ]. Remote work arrangements, if any, must be agreed upon in writing.</p>
+
+        <h2>2. HOURS OF WORK</h2>
+        <p><strong>2.1 Standard Hours:</strong> You are required to work [Number] hours per week. Typical hours are [09:00 to 17:00], [Monday to Friday].</p>
+        <p><strong>2.2 Variations:</strong> Any changes to these hours must be made in good faith and agreed upon by both parties.</p>
+
+        <div class="footer">
+            <span>Confidential - Agreement [CLIENT-CODE]</span>
+            <span>Page 1 of 3</span>
+        </div>
+    </div>
+
+    <div class="page">
+        <h2>3. REMUNERATION</h2>
+        <p><strong>3.1 Salary/Wages:</strong> Your gross remuneration is $[Amount] per annum/hour, payable [Fortnightly] via direct credit.</p>
+        <p><strong>3.2 KiwiSaver:</strong> The Employer will make compulsory employer contributions at the statutory rate (currently 3%) provided you are eligible and contributing.</p>
+        
+        <h2>4. LEAVE ENTITLEMENTS</h2>
+        <p><strong>4.1 Annual Leave:</strong> You are entitled to 4 weeks’ paid annual leave per year, accruing from the first day of employment as per 2026 NZ Standards.</p>
+        <p><strong>4.2 Sick Leave:</strong> You are entitled to 10 days’ paid sick leave per year after the first 6 months of employment.</p>
+        <p><strong>4.3 Public Holidays:</strong> You are entitled to paid time off for all New Zealand public holidays that fall on a day you would usually work.</p>
+
+        <h2>5. CONFIDENTIALITY</h2>
+        <p>You agree to protect all sensitive information, trade secrets, and client data. Under the <em>Employment Relations (Employee Remuneration Disclosure) Amendment Act 2025</em>, you are permitted to discuss your own pay with others but must remain silent on company proprietary data.</p>
+
+        <div class="footer">
+            <span>Confidential - Agreement [CLIENT-CODE]</span>
+            <span>Page 2 of 3</span>
+        </div>
+    </div>
+
+    <div class="page">
+        <h2>6. TERMINATION OF EMPLOYMENT</h2>
+        <p><strong>6.1 Notice Period:</strong> Either party may terminate this agreement by providing [4] weeks' notice in writing.</p>
+        <p><strong>6.2 Misconduct:</strong> In cases of serious misconduct, the Employer may dismiss you without notice (Summary Dismissal) following a fair investigation.</p>
+
+        <h2>7. RESOLVING PROBLEMS</h2>
+        <p>If an employment relationship problem arises, we encourage you to raise it with management immediately. You have 90 days to raise a personal grievance. Free mediation is available through <strong>Employment New Zealand (MBIE)</strong>.</p>
+
+        <div class="sig-section">
+            <div>
+                <p><strong>For the Employer:</strong></p>
+                <div class="sig-line">Name/Title</div>
+                <div class="sig-line">Date</div>
+            </div>
+            <div>
+                <p><strong>The Employee:</strong></p>
+                <div class="sig-line">Signature</div>
+                <div class="sig-line">Date</div>
+            </div>
+        </div>
+
+        <p style="margin-top: 50px; font-size: 11px; color: #555;">
+            <em>Note: You have the right to seek independent legal advice before signing this agreement. By signing, you acknowledge you have been given a reasonable opportunity to do so.</em>
+        </p>
+
+        <div class="footer">
+            <span>Confidential - Agreement [CLIENT-CODE]</span>
+            <span>Page 3 of 3</span>
+        </div>
+    </div>
+
+</body>
+</html>
