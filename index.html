@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitație Oficială IGM Moldova</title>
+    <title>Invitatie IGM Moldova - Official</title>
     <style>
         :root {
-            --parchment: #f4f1e1;
-            --border-gold: #b39b6d;
-            --ink-blue: #1c3a7d;
+            --paper: #f1ebd5; /* Authentic aged parchment color */
+            --border-gold: #a68d5d;
+            --ink-blue: #1a356e;
         }
 
         body {
-            background-color: #333;
+            background-color: #2c2c2c;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -21,193 +21,199 @@
             font-family: 'Times New Roman', serif;
         }
 
-        .no-print {
+        .toolbar {
             background: #fff;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 12px 25px;
+            border-radius: 5px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             display: flex;
             gap: 20px;
             align-items: center;
         }
 
         button {
-            padding: 12px 24px;
-            background: #8e7341;
+            padding: 10px 20px;
+            background: #7a633a;
             color: white;
             border: none;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 4px;
-            text-transform: uppercase;
+            border-radius: 3px;
         }
 
-        /* Regional HD Border & Background */
-        .document-page {
+        /* THE REGIONAL DESIGN: Dual-column gold folk border */
+        .page {
             width: 210mm;
             min-height: 297mm;
-            background-color: var(--parchment);
-            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-            padding: 12mm;
+            background-color: var(--paper);
+            background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
+            padding: 10mm;
             box-sizing: border-box;
             position: relative;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-            /* Traditional Regional Folk Border */
-            border: 25px solid transparent;
-            border-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23b39b6d' stroke-width='1.5'%3E%3Cpath d='M10 10 L30 10 L20 20 Z M90 10 L70 10 L80 20 Z M10 90 L30 90 L20 80 Z M90 90 L70 90 L80 80 Z'/%3E%3Cpath d='M50 5 L60 20 L50 35 L40 20 Z'/%3E%3Cpath d='M5 50 L20 60 L35 50 L20 40 Z'/%3E%3Cpath d='M95 50 L80 40 L65 50 L80 60 Z'/%3E%3Cpath d='M50 95 L40 80 L50 65 L60 80 Z'/%3E%3C/g%3E%3C/svg%3E") 35 repeat;
+            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+            /* The specific regional border pattern */
+            border: 30px solid transparent;
+            border-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23a68d5d' stroke-width='1.5'%3E%3Cpath d='M10 10 L110 10 L110 110 L10 110 Z'/%3E%3Cpath d='M30 10 L30 110 M90 10 L90 110'/%3E%3Cpath d='M10 30 L30 50 L10 70 M90 30 L110 50 L90 70'/%3E%3Ccircle cx='20' cy='20' r='3' fill='%23a68d5d'/%3E%3Ccircle cx='100' cy='20' r='3' fill='%23a68d5d'/%3E%3Ccircle cx='20' cy='100' r='3' fill='%23a68d5d'/%3E%3Ccircle cx='100' cy='100' r='3' fill='%23a68d5d'/%3E%3C/g%3E%3C/svg%3E") 40 repeat;
         }
 
-        .header { text-align: center; margin-top: 10px; }
-        .coat-of-arms { width: 75px; margin-bottom: 5px; }
-        h1 { font-size: 26px; margin: 15px 0; letter-spacing: 4px; font-weight: bold; }
-        h2 { font-size: 15px; margin: 2px 0; text-transform: uppercase; font-weight: bold; }
-        
-        .meta-data { display: flex; justify-content: space-between; font-weight: bold; margin: 10px 0; border-bottom: 1.5px solid #000; padding: 0 10px; }
+        .content { border: 0.5px solid rgba(0,0,0,0.1); padding: 15px; height: 100%; position: relative; }
 
-        .section-header { text-align: center; font-weight: bold; font-size: 14px; margin: 20px 0 10px 0; text-transform: uppercase; }
+        /* Header Section */
+        .header { text-align: center; }
+        .emblem { width: 80px; margin-bottom: 5px; }
+        h1 { font-size: 24px; margin: 10px 0; letter-spacing: 2px; font-weight: bold; text-transform: uppercase; }
+        h2 { font-size: 14px; margin: 0; text-transform: uppercase; font-weight: bold; line-height: 1.4; }
 
-        .row { display: flex; margin-bottom: 7px; align-items: flex-end; font-size: 13px; }
-        .label { white-space: nowrap; margin-right: 5px; color: #333; }
-        .val { border-bottom: 1px solid #000; flex-grow: 1; padding-left: 8px; font-weight: bold; text-transform: uppercase; font-size: 15px; outline: none; min-height: 1.2em; }
+        .date-line { display: flex; justify-content: space-between; font-weight: bold; margin: 15px 0 10px; border-bottom: 1px solid #000; padding: 0 5px; font-size: 14px; }
 
-        /* Real Ink Stamp Logic */
-        .stamp-box {
+        .section-title { text-align: center; font-weight: bold; font-size: 13px; margin: 15px 0 8px; text-decoration: underline; text-transform: uppercase; }
+
+        /* Form Structure */
+        .row { display: flex; margin-bottom: 6px; align-items: flex-end; font-size: 13px; }
+        .label { white-space: nowrap; margin-right: 5px; }
+        .field { border-bottom: 1px solid #000; flex-grow: 1; padding-left: 8px; font-weight: bold; text-transform: uppercase; font-size: 14px; outline: none; min-height: 1.2em; }
+
+        /* Professional Blue Ink Stamp */
+        .stamp-official {
             position: absolute;
-            bottom: 60px;
-            left: 38%;
-            width: 150px;
-            height: 150px;
+            bottom: 50px;
+            left: 35%;
+            width: 155px;
+            height: 155px;
             mix-blend-mode: multiply;
-            transform: rotate(-8deg);
-            filter: url(#distort-ink);
+            transform: rotate(-10deg);
+            filter: url(#ink-noise);
             pointer-events: none;
         }
 
-        .stamp-circle {
+        .stamp-body {
             width: 100%; height: 100%;
             border: 4px double var(--ink-blue);
             border-radius: 50%;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; color: var(--ink-blue); font-size: 9px; font-weight: 900;
+            text-align: center; color: var(--ink-blue); font-size: 8px; font-weight: 900;
         }
 
         @media print {
-            .no-print { display: none; }
+            .toolbar { display: none; }
             body { background: white; padding: 0; }
-            .document-page { box-shadow: none; -webkit-print-color-adjust: exact; }
+            .page { box-shadow: none; -webkit-print-color-adjust: exact; }
         }
     </style>
 </head>
 <body>
 
     <svg style="position: absolute; width: 0; height: 0;">
-        <filter id="distort-ink">
-            <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" />
+        <filter id="ink-noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.8" />
         </filter>
     </svg>
 
-    <div class="no-print">
-        <button onclick="downloadDocument()">Download HD PDF</button>
-        <div style="font-size: 12px;">File name will include: <strong id="preview-name">YOUNAS_SN4141172</strong></div>
+    <div class="toolbar">
+        <button onclick="saveDocument()">Download PDF</button>
+        <span style="font-size: 12px; color: #666;">Saving as: <b id="filename-preview">Invitatie_ALI_1835591.pdf</b></span>
     </div>
 
-    <div class="document-page">
-        <div class="header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Coat_of_arms_of_Moldova.svg/1200px-Coat_of_arms_of_Moldova.svg.png" class="coat-of-arms">
-            <h2>Ministerul Afacerilor Interne al Republicii Moldova</h2>
-            <h2>Inspectoratul General Pentru Migrație</h2>
-            <h1>INVITAȚIE</h1>
-            <div style="font-weight: bold;">Seria IGM nr. <span contenteditable="true" id="series_nr">048945</span></div>
-        </div>
+    <div class="page" id="main-doc">
+        <div class="content">
+            <div class="header">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Coat_of_arms_of_Moldova.svg/1200px-Coat_of_arms_of_Moldova.svg.png" class="emblem">
+                <h2>Ministerul Afacerilor Interne al Republicii Moldova</h2>
+                <h2>Inspectoratul General pentru Migrație</h2>
+                <h1>INVITAȚIE</h1>
+                <div style="font-weight: bold;">Seria <i>IGM</i> nr. <span contenteditable="true" id="series_val">048945</span></div>
+            </div>
 
-        <div class="meta-data">
-            <div><span contenteditable="true">29.01.2026</span><br><small>data eliberării</small></div>
-            <div><span contenteditable="true">29.04.2026</span><br><small>valabilă pînă la</small></div>
-        </div>
+            <div class="date-line">
+                <div><span contenteditable="true">29.01.2026</span><br><small>data eliberării</small></div>
+                <div><span contenteditable="true">29.04.2026</span><br><small>valabilă pînă la</small></div>
+            </div>
 
-        <div class="section-header">DATE DESPRE PERSOANA INVITATĂ</div>
-        <div class="row"><span class="label">Numele:</span><div class="val" contenteditable="true" id="c_name">YOUNAS</div></div>
-        <div class="row"><span class="label">Prenumele:</span><div class="val" contenteditable="true">KHAN</div></div>
-        <div class="row"><span class="label">Patronimicul:</span><div class="val" contenteditable="true">***</div></div>
-        
-        <div class="row">
-            <span class="label">Cetățenia:</span><div class="val" contenteditable="true">PAKISTAN</div>
-            <span class="label" style="margin-left:15px">data:</span><div class="val" contenteditable="true">05-01-2002</div>
-            <span class="label" style="margin-left:15px">sexul:</span><div class="val" style="flex:0 0 80px" contenteditable="true">Masculin</div>
-        </div>
+            <div class="section-title">DATE DESPRE PERSOANA INVITATĂ</div>
+            <div class="row"><span class="label">Numele:</span><div class="field" contenteditable="true" id="f_name">ALI</div></div>
+            <div class="row"><span class="label">Prenumele:</span><div class="field" contenteditable="true">LUQMAN</div></div>
+            <div class="row"><span class="label">Patronimicul:</span><div class="field" contenteditable="true">***</div></div>
+            
+            <div class="row">
+                <span class="label">Cetățenia:</span><div class="field" contenteditable="true">REPUBLICA ISLAMICĂ PAKISTAN</div>
+                <span class="label" style="margin-left:10px">data:</span><div class="field" contenteditable="true">08.08.2001</div>
+                <span class="label" style="margin-left:10px">sexul:</span><div class="field" style="flex:0 0 70px" contenteditable="true">Masculin</div>
+            </div>
 
-        <div class="row">
-            <span class="label">Actul de identitate: Pașaport național</span>
-            <div class="val" style="flex:0 0 60px" contenteditable="true">PAK</div>
-            <span class="label">nr.</span><div class="val" contenteditable="true" id="c_pass">SN4141172</div>
-        </div>
+            <div class="row">
+                <span class="label">Actul de identitate: Pașaport național nr.</span>
+                <div class="field" style="flex:0 0 50px" contenteditable="true">BU</div>
+                <div class="field" contenteditable="true" id="f_pass">1835591</div>
+            </div>
 
-        <div class="row">
-            <span class="label">Valabil pînă la:</span><div class="val" contenteditable="true">06-06-2029</div>
-            <span class="label" style="margin-left:15px">Tipul:</span><div class="val" contenteditable="true">Viza de scurta sedere</div>
-        </div>
+            <div class="row">
+                <span class="label">data:</span><div class="field" contenteditable="true">03.08.2022</div>
+                <span class="label" style="margin-left:10px">Valabil pînă la:</span><div class="field" contenteditable="true">02.08.2027</div>
+                <span class="label" style="margin-left:10px">Tipul:</span><div class="field" contenteditable="true">Viza de scurta sedere</div>
+            </div>
 
-        <div class="row">
-            <span class="label">Scopul:</span><div class="val" contenteditable="true">Turism</div>
-            <span class="label" style="margin-left:15px">Locul:</span><div class="val" contenteditable="true">e-VISA Direcția Generală Consulară</div>
-        </div>
+            <div class="row">
+                <span class="label">Scopul:</span><div class="field" contenteditable="true">Turism</div>
+                <span class="label" style="margin-left:10px">Locul:</span><div class="field" contenteditable="true">e-VISA Direcția Generală Consulară</div>
+            </div>
 
-        <div class="row">
-            <span class="label">Punctul de trecere:</span><div class="val" contenteditable="true">PTF CHIȘINĂU - AEROPORT</div>
-            <span class="label" style="margin-left:15px">Durata:</span><div class="val" style="flex:0 0 80px" contenteditable="true">30 ZILE</div>
-        </div>
+            <div class="row">
+                <span class="label">Punctul de trecere:</span><div class="field" contenteditable="true">PTF CHIȘINĂU - AEROPORT</div>
+                <span class="label" style="margin-left:10px">Durata:</span><div class="field" style="flex:0 0 60px" contenteditable="true">15 ZILE</div>
+            </div>
 
-        <div class="section-header">DATE DESPRE COPIII MINORI CARE ÎNSOȚESC PERSOANA INVITATĂ</div>
-        <div class="row"><span class="label">Nume/Prenume:</span><div class="val" contenteditable="true">***</div><span class="label">Data nașterii:</span><div class="val" contenteditable="true">***</div></div>
-        <div class="row"><span class="label">Nume/Prenume:</span><div class="val" contenteditable="true">***</div><span class="label">Data nașterii:</span><div class="val" contenteditable="true">***</div></div>
+            <div class="section-title">DATE DESPRE COPIII MINORI CARE ÎNSOȚESC PERSOANA INVITATĂ</div>
+            <div class="row"><span class="label">Nume/Prenume:</span><div class="field" contenteditable="true">***</div><span class="label">Data nașterii:</span><div class="field" contenteditable="true">***</div></div>
+            <div class="row"><span class="label">Patronimicul:</span><div class="field" contenteditable="true">***</div><span class="label">Data nașterii:</span><div class="field" contenteditable="true">***</div></div>
 
-        <div class="section-header">DATE DESPRE SOLICITANTUL INVITAȚIEI</div>
-        <div style="font-weight: bold; font-size: 11px;">PERSOANA FIZICĂ</div>
-        <div class="row"><span class="label">Numele/Prenumele:</span><div class="val" contenteditable="true">GHEORGHIU ALIONA</div></div>
-        <div class="row">
-            <span class="label">IDNP:</span><div class="val" contenteditable="true">0981803035739</div>
-            <span class="label" style="margin-left:15px">Pașaport:</span><div class="val" contenteditable="true">AB 0135542</div>
-        </div>
+            <div class="section-title">DATE DESPRE SOLICITANTUL INVITAȚIEI</div>
+            <div style="font-weight: bold; font-size: 11px;">PERSOANA FIZICĂ</div>
+            <div class="row"><span class="label">Numele/Prenumele:</span><div class="field" contenteditable="true">***</div></div>
+            <div class="row">
+                <span class="label">IDNP:</span><div class="field" contenteditable="true">***</div>
+                <span class="label" style="margin-left:10px">Pașaport:</span><div class="field" contenteditable="true">***</div>
+            </div>
 
-        <div style="font-weight: bold; font-size: 11px; margin-top: 10px;">PERSOANA JURIDICĂ</div>
-        <div class="row"><span class="label">Denumirea / IDNO:</span><div class="val" contenteditable="true">***</div></div>
+            <div style="font-weight: bold; font-size: 11px; margin-top: 5px;">PERSOANA JURIDICĂ</div>
+            <div class="row"><span class="label">Denumirea completă:</span><div class="field" contenteditable="true">---</div></div>
+            <div class="row"><span class="label">IDNO:</span><div class="field" contenteditable="true">---</div><span class="label" style="margin-left:10px">Adresa:</span><div class="field" contenteditable="true">---</div></div>
 
-        <div class="row" style="margin-top: 50px;">
-            <span class="label">Semnatura persoanei oficiale: __________________________</span>
-        </div>
+            <div class="row" style="margin-top: 40px;">
+                <span class="label">Semnatura persoanei oficiale: __________________________</span>
+            </div>
 
-        <div class="stamp-box">
-            <div class="stamp-circle">
-                REPUBLICA MOLDOVA<br>
-                <div style="border-top: 1px solid var(--ink-blue); width: 80%; margin: 3px 0;"></div>
-                INSPECTORATUL GENERAL<br>PENTRU MIGRAȚIE<br>
-                <div style="font-size: 14px; margin-top: 5px;">L.Ș.</div>
+            <div class="stamp-official">
+                <div class="stamp-body">
+                    REPUBLICA MOLDOVA<br>
+                    <hr style="width: 80%; border: 0.5px solid var(--ink-blue); margin: 3px 0;">
+                    INSPECTORATUL GENERAL<br>PENTRU MIGRAȚIE<br>
+                    <div style="font-size: 14px; margin-top: 4px;">L.Ș.</div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Update filename preview dynamically
-        function updatePreview() {
-            const name = document.getElementById('c_name').innerText.trim();
-            const pass = document.getElementById('c_pass').innerText.trim();
-            document.getElementById('preview-name').innerText = name + "_" + pass;
+        // Filename auto-updater
+        function updateFilename() {
+            const name = document.getElementById('f_name').innerText.trim() || "Client";
+            const pass = document.getElementById('f_pass').innerText.trim() || "000000";
+            document.getElementById('filename-preview').innerText = "Invitatie_" + name + "_" + pass + ".pdf";
         }
 
-        document.getElementById('c_name').addEventListener('input', updatePreview);
-        document.getElementById('c_pass').addEventListener('input', updatePreview);
+        document.getElementById('f_name').addEventListener('input', updateFilename);
+        document.getElementById('f_pass').addEventListener('input', updateFilename);
 
-        function downloadDocument() {
-            const name = document.getElementById('c_name').innerText.trim();
-            const pass = document.getElementById('c_pass').innerText.trim();
-            const originalTitle = document.title;
+        function saveDocument() {
+            const name = document.getElementById('f_name').innerText.trim();
+            const pass = document.getElementById('f_pass').innerText.trim();
+            const oldTitle = document.title;
             
-            // Set document title to control PDF filename
             document.title = "Invitatie_" + name + "_" + pass;
             window.print();
-            document.title = originalTitle;
+            document.title = oldTitle;
         }
     </script>
 </body>
