@@ -3,236 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Invitatie Oficiala - BMA Moldova</title>
+    <title>Invitație Republica Moldova - HD Generator</title>
     <style>
         :root {
-            --moldova-blue: #003399;
-            --moldova-red: #cc092f;
-            --moldova-gold: #ffce00;
+            --paper-color: #fcfaf2; /* Classic official document cream */
+            --border-pattern: #222;
+            --ink-blue: #2a4d8e;
         }
 
         body {
-            font-family: 'Times New Roman', Times, serif;
-            background-color: #555;
-            margin: 0;
-            padding: 20px;
+            background-color: #444;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding: 40px 0;
+            margin: 0;
+            font-family: 'Times New Roman', serif;
         }
 
-        .no-print-zone {
-            background: white;
-            padding: 15px 25px;
-            border-radius: 5px;
+        .controls {
             margin-bottom: 20px;
-            display: flex;
-            gap: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            background: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
         button {
-            padding: 10px 20px;
-            cursor: pointer;
-            background: var(--moldova-blue);
+            background: #d32f2f;
             color: white;
             border: none;
-            border-radius: 4px;
+            padding: 10px 20px;
             font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
         }
 
-        /* The Document A4 */
-        .page {
-            background: white;
+        /* The Main Document */
+        .document {
             width: 210mm;
             min-height: 297mm;
-            padding: 10mm;
+            background-color: var(--paper-color);
+            padding: 15mm;
             box-sizing: border-box;
             position: relative;
-            border: 20px solid transparent;
-            /* HD Decorative Border */
-            border-image: url("https://www.transparenttextures.com/patterns/cubes.png") 30 round;
-            outline: 2px solid var(--moldova-blue);
-            outline-offset: -15px;
+            /* HD Decorative Border Simulation */
+            border: 25px solid transparent;
+            border-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm20 2c9.941 0 18 8.059 18 18s-8.059 18-18 18S2 29.941 2 20 10.059 2 20 2zm0 2C11.163 4 4 11.163 4 20s7.163 16 16 16 16-7.163 16-16S28.837 4 20 4z' fill='%23222' fill-opacity='.1'/%3E%3Cpath d='M20 8c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12S26.627 8 20 8zm0 2c5.523 0 10 4.477 10 10s-4.477 10-10 10-10-4.477-10-10 4.477-10 10-10z' fill='%23222'/%3E%3C/svg%3E") 40 repeat;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
 
-        .inner-border {
-            border: 1px solid #ccc;
+        .inner-content {
+            border: 1px solid #aaa;
             height: 100%;
-            padding: 15px;
+            padding: 20px;
+            position: relative;
         }
 
-        .header-section {
+        .header {
             text-align: center;
-            color: var(--moldova-blue);
+            margin-bottom: 20px;
         }
 
         .coat-of-arms {
-            width: 80px;
-            height: auto;
+            width: 70px;
             margin-bottom: 10px;
         }
 
-        h1 { font-size: 28px; margin: 10px 0; letter-spacing: 4px; border-bottom: 2px solid var(--moldova-red); display: inline-block; padding: 0 20px; }
-        h2 { font-size: 14px; margin: 2px 0; text-transform: uppercase; }
-
-        .top-meta {
+        h1 { font-size: 34px; margin: 5px 0; letter-spacing: 3px; font-weight: bold; }
+        h2 { font-size: 13px; margin: 0; text-transform: uppercase; font-weight: bold; }
+        
+        .meta-header {
             display: flex;
             justify-content: space-between;
             font-weight: bold;
-            margin-top: 10px;
-            padding: 0 10px;
+            margin: 10px 0;
+            border-bottom: 1px solid #000;
         }
 
-        .section-header {
-            background-color: #f2f2f2;
+        .section-title {
             text-align: center;
             font-weight: bold;
-            font-size: 13px;
-            padding: 4px;
+            font-size: 14px;
+            text-decoration: underline;
             margin: 15px 0 10px 0;
-            border: 1px solid #ddd;
-            color: #333;
         }
 
-        .row {
+        .field-row {
             display: flex;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            font-size: 14px;
             align-items: flex-end;
-            font-size: 13px;
         }
 
         .label {
-            font-weight: normal;
-            margin-right: 5px;
             white-space: nowrap;
+            padding-right: 5px;
         }
 
-        .fill {
+        .value {
             border-bottom: 1px solid #000;
             flex-grow: 1;
+            padding-left: 10px;
             font-weight: bold;
             text-transform: uppercase;
-            padding-left: 8px;
-            min-height: 18px;
+            min-height: 1.2em;
             outline: none;
         }
 
-        .sub-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        .flex-container {
+            display: flex;
             gap: 20px;
         }
 
-        .stamp-box {
+        /* Stamp Styling */
+        .stamp-container {
             position: absolute;
             bottom: 60px;
-            right: 80px;
-            width: 130px;
-            height: 130px;
-            border: 2px dashed var(--moldova-blue);
+            left: 350px; /* Centered-right like the original */
+            width: 140px;
+            height: 140px;
+            border: 3px double var(--ink-blue);
             border-radius: 50%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
+            color: var(--ink-blue);
+            opacity: 0.7;
+            transform: rotate(-12deg);
             font-size: 9px;
-            color: var(--moldova-blue);
-            opacity: 0.6;
-            transform: rotate(-10deg);
+            font-weight: bold;
+            pointer-events: none;
+        }
+
+        .stamp-center {
+            border: 1px solid var(--ink-blue);
+            border-radius: 50%;
+            padding: 10px;
+            margin: 5px;
         }
 
         @media print {
-            .no-print-zone { display: none; }
-            body { background: white; padding: 0; }
-            .page { border: 15px solid #333; box-shadow: none; margin: 0; }
+            body { background: none; padding: 0; }
+            .controls { display: none; }
+            .document { box-shadow: none; border-image: none; border: 20px solid black; }
         }
     </style>
 </head>
 <body>
 
-    <div class="no-print-zone">
-        <button onclick="window.print()">Download HD PDF</button>
-        <p style="font-size: 12px; margin: 0; color: #666; align-self: center;">Click on any value to edit it before printing.</p>
+    <div class="controls">
+        <button onclick="window.print()">Download HD Invitation PDF</button>
+        <small style="margin-left: 10px;">Click values to edit text</small>
     </div>
 
-    <div class="page">
-        <div class="inner-border">
-            <div class="header-section">
-                <svg class="coat-of-arms" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="45" fill="none" stroke="gold" stroke-width="1"/>
-                    <path d="M50 20 L60 40 H40 Z" fill="brown" /> <rect x="42" y="45" width="16" height="12" fill="blue" stroke="red" />
-                </svg>
+    <div class="document">
+        <div class="inner-content">
+            <div class="header">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Coat_of_arms_of_Moldova.svg/1200px-Coat_of_arms_of_Moldova.svg.png" class="coat-of-arms" alt="Moldova Coat of Arms">
                 <h2>Ministerul Afacerilor Interne al Republicii Moldova</h2>
-                <h3>Biroul migrație și azil</h3>
+                <h2>Biroul migrație și azil</h2>
                 <h1>INVITAȚIE</h1>
-                <div style="font-weight: bold;">Seria BMA nr. <span contenteditable="true">49845</span></div>
+                <div style="font-size: 16px;">Seria <i>BMA</i> nr. <span contenteditable="true">49845</span></div>
             </div>
 
-            <div class="top-meta">
+            <div class="meta-header">
                 <div>18-02-2026<br><small>data eliberării</small></div>
                 <div>25-08-2026<br><small>valabilă pînă la</small></div>
             </div>
 
-            <div class="section-header">DATE DESPRE PERSOANA INVITATĂ</div>
-            
-            <div class="row"><span class="label">Numele:</span><div class="fill" contenteditable="true">YOUNAS</div></div>
-            <div class="row"><span class="label">Prenumele:</span><div class="fill" contenteditable="true">KHAN</div></div>
-            <div class="row"><span class="label">Patronimicul:</span><div class="fill" contenteditable="true">---</div></div>
+            <div class="section-title">DATE DESPRE PERSOANA INVITATĂ</div>
+            <div class="field-row"><span class="label">Numele:</span><div class="value" contenteditable="true">YOUNAS</div></div>
+            <div class="field-row"><span class="label">Prenumele:</span><div class="value" contenteditable="true">KHAN</div></div>
+            <div class="field-row"><span class="label">Patronimicul:</span><div class="value" contenteditable="true">---</div></div>
 
-            <div class="sub-grid">
-                <div class="row"><span class="label">Cetățenia:</span><div class="fill" contenteditable="true">PAKISTAN</div></div>
-                <div class="row"><span class="label">Data nașterii:</span><div class="fill" contenteditable="true">05-01-2002</div></div>
+            <div class="flex-container">
+                <div class="field-row" style="flex:2"><span class="label">Cetățenia:</span><div class="value" contenteditable="true">PAKISTAN</div></div>
+                <div class="field-row" style="flex:1"><span class="label">Data nașterii:</span><div class="value" contenteditable="true">05-01-2002</div></div>
+                <div class="field-row" style="flex:0.5"><span class="label">Sexul:</span><div class="value" contenteditable="true">Male</div></div>
             </div>
 
-            <div class="row">
+            <div class="field-row">
                 <span class="label">Actul de identitate: Pașaport național</span>
-                <span class="label">Cod:</span><div class="fill" style="flex:0 0 60px" contenteditable="true">PAK</div>
-                <span class="label">Nr:</span><div class="fill" contenteditable="true">SN4141172</div>
+                <span class="label">Cod:</span><div class="value" style="flex:0 0 60px;" contenteditable="true">PAK</div>
+                <span class="label">Nr:</span><div class="value" contenteditable="true">SN4141172</div>
             </div>
 
-            <div class="sub-grid">
-                <div class="row"><span class="label">Data:</span><div class="fill" contenteditable="true">07-06-2024</div></div>
-                <div class="row"><span class="label">Valabil pînă la:</span><div class="fill" contenteditable="true">06-06-2029</div></div>
+            <div class="flex-container">
+                <div class="field-row" style="flex:1"><span class="label">Data eliberării:</span><div class="value" contenteditable="true">07-06-2024</div></div>
+                <div class="field-row" style="flex:1"><span class="label">Valabil pînă la:</span><div class="value" contenteditable="true">06-06-2029</div></div>
             </div>
 
-            <div class="row"><span class="label">Scopul:</span><div class="fill" contenteditable="true">Turism</div><span class="label">Locul perfectării vizei:</span><div class="fill" contenteditable="true">Misiunile Diplomatice ale RM</div></div>
+            <div class="field-row"><span class="label">Scopul:</span><div class="value" contenteditable="true">Turism</div><span class="label">Locul perfectării vizei:</span><div class="value" contenteditable="true">Misiunile Diplomatice ale RM</div></div>
             
-            <div class="sub-grid">
-                <div class="row"><span class="label">Punctul de trecere frontierei:</span><div class="fill" contenteditable="true">Aeroportul Chișinău</div></div>
-                <div class="row"><span class="label">Durata sejurului:</span><div class="fill" contenteditable="true">30 zile</div></div>
+            <div class="flex-container">
+                <div class="field-row" style="flex:2"><span class="label">Punctul de trecere:</span><div class="value" contenteditable="true">Aeroportul Chișinău</div></div>
+                <div class="field-row" style="flex:1"><span class="label">Durata:</span><div class="value" contenteditable="true">30 zile</div></div>
             </div>
 
-            <div class="section-header">DATE DESPRE COPIII MINORI CARE ÎNSOȚESC PERSOANA INVITATĂ</div>
-            <div class="row"><span class="label">Numele:</span><div class="fill" contenteditable="true">***</div><span class="label">Prenumele:</span><div class="fill" contenteditable="true">***</div></div>
-            <div class="row"><span class="label">Patronimicul:</span><div class="fill" contenteditable="true">***</div><span class="label">Data nașterii:</span><div class="fill" contenteditable="true">***</div></div>
+            <div class="section-title">DATE DESPRE COPIII MINORI CARE ÎNSOȚESC PERSOANA INVITATĂ</div>
+            <div class="field-row"><span class="label">Numele / Prenumele:</span><div class="value" contenteditable="true">***</div></div>
+            <div class="field-row"><span class="label">Data nașterii:</span><div class="value" contenteditable="true">***</div></div>
 
-            <div class="section-header">DATE DESPRE SOLICITANTUL INVITAȚIEI</div>
-            <div style="font-size: 11px; font-weight: bold; margin-bottom: 5px;">PERSOANA FIZICA</div>
-            <div class="row"><span class="label">Numele:</span><div class="fill" contenteditable="true">GHEORGHIU ALIONA</div></div>
-            <div class="sub-grid">
-                <div class="row"><span class="label">Cetățenia:</span><div class="fill" contenteditable="true">REPUBLICA MOLDOVA</div></div>
-                <div class="row"><span class="label">IDNP:</span><div class="fill" contenteditable="true">0981803035739</div></div>
+            <div class="section-title">DATE DESPRE SOLICITANTUL INVITAȚIEI</div>
+            <div style="font-size: 11px; font-weight: bold;">PERSOANA FIZICĂ</div>
+            <div class="field-row"><span class="label">Numele:</span><div class="value" contenteditable="true">GHEORGHIU ALIONA</div></div>
+            <div class="flex-container">
+                <div class="field-row" style="flex:1"><span class="label">Cetățenia:</span><div class="value" contenteditable="true">REPUBLICA MOLDOVA</div></div>
+                <div class="field-row" style="flex:1"><span class="label">IDNP:</span><div class="value" contenteditable="true">0981803035739</div></div>
             </div>
-            <div class="row"><span class="label">Actul de identitate: Pașaport seria</span><div class="fill" style="flex:0 0 50px" contenteditable="true">AB</div><span class="label">nr.</span><div class="fill" contenteditable="true">0135542</div><span class="label">data eliberării:</span><div class="fill" contenteditable="true">17-02-2026</div></div>
-
-            <div style="font-size: 11px; font-weight: bold; margin: 10px 0 5px 0;">PERSOANA JURIDICA</div>
-            <div class="row"><span class="label">Denumirea completă:</span><div class="fill" contenteditable="true">---</div></div>
-            <div class="sub-grid">
-                <div class="row"><span class="label">IDNO:</span><div class="fill" contenteditable="true">---</div></div>
-                <div class="row"><span class="label">Adresa juridică:</span><div class="fill" contenteditable="true">---</div></div>
+            <div class="field-row">
+                <span class="label">Pașaport seria:</span><div class="value" style="flex:0 0 50px" contenteditable="true">AB</div>
+                <span class="label">Nr:</span><div class="value" contenteditable="true">0135542</div>
+                <span class="label">din:</span><div class="value" contenteditable="true">17-02-2026</div>
             </div>
 
-            <div class="row" style="margin-top: 40px;">
+            <div style="font-size: 11px; font-weight: bold; margin-top: 10px;">PERSOANA JURIDICĂ</div>
+            <div class="field-row"><span class="label">Denumirea / IDNO:</span><div class="value" contenteditable="true">---</div></div>
+
+            <div class="field-row" style="margin-top: 40px;">
                 <span class="label">Semnatura persoanei oficiale:</span>
-                <div style="border-bottom: 1px solid #000; width: 200px;"></div>
+                <div style="border-bottom: 1px solid #000; width: 180px;"></div>
             </div>
 
-            <div class="stamp-box">
-                L.S.<br>REPUBLICA MOLDOVA<br>BIROUL MIGRAȚIE ȘI AZIL
+            <div class="stamp-container">
+                <div class="stamp-center">
+                    REPUBLICA MOLDOVA<br>
+                    <small>BIROUL MIGRAȚIE ȘI AZIL</small>
+                </div>
+                <div style="font-size: 14px;">L.Ș.</div>
             </div>
         </div>
     </div>
 
 </body>
-                                                                               </html>
+</html>
