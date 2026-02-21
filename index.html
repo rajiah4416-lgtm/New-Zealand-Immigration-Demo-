@@ -1,240 +1,246 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitatie Oficiala IGM Moldova</title>
+    <title>New Zealand Employment Agreement</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root {
-            --paper-gold: #e8dfc4; /* Exact regional parchment shade */
-            --ink-blue: #1a356e;
+            --nz-blue: #00247d;
+            --nz-red: #cc142b;
+            --nz-black: #000000;
+            --soft-gray: #f9f9f9;
         }
 
-        body {
-            background-color: #222;
-            margin: 0;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-family: 'Times New Roman', serif;
-        }
-
-        .no-print-zone {
-            background: #fff;
-            padding: 15px 30px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        button {
-            background: #7a633a;
-            color: #fff;
-            border: none;
-            padding: 12px 25px;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-
-        /* THE EXACT REGIONAL BORDER & BACKGROUND */
-        .document-container {
-            width: 210mm;
-            min-height: 297mm;
-            background-color: var(--paper-gold);
-            background-image: url("https://www.transparenttextures.com/patterns/handmade-paper.png");
-            padding: 18mm;
-            box-sizing: border-box;
-            position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            /* Regional "Ladder" Decorative Border */
-            border: 22px solid transparent;
-            border-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%238e7341' stroke-width='1.5'%3E%3Crect x='5' y='5' width='90' height='90'/%3E%3Cpath d='M20 5v90M80 5v90M5 20h90M5 80h90'/%3E%3Cpath d='M5 5l15 15M80 15l15-15M5 95l15-15M80 80l15 15'/%3E%3Ccircle cx='50' cy='50' r='5'/%3E%3C/g%3E%3C/svg%3E") 30 repeat;
-        }
-
-        /* Header Layout */
-        .header { text-align: center; }
-        .stema { width: 75px; filter: sepia(0.2) contrast(1.1); margin-bottom: 5px; }
+        body { background: #555; font-family: 'Arial', sans-serif; margin: 0; padding: 0; }
         
-        h1 { font-size: 28px; margin: 12px 0; letter-spacing: 5px; font-weight: bold; }
-        h2 { font-size: 14.5px; margin: 2px 0; text-transform: uppercase; font-weight: bold; line-height: 1.2; }
-
-        .date-section {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px 0 15px;
-            font-weight: bold;
-            font-size: 14px;
-            border-bottom: 1px solid #000;
-            padding-bottom: 5px;
+        /* Layout Controls */
+        .controls {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: white; padding: 15px 30px; border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000;
+        }
+        button {
+            background: var(--nz-blue); color: white; border: none;
+            padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 4px;
         }
 
-        .section-title {
-            text-align: center;
-            font-weight: bold;
-            font-size: 13.5px;
-            margin: 18px 0 10px;
-            text-transform: uppercase;
-            text-decoration: underline;
+        /* Page Settings */
+        .page {
+            width: 210mm; min-height: 297mm;
+            padding: 20mm; margin: 20px auto;
+            background: white; position: relative;
+            box-sizing: border-box; box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            page-break-after: always;
         }
 
-        /* Field Spacing and Lines */
-        .row { display: flex; margin-bottom: 8px; align-items: flex-end; font-size: 13px; }
-        .lbl { white-space: nowrap; margin-right: 5px; }
-        .fill {
-            border-bottom: 1px solid #000;
-            flex-grow: 1;
-            padding-left: 8px;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 15px;
-            outline: none;
-            min-height: 1.2em;
-        }
+        /* Branding & Header */
+        .header { border-bottom: 3px solid var(--nz-blue); padding-bottom: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .nz-flag { width: 80px; }
+        .ref-box { text-align: right; font-size: 12px; font-weight: bold; color: var(--nz-blue); }
+        
+        h1 { color: var(--nz-blue); font-size: 22px; margin: 0; text-transform: uppercase; }
+        h2 { border-left: 5px solid var(--nz-red); padding-left: 10px; font-size: 16px; margin-top: 25px; color: var(--nz-black); text-transform: uppercase; }
+        
+        .grid-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; }
+        .info-block { background: var(--soft-gray); padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        .info-label { font-size: 10px; font-weight: bold; color: #666; text-transform: uppercase; }
+        
+        [contenteditable="true"] { border-bottom: 1px dotted var(--nz-blue); outline: none; display: inline-block; min-width: 50px; font-weight: bold; color: #000; }
 
-        /* The Physical Blue Stamp */
-        .official-stamp {
-            position: absolute;
-            bottom: 40px;
-            left: 36%;
-            width: 160px;
-            height: 160px;
-            mix-blend-mode: multiply;
-            transform: rotate(-10deg);
-            filter: url(#ink-texture);
-            pointer-events: none;
-        }
+        /* QR Code */
+        #qrcode { margin-top: 10px; }
 
-        .stamp-design {
-            width: 100%; height: 100%;
-            border: 5px double var(--ink-blue);
-            border-radius: 50%;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; color: var(--ink-blue); font-size: 9px; font-weight: 900;
-        }
+        /* Table Styling */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; font-size: 13px; }
+        th { background: var(--nz-blue); color: white; }
+
+        .footer { position: absolute; bottom: 20mm; width: calc(100% - 40mm); font-size: 10px; border-top: 1px solid #ccc; padding-top: 5px; color: #777; }
 
         @media print {
-            .no-print-zone { display: none; }
-            body { background: white; padding: 0; }
-            .document-container { box-shadow: none; -webkit-print-color-adjust: exact; }
+            .controls { display: none; }
+            body { background: none; }
+            .page { margin: 0; box-shadow: none; }
         }
     </style>
 </head>
 <body>
 
-    <svg style="position: absolute; width: 0; height: 0;">
-        <filter id="ink-texture">
-            <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="4" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" />
-        </filter>
-    </svg>
-
-    <div class="no-print-zone">
-        <button onclick="triggerPrint()">Generate & Save PDF</button>
-        <span style="font-size: 12px; color: #444;">Filename: <b id="file-id">Invitatie_ALI_1835591.pdf</b></span>
+    <div class="controls">
+        <button onclick="generateAndPrint()">Generate & Save 3-Page PDF</button>
+        <span style="font-size: 12px; margin-left: 10px;">Fill dotted lines before saving.</span>
     </div>
 
-    <div class="document-container">
+    <div class="page" id="page1">
         <div class="header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Coat_of_arms_of_Moldova.svg/1200px-Coat_of_arms_of_Moldova.svg.png" class="stema">
-            <h2>Ministerul Afacerilor Interne al Republicii Moldova</h2>
-            <h2>Inspectoratul General pentru Migrație</h2>
-            <h1>INVITAȚIE</h1>
-            <div style="font-weight: bold;">Seria <i>IGM</i> nr. <span contenteditable="true">048945</span></div>
-        </div>
-
-        <div class="date-section">
-            <div><span contenteditable="true">29.01.2026</span><br><small>data eliberării</small></div>
-            <div><span contenteditable="true">29.04.2026</span><br><small>valabilă pînă la</small></div>
-        </div>
-
-        <div class="section-title">DATE DESPRE PERSOANA INVITATĂ</div>
-        <div class="row"><span class="lbl">Numele:</span><div class="fill" contenteditable="true" id="name_input">ALI</div></div>
-        <div class="row"><span class="lbl">Prenumele:</span><div class="fill" contenteditable="true">LUQMAN</div></div>
-        <div class="row"><span class="lbl">Patronimicul:</span><div class="fill" contenteditable="true">***</div></div>
-
-        <div class="row">
-            <span class="lbl">Cetățenia:</span><div class="fill" contenteditable="true">REPUBLICA ISLAMICĂ PAKISTAN</div>
-            <span class="lbl" style="margin-left:12px">data:</span><div class="fill" contenteditable="true">08.08.2001</div>
-            <span class="lbl" style="margin-left:12px">sexul:</span><div class="fill" style="flex:0 0 80px" contenteditable="true">Masculin</div>
-        </div>
-
-        <div class="row">
-            <span class="lbl">Actul de identitate: PCS pașaport național al cetățeanului străin nr.</span>
-            <div class="fill" style="flex:0 0 50px" contenteditable="true">BU</div>
-            <div class="fill" contenteditable="true" id="pass_input">1835591</div>
-        </div>
-
-        <div class="row">
-            <span class="lbl">data:</span><div class="fill" contenteditable="true">03.08.2022</div>
-            <span class="lbl" style="margin-left:12px">valabil pînă la:</span><div class="fill" contenteditable="true">02.08.2027</div>
-            <span class="lbl" style="margin-left:12px">Tipul:</span><div class="fill" contenteditable="true">Viza de scurta sedere</div>
-        </div>
-
-        <div class="row">
-            <span class="lbl">Scopul:</span><div class="fill" contenteditable="true">Turism</div>
-            <span class="lbl" style="margin-left:12px">Locul perfectării vizei:</span><div class="fill" contenteditable="true">e-VISA Direcția Generală Consulară</div>
-        </div>
-
-        <div class="row">
-            <span class="lbl">Punctul de trecere a frontierei:</span><div class="fill" contenteditable="true">PTF CHIȘINĂU - AEROPORT</div>
-            <span class="lbl" style="margin-left:12px">Durata sejurului:</span><div class="fill" style="flex:0 0 60px" contenteditable="true">15</div>
-            <span class="lbl">ZILE</span>
-        </div>
-
-        <div class="section-title">DATE DESPRE COPIII MINORI CARE ÎNSOȚESC PERSOANA INVITATĂ</div>
-        <div class="row"><span class="lbl">Numele/Prenumele:</span><div class="fill" contenteditable="true">***</div><span class="lbl">Data nașterii:</span><div class="fill" contenteditable="true">***</div></div>
-        <div class="row"><span class="lbl">Patronimicul:</span><div class="fill" contenteditable="true">***</div><span class="lbl">Data nașterii:</span><div class="fill" contenteditable="true">***</div></div>
-
-        <div class="section-title">DATE DESPRE SOLICITANTUL INVITAȚIEI</div>
-        <div style="font-weight: bold; font-size: 11px;">PERSOANA FIZICĂ</div>
-        <div class="row"><span class="lbl">Numele/Prenumele:</span><div class="fill" contenteditable="true">***</div></div>
-        <div class="row">
-            <span class="lbl">IDNP:</span><div class="fill" contenteditable="true">***</div>
-            <span class="lbl" style="margin-left:12px">Pașaport:</span><div class="fill" contenteditable="true">***</div>
-        </div>
-
-        <div style="font-weight: bold; font-size: 11px; margin-top: 10px;">PERSOANA JURIDICĂ</div>
-        <div class="row"><span class="lbl">Denumirea completă:</span><div class="fill" contenteditable="true">---</div></div>
-        <div class="row"><span class="lbl">IDNO:</span><div class="fill" contenteditable="true">---</div><span class="lbl" style="margin-left:12px">Adresa:</span><div class="fill" contenteditable="true">---</div></div>
-
-        <div class="row" style="margin-top: 45px;">
-            <span class="lbl">Semnatura persoanei oficiale: __________________________</span>
-        </div>
-
-        <div class="official-stamp">
-            <div class="stamp-design">
-                REPUBLICA MOLDOVA<br>
-                <div style="border-top: 1px solid var(--ink-blue); width: 85%; margin: 3px 0;"></div>
-                INSPECTORATUL GENERAL<br>PENTRU MIGRAȚIE<br>
-                <div style="font-size: 15px; margin-top: 5px;">L.Ș.</div>
+            <div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" class="nz-flag" alt="NZ Flag">
+                <h1>Employment Agreement Offer</h1>
+            </div>
+            <div class="ref-box">
+                INZ REF: <span contenteditable="true" id="ref_no">NZ-2026-WK-99281</span><br>
+                ISSUE DATE: <span contenteditable="true">22/02/2026</span>
             </div>
         </div>
+
+        <h2>1. The Parties</h2>
+        <div class="grid-info">
+            <div class="info-block">
+                <div class="info-label">Employer (New Zealand Company)</div>
+                Name: <span contenteditable="true" id="comp_name">Southern Cross Hospitality Ltd</span><br>
+                Address: <span contenteditable="true" id="comp_addr">122 Queen Street, Auckland 1010</span><br>
+                Tax No (IRD): <span contenteditable="true">12-984-332</span><br>
+                Email: <span contenteditable="true" id="comp_email">hr@southerncrossnz.co.nz</span>
+            </div>
+            <div class="info-block">
+                <div class="info-label">Employee (Candidate)</div>
+                Name: <span contenteditable="true" id="client_name">John Doe</span><br>
+                Passport: <span contenteditable="true" id="client_pass">P1234567</span><br>
+                DOB: <span contenteditable="true" id="client_dob">15/05/1995</span><br>
+                Gender: <span contenteditable="true" id="client_gender">Male</span>
+            </div>
+        </div>
+
+        <h2>2. Position & Terms</h2>
+        <p style="font-size: 14px;">The Employer offers the Employee a position under the <b>Accredited Employer Work Visa (AEWV)</b> scheme for a fixed term of <b>Three (3) Years</b>.</p>
+        
+        <table>
+            <tr><th>Category</th><td><span contenteditable="true">Restaurant Waiter / Hotel Service</span></td></tr>
+            <tr><th>Join Date</th><td><span contenteditable="true">15/04/2026</span></td></tr>
+            <tr><th>Basic Salary</th><td>NZD $ <span contenteditable="true">29.66</span> per hour</td></tr>
+            <tr><th>Payment cycle</th><td>Fortnightly (Direct Bank Transfer)</td></tr>
+        </table>
+
+        <h2>3. Verification QR</h2>
+        <div id="qrcode"></div>
+        <p style="font-size: 10px; color: #666;">Scan to verify Employee and Company credentials with NZ Immigration Reference.</p>
+
+        <div class="footer">Page 1 of 3 - Official Employment Agreement - New Zealand Government Compliant</div>
+    </div>
+
+    <div class="page" id="page2">
+        <div class="header">
+            <h1>Benefits & Entitlements</h1>
+            <div class="ref-box">REF: NZ-WK-2026</div>
+        </div>
+
+        <h2>4. Company Provisions</h2>
+        <p>The following provisions are fully covered by the employer as per the three-year professional agreement:</p>
+        
+        <table>
+            <tr>
+                <th>Provision</th>
+                <th>Responsibility</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td><b>Air Ticket</b></td>
+                <td>Employer</td>
+                <td>Annual return ticket to home country provided.</td>
+            </tr>
+            <tr>
+                <td><b>Medical Care</b></td>
+                <td>Employer</td>
+                <td>Full coverage via Southern Cross Health or equivalent.</td>
+            </tr>
+            <tr>
+                <td><b>Insurance</b></td>
+                <td>Employer</td>
+                <td>Accident Compensation Corporation (ACC) + Private Cover.</td>
+            </tr>
+            <tr>
+                <td><b>Accommodation</b></td>
+                <td>Employer</td>
+                <td>Standard shared or subsidized housing provided.</td>
+            </tr>
+            <tr>
+                <td><b>Transport</b></td>
+                <td>Employer</td>
+                <td>Transportation from accommodation to worksite provided.</td>
+            </tr>
+        </table>
+
+        <h2>5. Working Hours & Leave</h2>
+        <ul style="font-size: 14px; line-height: 1.6;">
+            <li><b>Standard Hours:</b> 40 hours per week, with optional overtime.</li>
+            <li><b>Annual Leave:</b> 4 weeks paid leave per year (Holidays Act 2003).</li>
+            <li><b>Sick Leave:</b> 10 days per year after 6 months of employment.</li>
+            <li><b>Public Holidays:</b> Paid time off on all NZ statutory holidays.</li>
+        </ul>
+
+        <h2>6. Occupational Health & Safety</h2>
+        <p style="font-size: 13px;">The Employer will ensure a safe working environment in compliance with the Health and Safety at Work Act 2015. Protective equipment (PPE) for Construction/General workers will be provided at no cost.</p>
+
+        <div class="footer">Page 2 of 3 - Southern Cross Hospitality Ltd - Confidential</div>
+    </div>
+
+    <div class="page" id="page3">
+        <div class="header">
+            <h1>Legal Privacy & Policies</h1>
+            <div class="ref-box">REF: NZ-WK-2026</div>
+        </div>
+
+        <h2>7. Company Policy & Privacy</h2>
+        <p style="font-size: 13px;"><b>Data Privacy:</b> Under the Privacy Act 2020, the Company collects personal info only for employment purposes. Information will be shared with New Zealand Immigration (MBIE) for visa compliance.</p>
+        
+        <h2>8. Code of Conduct</h2>
+        <p style="font-size: 13px;">The Employee agrees to abide by New Zealand law and company internal regulations. Harassment, discrimination, or unsafe work practices are grounds for immediate mediation.</p>
+
+        <h2>9. Termination & Notice</h2>
+        <p style="font-size: 13px;">A notice period of 4 weeks is required by either party to terminate this agreement. For serious misconduct, summary dismissal may apply as per NZ Employment Law.</p>
+
+        <h2 style="margin-top: 50px;">10. Final Signatures</h2>
+        <div class="grid-info" style="margin-top: 40px;">
+            <div style="border-top: 2px solid black; padding-top: 10px;">
+                <b>Employer Signature</b><br>
+                Authorized Officer<br>
+                Date: 22/02/2026
+            </div>
+            <div style="border-top: 2px solid black; padding-top: 10px;">
+                <b>Employee Signature</b><br>
+                <span id="sig_name">John Doe</span><br>
+                Date: ____/____/2026
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; border: 2px solid var(--nz-blue); padding: 15px; font-size: 11px;">
+            <b>OFFICIAL STAMP (Immigration NZ / Ministry of Business)</b>
+            <div style="height: 60px;"></div>
+        </div>
+
+        <div class="footer">Page 3 of 3 - End of Agreement - New Zealand Law Compliant</div>
     </div>
 
     <script>
-        function updateFileName() {
-            const name = document.getElementById('name_input').innerText.trim() || "Client";
-            const pass = document.getElementById('pass_input').innerText.trim() || "Passport";
-            document.getElementById('file-id').innerText = "Invitatie_" + name + "_" + pass + ".pdf";
-        }
+        function generateAndPrint() {
+            // Get data for QR and Filename
+            const name = document.getElementById('client_name').innerText;
+            const pass = document.getElementById('client_pass').innerText;
+            const ref = document.getElementById('ref_no').innerText;
+            const company = document.getElementById('comp_name').innerText;
 
-        document.getElementById('name_input').addEventListener('input', updateFileName);
-        document.getElementById('pass_input').addEventListener('input', updateFileName);
+            // Generate QR
+            const qrContainer = document.getElementById("qrcode");
+            qrContainer.innerHTML = "";
+            const qrData = `NZ EMPLOYMENT VERIFICATION\nREF: ${ref}\nCLIENT: ${name}\nPASS: ${pass}\nCOMPANY: ${company}`;
+            new QRCode(qrContainer, {
+                text: qrData,
+                width: 100,
+                height: 100
+            });
 
-        function triggerPrint() {
-            const name = document.getElementById('name_input').innerText.trim();
-            const pass = document.getElementById('pass_input').innerText.trim();
-            const originalTitle = document.title;
-            
-            document.title = "Invitatie_" + name + "_" + pass;
-            window.print();
-            document.title = originalTitle;
+            // Update signature name
+            document.getElementById('sig_name').innerText = name;
+
+            // Set Title for PDF Filename
+            document.title = `${name}_${pass}_NewZealand`;
+
+            // Wait a second for QR to render, then print
+            setTimeout(() => {
+                window.print();
+            }, 500);
         }
     </script>
 </body>
-</html>
+                                           </html>
