@@ -3,182 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitație - BMA nr.49845</title>
+    <title>Professional Invitation Generator - BMA Moldova</title>
     <style>
-        body {
-            font-family: 'Times New Roman', serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            margin: 0;
+        :root {
+            --primary-color: #1a1a1a;
+            --accent-blue: #003399;
         }
-        .document-container {
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Toolbar for Actions */
+        .toolbar {
+            background: #333;
+            padding: 15px 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            gap: 20px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-pdf { background-color: #27ae60; color: white; }
+        .btn-pdf:hover { background-color: #2ecc71; }
+
+        /* Document Styling */
+        .document-page {
             background-color: white;
-            width: 800px;
-            padding: 40px;
-            border: 15px solid #333;
-            /* Decorative border simulation */
-            outline: 5px double #333;
-            outline-offset: -10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            width: 210mm; /* A4 Width */
+            min-height: 297mm; /* A4 Height */
+            padding: 20mm;
+            box-sizing: border-box;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border: 12px double #333;
             position: relative;
         }
+
         .header {
             text-align: center;
             text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-        .header img {
-            width: 80px; /* Placeholder for Moldova Coat of Arms */
-            margin-bottom: 10px;
-        }
-        .header h2 { margin: 5px 0; font-size: 14px; letter-spacing: 1px; }
-        .header h1 { margin: 10px 0; font-size: 32px; text-decoration: underline; }
-        
-        .date-line {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #000;
-            padding-bottom: 5px;
+            line-height: 1.2;
         }
 
-        .section-title {
-            text-align: center;
-            font-weight: bold;
-            text-decoration: underline;
-            margin: 20px 0 10px 0;
-            font-size: 16px;
+        .header h2 { font-size: 16px; margin: 5px 0; }
+        .header h1 { font-size: 32px; margin: 15px 0; text-decoration: underline; letter-spacing: 5px; }
+
+        .form-row {
+            display: flex;
+            margin-bottom: 12px;
+            align-items: baseline;
+            gap: 10px;
         }
 
-        .row {
-            display: flex;
-            margin-bottom: 8px;
-            align-items: flex-end;
-        }
         .label {
-            font-size: 13px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
             white-space: nowrap;
-            margin-right: 10px;
         }
-        .value {
+
+        /* Editable Input Styling */
+        .input-field {
+            border: none;
             border-bottom: 1px dotted #000;
             flex-grow: 1;
+            font-size: 16px;
+            font-family: inherit;
+            background: transparent;
+            padding: 2px 5px;
             font-weight: bold;
-            text-transform: uppercase;
-            padding-left: 10px;
-            font-size: 15px;
         }
 
-        .flex-row {
-            display: flex;
-            gap: 20px;
+        .input-field:focus {
+            outline: none;
+            background-color: #fff9c4;
+            border-bottom: 2px solid var(--accent-blue);
         }
 
-        .stamp-area {
-            margin-top: 40px;
-            display: flex;
-            justify-content: flex-end;
-            position: relative;
+        .section-divider {
+            text-align: center;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding: 5px;
+            border-top: 2px solid #000;
+            border-bottom: 2px solid #000;
+            font-size: 14px;
         }
 
-        .stamp {
-            width: 120px;
-            height: 120px;
-            border: 3px solid rgba(0, 0, 128, 0.5);
+        .date-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 20px;
+        }
+
+        /* Watermark/Stamp Style */
+        .official-stamp {
+            position: absolute;
+            bottom: 80px;
+            right: 80px;
+            width: 130px;
+            height: 130px;
+            border: 3px solid rgba(0, 51, 153, 0.4);
             border-radius: 50%;
             display: flex;
             align-items: center;
+            justify-content: center;
             text-align: center;
             font-size: 10px;
-            color: rgba(0, 0, 128, 0.6);
-            transform: rotate(-15px);
-            position: absolute;
-            right: 50px;
-            top: -20px;
+            color: rgba(0, 51, 153, 0.4);
+            transform: rotate(-15deg);
+            pointer-events: none;
+            text-transform: uppercase;
         }
 
+        /* Hide UI elements on Print */
         @media print {
             body { background: none; padding: 0; }
-            .document-container { box-shadow: none; border: 10px solid #000; }
+            .toolbar { display: none; }
+            .document-page { 
+                box-shadow: none; 
+                margin: 0; 
+                border: 10px double #000;
+            }
+            .input-field { border-bottom: 1px solid #000; }
+            .input-field:focus { background: none; }
         }
     </style>
 </head>
 <body>
 
-<div class="document-container">
+<div class="toolbar">
+    <button class="btn-pdf" onclick="window.print()">Download as PDF / Print</button>
+    <span style="color: white; font-size: 12px; align-self: center;">Tip: Click any text to edit information.</span>
+</div>
+
+<div class="document-page">
     <div class="header">
-        <div style="font-size: 40px;">🇲🇩</div>
+        <div style="font-size: 40px; margin-bottom: 10px;">🇲🇩</div>
         <h2>Ministerul Afacerilor Interne al Republicii Moldova</h2>
         <h3>Biroul migrație și azil</h3>
         <h1>INVITAȚIE</h1>
-        <p><strong>Seria BMA nr. 49845</strong></p>
-    </div>
-
-    <div class="date-line">
-        <div>Data eliberării: 18-02-2026</div>
-        <div>Valabilă pînă la: 25-08-2026</div>
-    </div>
-
-    <div class="section-title">DATE DESPRE PERSOANA INVITATĂ</div>
-
-    <div class="row"><span class="label">Numele:</span><span class="value">YOUNAS</span></div>
-    <div class="row"><span class="label">Prenumele:</span><span class="value">KHAN</span></div>
-    
-    <div class="flex-row">
-        <div class="row" style="flex: 2;"><span class="label">Cetățenia:</span><span class="value">PAKISTAN</span></div>
-        <div class="row" style="flex: 1;"><span class="label">Data nașterii:</span><span class="value">05-01-2002</span></div>
-        <div class="row" style="flex: 1;"><span class="label">Sexul:</span><span class="value">Male</span></div>
-    </div>
-
-    <div class="row">
-        <span class="label">Actul de identitate: Pașaport național</span>
-        <span class="label">PAK</span>
-        <span class="value">SN4141172</span>
-    </div>
-
-    <div class="flex-row">
-        <div class="row" style="flex: 1;"><span class="label">Data:</span><span class="value">07-06-2024</span></div>
-        <div class="row" style="flex: 1;"><span class="label">Valabil pînă la:</span><span class="value">06-06-2029</span></div>
-        <div class="row" style="flex: 1;"><span class="label">Tipul:</span><span class="value">Viză de Scurtă ședere</span></div>
-    </div>
-
-    <div class="flex-row">
-        <div class="row" style="flex: 1;"><span class="label">Scopul:</span><span class="value">Turism</span></div>
-        <div class="row" style="flex: 2;"><span class="label">Locul perfectării vizei:</span><span class="value">Misiunile Diplomatice ale RM</span></div>
-    </div>
-
-    <div class="flex-row">
-        <div class="row" style="flex: 1;"><span class="label">Punctul de trecere a frontierei:</span><span class="value">Aeroportul Chișinău</span></div>
-        <div class="row" style="flex: 1;"><span class="label">Durata sejurului:</span><span class="value">30 zile</span></div>
-    </div>
-
-    <div class="section-title">DATE DESPRE SOLICITANTUL INVITAȚIEI</div>
-    
-    <p style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">PERSOANA FIZICA</p>
-    <div class="row"><span class="label">Numele:</span><span class="value">GHEORGHIU ALIONA</span></div>
-    
-    <div class="flex-row">
-        <div class="row" style="flex: 1;"><span class="label">Cetățenia:</span><span class="value">REPUBLICA MOLDOVA</span></div>
-        <div class="row" style="flex: 1;"><span class="label">IDNP:</span><span class="value">0981803035739</span></div>
-    </div>
-
-    <div class="flex-row">
-        <div class="row" style="flex: 2;"><span class="label">Actul de identitate: Pașaport</span><span class="label">seria:</span><span class="value">AB</span><span class="label">nr.</span><span class="value">0135542</span></div>
-        <div class="row" style="flex: 1;"><span class="label">data eliberării:</span><span class="value">17-02-2026</span></div>
-    </div>
-
-    <div class="stamp-area">
-        <div style="text-align: left; width: 100%;">
-            <p>Semnatura persoanei oficiale _________________</p>
+        <div class="form-row" style="justify-content: center;">
+            <span class="label">Seria BMA nr.</span>
+            <input type="text" class="input-field" style="max-width: 100px; text-align: center;" value="49845">
         </div>
-        <div class="stamp">
-            REPUBLICA MOLDOVA<br>BIROUL MIGRAȚIE ȘI AZIL<br>STAMPILĂ OFICIALĂ
+    </div>
+
+    <div class="date-grid">
+        <div class="form-row">
+            <span class="label">Data eliberării:</span>
+            <input type="text" class="input-field" value="18-02-2026">
         </div>
+        <div class="form-row">
+            <span class="label">Valabilă pînă la:</span>
+            <input type="text" class="input-field" value="25-08-2026">
+        </div>
+    </div>
+
+    <div class="section-divider">DATE DESPRE PERSOANA INVITATĂ</div>
+
+    <div class="form-row"><span class="label">Numele:</span><input type="text" class="input-field" value="YOUNAS"></div>
+    <div class="form-row"><span class="label">Prenumele:</span><input type="text" class="input-field" value="KHAN"></div>
+    
+    <div style="display: flex; gap: 20px;">
+        <div class="form-row" style="flex: 2;"><span class="label">Cetățenia:</span><input type="text" class="input-field" value="PAKISTAN"></div>
+        <div class="form-row" style="flex: 1;"><span class="label">Data nașterii:</span><input type="text" class="input-field" value="05-01-2002"></div>
+    </div>
+
+    <div class="form-row">
+        <span class="label">Actul de identitate: Pașaport național nr.</span>
+        <input type="text" class="input-field" value="SN4141172">
+    </div>
+
+    <div style="display: flex; gap: 20px;">
+        <div class="form-row" style="flex: 1;"><span class="label">Eliberat la:</span><input type="text" class="input-field" value="07-06-2024"></div>
+        <div class="form-row" style="flex: 1;"><span class="label">Valabil pînă la:</span><input type="text" class="input-field" value="06-06-2029"></div>
+    </div>
+
+    <div style="display: flex; gap: 20px;">
+        <div class="form-row" style="flex: 1;"><span class="label">Scopul:</span><input type="text" class="input-field" value="Turism"></div>
+        <div class="form-row" style="flex: 1;"><span class="label">Durata (zile):</span><input type="text" class="input-field" value="30"></div>
+    </div>
+
+    <div class="form-row">
+        <span class="label">Punctul de trecere a frontierei:</span>
+        <input type="text" class="input-field" value="Aeroportul Internațional Chișinău">
+    </div>
+
+    <div class="section-divider">DATE DESPRE SOLICITANTUL INVITAȚIEI</div>
+    
+    <p style="font-size: 11px; margin: 0; font-weight: bold;">[X] PERSOANA FIZICĂ</p>
+    <div class="form-row"><span class="label">Numele / Prenumele:</span><input type="text" class="input-field" value="GHEORGHIU ALIONA"></div>
+    <div class="form-row"><span class="label">IDNP (Cod Personal):</span><input type="text" class="input-field" value="0981803035739"></div>
+    
+    <div style="display: flex; gap: 20px;">
+        <div class="form-row" style="flex: 2;"><span class="label">Document de identitate:</span><input type="text" class="input-field" value="Pasaport AB 0135542"></div>
+        <div class="form-row" style="flex: 1;"><span class="label">Data eliberării:</span><input type="text" class="input-field" value="17-02-2026"></div>
+    </div>
+
+    <div style="margin-top: 50px;">
+        <div class="form-row" style="border-bottom: 1px solid #000; width: 250px;">
+            <span class="label" style="font-size: 10px;">Semnatura solicitantului:</span>
+        </div>
+        <div class="form-row" style="margin-top: 20px;">
+            <span class="label" style="font-size: 10px;">Semnatura persoanei oficiale: __________________________</span>
+        </div>
+    </div>
+
+    <div class="official-stamp">
+        Republica Moldova<br>Ministerul Afacerilor Interne<br>Biroul Migrație și Azil
     </div>
 </div>
 
 </body>
-</html>
+    </html>
