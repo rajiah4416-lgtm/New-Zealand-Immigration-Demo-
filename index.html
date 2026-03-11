@@ -2,203 +2,180 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SITA Standard Boarding Pass</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Libre+Barcode+128&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <title>Digital Japan Visa - Abdullah Qayyum</title>
+    <link href="https://fonts.googleapis.com/css2?family=OCR+A&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --tg-purple: #5c2d91;
-            --paper: #fefefe;
-        }
-        body { background-color: #444; font-family: 'Roboto Condensed', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        
-        #ticket-render {
-            width: 1000px;
-            height: 340px;
-            background: var(--paper);
-            display: flex;
-            border-radius: 8px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-            position: relative;
-            color: #000;
+            --visa-green: #e1f2d5;
+            --visa-border: #a8c69f;
+            --pink-sakura: #ffd1dc;
         }
 
-        /* The vertical PDF417-style barcode */
-        .barcode-strip {
-            width: 70px;
-            height: 100%;
-            border-right: 1px solid #ddd;
+        body {
+            background-color: #333;
+            font-family: 'Roboto Condensed', sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 50px;
+        }
+
+        .visa-container {
+            width: 800px;
+            height: 550px;
+            background: var(--visa-green);
+            /* Mimicking the security pattern with a subtle gradient and repeating SVG */
+            background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.5) 0%, transparent 80%),
+                              repeating-linear-gradient(45deg, rgba(168,198,159,0.1) 0px, rgba(168,198,159,0.1) 2px, transparent 2px, transparent 10px);
+            border: 1px solid var(--visa-border);
+            border-radius: 10px;
+            position: relative;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        /* The Red Crane (Origami) Placeholder */
+        .crane-watermark {
+            position: absolute;
+            right: 60px;
+            top: 200px;
+            font-size: 100px;
+            color: rgba(188, 30, 45, 0.2);
+            font-weight: bold;
+            transform: rotate(-15deg);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #6b8e23;
+            padding-bottom: 10px;
+        }
+
+        .visa-title { text-align: center; flex-grow: 1; }
+        .visa-title h1 { margin: 0; font-size: 24px; letter-spacing: 2px; }
+        .visa-title h2 { margin: 0; font-size: 18px; font-weight: 400; }
+
+        .visa-no { color: #bc1e2d; font-family: 'OCR A', monospace; font-size: 22px; font-weight: bold; }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 180px 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .photo-box {
+            width: 160px;
+            height: 200px;
+            border: 1px solid #999;
+            background: #ccc;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-        }
-        .barcode-img {
-            transform: rotate(-90deg);
-            width: 250px;
-            height: 45px;
-            background: repeating-linear-gradient(90deg, #000, #000 1px, #fff 1px, #fff 3px, #000 3px, #000 5px);
-            opacity: 0.8;
+            color: #666;
+            font-size: 12px;
+            text-align: center;
         }
 
-        .main-pane { flex: 3; padding: 15px 25px; border-right: 1.5px dashed #bbb; position: relative; }
-        .stub-pane { flex: 1.1; padding: 15px 20px; font-size: 13px; }
+        .data-item { margin-bottom: 15px; }
+        .label { font-size: 11px; color: #444; text-transform: uppercase; font-weight: bold; }
+        .value { font-size: 18px; font-weight: 700; color: #111; }
 
-        /* Thai Airways Specific Branding */
-        .brand-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
-        .tg-logo { font-size: 26px; font-weight: 700; color: var(--tg-purple); }
-        .alliance-logo { font-size: 8px; text-align: right; line-height: 1.2; color: #666; }
-
-        /* Thermal Printing Text Styles */
-        .label { font-size: 10px; font-weight: 400; color: #555; text-transform: uppercase; }
-        .data { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
-        .huge { font-size: 44px; line-height: 0.9; }
-
-        .data-row { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 10px; margin-top: 10px; }
-        
-        .box-container { 
-            display: grid; 
-            grid-template-columns: 1fr 1.2fr 1fr; 
-            border: 1.5px solid #000; 
-            margin-top: 5px;
-            background: #fff;
-        }
-        .box { padding: 8px; border-right: 1.5px solid #000; }
-        .box:last-child { border-right: none; }
-
-        /* The Ghost 'Y' */
-        .class-watermark {
+        /* The Machine Readable Zone (MRZ) at the bottom */
+        .mrz {
             position: absolute;
-            right: 130px;
-            top: 20px;
-            font-size: 100px;
-            font-weight: 900;
-            color: rgba(0,0,0,0.04);
-            pointer-events: none;
+            bottom: 30px;
+            left: 30px;
+            font-family: 'OCR A', monospace;
+            font-size: 19px;
+            letter-spacing: 2px;
+            line-height: 1.2;
+            color: #222;
         }
 
-        .footer-metadata {
+        .red-seal {
             position: absolute;
-            bottom: 15px;
-            left: 25px;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 10px;
-            color: #444;
-        }
-
-        [contenteditable="true"] { cursor: text; }
-        [contenteditable="true"]:focus { background: #fff59d; }
-
-        .dl-button {
-            margin-top: 30px;
-            padding: 15px 40px;
-            background: #222;
-            color: #fff;
-            border: none;
-            border-radius: 50px;
+            right: 50px;
+            bottom: 130px;
+            width: 80px;
+            height: 80px;
+            border: 3px solid rgba(188, 30, 45, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(188, 30, 45, 0.6);
             font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
+            font-size: 10px;
+            text-align: center;
+            transform: rotate(-10deg);
         }
-        .dl-button:hover { background: var(--tg-purple); }
+
+        [contenteditable="true"]:focus { background: rgba(255,255,255,0.6); outline: none; border-radius: 3px; }
     </style>
 </head>
 <body>
 
-<div id="ticket-render">
-    <div class="barcode-strip">
-        <div class="barcode-img"></div>
-    </div>
-    
-    <div class="main-pane">
-        <div class="class-watermark">Y</div>
-        <div class="brand-header">
-            <div class="tg-logo">THAI <span style="font-weight: 400; font-size: 16px; color:#333;">ECONOMY</span></div>
-            <div class="alliance-logo">A STAR ALLIANCE MEMBER<br><b>ECONOMY</b></div>
-        </div>
+<div class="visa-container" id="visa-card">
+    <div class="crane-watermark">鶴</div>
 
-        <div class="label">Name of Passenger</div>
-        <div class="data" contenteditable="true">SHAH / SYED MUNAWAR</div>
-
-        <div class="data-row">
-            <div>
-                <div class="label">Flight</div>
-                <div class="data" contenteditable="true">TG 346</div>
-            </div>
-            <div>
-                <div class="label">From / To</div>
-                <div class="data" style="font-size: 18px;" contenteditable="true">LAHORE LHE / BANGKOK BKK</div>
-            </div>
-            <div>
-                <div class="label">Date</div>
-                <div class="data" contenteditable="true">22NOV</div>
-            </div>
+    <div class="header">
+        <div style="width: 100px;"></div> <div class="visa-title">
+            <h2>JAPAN VISA</h2>
+            <h1>日本国査証</h1>
         </div>
-
-        <div class="box-container">
-            <div class="box">
-                <div class="label">Gate</div>
-                <div class="huge" contenteditable="true">22</div>
-            </div>
-            <div class="box">
-                <div class="label">Boarding Time</div>
-                <div class="huge" contenteditable="true">23:05</div>
-            </div>
-            <div class="box">
-                <div class="label" style="background: #000; color: #fff; display: inline-block; padding: 0 4px;">Seat</div>
-                <div class="huge" contenteditable="true">48B</div>
-            </div>
-        </div>
-
-        <div class="footer-metadata">
-            GATE CLOSES 10 MINUTES BEFORE DEPARTURE<br>
-            SEQ<span contenteditable="true">0111</span> LHE8003 &nbsp; API &nbsp; ETKT <span contenteditable="true">217551823215901</span>
-        </div>
+        <div class="visa-no" contenteditable="true">FA8819251</div>
     </div>
 
-    <div class="stub-pane">
-        <div style="font-weight: 700; border-bottom: 1.5px solid #000; padding-bottom: 2px;">THAI</div>
-        <div class="label" style="margin-top: 10px;">Name</div>
-        <div style="font-weight: 700; font-size: 14px;" contenteditable="true">SHAH / SYED MUNAWAR</div>
-        
-        <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-            <div>
-                <div class="label">Flight</div>
-                <div style="font-weight: 700; font-size: 18px;" contenteditable="true">TG 346</div>
-                <div class="label" style="margin-top: 5px;">Date</div>
-                <div style="font-weight: 700;" contenteditable="true">22NOV</div>
+    <div class="content-grid">
+        <div class="photo-area">
+            <div class="photo-box">PHOTO / 顔写真</div>
+        </div>
+
+        <div class="data-column">
+            <div class="data-item">
+                <div class="label">Place of Issue / 発給地</div>
+                <div class="value" contenteditable="true">JAKARTA</div>
             </div>
-            <div style="text-align: right;">
-                <div class="label">Seat</div>
-                <div style="font-size: 28px; font-weight: 900;" contenteditable="true">48B</div>
+            <div class="data-item">
+                <div class="label">Date of Issue / 発給年月日</div>
+                <div class="value" contenteditable="true">17 SEP 25</div>
+            </div>
+            <div class="data-item">
+                <div class="label">Category / 査証種類</div>
+                <div class="value" contenteditable="true">(V) AS TEMPORARY VISITOR</div>
+            </div>
+            <div class="data-item">
+                <div class="label">Surname / Given Name / 氏名</div>
+                <div class="value" contenteditable="true">ABDULLAH QAYYUM</div>
             </div>
         </div>
 
-        <div style="margin-top: 20px; border-top: 1px dashed #ccc; padding-top: 10px;">
-            <div class="label">From: LHE</div>
-            <div class="label">To: BKK</div>
-            <div class="label" style="margin-top: 5px;">Class: Y</div>
-            
-            <div style="margin-top: 15px; border: 1.5px solid #000; text-align: center; padding: 5px;">
-                <div class="label">Boarding Group</div>
-                <div style="font-size: 22px; font-weight: 700;" contenteditable="true">3</div>
+        <div class="data-column">
+            <div class="data-item">
+                <div class="label">No. of Entries / 数</div>
+                <div class="value" contenteditable="true">SINGLE</div>
+            </div>
+            <div class="data-item">
+                <div class="label">Date of Expiry / 有効期限</div>
+                <div class="value" contenteditable="true">17 DEC 25</div>
+            </div>
+            <div class="data-item">
+                <div class="label">For stay(s) of / 滞在期間</div>
+                <div class="value" contenteditable="true">15 DAYS</div>
             </div>
         </div>
+    </div>
+
+    <div class="red-seal">MINISTRY<br>OF FOREIGN<br>AFFAIRS</div>
+
+    <div class="mrz">
+        V<<span>JPNABDULLAH<<QAYYUM<<<<<<<<<<<<<<<<<<<</span><br>
+        QU10772418PAK0405177M251217425B57857607A<<span>V13</span>
     </div>
 </div>
 
-<button class="dl-button" onclick="takeSnapshot()">GENERATE PHYSICAL IMAGE</button>
-
-<script>
-    function takeSnapshot() {
-        html2canvas(document.querySelector("#ticket-render"), { scale: 3 }).then(canvas => {
-            let link = document.createElement('a');
-            link.download = 'Official_Thai_Air_BoardingPass.png';
-            link.href = canvas.toDataURL("image/png");
-            link.click();
-        });
-    }
-</script>
-
 </body>
-</html>
+        </html>
