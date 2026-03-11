@@ -2,215 +2,197 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Premium Boarding Pass - Aria Sterling</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Libre+Barcode+128&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <title>Thai Airways Boarding Pass Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Roboto+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent-color: #000; /* Sleek Black */
-            --bg-color: #f4f4f7;
-            --ticket-white: #ffffff;
+            --thai-purple: #5c2d91;
+            --thai-gold: #b6912d;
+            --bg-gray: #f0f0f0;
         }
 
         body {
-            background-color: var(--bg-color);
-            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-gray);
+            font-family: 'Roboto', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 60px;
+            padding: 50px;
         }
 
-        .instruction {
-            margin-bottom: 20px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .boarding-pass {
+        /* The Ticket Container */
+        #boarding-pass {
             display: flex;
-            width: 900px;
-            height: 320px;
-            background: var(--ticket-white);
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            width: 950px;
+            height: 350px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             overflow: hidden;
-            border: 1px solid #e0e0e0;
-        }
-
-        /* Left Main Section */
-        .main-content {
-            flex: 2.5;
-            padding: 30px 40px;
-            border-right: 2px dashed #d1d1d1;
             position: relative;
+            color: #222;
         }
 
-        /* Right Stub Section */
-        .stub-content {
+        /* Vertical Barcode on the far left */
+        .vertical-barcode {
+            width: 60px;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, #000, #000 1px, #fff 1px, #fff 4px);
+            opacity: 0.8;
+            margin-right: 15px;
+        }
+
+        .main-body {
+            flex: 3;
+            padding: 20px;
+            border-right: 2px dashed #ccc;
+        }
+
+        .stub {
             flex: 1;
-            padding: 30px;
-            background-color: #fcfcfc;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            padding: 20px;
+            background: #fafafa;
         }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
+        /* Header Elements */
+        .header { display: flex; justify-content: space-between; align-items: center; }
+        .logo-text { font-weight: 900; font-size: 28px; color: var(--thai-purple); letter-spacing: -1px; }
+        .logo-text span { color: var(--thai-gold); }
+        
+        .class-y { font-size: 60px; font-weight: 900; color: var(--thai-purple); line-height: 1; margin-right: 20px;}
 
-        .airline-brand {
-            font-weight: 900;
-            font-size: 22px;
-            letter-spacing: -1px;
-            color: var(--accent-color);
-        }
+        /* Typography */
+        .label { font-size: 11px; color: #666; text-transform: uppercase; font-weight: bold; margin-bottom: 2px; }
+        .value { font-size: 20px; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; }
+        .big-value { font-size: 32px; font-weight: 900; }
 
-        .class-badge {
-            background: #000;
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
+        /* Grid for details */
+        .info-grid { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 10px; margin-top: 20px; }
 
-        .label {
-            font-size: 10px;
-            font-weight: 700;
-            color: #a0a0a0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        .editable {
-            outline: none;
-            transition: background 0.2s;
-        }
-        .editable:hover { background: #fff9c4; border-radius: 4px; }
-
-        .name-display { font-size: 24px; font-weight: 700; margin-bottom: 25px; }
-
-        .flight-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr 1fr;
-            gap: 20px;
-        }
-
-        .data-value { font-size: 20px; font-weight: 700; color: #1a1a1a; }
-        .large-value { font-size: 38px; font-weight: 900; line-height: 1; }
-
-        .boarding-info-row {
-            display: flex;
-            margin-top: 35px;
-            gap: 40px;
-        }
-
-        .barcode-strip {
-            position: absolute;
-            left: -55px;
-            top: 100px;
-            transform: rotate(90deg);
-            width: 180px;
-            height: 50px;
-            background: repeating-linear-gradient(90deg, #000, #000 2px, #fff 2px, #fff 6px);
-        }
-
-        .footer-barcode-text {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 10px;
+        .highlight-box {
+            border: 2px solid #333;
+            padding: 10px;
+            text-align: center;
             margin-top: 20px;
-            color: #888;
+            display: inline-block;
+            min-width: 100px;
         }
 
+        /* Buttons */
+        .controls { margin-top: 30px; }
+        .btn-download {
+            background-color: var(--thai-purple);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-download:hover { background-color: #4a2475; }
+
+        [contenteditable="true"] { border-bottom: 1px dashed transparent; outline: none; }
+        [contenteditable="true"]:hover { border-bottom: 1px dashed var(--thai-gold); background: #fffde7; }
     </style>
 </head>
 <body>
 
-<div class="instruction">💡 Tip: Click any text to edit the details yourself!</div>
+    <div style="margin-bottom: 20px; color: #555;"><b>Edit:</b> Click any text to change it. <b>Save:</b> Click the button below.</div>
 
-<div class="boarding-pass">
-    <div class="main-content">
-        <div class="barcode-strip"></div>
+    <div id="boarding-pass">
+        <div class="vertical-barcode"></div>
         
-        <div class="header">
-            <div class="airline-brand">GEMINI AIRWAYS</div>
-            <div class="class-badge">First Class</div>
-            <div style="font-size: 50px; font-weight: 900; opacity: 0.1; position: absolute; right: 40px; top: 20px;">01</div>
+        <div class="main-body">
+            <div class="header">
+                <div>
+                    <div class="logo-text">THAI <span>AIRWAYS</span></div>
+                    <div class="label" style="font-size: 14px; margin-top: 5px;">ECONOMY</div>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <div class="class-y">Y</div>
+                    <div class="highlight-box" style="margin: 0;">
+                        <div class="label">Boarding Group</div>
+                        <div class="value" style="margin:0; font-size: 24px;" contenteditable="true">2</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 25px;">
+                <div class="label">Name of Passenger</div>
+                <div class="value big-value" contenteditable="true">SHAH / SYED MUNAWAR</div>
+            </div>
+
+            <div class="info-grid">
+                <div>
+                    <div class="label">Flight</div>
+                    <div class="value" style="font-size: 28px;" contenteditable="true">TG 346</div>
+                </div>
+                <div>
+                    <div class="label">From / To</div>
+                    <div class="value" contenteditable="true">LAHORE (LHE) / BANGKOK (BKK)</div>
+                </div>
+                <div>
+                    <div class="label">Date</div>
+                    <div class="value" contenteditable="true">22 NOV</div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 40px;">
+                <div class="highlight-box">
+                    <div class="label">Gate</div>
+                    <div class="big-value" contenteditable="true">22</div>
+                </div>
+                <div class="highlight-box">
+                    <div class="label">Boarding Time</div>
+                    <div class="big-value" contenteditable="true">23:05</div>
+                </div>
+                <div class="highlight-box">
+                    <div class="label">Seat</div>
+                    <div class="big-value" contenteditable="true">48B</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; font-family: 'Roboto Mono', monospace; font-size: 11px; color: #777;">
+                ETKT 217551823215901 &nbsp; | &nbsp; SEQ 0111 &nbsp; | &nbsp; API
+            </div>
         </div>
 
-        <div class="name-display">
-            <div class="label">Passenger</div>
-            <span class="editable" contenteditable="true">STERLING / ARIA V.</span>
-        </div>
-
-        <div class="flight-grid">
-            <div>
-                <div class="label">Flight</div>
-                <div class="data-value editable" contenteditable="true">GEM 808</div>
-            </div>
-            <div>
-                <div class="label">From / To</div>
-                <div class="data-value editable" contenteditable="true">LONDON (LHR) ➔ TOKYO (HND)</div>
-            </div>
-            <div>
-                <div class="label">Date</div>
-                <div class="data-value editable" contenteditable="true">15 MAY</div>
-            </div>
-        </div>
-
-        <div class="boarding-info-row">
-            <div>
-                <div class="label">Gate</div>
-                <div class="large-value editable" contenteditable="true">B24</div>
-            </div>
-            <div>
-                <div class="label">Boarding Time</div>
-                <div class="large-value editable" contenteditable="true">19:45</div>
-            </div>
-            <div>
-                <div class="label">Seat</div>
-                <div class="large-value editable" contenteditable="true">12A</div>
-            </div>
-        </div>
-
-        <div class="footer-barcode-text">
-            ETKT 998273615502 • SEQ 0042 • SYST: GM-X9
-        </div>
-    </div>
-
-    <div class="stub-content">
-        <div>
-            <div class="label">Boarding Pass</div>
-            <div class="data-value" style="font-size: 14px; margin-bottom: 15px;">STERLING / ARIA V.</div>
+        <div class="stub">
+            <div class="logo-text" style="font-size: 18px;">THAI</div>
+            <div class="label" style="margin-top: 15px;">Name</div>
+            <div class="value" style="font-size: 14px;" contenteditable="true">SHAH / SYED MUNAWAR</div>
             
             <div class="label">Flight</div>
-            <div class="data-value editable" contenteditable="true" style="font-size: 18px;">GEM 808</div>
+            <div class="value" style="font-size: 16px;" contenteditable="true">TG 346</div>
             
-            <div class="label" style="margin-top:10px;">Route</div>
-            <div class="data-value" style="font-size: 13px;">LHR ➔ HND</div>
-        </div>
-
-        <div>
-            <div style="display: flex; justify-content: space-between;">
-                <div>
-                    <div class="label">Seat</div>
-                    <div class="data-value editable" contenteditable="true">12A</div>
-                </div>
-                <div>
-                    <div class="label">Gate</div>
-                    <div class="data-value editable" contenteditable="true">B24</div>
-                </div>
-            </div>
-            <div style="font-size: 40px; font-weight: 900; text-align: right; opacity: 0.05; margin-top: -10px;">GEM</div>
+            <div class="label">Seat</div>
+            <div class="value big-value" style="font-size: 24px;" contenteditable="true">48B</div>
+            
+            <div class="label" style="margin-top: 20px;">Date: 22 NOV</div>
+            <div class="label">From: LHE</div>
+            <div class="label">To: BKK</div>
         </div>
     </div>
-</div>
 
+    <div class="controls">
+        <button class="btn-download" onclick="downloadTicket()">Download Boarding Pass (.PNG)</button>
+    </div>
+
+    <script>
+        function downloadTicket() {
+            const ticket = document.getElementById('boarding-pass');
+            html2canvas(ticket, {
+                scale: 2, // Higher quality
+                backgroundColor: null
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'ThaiAirways_BoardingPass.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+    </script>
 </body>
 </html>
