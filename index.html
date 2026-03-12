@@ -3,106 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visa Verification Request</title>
+    <title>Travel Clearance & Verification Generator</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f4f4f4;
-            padding: 40px;
-        }
-        .letter-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 50px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            border-top: 5px solid #004a99; /* Professional blue accent */
-        }
-        .header {
-            text-align: right;
-            margin-bottom: 40px;
-        }
-        .recipient {
-            margin-bottom: 30px;
-        }
-        .subject {
-            font-weight: bold;
-            text-decoration: underline;
-            margin-bottom: 20px;
-        }
-        .content {
-            text-align: justify;
-        }
-        .signature {
-            margin-top: 50px;
-        }
-        .footer-note {
-            margin-top: 40px;
-            font-size: 0.8em;
-            color: #777;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; padding: 20px; color: #333; }
+        .container { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { color: #004a99; border-bottom: 2px solid #004a99; padding-bottom: 10px; }
+        .warning { background: #fff3f3; border-left: 5px solid #d9534f; padding: 15px; margin-bottom: 20px; font-size: 0.9em; color: #a94442; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background: #004a99; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 1em; margin-top: 10px; }
+        button:hover { background: #003366; }
+        #output { display: none; margin-top: 30px; padding: 40px; border: 1px solid #ddd; background: #fff; line-height: 1.6; }
+        .print-btn { background: #28a745; margin-top: 20px; }
+        @media print { .no-print { display: none; } body { background: white; padding: 0; } .container { box-shadow: none; width: 100%; } }
     </style>
 </head>
 <body>
 
-<div class="letter-container">
-    <div class="header">
-        <p><strong>Date:</strong> March 12, 2026</p>
-        <p><strong>Location:</strong> Pakistan</p>
+<div class="container no-print">
+    <h2>Travel Clearance Document Generator</h2>
+    <div class="warning">
+        <strong>Important:</strong> The "New Zealand Immigration Card" you possess shows signs of being unofficial. Use this tool to generate a <strong>Verification Request</strong> to ensure your travel is legal.
+    </div>
+    
+    <div class="form-group">
+        <label>Full Name (As per Passport)</label>
+        <input type="text" id="userName" placeholder="e.g. Muhammad Ali">
+    </div>
+    <div class="form-group">
+        <label>Passport Number</label>
+        <input type="text" id="passport" placeholder="e.g. AB1234567">
+    </div>
+    <div class="form-group">
+        <label>Departure Airport (Pakistan)</label>
+        <select id="airport">
+            <option value="Islamabad International Airport (ISB)">Islamabad (ISB)</option>
+            <option value="Allama Iqbal International Airport (LHE)">Lahore (LHE)</option>
+            <option value="Jinnah International Airport (KHI)">Karachi (KHI)</option>
+            <option value="Sialkot International Airport (SKT)">Sialkot (SKT)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>New Zealand Company Name</label>
+        <input type="text" id="company" placeholder="e.g. Restonlees Limited">
     </div>
 
-    <div class="recipient">
-        <p>To,<br>
-        <strong>Immigration New Zealand Verification Service</strong><br>
-        Visa Confirmation Department</p>
-    </div>
-
-    <div class="subject">
-        SUBJECT: VERIFICATION OF VISA AUTHENTICITY – [YOUR NAME HERE]
-    </div>
-
-    <div class="content">
-        <p>To Whom It May Concern,</p>
-        
-        <p>I am writing to formally request a verification of the immigration status associated with my passport. I have received documentation regarding a Work Permit for travel to join <strong>[Company Name]</strong> in New Zealand, and I wish to confirm its validity through official channels before proceeding with travel arrangements.</p>
-
-        <p><strong>My details are as follows:</strong></p>
-        <ul>
-            <li><strong>Full Name:</strong> [Your Full Name]</li>
-            <li><strong>Passport Number:</strong> [Your Passport Number]</li>
-            <li><strong>Nationality:</strong> Pakistani</li>
-            <li><strong>Proposed Departure Airport:</strong> [Name of Pakistan Airport]</li>
-        </ul>
-
-        <p>Could you please confirm if there is an active eVisa or entry permit recorded in your system for these details? I aim to ensure full compliance with New Zealand immigration laws and avoid any potential issues at the border.</p>
-
-        <p>Thank you for your time and assistance in this matter.</p>
-    </div>
-
-    <div class="signature">
-        <p>Sincerely,</p>
-        <br>
-        <p>__________________________<br>
-        <strong>[Your Name]</strong><br>
-        [Your Phone Number]</p>
-    </div>
-
-    <div class="footer-note">
-        This document is a formal inquiry intended for verification purposes only.
-    </div>
+    <button onclick="generateLetter()">Generate Professional Letter</button>
 </div>
+
+<div id="output">
+    <div style="text-align: right;"><strong>Date:</strong> <span id="currentDate"></span></div>
+    <p><strong>To:</strong><br>
+    The Protector of Emigrants<br>
+    Bureau of Emigration & Overseas Employment<br>
+    Government of Pakistan</p>
+
+    <p><strong>Subject: Application for Emigration Clearance (Protector Stamp) – <span id="outName"></span></strong></p>
+
+    <p>Respected Sir/Madam,</p>
+
+    <p>I, <strong><span id="displayName"></span></strong>, holder of Passport Number <strong><span id="displayPassport"></span></strong>, am writing to formally request the mandatory emigration clearance for my travel to New Zealand. I have been offered a position at <strong><span id="displayCompany"></span></strong> and intend to depart from <strong><span id="displayAirport"></span></strong>.</p>
+
+    <p>Attached to this application are my employment contract and the visa documentation provided to me. I kindly request your office to verify these documents against the official Immigration New Zealand records and grant the necessary Protector Stamp to ensure my travel is fully compliant with the laws of Pakistan and New Zealand.</p>
+
+    <p>I am committed to following all legal procedures and appreciate your assistance in verifying my status for a safe journey.</p>
+
+    <p>Yours faithfully,<br><br><br>
+    __________________________<br>
+    <strong><span id="displaySignature"></span></strong></p>
+    
+    <button class="no-print print-btn" onclick="window.print()">Print This Letter</button>
+</div>
+
+<script>
+    function generateLetter() {
+        const name = document.getElementById('userName').value;
+        const pass = document.getElementById('passport').value;
+        const air = document.getElementById('airport').value;
+        const comp = document.getElementById('company').value;
+
+        if(!name || !pass || !comp) { alert("Please fill in all fields."); return; }
+
+        document.getElementById('outName').innerText = name.toUpperCase();
+        document.getElementById('displayName').innerText = name;
+        document.getElementById('displayPassport').innerText = pass;
+        document.getElementById('displayAirport').innerText = air;
+        document.getElementById('displayCompany').innerText = comp;
+        document.getElementById('displaySignature').innerText = name;
+        document.getElementById('currentDate').innerText = new Date().toLocaleDateString();
+
+        document.getElementById('output').style.display = 'block';
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+</script>
 
 </body>
 </html>
-Why you should use this:
-Safety First: If you show the colorful card you have to the Protector of Emigrants or airport security in Pakistan, and it turns out to be fake, you could be arrested for document fraud.
-
-Official Confirmation: Sending this letter via email to the official Immigration New Zealand contact (accessible via their .govt.nz website) will give you a written reply that is 100% reliable.
-
-The "Company" Issue: Since Restonlees Limited was removed from the New Zealand register in 2023, it is vital that you get this verification. No real visa can be issued for a company that does not exist.
-
-Would you like me to help you find the specific email address or contact form for the New Zealand Immigration verification office?
