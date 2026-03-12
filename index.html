@@ -2,223 +2,107 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Japan Visa - Official Layout</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa Verification Request</title>
     <style>
-        :root {
-            --visa-green: #e9f5e1;
-            --visa-pink: #fde2e4;
-            --japanese-red: #bc1e2d;
-        }
-
         body {
-            background-color: #2e3d30; /* Dark green to mimic Pakistani passport cover background */
-            font-family: 'Roboto Condensed', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            padding: 40px;
         }
-
-        #visa-sticker {
-            width: 820px;
-            height: 560px;
-            background: var(--visa-green);
-            border-radius: 5px;
-            position: relative;
-            padding: 25px;
-            box-shadow: inset 0 0 100px rgba(168, 198, 159, 0.3), 10px 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid #c0d8b0;
-            /* Security Guilloche Pattern */
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, transparent 100%),
-                url("https://www.transparenttextures.com/patterns/cubes.png");
-            overflow: hidden;
+        .letter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-top: 5px solid #004a99; /* Professional blue accent */
         }
-
-        /* Sakura & Crane Decorative Elements */
-        .decoration {
-            position: absolute;
-            top: 60px;
-            right: 40px;
-            width: 120px;
-            opacity: 0.3;
-            pointer-events: none;
-        }
-
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            border-bottom: 2px solid #4a7c44;
-            padding-bottom: 10px;
+            text-align: right;
+            margin-bottom: 40px;
+        }
+        .recipient {
+            margin-bottom: 30px;
+        }
+        .subject {
+            font-weight: bold;
+            text-decoration: underline;
             margin-bottom: 20px;
         }
-
-        .title-group { text-align: center; flex: 1; }
-        .title-group h2 { margin: 0; font-size: 14px; font-weight: 400; letter-spacing: 1px; }
-        .title-group h1 { margin: 0; font-size: 24px; letter-spacing: 4px; color: #2d4d2a; }
-
-        .serial-no {
-            color: var(--japanese-red);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 22px;
-            font-weight: bold;
+        .content {
+            text-align: justify;
         }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 170px 1fr 1fr;
-            gap: 20px;
+        .signature {
+            margin-top: 50px;
         }
-
-        .photo-space {
-            width: 160px;
-            height: 200px;
-            border: 1px solid #999;
-            background: #dcdcdc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: #666;
-            text-align: center;
-            border-radius: 2px;
-        }
-
-        .label { font-size: 10px; color: #555; font-weight: bold; margin-bottom: 2px; text-transform: uppercase; }
-        .value { font-size: 17px; font-weight: 700; color: #000; margin-bottom: 12px; }
-
-        .red-hanko {
-            position: absolute;
-            bottom: 150px;
-            right: 60px;
-            width: 90px;
-            height: 90px;
-            border: 3px solid rgba(188, 30, 45, 0.5);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(188, 30, 45, 0.5);
-            font-weight: bold;
-            font-size: 10px;
-            text-align: center;
-            transform: rotate(-10deg);
-        }
-
-        /* Machine Readable Zone - The most important part for "Realism" */
-        .mrz {
-            position: absolute;
-            bottom: 30px;
-            left: 25px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 21px;
-            letter-spacing: 3.5px;
-            line-height: 1.1;
-            color: #111;
-            background: rgba(255,255,255,0.4);
-            padding: 5px;
-        }
-
         .footer-note {
-            position: absolute;
-            bottom: 110px;
-            left: 25px;
-            font-size: 11px;
-            color: #444;
-            font-weight: bold;
+            margin-top: 40px;
+            font-size: 0.8em;
+            color: #777;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
         }
-
-        [contenteditable="true"] { outline: none; border-bottom: 1px dashed transparent; }
-        [contenteditable="true"]:hover { background: rgba(255,255,255,0.5); }
     </style>
 </head>
 <body>
 
-    <div id="visa-sticker">
-        <div style="position:absolute; top:80px; left:200px; font-size:100px; opacity:0.05; pointer-events:none;">🌸</div>
-        <div style="position:absolute; bottom:150px; left:400px; font-size:150px; opacity:0.05; pointer-events:none;">🌸</div>
-
-        <div class="header">
-            <div style="width: 100px;" class="label">JAPAN VISA</div>
-            <div class="title-group">
-                <h2>JAPAN VISA</h2>
-                <h1>日本国査証</h1>
-            </div>
-            <div class="serial-no" contenteditable="true">FA8819251</div>
-        </div>
-
-        <div class="main-content">
-            <div class="photo-space">顔写真<br>PHOTO</div>
-
-            <div class="col">
-                <div class="item">
-                    <div class="label">Place of Issue / 発給地</div>
-                    <div class="value" contenteditable="true">JAKARTA</div>
-                </div>
-                <div class="item">
-                    <div class="label">Date of Issue / 発給年月日</div>
-                    <div class="value" contenteditable="true">17 SEP 25</div>
-                </div>
-                <div class="item">
-                    <div class="label">Category / 査証種類</div>
-                    <div class="value" contenteditable="true">(V) AS TEMPORARY VISITOR</div>
-                </div>
-                <div class="item">
-                    <div class="label">Surname / Given Name / 氏名</div>
-                    <div class="value" style="font-size: 20px;" contenteditable="true">ABDULLAH QAYYUM</div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="item">
-                    <div class="label">No. of Entries / 数</div>
-                    <div class="value" contenteditable="true">SINGLE</div>
-                </div>
-                <div class="item">
-                    <div class="label">Date of Expiry / 有効期限</div>
-                    <div class="value" contenteditable="true">17 DEC 25</div>
-                </div>
-                <div class="item">
-                    <div class="label">For stay(s) of / 滞在期間</div>
-                    <div class="value" contenteditable="true">15 DAYS</div>
-                </div>
-                <div class="item">
-                    <div class="label">Passport No. / 旅券番号</div>
-                    <div class="value" contenteditable="true">QU1077241</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-note">
-            Remarks / 備考
-        </div>
-
-        <div class="red-hanko">
-            MINISTRY<br>OF FOREIGN<br>AFFAIRS
-        </div>
-
-        <div class="mrz">
-            V&lt;JPNABDULLAH&lt;&lt;QAYYUM&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>
-            QU10772418PAK0405177M251217425B57857607A&lt;V13
-        </div>
+<div class="letter-container">
+    <div class="header">
+        <p><strong>Date:</strong> March 12, 2026</p>
+        <p><strong>Location:</strong> Pakistan</p>
     </div>
 
-    <button style="margin-top: 20px; padding: 10px 20px; cursor: pointer; background: #bc1e2d; color: white; border: none; border-radius: 5px; font-weight: bold;" onclick="saveImage()">
-        SAVE VISA STICKER AS IMAGE
-    </button>
+    <div class="recipient">
+        <p>To,<br>
+        <strong>Immigration New Zealand Verification Service</strong><br>
+        Visa Confirmation Department</p>
+    </div>
 
-    <script>
-        function saveImage() {
-            html2canvas(document.querySelector("#visa-sticker"), { scale: 3 }).then(canvas => {
-                let link = document.createElement('a');
-                link.download = 'Abdullah_Qayyum_JapanVisa.png';
-                link.href = canvas.toDataURL();
-                link.click();
-            });
-        }
-    </script>
+    <div class="subject">
+        SUBJECT: VERIFICATION OF VISA AUTHENTICITY – [YOUR NAME HERE]
+    </div>
+
+    <div class="content">
+        <p>To Whom It May Concern,</p>
+        
+        <p>I am writing to formally request a verification of the immigration status associated with my passport. I have received documentation regarding a Work Permit for travel to join <strong>[Company Name]</strong> in New Zealand, and I wish to confirm its validity through official channels before proceeding with travel arrangements.</p>
+
+        <p><strong>My details are as follows:</strong></p>
+        <ul>
+            <li><strong>Full Name:</strong> [Your Full Name]</li>
+            <li><strong>Passport Number:</strong> [Your Passport Number]</li>
+            <li><strong>Nationality:</strong> Pakistani</li>
+            <li><strong>Proposed Departure Airport:</strong> [Name of Pakistan Airport]</li>
+        </ul>
+
+        <p>Could you please confirm if there is an active eVisa or entry permit recorded in your system for these details? I aim to ensure full compliance with New Zealand immigration laws and avoid any potential issues at the border.</p>
+
+        <p>Thank you for your time and assistance in this matter.</p>
+    </div>
+
+    <div class="signature">
+        <p>Sincerely,</p>
+        <br>
+        <p>__________________________<br>
+        <strong>[Your Name]</strong><br>
+        [Your Phone Number]</p>
+    </div>
+
+    <div class="footer-note">
+        This document is a formal inquiry intended for verification purposes only.
+    </div>
+</div>
+
 </body>
 </html>
+Why you should use this:
+Safety First: If you show the colorful card you have to the Protector of Emigrants or airport security in Pakistan, and it turns out to be fake, you could be arrested for document fraud.
+
+Official Confirmation: Sending this letter via email to the official Immigration New Zealand contact (accessible via their .govt.nz website) will give you a written reply that is 100% reliable.
+
+The "Company" Issue: Since Restonlees Limited was removed from the New Zealand register in 2023, it is vital that you get this verification. No real visa can be issued for a company that does not exist.
+
+Would you like me to help you find the specific email address or contact form for the New Zealand Immigration verification office?
