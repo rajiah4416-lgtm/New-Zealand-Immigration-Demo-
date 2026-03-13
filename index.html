@@ -5,151 +5,233 @@
     <title>Azərbaycan Respublikası Əmək Müqaviləsi - 2026</title>
     <style>
         @page { size: A4; margin: 0; }
-        :root { --az-blue: #0092bc; --az-red: #e41e20; --az-green: #00af66; }
-        body { font-family: 'Times New Roman', serif; margin: 0; padding: 0; background: #515a6b; color: #333; }
+        :root { --az-blue: #0092bc; --az-red: #e41e20; --az-green: #00af66; --gold: #c5a059; }
         
-        /* SIDEBAR */
+        body { font-family: 'Times New Roman', serif; margin: 0; padding: 0; background: #2c3e50; color: #333; }
+
+        /* SIDEBAR CONTROLS */
         .sidebar { 
             position: fixed; left: 0; top: 0; width: 340px; height: 100%; 
-            background: #111; color: white; padding: 25px; box-sizing: border-box;
-            z-index: 100; font-family: 'Segoe UI', sans-serif; overflow-y: auto;
-            border-right: 4px solid var(--az-green);
+            background: #1a1a1b; color: white; padding: 25px; box-sizing: border-box;
+            z-index: 100; font-family: Arial, sans-serif; overflow-y: auto;
+            border-right: 5px solid var(--az-red);
         }
-        .sidebar h2 { font-size: 18px; color: var(--az-blue); margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .sidebar label { font-size: 11px; text-transform: uppercase; color: #888; display: block; margin-top: 12px; }
-        .sidebar input, .sidebar select { width: 100%; margin-top: 5px; padding: 10px; border-radius: 4px; border: 1px solid #333; background: #222; color: white; }
-        .btn-print { width: 100%; padding: 15px; background: var(--az-green); color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 30px; border-radius: 5px; }
+        .sidebar h3 { color: var(--az-blue); font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 20px; }
+        .sidebar label { font-size: 10px; text-transform: uppercase; color: #999; display: block; margin-top: 8px; font-weight: bold; }
+        .sidebar input, .sidebar select { width: 100%; margin-bottom: 5px; padding: 8px; border-radius: 4px; border: none; background: #2d2d2d; color: white; font-size: 13px; }
+        .btn-generate { width: 100%; padding: 15px; background: var(--az-green); color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 20px; text-transform: uppercase; border-radius: 4px; }
 
-        /* A4 CONTENT */
+        /* A4 PAGE DESIGN */
         .page { 
-            width: 210mm; min-height: 296mm; padding: 20mm 20mm; 
-            margin: 20px auto 20px 380px; background: white; 
-            position: relative; box-shadow: 0 0 30px rgba(0,0,0,0.5);
-            background-image: url('https://www.transparenttextures.com/patterns/pinstripe.png'); /* Sublte watermark effect */
+            width: 210mm; height: 296mm; padding: 20mm 20mm; 
+            margin: 20px auto 20px 370px; background: white; 
+            position: relative; page-break-after: always; box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            overflow: hidden;
         }
 
-        .gov-header { display: flex; align-items: center; border-bottom: 3px double #000; padding-bottom: 15px; margin-bottom: 20px; }
-        .gov-logo { width: 80px; margin-right: 20px; }
-        .header-titles h1 { margin: 0; font-size: 18px; text-transform: uppercase; line-height: 1.2; }
-        .header-titles h2 { margin: 0; font-size: 14px; color: var(--az-blue); background: none; border: none; padding: 0; color: #555; text-transform: none; }
-        
-        .status-stamp { position: absolute; top: 40px; right: 40px; border: 3px solid #008000; color: #008000; padding: 5px 15px; font-weight: bold; transform: rotate(15deg); border-radius: 5px; opacity: 0.8; }
+        /* WATERMARK */
+        .page::before {
+            content: ""; position: absolute; top: 50%; left: 50%; width: 400px; height: 400px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg') no-repeat center;
+            background-size: contain; transform: translate(-50%, -50%); opacity: 0.04; z-index: 0;
+        }
 
-        h3.section-title { background: #f0f0f0; padding: 8px; font-size: 14px; border-left: 5px solid var(--az-blue); text-transform: uppercase; margin-top: 25px; }
-        
-        .bilingual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; font-size: 12.5px; line-height: 1.5; margin-bottom: 15px; }
-        .az { font-weight: 500; text-align: justify; }
-        .en { color: #666; font-style: italic; text-align: justify; border-left: 1px solid #eee; padding-left: 15px; }
+        /* FLAG STRIPE HEADER */
+        .flag-stripe { position: absolute; top: 0; left: 0; width: 100%; height: 8px; display: flex; }
+        .s-blue { background: var(--az-blue); flex: 1; }
+        .s-red { background: var(--az-red); flex: 1; }
+        .s-green { background: var(--az-green); flex: 1; }
 
-        .data-box { width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin: 15px 0; }
-        .data-box td { border: 1px solid #ddd; padding: 10px; font-size: 12px; }
-        .bg-light { background: #f9f9f9; font-weight: bold; width: 30%; }
-
-        .qr-footer { margin-top: 50px; padding: 20px; border-top: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; }
-        .qr-text { font-size: 11px; color: #777; max-width: 70%; }
+        .header-container { display: flex; align-items: center; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 20px; position: relative; z-index: 1; }
+        .logo-wrapper { flex: 0 0 70px; margin-right: 20px; }
+        .az-coat { width: 70px; }
+        .header-text h1 { margin: 0; font-size: 16px; text-transform: uppercase; color: #000; }
+        .header-text p { margin: 0; color: var(--az-blue); font-weight: bold; font-size: 11px; }
         
-        @media print { .sidebar { display: none; } .page { margin: 0; box-shadow: none; } }
+        .ref-badge { background: #000; color: #fff; padding: 5px 10px; font-family: monospace; font-size: 11px; float: right; margin-top: -10px; }
+
+        h2 { font-family: Arial; font-size: 12px; color: white; background: var(--az-blue); padding: 6px 12px; margin-top: 20px; text-transform: uppercase; display: block; border-left: 5px solid var(--az-red); position: relative; z-index: 1; }
+        
+        .bilingual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px; position: relative; z-index: 1; }
+        .az { font-size: 12px; text-align: justify; font-weight: bold; }
+        .en { font-size: 11.5px; text-align: justify; color: #555; font-style: italic; border-left: 1px solid #eee; padding-left: 15px; }
+
+        .data-table { width: 100%; border-collapse: collapse; margin: 15px 0; position: relative; z-index: 1; }
+        .data-table td { border: 1px solid #ddd; padding: 8px; font-size: 12px; }
+        .label { background: #f8f8f8; font-weight: bold; width: 30%; color: var(--az-blue); }
+
+        .footer { position: absolute; bottom: 10mm; left: 0; width: 100%; text-align: center; font-size: 9px; color: #aaa; border-top: 1px solid #eee; padding-top: 10px; }
+
+        .sig-block { margin-top: 40px; display: flex; justify-content: space-between; position: relative; z-index: 1; }
+        .sig-box { width: 45%; border-top: 1px solid #000; padding-top: 10px; text-align: center; font-size: 11px; }
+
+        .qr-area { text-align: center; margin-top: 20px; padding: 15px; border: 1px solid #eee; background: #fafafa; border-radius: 8px; }
+
+        @media print { .sidebar { display: none; } .page { margin: 0; box-shadow: none; } body { background: white; } }
     </style>
 </head>
 <body>
 
-<div class="sidebar">
-    <h2>ASAN İş Portalı 2026</h2>
-    
-    <label>Employee FIN / FİN Kod</label>
-    <input type="text" id="inFin" placeholder="e.g. 7ABC123" maxlength="7" oninput="update()">
-    
-    <label>Restaurant Name / Restoran</label>
-    <input type="text" id="inCo" placeholder="Baku Palace LLC" oninput="update()">
-    
-    <label>VÖEN (Tax ID)</label>
-    <input type="text" id="inVoen" placeholder="140XXXXXXXX" oninput="update()">
-
-    <label>Full Name / S.A.A</label>
-    <input type="text" id="inName" placeholder="John Doe" oninput="update()">
-
-    <label>Monthly Salary (AZN)</label>
-    <input type="number" id="inSalary" value="650" oninput="update()">
-
-    <label>Job Category</label>
-    <select id="inCat" onchange="update()">
-        <option value="Ofisiant (Waiter)">Ofisiant (Waiter)</option>
-        <option value="Kuryer (Delivery)">Kuryer (Delivery)</option>
-        <option value="Baş Aşpaz (Head Chef)">Baş Aşpaz (Head Chef)</option>
-    </select>
-
-    <button class="btn-print" onclick="window.print()">Download Official PDF</button>
-</div>
-
-<div class="page">
-    <div class="status-stamp">TƏSDİQ EDİLDİ<br>APPROVED</div>
-    
-    <div class="gov-header">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="gov-logo">
-        <div class="header-titles">
-            <h1>Azərbaycan Respublikası Əmək və Əhalinin Sosial Müdafiəsi Nazirliyi</h1>
-            <h2>Ministry of Labour and Social Protection of the Population of the Republic of Azerbaijan</h2>
-        </div>
-    </div>
-
-    <p style="text-align: right; font-size: 11px;"><strong>ID:</strong> <span id="outID">B-2026-000</span></p>
-
-    <h3 class="section-title">1. Tərəflər / The Parties</h3>
-    <table class="data-box">
-        <tr><td class="bg-light">İşəgötürən<br>Employer</td><td id="outCo">__________</td></tr>
-        <tr><td class="bg-light">VÖEN / Tax ID</td><td id="outVoen">__________</td></tr>
-        <tr><td class="bg-light">İşçi / Employee</td><td id="outName">__________</td></tr>
-        <tr><td class="bg-light">FİN / Passport</td><td id="outFin">__________</td></tr>
-    </table>
-
-    <h3 class="section-title">2. Əmək Funksiyası / Job Function</h3>
-    <div class="bilingual-grid">
-        <div class="az">İşçi <strong><span class="outCat">Ofisiant</span></strong> vəzifəsi üzrə əmək funksiyasını yerinə yetirməyi öhdəsinə götürür. İş yeri müəssisənin Bakı şəhərində yerləşən ünvanıdır.</div>
-        <div class="en">The employee undertakes to perform the job function of <strong><span class="outCat">Waiter</span></strong>. The workplace is the enterprise's address located in Baku city.</div>
-    </div>
-
-    <h3 class="section-title">3. Əmək Haqqı / Compensation</h3>
-    <div class="bilingual-grid">
-        <div class="az">İşçiyə aylıq <strong><span class="outSalary">0</span> AZN</strong> məbləğində vəzifə maaşı müəyyən edilir. Əmək haqqı ayda bir dəfədən az olmayaraq ödənilir.</div>
-        <div class="en">The employee is assigned a monthly salary of <strong><span class="outSalary">0</span> AZN</strong>. Wages are paid at least once a month.</div>
-    </div>
-
-    <div class="qr-footer">
-        <div class="qr-text">
-            <strong>Elektron Bildiriş:</strong> Bu sənəd "Əmək müqaviləsi bildirişlərinin qeydiyyata alınması" sistemində rəqəmsal imzalanmışdır.<br>
-            <em><strong>Electronic Notice:</strong> This document is digitally signed in the unified labor registration system of Azerbaijan.</em>
-        </div>
-        <img id="qrImg" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=VERIFY" width="100">
-    </div>
-
-    <div style="font-size: 9px; text-align: center; margin-top: 20px; color: #999;">Page 1 of 3 - E-Gov Standard Form 2026-WP</div>
-</div>
-
-<script>
-    function update() {
-        const fin = document.getElementById('inFin').value || 'FIN-CODE';
-        const co = document.getElementById('inCo').value || 'RESTAURANT NAME';
-        const voen = document.getElementById('inVoen').value || '0000000000';
-        const name = document.getElementById('inName').value || 'CLIENT NAME';
-        const sal = document.getElementById('inSalary').value || '0';
-        const cat = document.getElementById('inCat').value;
-
-        document.getElementById('outFin').innerText = fin;
-        document.getElementById('outCo').innerText = co;
-        document.getElementById('outVoen').innerText = voen;
-        document.getElementById('outName').innerText = name;
-        document.querySelectorAll('.outSalary').forEach(e => e.innerText = sal);
-        document.querySelectorAll('.outCat').forEach(e => e.innerText = cat);
+    <div class="sidebar">
+        <h3>Portal Girişi (2026)</h3>
+        <label>FIN / PASPORT</label>
+        <input type="text" id="inFin" placeholder="7-digit FIN" oninput="sync()">
         
-        // Generate unique reference
-        document.getElementById('outID').innerText = 'B-2026-' + fin.toUpperCase();
+        <h3>Müəssisə (Employer)</h3>
+        <input type="text" id="inCo" placeholder="Restaurant Name" oninput="sync()">
+        <input type="text" id="inVoen" placeholder="VÖEN (Tax ID)" oninput="sync()">
+        <input type="text" id="inCoAddr" placeholder="Work Address" oninput="sync()">
 
-        // Update Dynamic QR
-        const qrData = `https://e-social.gov.az/check?fin=${fin}&voen=${voen}&pos=${cat}`;
-        document.getElementById('qrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(qrData)}`;
-    }
-    update();
-</script>
+        <h3>İşçi (Employee)</h3>
+        <input type="text" id="inName" placeholder="Full Name" oninput="sync()">
+        <input type="text" id="inCountry" placeholder="Nationality" oninput="sync()">
+        <input type="text" id="inPass" placeholder="Passport No" oninput="sync()">
 
+        <h3>Şərtlər (Terms)</h3>
+        <label>Salary (AZN)</label>
+        <input type="number" id="inSalary" placeholder="Gross Salary" oninput="sync()">
+        <label>Role</label>
+        <select id="inCat" onchange="sync()">
+            <option value="Ofisiant (Waiter)">Ofisiant (Waiter)</option>
+            <option value="Kuryer (Delivery)">Kuryer (Delivery)</option>
+            <option value="Mətbəx köməkçisi (Kitchen Helper)">Mətbəx köməkçisi (Kitchen Helper)</option>
+        </select>
+
+        <button class="btn-generate" onclick="window.print()">Download 3-Page PDF</button>
+    </div>
+
+    <div class="page">
+        <div class="flag-stripe"><div class="s-blue"></div><div class="s-red"></div><div class="s-green"></div></div>
+        <div class="ref-badge">E-BİLDİRİŞ: <span class="outFin">________</span></div>
+        <div class="header-container">
+            <div class="logo-wrapper"><img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="az-coat"></div>
+            <div class="header-text">
+                <h1>Azərbaycan Respublikası Əmək Müqaviləsi Bildirişi</h1>
+                <p>Ministry of Labour & Social Protection - Electronic Notification System 2026</p>
+            </div>
+        </div>
+
+        <h3 style="text-align: center; text-transform: uppercase; font-size: 14px;">Fərdi Əmək Müqaviləsi / Individual Employment Contract</h3>
+
+        <h2>1. Tərəflər / The Parties</h2>
+        <table class="data-table">
+            <tr><td class="label">İşəgötürən / Employer</td><td class="outCo">__________</td></tr>
+            <tr><td class="label">VÖEN / Tax ID</td><td class="outVoen">__________</td></tr>
+            <tr><td class="label">İşçi / Employee</td><td class="outName">__________</td></tr>
+            <tr><td class="label">FİN / Passport</td><td><span class="outFin">__________</span> / <span class="outPass">__________</span></td></tr>
+            <tr><td class="label">Vətəndaşlıq / Nationality</td><td class="outCountry">__________</td></tr>
+        </table>
+
+        <h2>2. Əmək Funksiyası / Job Function</h2>
+        <div class="bilingual-grid">
+            <div class="az">İşçi <strong><span class="outCat">Ofisiant</span></strong> vəzifəsi üzrə müəssisənin daxili intizam qaydalarına uyğun olaraq xidmət göstərməyi öhdəsinə götürür.</div>
+            <div class="en">The Employee undertakes to provide services in the position of <strong><span class="outCat">Waiter</span></strong> in accordance with the internal disciplinary rules of the enterprise.</div>
+        </div>
+
+        <h2>3. İş Yeri / Place of Work</h2>
+        <div class="bilingual-grid">
+            <div class="az">İş yeri aşağıdakı ünvanda yerləşir: <span class="outCoAddr">__________</span>.</div>
+            <div class="en">The place of work is located at the following address: <span class="outCoAddr">__________</span>.</div>
+        </div>
+
+        <div class="footer">Confidential - Republic of Azerbaijan Labor Standard | Page 1 of 3</div>
+    </div>
+
+    <div class="page">
+        <div class="flag-stripe"><div class="s-blue"></div><div class="s-red"></div><div class="s-green"></div></div>
+        
+        <h2>4. Əmək Haqqı / Remuneration</h2>
+        <div class="bilingual-grid">
+            <div class="az">İşçiyə aylıq vəzifə maaşı aşağıdakı məbləğdə təyin edilir:</div>
+            <div class="en">The Employee is assigned a monthly salary in the following amount:</div>
+        </div>
+        <div style="background: #f4f4f4; border: 2px solid var(--az-blue); padding: 15px; text-align: center; font-weight: bold; font-size: 18px; margin: 15px 0;">
+            <span class="outSalary">0.00</span> AZN
+        </div>
+
+        <h2>5. İş və İstirahət Vaxtı / Working Hours</h2>
+        <div class="bilingual-grid">
+            <div class="az">İş vaxtı həftədə 40 saatdan çox olmamaq şərti ilə gündəlik 8 saat müəyyən edilir (Maddə 89).</div>
+            <div class="en">Working time is set at 8 hours per day, not exceeding 40 hours per week (Article 89 of Labour Code).</div>
+        </div>
+
+        <h2>6. Məzuniyyət Hüququ / Annual Leave</h2>
+        <div class="bilingual-grid">
+            <div class="az">İşçinin Azərbaycan Respublikasının Əmək Məcəlləsinə uyğun olaraq ödənişli əsas məzuniyyət hüququ vardır (Maddə 114).</div>
+            <div class="en">The Employee has the right to paid main annual leave in accordance with the Labour Code of Azerbaijan (Article 114).</div>
+        </div>
+
+        <div class="footer">Confidential - Republic of Azerbaijan Labor Standard | Page 2 of 3</div>
+    </div>
+
+    <div class="page">
+        <div class="flag-stripe"><div class="s-blue"></div><div class="s-red"></div><div class="s-green"></div></div>
+
+        <h2>7. Sosial Sığorta / Social Protection</h2>
+        <div class="bilingual-grid">
+            <div class="az">İşəgötürən işçinin qanunvericiliklə müəyyən olunmuş qaydada məcburi dövlət sosial sığortasını və icbari tibbi sığortasını təmin edir.</div>
+            <div class="en">The Employer provides mandatory state social insurance and compulsory medical insurance for the employee as prescribed by law.</div>
+        </div>
+
+        <h2>8. Yekun Müddəalar / Final Provisions</h2>
+        <div class="bilingual-grid">
+            <div class="az">Bu müqavilə "Elektron hökumət" portalında qeydiyyata alındığı andan hüquqi qüvvəyə minir.</div>
+            <div class="en">This contract enters into legal force from the moment of registration on the "E-government" portal.</div>
+        </div>
+
+        <div class="qr-area">
+            <p style="font-size: 10px; font-weight: bold;">RƏQƏMSAL TƏSDİQ / DIGITAL VERIFICATION</p>
+            <img id="qrImg" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=VERIFY" alt="QR">
+            <p style="font-size: 9px; color: #666; margin-top: 5px;">Scan this code to verify authenticity at e-social.gov.az</p>
+        </div>
+
+        <div class="sig-block">
+            <div class="sig-box">
+                <strong>İŞƏGÖTÜRƏN / EMPLOYER</strong><br>
+                <span style="font-size: 9px;">(Signature & Stamp)</span><br><br>
+                <span class="outCo" style="font-weight: bold;">Restaurant</span>
+            </div>
+            <div class="sig-box">
+                <strong>İŞÇİ / EMPLOYEE</strong><br>
+                <span style="font-size: 9px;">(Signature)</span><br><br>
+                <span class="outName" style="font-weight: bold;">Client</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 50px; text-align: center; border: 1px dashed #ccc; padding: 20px; color: #ccc; font-size: 10px;">
+            STATE MIGRATION SERVICE OF AZERBAIJAN<br>WORK PERMIT CATEGORY: SERVICE/WAITSTAFF
+        </div>
+
+        <div class="footer">Confidential - Republic of Azerbaijan Labor Standard | Page 3 of 3</div>
+    </div>
+
+    <script>
+        function sync() {
+            const fin = document.getElementById('inFin').value || 'FIN-CODE';
+            const co = document.getElementById('inCo').value || 'RESTAURANT NAME';
+            const voen = document.getElementById('inVoen').value || 'VÖEN NO.';
+            const addr = document.getElementById('inCoAddr').value || 'BAKU, AZERBAIJAN';
+            const name = document.getElementById('inName').value || 'CLIENT NAME';
+            const country = document.getElementById('inCountry').value || 'COUNTRY';
+            const pass = document.getElementById('inPass').value || 'PASS-NO';
+            const sal = document.getElementById('inSalary').value || '0.00';
+            const cat = document.getElementById('inCat').value;
+
+            document.querySelectorAll('.outFin').forEach(el => el.innerText = fin);
+            document.querySelectorAll('.outCo').forEach(el => el.innerText = co);
+            document.querySelectorAll('.outVoen').forEach(el => el.innerText = voen);
+            document.querySelectorAll('.outCoAddr').forEach(el => el.innerText = addr);
+            document.querySelectorAll('.outName').forEach(el => el.innerText = name);
+            document.querySelectorAll('.outCountry').forEach(el => el.innerText = country);
+            document.querySelectorAll('.outPass').forEach(el => el.innerText = pass);
+            document.querySelectorAll('.outSalary').forEach(el => el.innerText = sal);
+            document.querySelectorAll('.outCat').forEach(el => el.innerText = cat);
+
+            // Update QR Code
+            const qrData = `https://e-social.gov.az/v?fin=${fin}&voen=${voen}`;
+            document.getElementById('qrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(qrData)}`;
+        }
+        sync();
+    </script>
 </body>
 </html>
