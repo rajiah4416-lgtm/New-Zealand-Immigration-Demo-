@@ -14,7 +14,7 @@
             position: fixed; left: 0; top: 0; width: 340px; height: 100%; 
             background: #1a1a1b; color: white; padding: 25px; box-sizing: border-box;
             z-index: 100; font-family: Arial, sans-serif; overflow-y: auto;
-            border-right: 5px solid var(--az-red);
+            border-right: 5px solid var(--az-blue);
         }
         .sidebar h3 { color: var(--az-blue); font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 20px; }
         .sidebar label { font-size: 10px; text-transform: uppercase; color: #999; display: block; margin-top: 8px; font-weight: bold; }
@@ -47,13 +47,14 @@
         .header-text h1 { margin: 0; font-size: 16px; text-transform: uppercase; color: #000; letter-spacing: 0.5px; }
         .header-text p { margin: 0; color: var(--az-blue); font-weight: bold; font-size: 11px; }
         
-        .migration-symbol { position: absolute; top: 20px; right: 20px; width: 60px; opacity: 0.8; }
+        /* MIGRATION LOGO */
+        .migration-logo { width: 75px; height: auto; margin-left: auto; }
 
         h2 { font-family: Arial; font-size: 12px; color: white; background: var(--az-blue); padding: 6px 12px; margin-top: 15px; text-transform: uppercase; display: block; border-left: 5px solid var(--az-red); position: relative; z-index: 1; }
         
         .bilingual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px; position: relative; z-index: 1; }
-        .az { font-size: 11.5px; text-align: justify; font-weight: bold; line-height: 1.4; }
-        .en { font-size: 11px; text-align: justify; color: #555; font-style: italic; border-left: 1px solid #eee; padding-left: 15px; line-height: 1.4; }
+        .az { font-size: 11px; text-align: justify; font-weight: bold; line-height: 1.4; }
+        .en { font-size: 10.5px; text-align: justify; color: #555; font-style: italic; border-left: 1px solid #eee; padding-left: 15px; line-height: 1.4; }
 
         .data-table { width: 100%; border-collapse: collapse; margin: 10px 0; position: relative; z-index: 1; }
         .data-table td { border: 1px solid #ddd; padding: 8px; font-size: 11px; }
@@ -66,7 +67,7 @@
         .sig-block { margin-top: 30px; display: flex; justify-content: space-between; position: relative; z-index: 1; }
         .sig-box { width: 45%; border-top: 1px solid #000; padding-top: 10px; text-align: center; font-size: 11px; }
 
-        .qr-area { text-align: center; margin-top: 20px; padding: 10px; border: 1px solid #eee; background: #fafafa; border-radius: 8px; }
+        .qr-area { text-align: center; margin-top: 15px; padding: 10px; border: 1px solid #eee; background: #fafafa; border-radius: 8px; }
 
         @media print { .sidebar { display: none; } .page { margin: 0; box-shadow: none; } body { background: white; } }
     </style>
@@ -74,37 +75,30 @@
 <body>
 
     <div class="sidebar">
-        <h3>İşçi və Şirkət Məlumatı</h3>
-        <label>Client Name / İşçinin Adı</label>
-        <input type="text" id="inName" placeholder="e.g. Rahul Sharma" oninput="sync()">
-        
-        <label>Monthly Salary / Maaş (AZN)</label>
-        <input type="number" id="inSalary" placeholder="e.g. 750" oninput="sync()">
+        <h3>İşçi və Şirkət Detalları</h3>
+        <input type="text" id="inName" placeholder="İşçinin S.A.A (Client Name)" oninput="sync()">
+        <input type="number" id="inSalary" placeholder="Maaş (Sample Salary)" oninput="sync()">
+        <input type="text" id="inFin" placeholder="FİN Kod (Passport)" oninput="sync()">
 
-        <label>Passport / FİN Kod</label>
-        <input type="text" id="inFin" placeholder="e.g. 7W2X9Z1" oninput="sync()">
-
-        <h3>Visa Detalları</h3>
-        <label>Visa Number</label>
-        <input type="text" id="inVisaNum" placeholder="e.g. AZ0012345" oninput="sync()">
-        <label>Visa Start Date</label>
+        <h3>Visa Məlumatı</h3>
+        <input type="text" id="inVisaNum" placeholder="Visa Nömrəsi" oninput="sync()">
+        <label>Start Date</label>
         <input type="date" id="inVisaStart" oninput="sync()">
-        <label>Visa End Date</label>
+        <label>End Date</label>
         <input type="date" id="inVisaEnd" oninput="sync()">
         
         <h3>Müəssisə (Employer)</h3>
-        <input type="text" id="inCo" placeholder="Baku Garden Restaurant" oninput="sync()">
-        <input type="text" id="inVoen" placeholder="VÖEN (10 rəqəmli)" oninput="sync()">
-        <input type="text" id="inCoAddr" placeholder="Nizami küç. 42, Bakı" oninput="sync()">
+        <input type="text" id="inCo" placeholder="Restoranın Adı" oninput="sync()">
+        <input type="text" id="inVoen" placeholder="VÖEN No" oninput="sync()">
+        <input type="text" id="inCoAddr" placeholder="İş Yeri Ünvanı" oninput="sync()">
 
-        <label>Position / Vəzifə</label>
         <select id="inCat" onchange="sync()">
             <option value="Ofisiant (Waiter)">Ofisiant (Waiter)</option>
             <option value="Kuryer (Delivery Boy)">Kuryer (Delivery Boy)</option>
-            <option value="Mətbəx İşçisi (Kitchen Staff)">Mətbəx İşçisi (Kitchen Staff)</option>
+            <option value="Aşpaz Köməkçisi (Kitchen Staff)">Aşpaz Köməkçisi (Kitchen Staff)</option>
         </select>
 
-        <button class="btn-generate" onclick="window.print()">Print Official 2-Page Contract</button>
+        <button class="btn-generate" onclick="window.print()">Print Final 2-Page Contract</button>
     </div>
 
     <div class="page">
@@ -114,89 +108,87 @@
             <div class="logo-wrapper"><img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="az-coat"></div>
             <div class="header-text">
                 <h1>Azərbaycan Respublikası Əmək Müqaviləsi</h1>
-                <p>LABOR CONTRACT NOTIFICATION • STATE MIGRATION SERVICE COMPLIANT</p>
+                <p>LABOR NOTIFICATION • MIGRATION COMPLIANCE 2026</p>
             </div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_the_State_Migration_Service_of_Azerbaijan.svg" class="migration-symbol">
+            <img src="https://migration.gov.az/public/images/logo.png" class="migration-logo" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/National_Emblem_of_Azerbaijan.png/150px-National_Emblem_of_Azerbaijan.png'">
         </div>
 
-        <h3 style="text-align: center; font-size: 13px; margin-top: 0;">FƏRDİ ƏMƏK MÜQAVİLƏSİ / INDIVIDUAL LABOR CONTRACT</h3>
+        <h3 style="text-align: center; font-size: 13px; margin: 0;">FƏRDİ ƏMƏK MÜQAVİLƏSİ (SAMPLE)</h3>
 
         <h2>1. Tərəflər / The Parties</h2>
         <table class="data-table">
             <tr><td class="label">İşəgötürən / Employer</td><td class="outCo">SAMPLE RESTAURANT LLC</td></tr>
             <tr><td class="label">VÖEN / Tax ID</td><td class="outVoen">140XXXXXXX</td></tr>
             <tr><td class="label">İşçi / Employee</td><td class="outName">CLIENT NAME SAMPLE</td></tr>
-            <tr><td class="label">FİN / Passport</td><td><span class="outFin">7XXXXXX</span></td></tr>
+            <tr><td class="label">FİN / Passport</td><td class="outFin">7XXXXXX</td></tr>
         </table>
 
-        <h2>2. Visa Məlumatları / Visa Information</h2>
+        <h2>2. Visa & Miqrasiya / Visa & Migration</h2>
         <table class="data-table">
-            <tr><td class="label">Visa No</td><td class="outVisaNum">__________</td></tr>
-            <tr><td class="label">Start Date / Başlama</td><td class="outVisaStart">__________</td></tr>
-            <tr><td class="label">End Date / Bitmə</td><td class="outVisaEnd">__________</td></tr>
+            <tr><td class="label">Visa No</td><td class="outVisaNum">AZ-0000000</td></tr>
+            <tr><td class="label">Validity / Müddət</td><td><span class="outVisaStart">____-__-__</span> - <span class="outVisaEnd">____-__-__</span></td></tr>
         </table>
 
         <h2>3. Əmək Funksiyası / Job Function</h2>
         <div class="bilingual-grid">
-            <div class="az">İşçi <strong><span class="outCat">Ofisiant</span></strong> vəzifəsi üzrə əmək funksiyasını yerinə yetirir.</div>
-            <div class="en">The Employee performs duties as <strong><span class="outCat">Waiter</span></strong> according to the job description.</div>
+            <div class="az">İşçi müəssisədə <strong><span class="outCat">Ofisiant</span></strong> vəzifəsi üzrə qanunvericiliklə müəyyən edilmiş əmək funksiyasını yerinə yetirir.</div>
+            <div class="en">The Employee performs job functions as <strong><span class="outCat">Waiter</span></strong> in accordance with the legislation within the enterprise.</div>
         </div>
 
         <h2>4. Əmək Haqqı / Remuneration</h2>
-        <div class="bilingual-grid">
-            <div class="az">İşçiyə aylıq vəzifə maaşı aşağıdakı məbləğdə təyin edilir:</div>
-            <div class="en">The Employee is assigned a monthly salary in the following amount:</div>
-        </div>
         <div class="salary-highlight">
-            <span class="outSalary">0.00</span> AZN
+            <span class="outSalary">0.00</span> AZN (Gross Salary)
         </div>
 
-        <div class="footer">Republic of Azerbaijan Immigration Standard | Page 1 of 2</div>
+        <div class="footer">Confidential Migration Document | Səhifə 1/2</div>
     </div>
 
     <div class="page">
         <div class="flag-stripe"><div class="s-blue"></div><div class="s-red"></div><div class="s-green"></div></div>
         
-        <h2>5. İş Rejimi / Working Hours</h2>
+        <h2>5. İş Rejimi / Work Schedule</h2>
         <div class="bilingual-grid">
-            <div class="az">İş vaxtı həftədə 40 saatdan çox olmamaqla gündəlik 8 saat müəyyən edilir.</div>
-            <div class="en">Working time is set at 8 hours per day, not exceeding 40 hours per week.</div>
+            <div class="az">Gündəlik iş vaxtı 8 saat, həftəlik 40 saat olmaqla müəyyən edilir. İstirahət günləri qrafik üzrə təyin olunur.</div>
+            <div class="en">Daily work time is 8 hours, weekly 40 hours. Rest days are determined according to the schedule.</div>
         </div>
 
-        <h2>6. Sosial Sığorta / Social Protection</h2>
+        <h2>6. Sosial və Tibbi Sığorta / Insurance</h2>
         <div class="bilingual-grid">
-            <div class="az">İşəgötürən işçinin məcburi dövlət sosial və tibbi sığortasını təmin edir.</div>
-            <div class="en">The Employer ensures mandatory state social and medical insurance for the employee.</div>
+            <div class="az">İşçi qanunvericiliklə müəyyən olunmuş qaydada məcburi dövlət sosial və icbari tibbi sığorta ilə təmin olunur.</div>
+            <div class="en">The Employee is provided with mandatory state social and compulsory medical insurance as prescribed by law.</div>
         </div>
 
-        <h2>7. Rəqəmsal Təsdiq / QR Verification</h2>
+        <h2>7. Elektron Bildiriş və QR / Verification</h2>
         <div class="qr-area">
-            <p style="font-size: 10px; font-weight: bold; margin: 0 0 5px 0;">DÖVLƏT MİQRASİYA XİDMƏTİ / STATE MIGRATION SERVICE</p>
-            <img id="qrImg" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=VERIFY" alt="QR">
-            <p style="font-size: 8px; color: #666; margin-top: 5px;">Scan to verify Employee: <span class="outName">Client</span> | Visa: <span class="outVisaNum">No</span></p>
+            <p style="font-size: 10px; font-weight: bold; margin: 0 0 5px 0;">DÖVLƏT MİQRASİYA XİDMƏTİ (DMX)</p>
+            <img id="qrImg" src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=VERIFY" alt="QR">
+            <p style="font-size: 9px; color: #666; margin-top: 5px;">
+                <strong>Employee:</strong> <span class="outName">Client</span><br>
+                <strong>Employer:</strong> <span class="outCo">Company</span>
+            </p>
         </div>
 
         <div class="sig-block">
             <div class="sig-box">
                 <strong>İŞƏGÖTÜRƏN / EMPLOYER</strong><br>
-                <span style="font-size: 8px;">(Signature & Stamp / İmza və Möhür)</span><br><br>
-                <span class="outCo" style="font-weight: bold; color: var(--az-blue);">Restaurant Name</span>
+                <span style="font-size: 8px;">(İmza və Möhür / Signature & Stamp)</span><br><br>
+                <span class="outCo" style="font-weight: bold; color: var(--az-blue);">RESTAURANT</span>
             </div>
             <div class="sig-box">
                 <strong>İŞÇİ / EMPLOYEE</strong><br>
-                <span style="font-size: 8px;">(Signature / İmza)</span><br><br>
-                <span class="outName" style="font-weight: bold; color: var(--az-red);">Client Name</span>
+                <span style="font-size: 8px;">(İmza / Signature)</span><br><br>
+                <span class="outName" style="font-weight: bold; color: var(--az-red);">CLIENT</span>
             </div>
         </div>
 
-        <div style="margin-top: 50px; text-align: center;">
-            <div style="display: inline-block; border: 1px dashed #ccc; padding: 15px; border-radius: 8px;">
-                <p style="font-size: 10px; color: #777; margin: 0;">VALID FOR RESIDENCY PERMIT APPLICATION</p>
-                <p style="font-size: 9px; color: var(--az-green); font-weight: bold; margin: 5px 0 0 0;">AZƏRBAYCAN RESPUBLİKASI - 2026</p>
+        <div style="margin-top: 60px; text-align: center;">
+            <div style="display: inline-block; border: 1.5px dashed var(--az-green); padding: 15px; border-radius: 10px;">
+                <p style="font-size: 10px; color: #555; margin: 0; font-weight: bold;">AZƏRBAYCAN RESPUBLİKASI DÖVLƏT MİQRASİYA XİDMƏTİ</p>
+                <p style="font-size: 9px; color: #999; margin-top: 5px;">Müvəqqəti Yaşayış İcazəsi (MYİ) üçün əsas sənəd</p>
             </div>
         </div>
 
-        <div class="footer">Republic of Azerbaijan Immigration Standard | Page 2 of 2</div>
+        <div class="footer">Confidential Migration Document | Səhifə 2/2</div>
     </div>
 
     <script>
@@ -205,11 +197,12 @@
                 'outName': document.getElementById('inName').value || 'CLIENT NAME SAMPLE',
                 'outSalary': document.getElementById('inSalary').value || '0.00',
                 'outFin': document.getElementById('inFin').value || '7XXXXXX',
-                'outVisaNum': document.getElementById('inVisaNum').value || 'NOT PROVIDED',
+                'outVisaNum': document.getElementById('inVisaNum').value || 'AZ-XXXXXXX',
                 'outVisaStart': document.getElementById('inVisaStart').value || '____-__-__',
                 'outVisaEnd': document.getElementById('inVisaEnd').value || '____-__-__',
                 'outCo': document.getElementById('inCo').value || 'SAMPLE RESTAURANT LLC',
                 'outVoen': document.getElementById('inVoen').value || '140XXXXXXX',
+                'outCoAddr': document.getElementById('inCoAddr').value || 'Bakı, Azərbaycan',
                 'outCat': document.getElementById('inCat').value
             };
 
@@ -217,8 +210,8 @@
                 document.querySelectorAll('.' + id).forEach(el => el.innerText = value);
             }
 
-            // QR Data includes Visa Number and Client/Company names for transparency
-            const qrData = `https://e-social.gov.az/v?client=${encodeURIComponent(vals.outName)}&visa=${vals.outVisaNum}&employer=${encodeURIComponent(vals.outCo)}&fin=${vals.outFin}`;
+            // QR includes Visa and Personal Details for transparency
+            const qrData = `https://e-social.gov.az/verify?name=${encodeURIComponent(vals.outName)}&visa=${vals.outVisaNum}&employer=${encodeURIComponent(vals.outCo)}`;
             document.getElementById('qrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=${encodeURIComponent(qrData)}`;
         }
         sync();
