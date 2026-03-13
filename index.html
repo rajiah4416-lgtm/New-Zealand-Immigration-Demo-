@@ -1,102 +1,200 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="az">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Clearance & Verification Generator</title>
+    <title>Azərbaycan Respublikası Əmək Müqaviləsi - 2026</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; padding: 20px; color: #333; }
-        .container { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h2 { color: #004a99; border-bottom: 2px solid #004a99; padding-bottom: 10px; }
-        .warning { background: #fff3f3; border-left: 5px solid #d9534f; padding: 15px; margin-bottom: 20px; font-size: 0.9em; color: #a94442; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { background: #004a99; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 1em; margin-top: 10px; }
-        button:hover { background: #003366; }
-        #output { display: none; margin-top: 30px; padding: 40px; border: 1px solid #ddd; background: #fff; line-height: 1.6; }
-        .print-btn { background: #28a745; margin-top: 20px; }
-        @media print { .no-print { display: none; } body { background: white; padding: 0; } .container { box-shadow: none; width: 100%; } }
+        @page { size: A4; margin: 0; }
+        :root { --az-blue: #0092bc; --az-red: #e41e20; --az-green: #00af66; --gold: #c5a059; }
+        body { font-family: 'Times New Roman', serif; margin: 0; padding: 0; background: #f0f2f5; color: #333; }
+        
+        /* SIDEBAR CONTROLS */
+        .sidebar { 
+            position: fixed; left: 0; top: 0; width: 340px; height: 100%; 
+            background: #1a1a1b; color: white; padding: 20px; box-sizing: border-box;
+            z-index: 100; font-family: Arial, sans-serif; overflow-y: auto;
+            border-right: 5px solid var(--az-blue);
+        }
+        .sidebar h3 { color: var(--az-blue); font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 20px; }
+        .sidebar label { font-size: 10px; text-transform: uppercase; color: #999; display: block; margin-top: 8px; font-weight: bold; }
+        .sidebar input, .sidebar select { width: 100%; margin-bottom: 5px; padding: 8px; border-radius: 4px; border: none; background: #2d2d2d; color: white; font-size: 13px; }
+        .btn-generate { width: 100%; padding: 15px; background: var(--az-blue); color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 20px; text-transform: uppercase; }
+
+        /* A4 PAGE DESIGN */
+        .page { 
+            width: 210mm; min-height: 296mm; padding: 20mm 25mm; 
+            margin: 20px auto 20px 370px; background: white; 
+            position: relative; page-break-after: always; box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header-container { display: flex; align-items: center; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 20px; }
+        .logo-wrapper { flex: 0 0 70px; margin-right: 20px; }
+        .az-coat { width: 70px; height: auto; }
+        .header-text { flex-grow: 1; }
+        .header-text h1 { margin: 0; font-size: 20px; text-transform: uppercase; }
+        .header-text p { margin: 0; font-size: 12px; font-weight: bold; color: var(--az-blue); }
+        
+        .e-notif-badge { background: #eee; border: 1px solid #ccc; padding: 5px 10px; font-family: monospace; font-size: 11px; float: right; margin-top: -10px; }
+
+        h2 { font-family: Arial; font-size: 13px; color: #fff; background: #333; padding: 6px 12px; margin-top: 20px; text-transform: uppercase; border-left: 5px solid var(--az-red); }
+        .bilingual-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 10px; }
+        .az-text { font-style: normal; }
+        .en-text { font-style: italic; color: #555; }
+
+        .data-table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        .data-table td { border: 1px solid #eee; padding: 8px; font-size: 12px; vertical-align: top; }
+        .label { background: #f9f9f9; font-weight: bold; width: 25%; }
+
+        .qr-section { text-align: center; border: 2px dashed #ddd; padding: 20px; margin-top: 30px; }
+        .footer { position: absolute; bottom: 15mm; width: 100%; left: 0; text-align: center; font-size: 10px; color: #aaa; }
+
+        @media print { .sidebar { display: none; } .page { margin: 0; box-shadow: none; } body { background: white; } }
     </style>
 </head>
 <body>
 
-<div class="container no-print">
-    <h2>Travel Clearance Document Generator</h2>
-    <div class="warning">
-        <strong>Important:</strong> The "New Zealand Immigration Card" you possess shows signs of being unofficial. Use this tool to generate a <strong>Verification Request</strong> to ensure your travel is legal.
-    </div>
-    
-    <div class="form-group">
-        <label>Full Name (As per Passport)</label>
-        <input type="text" id="userName" placeholder="e.g. Muhammad Ali">
-    </div>
-    <div class="form-group">
-        <label>Passport Number</label>
-        <input type="text" id="passport" placeholder="e.g. AB1234567">
-    </div>
-    <div class="form-group">
-        <label>Departure Airport (Pakistan)</label>
-        <select id="airport">
-            <option value="Islamabad International Airport (ISB)">Islamabad (ISB)</option>
-            <option value="Allama Iqbal International Airport (LHE)">Lahore (LHE)</option>
-            <option value="Jinnah International Airport (KHI)">Karachi (KHI)</option>
-            <option value="Sialkot International Airport (SKT)">Sialkot (SKT)</option>
+    <div class="sidebar">
+        <h3>Migrasiya Detalları</h3>
+        <label>Work Permit Ref / FİN</label>
+        <input type="text" id="inRef" placeholder="7-digit FIN Code" oninput="sync()">
+        <label>Execution Date</label>
+        <input type="date" id="inDate" oninput="sync()">
+
+        <h3>İşəgötürən (Employer)</h3>
+        <input type="text" id="inCo" placeholder="Restaurant Name" oninput="sync()">
+        <input type="text" id="inCoAddr" placeholder="Workplace Address" oninput="sync()">
+        <input type="text" id="inCoNum" placeholder="VÖEN (Tax ID)" oninput="sync()">
+        <input type="text" id="inCoPhone" placeholder="Contact Number" oninput="sync()">
+
+        <h3>İşçi (Employee)</h3>
+        <input type="text" id="inName" placeholder="Full Name (Passport)" oninput="sync()">
+        <input type="text" id="inPass" placeholder="Passport Number" oninput="sync()">
+        <input type="text" id="inCountry" placeholder="Nationality" oninput="sync()">
+
+        <h3>İş Şərtləri (Work Terms)</h3>
+        <label>Monthly Gross Salary (AZN)</label>
+        <input type="number" id="inSalary" placeholder="e.g. 600" oninput="sync()">
+        <label>Position</label>
+        <select id="inCat" onchange="sync()">
+            <option value="Ofisiant (Waiter)">Ofisiant (Waiter)</option>
+            <option value="Kuryer (Delivery Boy)">Kuryer (Delivery Boy)</option>
+            <option value="Mətbəx köməkçisi (Kitchen Assistant)">Mətbəx köməkçisi (Kitchen Assistant)</option>
         </select>
-    </div>
-    <div class="form-group">
-        <label>New Zealand Company Name</label>
-        <input type="text" id="company" placeholder="e.g. Restonlees Limited">
+
+        <button class="btn-generate" onclick="window.print()">Print Agreement PDF</button>
     </div>
 
-    <button onclick="generateLetter()">Generate Professional Letter</button>
-</div>
+    <div class="page">
+        <div class="e-notif-badge">E-BİLDİRİŞ NO: <span id="outRef">________</span></div>
+        <div class="header-container">
+            <div class="logo-wrapper">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Emblem_of_Azerbaijan.svg" class="az-coat">
+            </div>
+            <div class="header-text">
+                <h1 class="outCo">RESTORANIN ADI</h1>
+                <p>AZƏRBAYCAN RESPUBLİKASI • ƏMƏK VƏ ƏHALİNİN SOSİAL MÜDAFİƏSİ NAZİRLİYİ</p>
+            </div>
+        </div>
 
-<div id="output">
-    <div style="text-align: right;"><strong>Date:</strong> <span id="currentDate"></span></div>
-    <p><strong>To:</strong><br>
-    The Protector of Emigrants<br>
-    Bureau of Emigration & Overseas Employment<br>
-    Government of Pakistan</p>
+        <h3 style="text-align: center; margin-bottom: 25px;">FƏRDİ ƏMƏK MÜQAVİLƏSİ / INDIVIDUAL EMPLOYMENT CONTRACT</h3>
+        
+        <div class="bilingual-row">
+            <div class="az-text">Bu müqavilə Azərbaycan Respublikasının Əmək Məcəlləsinə uyğun olaraq tərəflər arasında bağlanmışdır.</div>
+            <div class="en-text">This contract is concluded between the parties in accordance with the Labor Code of the Republic of Azerbaijan.</div>
+        </div>
 
-    <p><strong>Subject: Application for Emigration Clearance (Protector Stamp) – <span id="outName"></span></strong></p>
+        <h2>1. Tərəflər (The Parties)</h2>
+        <table class="data-table">
+            <tr><td class="label">İşəgötürən / Employer</td><td class="outCo">__________</td></tr>
+            <tr><td class="label">VÖEN / Tax ID</td><td class="outCoNum">__________</td></tr>
+            <tr><td class="label">Ünvan / Address</td><td class="outCoAddr">__________</td></tr>
+            <tr><td class="label">İşçi / Employee</td><td class="outName">__________</td></tr>
+            <tr><td class="label">Pasport / Passport</td><td class="outPass">__________</td></tr>
+            <tr><td class="label">Vətəndaşlıq / Nationality</td><td class="outCountry">__________</td></tr>
+        </table>
 
-    <p>Respected Sir/Madam,</p>
+        <h2>2. İş Yeri və Funksiyası (Location & Role)</h2>
+        <div class="bilingual-row">
+            <div class="az-text">İşçinin vəzifəsi <strong><span class="outCat">Ofisiant</span></strong> kimi müəyyən edilir. İş yeri Bakı şəhəri üzrə müvafiq restorandır.</div>
+            <div class="en-text">The employee's position is defined as <strong><span class="outCat">Waiter</span></strong>. The workplace is the relevant restaurant in Baku.</div>
+        </div>
 
-    <p>I, <strong><span id="displayName"></span></strong>, holder of Passport Number <strong><span id="displayPassport"></span></strong>, am writing to formally request the mandatory emigration clearance for my travel to New Zealand. I have been offered a position at <strong><span id="displayCompany"></span></strong> and intend to depart from <strong><span id="displayAirport"></span></strong>.</p>
+        <div class="footer">E-Government Compliance Standards 2026 | Səhifə 1/3</div>
+    </div>
 
-    <p>Attached to this application are my employment contract and the visa documentation provided to me. I kindly request your office to verify these documents against the official Immigration New Zealand records and grant the necessary Protector Stamp to ensure my travel is fully compliant with the laws of Pakistan and New Zealand.</p>
+    <div class="page">
+        <h2>3. Əmək Haqqı (Remuneration)</h2>
+        <div class="bilingual-row">
+            <div class="az-text">Aylıq əmək haqqı aşağıdakı məbləğdə təyin edilir:</div>
+            <div class="en-text">The monthly gross salary is set at:</div>
+        </div>
+        <div style="background: #f4f4f4; border: 1px solid #000; padding: 15px; text-align: center; font-weight: bold; font-size: 20px;">
+            <span class="outSalary">0.00</span> AZN (Manat)
+        </div>
 
-    <p>I am committed to following all legal procedures and appreciate your assistance in verifying my status for a safe journey.</p>
+        <h2>4. İş Rejimi (Work Schedule)</h2>
+        <div class="bilingual-row">
+            <div class="az-text">İş vaxtı həftəlik <strong>40 saatdan</strong> artıq olmamaqla, gündəlik 8 saat təşkil edir.</div>
+            <div class="en-text">Working time is 8 hours per day, not exceeding <strong>40 hours</strong> per week.</div>
+        </div>
 
-    <p>Yours faithfully,<br><br><br>
-    __________________________<br>
-    <strong><span id="displaySignature"></span></strong></p>
-    
-    <button class="no-print print-btn" onclick="window.print()">Print This Letter</button>
-</div>
+        <h2>5. Sosial Sığorta (Social Insurance)</h2>
+        <div class="bilingual-row">
+            <div class="az-text">İşəgötürən qanunvericiliyə uyğun olaraq məcburi dövlət sosial sığorta və tibbi sığorta haqlarını ödəyir.</div>
+            <div class="en-text">The employer pays mandatory state social insurance and health insurance premiums in accordance with the law.</div>
+        </div>
+        
+        <div class="footer">E-Government Compliance Standards 2026 | Səhifə 2/3</div>
+    </div>
 
-<script>
-    function generateLetter() {
-        const name = document.getElementById('userName').value;
-        const pass = document.getElementById('passport').value;
-        const air = document.getElementById('airport').value;
-        const comp = document.getElementById('company').value;
+    <div class="page">
+        <h2>6. Xüsusi Şərtlər (Special Conditions)</h2>
+        <div class="bilingual-row">
+            <div class="az-text">Bu müqavilə İş İcazəsi alındığı tarixdən qüvvəyə minir və bir il müddətinə etibarlıdır.</div>
+            <div class="en-text">This contract enters into force from the date the Work Permit is obtained and is valid for one year.</div>
+        </div>
 
-        if(!name || !pass || !comp) { alert("Please fill in all fields."); return; }
+        <div class="qr-section">
+            <p><strong>RƏQƏMSAL VERİFİKASİYA / DIGITAL VERIFICATION</strong></p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://e-social.gov.az/verified-contract-2026" alt="QR Code">
+            <p style="font-size: 10px; margin-top: 10px;">
+                Bu QR kod Əmək və Əhalinin Sosial Müdafiəsi Nazirliyinin sistemində qeydiyyatı təsdiq edir.<br>
+                This QR code confirms registration in the Ministry of Labor system.
+            </p>
+        </div>
 
-        document.getElementById('outName').innerText = name.toUpperCase();
-        document.getElementById('displayName').innerText = name;
-        document.getElementById('displayPassport').innerText = pass;
-        document.getElementById('displayAirport').innerText = air;
-        document.getElementById('displayCompany').innerText = comp;
-        document.getElementById('displaySignature').innerText = name;
-        document.getElementById('currentDate').innerText = new Date().toLocaleDateString();
+        <div style="margin-top: 60px; display: flex; justify-content: space-between;">
+            <div style="width: 45%; border-top: 1px solid #000; padding-top: 10px; text-align: center;">
+                <strong>M.Y. (STAMP)</strong><br><em class="outCo">Restaurant</em>
+            </div>
+            <div style="width: 45%; border-top: 1px solid #000; padding-top: 10px; text-align: center;">
+                <strong>İşçinin İmzası (Signature)</strong><br><em class="outName">Client</em>
+            </div>
+        </div>
 
-        document.getElementById('output').style.display = 'block';
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-</script>
+        <div class="footer">E-Government Compliance Standards 2026 | Səhifə 3/3</div>
+    </div>
 
+    <script>
+        function sync() {
+            const vals = {
+                'outRef': document.getElementById('inRef').value || 'FIN-7788990',
+                'outCo': document.getElementById('inCo').value || 'RESTORANIN ADI',
+                'outCoNum': document.getElementById('inCoNum').value || 'VÖEN NO.',
+                'outCoAddr': document.getElementById('inCoAddr').value || 'BAKI, AZƏRBAYCAN',
+                'outCoPhone': document.getElementById('inCoPhone').value || 'ƏLAQƏ NÖMRƏSİ',
+                'outName': document.getElementById('inName').value || 'İŞÇİNİN ADI',
+                'outPass': document.getElementById('inPass').value || 'PASPORT NO.',
+                'outCountry': document.getElementById('inCountry').value || 'ÖLKƏ',
+                'outSalary': document.getElementById('inSalary').value || '0.00',
+                'outCat': document.getElementById('inCat').value
+            };
+            for (const [id, value] of Object.entries(vals)) {
+                document.querySelectorAll('.' + id).forEach(el => el.innerText = value);
+                if (document.getElementById(id)) document.getElementById(id).innerText = value;
+            }
+        }
+        sync();
+    </script>
 </body>
 </html>
