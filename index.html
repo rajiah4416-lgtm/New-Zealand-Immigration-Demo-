@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NZ_OFFICIAL_AEWV_AGREEMENT_2026</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --nz-navy: #00247d;
@@ -37,12 +36,11 @@
             overflow: hidden;
         }
 
-        /* Faint Watermark */
-        .page::before {
-            content: "IMMIGRATION NEW ZEALAND";
+        /* Faint Watermark on each page */
+        .watermark-overlay {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg);
-            font-size: 70px; font-weight: 900; color: rgba(0, 36, 125, 0.03);
-            white-space: nowrap; pointer-events: none; z-index: 0;
+            font-size: 65px; font-weight: 900; color: rgba(0, 36, 125, 0.04);
+            white-space: nowrap; pointer-events: none; z-index: 0; text-transform: uppercase;
         }
 
         .top-bar { height: 8px; width: 100%; display: flex; z-index: 2;}
@@ -71,15 +69,12 @@
         td { border: 1px solid #e0e0e0; padding: 10px 15px; font-size: 13px; color: #000; }
         .bold-cell { font-weight: bold; text-transform: uppercase; }
 
-        /* Signature Styling */
-        .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
-        .sig-block { border-top: 1.5px solid #333; padding-top: 10px; }
-        .sig-handwritten { 
-            font-family: 'Dancing Script', cursive; 
-            font-size: 24px; color: #00247d; 
-            display: block; margin-bottom: -5px;
-        }
-        .sig-label { font-size: 10px; color: #555; text-transform: uppercase; display: block; }
+        /* Blank Signature Area */
+        .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
+        .sig-block { border-top: 1.5px solid #000; padding-top: 12px; height: 80px; position: relative; }
+        .sig-placeholder { font-style: italic; color: #ccc; position: absolute; top: -35px; left: 10px; font-size: 12px; }
+        .sig-name-print { font-weight: bold; font-size: 12px; display: block; margin-top: 2px; text-transform: uppercase; }
+        .sig-label { font-size: 10px; color: #555; text-transform: uppercase; display: block; margin-top: 2px; }
 
         #qr-code { position: absolute; bottom: 80px; right: 60px; }
 
@@ -90,6 +85,7 @@
             .main-viewer { margin-left: 0; padding: 0; }
             .page { margin: 0; box-shadow: none; border: none; }
             body { background: white; }
+            .watermark-overlay { color: rgba(0, 36, 125, 0.06) !important; -webkit-print-color-adjust: exact; }
         }
     </style>
 </head>
@@ -120,11 +116,12 @@
         </select>
     </div>
 
-    <button style="width:100%; padding:15px; background:var(--nz-navy); color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer; margin-top:15px;" onclick="window.print()">PRINT 3-PAGE AGREEMENT</button>
+    <button style="width:100%; padding:15px; background:var(--nz-navy); color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer; margin-top:15px;" onclick="window.print()">GENERATE 3-PAGE PDF</button>
 </div>
 
 <div class="main-viewer">
     <div class="page">
+        <div class="watermark-overlay">Immigration New Zealand</div>
         <div class="top-bar"><div class="bar-navy"></div><div class="bar-red"></div></div>
         <div class="content">
             <div class="header-combined">
@@ -152,59 +149,55 @@
                 <tr><td><b>Date of Birth</b></td><td id="o_dob"></td></tr>
             </table>
             <div class="capsule-bar"></div>
-            <p>The Employer hereby offers, and the Employee accepts, the position of <b><span id="o_job"></span></b> for a fixed term of <b>Three (3) Years</b> under the AEWV scheme.</p>
+            <p>This document constitutes a formal agreement for the role of <b><span id="o_job"></span></b> for a fixed duration of <b>Three (3) Years</b>.</p>
             <table>
                 <tr><td>Hourly Wage</td><td>NZD $31.61 (Median Wage Compliant)</td></tr>
                 <tr><td>Guaranteed Hours</td><td>Minimum 40 Hours Per Week</td></tr>
             </table>
         </div>
-        <div class="footer">PAGE 1 OF 3 | ACCREDITED EMPLOYER PROGRAM</div>
+        <div class="footer">PAGE 1 OF 3 | AEWV SETTLEMENT SUPPORT</div>
     </div>
 
     <div class="page">
+        <div class="watermark-overlay">Immigration New Zealand</div>
         <div class="top-bar"><div class="bar-navy"></div><div class="bar-red"></div></div>
         <div class="content">
-            <h3 style="color:var(--nz-navy); border-bottom: 2px solid var(--nz-navy); padding-bottom:5px;">SECTION II: EMPLOYER PROVISIONS</h3>
-            <p>In accordance with the settlement support requirements for Accredited Employers, the following are provided:</p>
+            <h3 style="color:var(--nz-navy); border-bottom: 2px solid var(--nz-navy); padding-bottom:5px;">SETTLEMENT PROVISIONS</h3>
             <table>
-                <tr><td width="30%"><b>Accommodation</b></td><td>High-standard residential housing provided for the full 36-month term.</td></tr>
-                <tr><td><b>Medical</b></td><td>Comprehensive Health Insurance and ACC workplace injury coverage included.</td></tr>
-                <tr><td><b>Transport</b></td><td>Complimentary daily transit between company housing and the work site.</td></tr>
-                <tr><td><b>Airfare</b></td><td>100% Employer-funded international flight ticket from home country to NZ.</td></tr>
+                <tr><td width="30%"><b>Accommodation</b></td><td>Full residential support provided by the employer for 36 months.</td></tr>
+                <tr><td><b>Medical</b></td><td>ACC and private medical coverage as per AEWV requirements.</td></tr>
+                <tr><td><b>Transport</b></td><td>Employer-funded transport provided for daily work commute.</td></tr>
+                <tr><td><b>Tickets</b></td><td>Inbound airfare from home country fully funded by the employer.</td></tr>
             </table>
-            <h3 style="color:var(--nz-navy); border-bottom: 2px solid var(--nz-navy); padding-bottom:5px; margin-top:30px;">SECTION III: COMPANY POLICIES</h3>
-            <p>The Employee agrees to adhere to the following mandatory workplace policies:</p>
-            <ul style="line-height:1.8; font-size:13px;">
-                <li>Strict adherence to New Zealand Health and Safety at Work Act 2015.</li>
-                <li>Compliance with all internal Mart Operations and Security protocols.</li>
-                <li>Prohibition of unauthorized secondary employment while under AEWV sponsorship.</li>
-            </ul>
+            <h3 style="color:var(--nz-navy); border-bottom: 2px solid var(--nz-navy); padding-bottom:5px; margin-top:30px;">POLICIES & CONDUCT</h3>
+            <p style="font-size: 13px; line-height: 1.6;">The Employee must follow all internal company policies, including Health & Safety protocols and operational guidelines. Any breach of New Zealand employment law or company policy may result in disciplinary action up to termination.</p>
         </div>
-        <div class="footer">PAGE 2 OF 3 | ACCREDITED EMPLOYER PROGRAM</div>
+        <div class="footer">PAGE 2 OF 3 | AEWV SETTLEMENT SUPPORT</div>
     </div>
 
     <div class="page">
+        <div class="watermark-overlay">Immigration New Zealand</div>
         <div class="top-bar"><div class="bar-navy"></div><div class="bar-red"></div></div>
         <div class="content">
-            <h3 style="color:var(--nz-navy); text-transform:uppercase;">SECTION IV: EXECUTION & SIGNATURES</h3>
-            <p style="font-size:12px;">By signing this document, both parties acknowledge that this agreement is subject to the Job Check approval and the granting of a valid AEWV by Immigration New Zealand.</p>
+            <h3 style="color:var(--nz-navy); text-transform:uppercase;">SIGNATURES & AUTHORIZATION</h3>
+            <p style="font-size:12px; margin-bottom: 40px;">This agreement is legally binding once signed by both parties. Signing indicates acceptance of all terms detailed on pages 1 through 3.</p>
             
             <div class="signature-grid">
                 <div class="sig-block">
-                    <span class="sig-handwritten" id="o_cname_sig"></span>
-                    <span class="sig-label">Authorized Signatory</span>
-                    <b style="font-size:11px; display:block; margin-top:5px;" id="o_cname_val"></b>
+                    <div class="sig-placeholder">Handwritten Signature Here</div>
+                    <span class="sig-name-print" id="o_cname_sig"></span>
+                    <span class="sig-label">Authorized Signatory (Company)</span>
                 </div>
                 <div class="sig-block">
-                    <span class="sig-handwritten" id="o_name_sig"></span>
-                    <span class="sig-label">Employee Acceptance</span>
-                    <b style="font-size:11px; display:block; margin-top:5px;" id="o_name_val"></b>
+                    <div class="sig-placeholder">Handwritten Signature Here</div>
+                    <span class="sig-name-print" id="o_name_sig"></span>
+                    <span class="sig-label">Client Acceptance (Employee)</span>
                 </div>
             </div>
 
-            <div style="margin-top:80px; border: 1px solid #eee; padding: 20px; background: rgba(250,250,250,0.8); text-align:center;">
-                <h4 style="margin:0; color:var(--nz-navy);">CIRCULAR AUTHORITY VERIFICATION</h4>
-                <p style="font-size:11px; color:#666;">This agreement is synchronized with the Ministry of Business, Innovation and Employment (MBIE) Employer Accreditation Records.</p>
+            <div style="margin-top:100px; border: 1px solid #eee; padding: 20px; background: rgba(250,250,250,0.8); text-align:center;">
+                <h4 style="margin:0; color:var(--nz-navy);">VERIFICATION SUMMARY</h4>
+                <p style="font-size:11px; color:#666;">Job Check ID: <span id="o_jobcheck_btm"></span> | Verified 2026</p>
             </div>
 
             <div id="qr-code"></div>
@@ -221,15 +214,9 @@
             const outs = document.querySelectorAll('[id="o_'+id+'"]');
             outs.forEach(o => o.innerText = val);
             
-            // Signature sync
-            if(id === 'cname') {
-                document.getElementById('o_cname_sig').innerText = val;
-                document.getElementById('o_cname_val').innerText = val;
-            }
-            if(id === 'name') {
-                document.getElementById('o_name_sig').innerText = val;
-                document.getElementById('o_name_val').innerText = val;
-            }
+            if(id === 'jobcheck') document.getElementById('o_jobcheck_btm').innerText = val;
+            if(id === 'cname') document.getElementById('o_cname_sig').innerText = val;
+            if(id === 'name') document.getElementById('o_name_sig').innerText = val;
         });
         updateQR();
     }
@@ -237,7 +224,7 @@
     function updateQR() {
         const qrEl = document.getElementById("qr-code");
         qrEl.innerHTML = "";
-        const data = `NZ_AEWV|JOB_CHECK:${document.getElementById('i_jobcheck').value}|CLIENT:${document.getElementById('i_name').value}|IRD:${document.getElementById('i_ctax').value}|TERM:3YR`;
+        const data = `NZ_AEWV|JC:${document.getElementById('i_jobcheck').value}|COMP:${document.getElementById('i_cname').value}|CLIENT:${document.getElementById('i_name').value}|3YR`;
         new QRCode(qrEl, { text: data, width: 60, height: 60, colorDark: "#00247d" });
     }
     sync();
