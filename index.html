@@ -41,7 +41,6 @@
 
         .content { padding: 40px 60px; flex-grow: 1; position: relative; }
 
-        /* Header Layout: Flag and Title on one side */
         .header-combined { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
         .header-left-group { display: flex; align-items: center; gap: 20px; }
         .nz-flag { width: 90px; border: 0.5px solid #eee; }
@@ -64,9 +63,9 @@
         .bold-cell { font-weight: bold; text-transform: uppercase; }
 
         /* Signature Section */
-        .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 40px; }
-        .sig-line { border-top: 1.5px solid #333; margin-top: 50px; padding-top: 10px; font-size: 11px; text-align: center; color: #555; }
-        .sig-line b { display: block; text-transform: uppercase; font-size: 12px; color: #000; margin-bottom: 4px; }
+        .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
+        .sig-block { border-top: 1.5px solid #333; padding-top: 10px; font-size: 11px; color: #555; }
+        .sig-name { display: block; text-transform: uppercase; font-size: 12px; color: #000; font-weight: 900; margin-bottom: 4px; }
 
         /* Tiny QR */
         #qr-code { position: absolute; bottom: 85px; right: 60px; opacity: 0.8; }
@@ -151,7 +150,6 @@
         <div class="top-bar"><div class="bar-navy"></div><div class="bar-red"></div></div>
         <div class="content">
             <h3 style="color:var(--nz-navy); border-bottom: 2px solid var(--nz-navy); padding-bottom:8px; text-transform:uppercase; font-size:16px;">Statutory Entitlements & Benefits</h3>
-            <p style="font-size:13.5px;">As per New Zealand Labor Laws and Accredited Employer requirements, the following are provided:</p>
             
             <table style="margin-top:20px;">
                 <tr><td width="30%"><b>Annual Leave</b></td><td>4 Weeks (20 days) paid leave per annum.</td></tr>
@@ -162,7 +160,7 @@
             </table>
 
             <div class="capsule-bar"></div>
-            <p style="font-size:13px; font-style: italic; color: #666;">Note: Termination of this agreement requires a minimum notice period of 4 weeks by either party, subject to NZ Employment Relations Act 2000.</p>
+            <p style="font-size:13.5px; line-height:1.8;">As an Accredited Employer, the company agrees to uphold all New Zealand employment standards, including the payment of the median wage and providing necessary settlement information to the migrant worker.</p>
         </div>
         <div class="footer">PAGE 2 OF 3 | AEWV COMPLIANCE 2026</div>
     </div>
@@ -171,26 +169,24 @@
         <div class="top-bar"><div class="bar-navy"></div><div class="bar-red"></div></div>
         <div class="content">
             <h3 style="color:var(--nz-navy); text-transform:uppercase; font-size:16px;">Execution & Acknowledgement</h3>
-            <p style="font-size:13px; color:#444;">By signing below, both parties agree to the terms of this AEWV Employment Agreement.</p>
-
+            
             <div class="signature-grid">
-                <div class="sig-line">
-                    <b>For the Employer</b>
-                    Authorized Representative Signature<br>
-                    Date: ____ / ____ / 2026
+                <div class="sig-block">
+                    <span class="sig-name" id="o_cname_sig"></span>
+                    <small>AUTHORIZED SIGNATURE (EMPLOYER)</small><br>
+                    <small>Date: ____ / ____ / 2026</small>
                 </div>
-                <div class="sig-line">
-                    <b>For the Employee</b>
-                    Candidate Legal Signature<br>
-                    Date: ____ / ____ / 2026
+                <div class="sig-block">
+                    <span class="sig-name" id="o_name_sig"></span>
+                    <small>CANDIDATE SIGNATURE (EMPLOYEE)</small><br>
+                    <small>Date: ____ / ____ / 2026</small>
                 </div>
             </div>
 
             <div style="margin-top:100px; border: 1px solid #eee; padding: 25px; border-radius: 10px; background: #fafafa; text-align: center;">
                 <h4 style="margin:0; color:var(--nz-navy);">MBIE VERIFICATION RING</h4>
                 <p style="font-size:11px; color:#777; margin:10px 0;">
-                    This document is officially registered with the Ministry of Business, Innovation and Employment. 
-                    Reference ID: <span id="o_ref_btm"></span>. Verification is processed via the 
+                    Reference ID: <span id="o_ref_btm"></span>. Registered under the 
                     <b>Immigration New Zealand Circular Authority</b>.
                 </p>
             </div>
@@ -208,8 +204,12 @@
             const val = document.getElementById('i_'+id).value;
             const outs = document.querySelectorAll('[id="o_'+id+'"]');
             outs.forEach(o => o.innerText = val);
+            
+            // Specialized ID handling
             if(id === 'sal') document.getElementById('o_sal_val').innerText = val;
             if(id === 'ref') document.getElementById('o_ref_btm').innerText = val;
+            if(id === 'cname') document.getElementById('o_cname_sig').innerText = val;
+            if(id === 'name') document.getElementById('o_name_sig').innerText = val;
         });
         updateQR();
     }
@@ -218,7 +218,6 @@
         const qrEl = document.getElementById("qr-code");
         qrEl.innerHTML = "";
         const data = `AUTH:${document.getElementById('i_ref').value}|PASS:${document.getElementById('i_pass').value}`;
-        // Set to 60px for a "Very Small" look
         new QRCode(qrEl, { text: data, width: 60, height: 60, colorDark: "#00247d" });
     }
     sync();
