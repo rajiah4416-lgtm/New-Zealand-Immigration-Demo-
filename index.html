@@ -44,9 +44,13 @@
 
         .content-padding { padding: 40px 50px; position: relative; height: 100%; box-sizing: border-box; }
 
-        .header-section { text-align: center; margin-bottom: 10px; position: relative; }
-        .header-section h1 { color: var(--nz-navy); font-size: 32px; margin: 0; font-weight: bold; letter-spacing: 1px; }
-        .header-section h2 { color: var(--nz-red); font-size: 16px; margin: 5px 0; font-weight: bold; }
+        .header-section { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; position: relative; }
+        .nz-flag { width: 80px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        
+        .title-block { flex-grow: 1; text-align: center; }
+        .title-block h1 { color: var(--nz-navy); font-size: 32px; margin: 0; font-weight: bold; letter-spacing: 1px; }
+        .title-block h2 { color: var(--nz-red); font-size: 16px; margin: 5px 0; font-weight: bold; }
+        
         .ref-date-block { position: absolute; right: 0; top: 40px; text-align: right; color: #333; font-size: 14px; line-height: 1.4; }
         .date-blue { color: #3498db; font-weight: bold; }
 
@@ -96,7 +100,7 @@
     <div class="input-group"><label>NZBN / IRD</label><input type="text" id="i_ctax" value="9429041876343" oninput="sync()"></div>
     <div class="input-group"><label>Address</label><input type="text" id="i_caddr" value="41 Dockside Lane, Quay Park, Auckland, 1010" oninput="sync()"></div>
 
-    <h2>3. Client (Asad)</h2>
+    <h2>3. Client Details</h2>
     <div class="input-group"><label>Full Name</label><input type="text" id="i_name" value="ALI ASAD" oninput="sync()"></div>
     <div class="input-group"><label>Passport #</label><input type="text" id="i_pass" value="XM1830191" oninput="sync()"></div>
     <div class="input-group"><label>Nationality</label><input type="text" id="i_country" value="Pakistan" oninput="sync()"></div>
@@ -114,14 +118,21 @@
         <div class="top-strip"><div class="strip-navy"></div><div class="strip-red"></div></div>
         <div class="watermark">NEW ZEALAND</div>
         <div class="content-padding">
+            
             <div class="header-section">
-                <h1>EMPLOYMENT AGREEMENT</h1>
-                <h2>Accredited Employer Work Visa (AEWV)</h2>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" alt="New Zealand Flag" class="nz-flag">
+                
+                <div class="title-block">
+                    <h1>EMPLOYMENT AGREEMENT</h1>
+                    <h2>Accredited Employer Work Visa (AEWV)</h2>
+                </div>
+                
                 <div class="ref-date-block">
                     <b>REF NO: <span id="o_ref"></span></b><br>
                     <span class="date-blue" id="o_issue"></span>
                 </div>
             </div>
+
             <div class="gradient-bar"></div>
             <table>
                 <tr><td><b class="bold-val" id="o_cname"></b><br><span id="o_caddr"></span>, New Zealand</td></tr>
