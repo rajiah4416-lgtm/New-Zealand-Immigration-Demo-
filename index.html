@@ -2,247 +2,153 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OFFICIAL_NZ_EMPLOYMENT_AGREEMENT_2026</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <title>Employment Agreement - Azerbaijan</title>
     <style>
-        :root {
-            --nz-blue: #00247d;
-            --nz-red: #cc142b;
-            --nz-silver: #e1e4e8;
-            --gold-accent: #b39b6d;
-            --sidebar-bg: #1a1c23;
+        @page {
+            size: A4;
+            margin: 2cm;
         }
-
-        body { background: #333; margin: 0; display: flex; font-family: 'Times New Roman', serif; }
-
-        /* --- SIDEBAR EDITOR --- */
-        .sidebar {
-            width: 420px; height: 100vh; background: var(--sidebar-bg); color: #fff;
-            padding: 25px; box-sizing: border-box; position: fixed; overflow-y: auto;
-            border-right: 5px solid var(--nz-blue); z-index: 1000;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
         }
-        .sidebar h2 { color: var(--gold-accent); font-size: 14px; border-bottom: 1px solid #444; padding-bottom: 8px; margin: 20px 0 12px 0; text-transform: uppercase; letter-spacing: 1px;}
-        .input-group { margin-bottom: 12px; }
-        .input-group label { display: block; font-size: 10px; color: #aaa; text-transform: uppercase; margin-bottom: 4px; font-weight: bold; }
-        .input-group input, .input-group select { 
-            width: 100%; padding: 10px; background: #2d303a; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 13px;
-        }
-
-        /* --- DOCUMENT VIEWER --- */
-        .main-viewer { margin-left: 420px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding: 40px 0; }
-        
         .page {
-            width: 210mm; min-height: 297mm; background: #fff; margin-bottom: 40px;
-            box-sizing: border-box; position: relative; box-shadow: 0 0 40px rgba(0,0,0,0.6);
-            padding: 20mm 25mm; overflow: hidden; page-break-after: always;
+            page-break-after: always;
+            min-height: 25cm; /* Ensures content stretches */
+            position: relative;
         }
-
-        .inz-watermark-bg {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg);
-            font-size: 75px; font-weight: 900; color: rgba(0, 36, 125, 0.035);
-            white-space: nowrap; pointer-events: none; text-transform: uppercase; z-index: 0;
+        .content {
+            padding: 20px;
         }
-
-        .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid var(--nz-blue); padding-bottom: 20px; margin-bottom: 30px; position: relative; z-index: 1;}
-        .title-block h1 { color: var(--nz-blue); margin: 0; font-size: 28px; text-transform: uppercase; font-weight: bold; }
+        h1 { text-align: center; color: #1a3a5f; text-transform: uppercase; }
+        h2 { border-bottom: 2px solid #1a3a5f; color: #1a3a5f; padding-bottom: 5px; }
+        .section { margin-bottom: 25px; }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .info-table th, .info-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .info-table th { background-color: #f2f2f2; width: 30%; }
+        .footer-note { font-size: 0.8em; color: #777; text-align: center; margin-top: 50px; }
         
-        .section-hdr { 
-            background: linear-gradient(90deg, var(--nz-blue), #0044cc); color: white; 
-            padding: 10px 20px; font-size: 14px; font-weight: bold; margin: 25px 0 15px 0;
-            text-transform: uppercase; border-radius: 2px;
+        /* QR Section Styling */
+        .qr-container {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            border: 2px dashed #1a3a5f;
         }
-
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; position: relative; z-index: 1;}
-        th, td { border: 1px solid #c0c0c0; padding: 12px; font-size: 13px; }
-        th { background: #f4f6f9; text-align: left; width: 35%; color: var(--nz-blue); font-size: 10px; text-transform: uppercase; font-weight: 800; }
-        td { color: #000; }
-
-        .benefit-card { 
-            border: 1px solid var(--nz-silver); padding: 18px; margin-bottom: 15px; 
-            background: #fafbfc; border-left: 6px solid var(--nz-red);
-        }
-        .benefit-label { color: var(--nz-red); font-weight: 900; font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 8px; }
-
-        /* MBIE / INZ Footer Details */
-        .govt-authority-block {
-            margin-top: 40px; border: 1px solid #eee; padding: 15px; background: #fdfdfd; text-align: center;
-        }
-        .govt-authority-block b { font-size: 12px; color: var(--nz-blue); display: block; margin-bottom: 5px; }
-        .govt-authority-block p { font-size: 10px; color: #666; margin: 0; line-height: 1.5; }
-
-        .footer { position: absolute; bottom: 10mm; left: 25mm; width: calc(100% - 50mm); font-size: 9px; color: #888; text-align: center; border-top: 1px solid #ddd; padding-top: 10px; }
-
-        @media print {
-            .sidebar { display: none; }
-            .main-viewer { margin-left: 0; padding: 0; }
-            .page { margin: 0; box-shadow: none; border: none; }
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 
-<div class="sidebar">
-    <h2>1. Official Reference</h2>
-    <div class="input-group"><label>Reference Number</label><input type="text" id="i_ref" value="NZ-AEWV-2026-8812" oninput="sync()"></div>
-    <div class="input-group"><label>Date of Issue</label><input type="date" id="i_issue" value="2026-03-25" oninput="sync()"></div>
-    
-    <h2>2. Accredited Employer</h2>
-    <div class="input-group"><label>Company Name</label><input type="text" id="i_cname" value="ALBANY INFRASTRUCTURE NZ LTD" oninput="sync()"></div>
-    <div class="input-group"><label>Tax ID / IRD</label><input type="text" id="i_ctax" value="102-445-992" oninput="sync()"></div>
-    <div class="input-group"><label>Address</label><input type="text" id="i_caddr" value="Level 4, 15 Victoria St, Auckland CBD" oninput="sync()"></div>
-
-    <h2>3. Candidate Profile</h2>
-    <div class="input-group"><label>Full Name</label><input type="text" id="i_name" value="LUQMAN ALI" oninput="sync()"></div>
-    <div class="input-group"><label>Gender</label><select id="i_gender" onchange="sync()"><option>Male</option><option>Female</option></select></div>
-    <div class="input-group"><label>Passport Number</label><input type="text" id="i_pass" value="BU1835591" oninput="sync()"></div>
-    <div class="input-group"><label>Nationality</label><input type="text" id="i_country" value="Pakistan" oninput="sync()"></div>
-    <div class="input-group"><label>Date of Birth</label><input type="date" id="i_dob" value="2001-08-08" oninput="sync()"></div>
-    
-    <h2>4. Employment Data</h2>
-    <div class="input-group"><label>Designated Role</label><select id="i_job" onchange="sync()"><option>Security Operations Specialist</option><option>Retail Mart Supervisor</option></select></div>
-    <div class="input-group"><label>Hourly Rate (NZD)</label><input type="number" id="i_sal" value="35.00" oninput="sync()"></div>
-
-    <button style="width:100%; padding:20px; background:linear-gradient(to right, var(--nz-blue), #0055ff); color:white; border:none; cursor:pointer; font-weight:bold; border-radius:6px; margin-top:20px; text-transform:uppercase; letter-spacing:1px;" onclick="window.print()">Print Official Agreement</button>
-</div>
-
-<div class="main-viewer">
     <div class="page">
-        <div class="inz-watermark-bg">IMMIGRATION NEW ZEALAND</div>
-        <div class="header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" style="width: 100px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-            <div style="text-align: right;">
-                <h1>Employment Agreement</h1>
-                <p style="color:var(--nz-red); font-size:12px; font-weight:900; letter-spacing:1px;">ACCREDITED EMPLOYER WORK VISA (AEWV)</p>
-                <div style="font-size: 14px; margin-top:10px; font-family: 'Segoe UI', sans-serif;">
-                    <b>REFERENCE:</b> <span id="o_ref"></span><br>
-                    <b>ISSUED:</b> <span id="o_issue"></span>
-                </div>
+        <div class="content">
+            <h1>Employment Agreement</h1>
+            <p style="text-align: center;"><strong>Reference:</strong> AZ-RE/2026/001</p>
+            <hr>
+            
+            <div class="section">
+                <h2>1. The Parties</h2>
+                <p>This agreement is entered into on this day, <strong>April 1, 2026</strong>, by and between:</p>
+                <table class="info-table">
+                    <tr><th>Employer (Company)</th><td>[Insert Restaurant Name]</td></tr>
+                    <tr><th>VÖEN</th><td>[Insert Tax ID]</td></tr>
+                    <tr><th>Employee Name</th><td>[Insert Employee Full Name]</td></tr>
+                    <tr><th>ID / FIN Code</th><td>[Insert FIN]</td></tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>2. Position and Scope</h2>
+                <p>The Employee is appointed to the position of <strong>Waiter/Waitress</strong>. The employee shall perform duties in accordance with the standards of the hospitality industry in the Republic of Azerbaijan, ensuring guest satisfaction and adherence to safety protocols.</p>
+            </div>
+            
+            <div class="section">
+                <h2>3. Terms of Employment</h2>
+                <p>The term of this agreement shall be <strong>Fixed-Term</strong> for a period of 12 months, subject to a probationary period of 3 months from the date of commencement.</p>
             </div>
         </div>
-
-        <div class="section-hdr">I. THE PARTIES TO THIS AGREEMENT</div>
-        <table>
-            <tr><th>Employer Entity</th><td><b id="o_cname"></b></td></tr>
-            <tr><th>NZ Tax ID / IRD</th><td><span id="o_ctax"></span></td></tr>
-            <tr><th>Registered Address</th><td><span id="o_caddr"></span></td></tr>
-            <tr><th style="background:#f4f6f9;">Employee Legal Name</th><td><b id="o_name"></b></td></tr>
-            <tr><th>Nationality / Gender</th><td><span id="o_country"></span> | <span id="o_gender"></span></td></tr>
-            <tr><th>Travel Document</th><td>Passport No: <span id="o_pass"></span></td></tr>
-            <tr><th>Birth Particulars</th><td>DOB: <span id="o_dob"></span></td></tr>
-        </table>
-
-        <div class="section-hdr">II. TERMS OF ENGAGEMENT</div>
-        <p style="font-size:13px; line-height:1.8; color: #222;">The Employer confirms the professional appointment of the Employee for the position of <b><span id="o_job"></span></b>. This agreement constitutes a binding <b>36 Month (3-Year)</b> full-time contract, subject to standard New Zealand Labor Legislation.</p>
-        
-        <table>
-            <tr><th>Remuneration Rate</th><td>NZD $ <span id="o_sal"></span> / Hour</td></tr>
-            <tr><th>Projected Annual Base</th><td><span id="o_annual"></span> (Before Tax)</td></tr>
-            <tr><th>Guaranteed Capacity</th><td>Minimum 40 Hours per Week</td></tr>
-        </table>
-
-        <div class="footer">CONFIDENTIAL | AEWV COMPLIANT 2026 | PAGE 1 OF 3</div>
     </div>
 
     <div class="page">
-        <div class="inz-watermark-bg">IMMIGRATION NEW ZEALAND</div>
-        <div class="section-hdr">III. EMPLOYER-FUNDED PROVISIONS</div>
-        <p style="font-size:13px; color:#444; margin-bottom:20px;">The following entitlements are fully funded by the Employer for the entire contract duration:</p>
+        <div class="content">
+            <h2>4. Working Hours and Compensation</h2>
+            <p>The standard work week consists of 40 hours. Overtime shall be calculated and paid as per the Labour Code of the Republic of Azerbaijan.</p>
+            <ul>
+                <li><strong>Base Salary:</strong> [Amount] AZN per month.</li>
+                <li><strong>Payment Date:</strong> 5th of every month.</li>
+                <li><strong>Benefits:</strong> Health insurance and staff meals provided.</li>
+            </ul>
 
-        <div class="benefit-card">
-            <span class="benefit-label">✈️ International Travel (Ticket Free)</span>
-            <div style="font-size:13px;">Employer covers 100% of the international flight ticket from the home country to NZ. Includes annual return leave tickets for the 3-year term.</div>
+            <h2>5. Confidentiality and Conduct</h2>
+            <p>The Employee agrees to maintain strict confidentiality regarding the Employer’s trade secrets, recipes, and financial data. Any breach of conduct, including unexcused absences or violation of hygiene standards (Sanitary Rules), may result in immediate termination following the legal procedures of the Republic of Azerbaijan.</p>
+            
+            <h2>6. Vacation Rights</h2>
+            <p>The employee is entitled to 21 days of paid annual leave. Leave must be requested at least two weeks in advance and approved by management.</p>
         </div>
-
-        <div class="benefit-card">
-            <span class="benefit-label">🏥 Comprehensive Medical (Medical Free)</span>
-            <div style="font-size:13px;">Employer provides full private health insurance coverage. Employee is also automatically covered under the NZ Accident Compensation Corporation (ACC).</div>
-        </div>
-
-        <div class="benefit-card">
-            <span class="benefit-label">🚐 Corporate Transport</span>
-            <div style="font-size:13px;">Dedicated work transport is provided daily for commuting between accommodation and the work site at no cost to the employee.</div>
-        </div>
-
-        <div class="benefit-card">
-            <span class="benefit-label">🏠 Residential Living quarters</span>
-            <div style="font-size:13px;">High-standard company accommodation is provided for the duration of the 3-year agreement. All utilities (water, power, high-speed fiber internet) are paid by the employer.</div>
-        </div>
-
-        <div class="section-hdr">IV. STATUTORY LEAVE & BENEFITS</div>
-        <ul style="font-size:13px; line-height:2.2;">
-            <li><b>Annual Leave:</b> 4 weeks (20 working days) paid holiday per annum.</li>
-            <li><b>Sick Leave:</b> 10 days paid leave per annum for health or dependent care.</li>
-            <li><b>Public Holidays:</b> 12 NZ Public Holidays fully paid.</li>
-        </ul>
-
-        <div class="footer">CONFIDENTIAL | AEWV COMPLIANT 2026 | PAGE 2 OF 3</div>
     </div>
 
     <div class="page">
-        <div class="inz-watermark-bg">IMMIGRATION NEW ZEALAND</div>
-        <div class="section-hdr">V. EXECUTION & ACKNOWLEDGMENT</div>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 50px;">
-            <div style="border-top: 2px solid var(--nz-blue); padding-top:12px;">
-                <small style="font-weight:900; font-size:11px; color:var(--nz-blue);">ON BEHALF OF EMPLOYER</small><br><br>
-                <div id="o_cname_sig" style="font-family: 'Brush Script MT', cursive; font-size:22px; color:var(--nz-blue)"></div>
-                <div style="font-size:10px; color:#999; margin-top:10px;">Authorized Digital Acknowledgment</div>
+        <div class="content">
+            <h2>7. Final Summary & Verification</h2>
+            <p>By signing this document, both parties acknowledge the terms and conditions outlined in the previous pages.</p>
+            
+            <table class="info-table">
+                <tr>
+                    <th colspan="2" style="text-align: center; background: #1a3a5f; color: white;">Digital Record Verification</th>
+                </tr>
+                <tr>
+                    <th>Company Name</th>
+                    <td>[Insert Restaurant Name]</td>
+                </tr>
+                <tr>
+                    <th>Employee Name</th>
+                    <td>[Insert Employee Full Name]</td>
+                </tr>
+                <tr>
+                    <th>Contract Status</th>
+                    <td>Active / Verified</td>
+                </tr>
+            </table>
+
+            <div class="qr-container">
+                <h3>Contract Digital Signature</h3>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=ContractID-2026-AZ-Waiter" alt="QR Code" class="qr-code">
+                <p><small>Scan to verify the authenticity of this document via the official E-Gov portal.</small></p>
             </div>
-            <div style="border-top: 2px solid var(--nz-red); padding-top:12px;">
-                <small style="font-weight:900; font-size:11px; color:var(--nz-red);">CANDIDATE ACCEPTANCE</small><br><br>
-                <div id="o_name_sig" style="font-family: 'Brush Script MT', cursive; font-size:22px; color:var(--nz-red)"></div>
-                <div style="font-size:10px; color:#999; margin-top:10px;">Candidate Signature</div>
+
+            <div class="section" style="margin-top: 50px;">
+                <table style="width: 100%; border: none;">
+                    <tr>
+                        <td style="border: none; width: 50%;">
+                            __________________________<br>
+                            <strong>Employer Signature</strong>
+                        </td>
+                        <td style="border: none; width: 50%;">
+                            __________________________<br>
+                            <strong>Employee Signature</strong>
+                        </td>
+                    </tr>
+                </table>
             </div>
-        </div>
 
-        <div class="section-hdr">VI. SECURE VERIFICATION</div>
-        <div style="text-align: center; border: 1px solid #ddd; padding: 25px; border-radius: 8px; background: #fff; box-shadow: inset 0 0 10px #f9f9f9;">
-            <div id="qr-code" style="display:inline-block; padding: 12px; background: white; border: 1px solid #eee;"></div>
-            <p style="font-size:12px; font-weight:bold; color:var(--nz-blue); margin-top:15px; letter-spacing:1px;">DIGITAL VERIFICATION SYSTEM</p>
-            <p style="font-size:10px; color:#777; max-width:480px; margin: 8px auto; line-height:1.5;">Scanning this code confirms that all Bio-Data, Company IRD, and Remuneration details are synchronized with the MBIE Employer Accreditation records.</p>
+            <p class="footer-note">This document consists of 3 pages. Page 3 of 3.</p>
         </div>
-
-        <div class="govt-authority-block">
-            <b>GOVERNING AUTHORITY FOR WORK PERMITS:</b>
-            <p>
-                <strong>Immigration New Zealand (Ministry of Business, Innovation and Employment)</strong><br>
-                Accredited Employer Program Office | Level 4, 15 Stout Street, Wellington 6011<br>
-                Contact: 0800 20 90 20 (Within NZ) or +64 9 914 4100 (International)<br>
-                <i>All AEWV Work Permits are subject to Job Check approval and Employee Verification.</i>
-            </p>
-        </div>
-
-        <div class="footer">END OF AGREEMENT | OFFICIAL NZ GOVERNMENT STANDARDS | PAGE 3 OF 3</div>
     </div>
-</div>
 
-<script>
-    function sync() {
-        const fields = ['ref', 'issue', 'cname', 'ctax', 'caddr', 'name', 'gender', 'pass', 'country', 'dob', 'job', 'sal'];
-        fields.forEach(id => {
-            const val = document.getElementById('i_'+id).value;
-            const out = document.getElementById('o_'+id);
-            if(out) out.innerText = val;
-        });
-
-        document.getElementById('o_cname_sig').innerText = document.getElementById('i_cname').value;
-        document.getElementById('o_name_sig').innerText = document.getElementById('i_name').value;
-
-        const hourly = parseFloat(document.getElementById('i_sal').value) || 0;
-        document.getElementById('o_annual').innerText = (hourly * 40 * 52).toLocaleString('en-NZ', { style: 'currency', currency: 'NZD' });
-
-        updateQR();
-    }
-
-    function updateQR() {
-        const qrEl = document.getElementById("qr-code");
-        qrEl.innerHTML = "";
-        const data = `OFFICIAL_NZ_VERIFY|REF:${document.getElementById('i_ref').value}|DATE:${document.getElementById('i_issue').value}|COY:${document.getElementById('i_cname').value}|TAX:${document.getElementById('i_ctax').value}|ADDR:${document.getElementById('i_caddr').value}|CLIENT:${document.getElementById('i_name').value}|PASS:${document.getElementById('i_pass').value}|DOB:${document.getElementById('i_dob').value}|GEN:${document.getElementById('i_gender').value}|JOB:${document.getElementById('i_job').value}|WAGE:$${document.getElementById('i_sal').value}`;
-        
-        new QRCode(qrEl, { text: data, width: 150, height: 150, colorDark: "#00247d", correctLevel : QRCode.CorrectLevel.H });
-    }
-    sync();
-</script>
 </body>
-</html>
+</html
