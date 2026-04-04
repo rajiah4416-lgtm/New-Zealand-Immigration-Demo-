@@ -2,42 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Official Employment & TRC Agreement - Azerbaijan</title>
+    <title>Sponsorship & Employment Agreement - Azerbaijan 2026</title>
     <style>
         @page { size: A4; margin: 0; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #cfd8dc; margin: 0; padding: 0; }
+        :root {
+            --primary-emerald: #004d40;
+            --accent-gold: #c5a059;
+            --light-bg: #f4f7f6;
+            --text-dark: #1a237e;
+        }
+        body { font-family: 'Times New Roman', serif; background-color: #d1d9e0; margin: 0; padding: 0; }
         
-        /* Interactive Input Panel */
-        #form-header { background: #006064; color: white; padding: 15px; text-align: center; border-bottom: 5px solid #ffb300; }
-        .input-box { width: 950px; margin: 15px auto; background: white; padding: 20px; border-radius: 8px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; border: 1px solid #999; }
+        /* Control Panel */
+        #form-header { background: var(--primary-emerald); color: white; padding: 15px; text-align: center; border-bottom: 4px solid var(--accent-gold); }
+        .input-box { width: 950px; margin: 15px auto; background: white; padding: 20px; border-radius: 8px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; border: 1px solid var(--accent-gold); }
         .input-box div { display: flex; flex-direction: column; }
-        label { font-size: 10px; font-weight: bold; color: #006064; text-transform: uppercase; }
-        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; }
+        label { font-size: 10px; font-weight: bold; color: var(--primary-emerald); text-transform: uppercase; margin-bottom: 4px; }
+        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; outline-color: var(--accent-gold); }
 
         /* Document Styling */
-        .page { width: 210mm; height: 297mm; padding: 20mm; margin: 15mm auto; background: white; box-shadow: 0 0 20px rgba(0,0,0,0.3); position: relative; box-sizing: border-box; page-break-after: always; color: #263238; }
+        .page { 
+            width: 210mm; height: 297mm; padding: 20mm; margin: 15mm auto; 
+            background: white; position: relative; box-sizing: border-box; 
+            page-break-after: always; color: #333;
+            border: 1px solid #ddd;
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+        }
         
+        /* Watermark Background */
+        .page::before {
+            content: "OFFICIAL DOCUMENT";
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 80px; color: rgba(0, 77, 64, 0.03);
+            white-space: nowrap; pointer-events: none; z-index: 0;
+        }
+
         /* Header Section */
-        .gov-banner { text-align: center; border-bottom: 4px solid #006064; padding-bottom: 15px; margin-bottom: 20px; position: relative; }
-        .emblem { width: 85px; height: auto; }
-        .title-main { font-size: 22px; font-weight: 800; color: #006064; margin: 5px 0; letter-spacing: 1px; }
-        .ref-tag { position: absolute; top: 0; right: 0; background: #ffb300; color: #000; padding: 5px 10px; font-weight: bold; font-size: 12px; border-radius: 3px; }
+        .gov-header { text-align: center; border-bottom: 2px solid var(--accent-gold); padding-bottom: 15px; margin-bottom: 20px; z-index: 1; position: relative; }
+        .emblem { width: 95px; height: auto; filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2)); }
+        .republic-text { font-size: 24px; font-weight: bold; color: var(--primary-emerald); margin: 5px 0 0 0; letter-spacing: 2px; }
+        
+        /* Ref Number Styled */
+        .ref-banner { 
+            background: var(--primary-emerald); color: var(--accent-gold); 
+            display: inline-block; padding: 5px 20px; font-weight: bold; 
+            border-radius: 50px; font-size: 14px; margin-top: 10px;
+            border: 1px solid var(--accent-gold);
+        }
 
-        /* Layout Elements */
-        h2 { background: #006064; color: white; padding: 8px 15px; font-size: 16px; text-transform: uppercase; margin-top: 25px; border-radius: 2px; }
-        .info-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .info-table td { padding: 10px; border: 1px solid #e0e0e0; font-size: 14px; }
-        .label { font-weight: bold; background: #f5f5f5; width: 30%; color: #006064; }
+        h2 { border-left: 5px solid var(--accent-gold); background: var(--light-bg); padding: 8px 15px; font-size: 16px; color: var(--primary-emerald); text-transform: uppercase; margin-top: 25px; }
+        
+        .info-table { width: 100%; border-collapse: collapse; margin-top: 10px; z-index: 1; position: relative; }
+        .info-table td { padding: 12px; border: 1px solid #eee; font-size: 14px; }
+        .label { font-weight: bold; background: #fafafa; width: 30%; color: var(--primary-emerald); }
 
-        /* Color-Coded Sponsorship Box */
-        .sponsor-box { border: 2px solid #006064; border-radius: 8px; margin-top: 20px; overflow: hidden; }
-        .sponsor-header { background: #e0f2f1; padding: 10px; font-weight: bold; text-align: center; color: #006064; border-bottom: 2px solid #006064; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #006064; }
-        .grid-item { background: white; padding: 15px; font-size: 13px; }
-        .grid-item strong { color: #00897b; display: block; margin-bottom: 5px; text-transform: uppercase; font-size: 11px; }
+        /* Benefit Cards */
+        .benefit-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .benefit-card { border: 1px solid #e0e0e0; padding: 15px; border-radius: 5px; position: relative; background: #fff; }
+        .benefit-card strong { color: var(--accent-gold); display: block; margin-bottom: 5px; border-bottom: 1px solid #f0f0f0; }
+        .status-badge { position: absolute; top: 10px; right: 10px; font-size: 9px; background: var(--primary-emerald); color: white; padding: 2px 6px; border-radius: 3px; }
 
-        .qr-wrap { position: absolute; bottom: 60px; right: 60px; text-align: center; border: 1px solid #006064; padding: 10px; border-radius: 5px; }
-        .footer { position: absolute; bottom: 30px; width: 80%; left: 10%; text-align: center; font-size: 11px; color: #78909c; border-top: 1px solid #cfd8dc; padding-top: 10px; }
+        .qr-section { position: absolute; bottom: 60px; right: 60px; text-align: center; }
+        .qr-box { border: 2px solid var(--primary-emerald); padding: 5px; border-radius: 8px; background: white; }
+        .footer { position: absolute; bottom: 30px; width: 80%; left: 10%; text-align: center; font-size: 11px; color: #888; border-top: 1px solid var(--accent-gold); padding-top: 10px; font-style: italic; }
 
         @media print {
             #form-header, .input-box { display: none; }
@@ -49,143 +77,151 @@
 <body>
 
     <div id="form-header">
-        <strong>REPUBLIC OF AZERBAIJAN: OFFICIAL TRC & LABOR CONTRACT GENERATOR</strong>
+        <strong>PREMIUM AZERBAIJAN WORK PERMIT & TRC SPONSORSHIP SYSTEM</strong>
     </div>
 
     <div class="input-box">
-        <div><label>Ref Number</label><input type="text" id="in-ref" value="AZ/TRC/2026/001" oninput="sync()"></div>
-        <div><label>Issue Date</label><input type="date" id="in-date" oninput="sync()"></div>
-        <div><label>Company Name</label><input type="text" id="in-comp" oninput="sync()"></div>
+        <div><label>Ref Code</label><input type="text" id="in-ref" value="SMS/AZ/2026/7782" oninput="sync()"></div>
+        <div><label>Current Date</label><input type="date" id="in-date" oninput="sync()"></div>
+        <div><label>Employer Name</label><input type="text" id="in-comp" placeholder="e.g. Sultan Palace Restaurant" oninput="sync()"></div>
         <div><label>Company Address</label><input type="text" id="in-addr" oninput="sync()"></div>
-        <div><label>Employee Name</label><input type="text" id="in-name" oninput="sync()"></div>
+        <div><label>Client Name</label><input type="text" id="in-name" oninput="sync()"></div>
         <div><label>Passport No</label><input type="text" id="in-pass" oninput="sync()"></div>
-        <div><label>Country</label><input type="text" id="in-country" oninput="sync()"></div>
+        <div><label>Client Country</label><input type="text" id="in-country" oninput="sync()"></div>
         <div><label>Visa Number</label><input type="text" id="in-visa" oninput="sync()"></div>
-        <button onclick="window.print()" style="grid-column: span 4; background: #ffb300; color: #000; border: none; padding: 12px; cursor: pointer; font-weight: bold; border-radius: 4px; margin-top: 5px;">DOWNLOAD OFFICIAL 3-PAGE PDF</button>
+        <button onclick="window.print()" style="grid-column: span 4; background: var(--accent-gold); color: #fff; border: none; padding: 12px; cursor: pointer; font-weight: bold; border-radius: 4px; text-shadow: 1px 1px 1px #000;">DOWNLOAD PREMIUM 3-PAGE AGREEMENT</button>
     </div>
 
     <div class="page">
-        <div class="gov-banner">
-            <span class="ref-tag">REF: <span id="v-ref">AZ/TRC/2026/001</span></span>
+        <div class="gov-header">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Emblem_of_the_State_Migration_Service_of_Azerbaijan.svg/512px-Emblem_of_the_State_Migration_Service_of_Azerbaijan.svg.png" class="emblem">
-            <div class="title-main">AZERBAIJAN REPUBLIC</div>
-            <div style="font-weight: bold;">STATE MIGRATION SERVICE / MINISTRY OF LABOUR</div>
+            <div class="republic-text">AZERBAIJAN REPUBLIC</div>
+            <div class="ref-banner">REF NO: <span id="v-ref">SMS/AZ/2026/7782</span></div>
         </div>
 
-        <h1 style="text-align: center; color: #006064; font-size: 20px;">LABOR CONTRACT & TRC SPONSORSHIP</h1>
+        <h1 style="text-align: center; color: var(--primary-emerald); letter-spacing: 1px;">LABOR & RESIDENCY SPONSORSHIP</h1>
 
         <table class="info-table">
-            <tr><td class="label">Contract Date</td><td id="v-date">[Date]</td></tr>
-            <tr><td class="label">Job Category</td><td><strong>Restaurant (Hospitality Sector)</strong></td></tr>
-            <tr><td class="label">Agreement Term</td><td><strong>One (1) Year - Full Sponsorship</strong></td></tr>
+            <tr><td class="label">Date of Issuance</td><td id="v-date">[Date]</td></tr>
+            <tr><td class="label">Job Classification</td><td><strong>Hospitality Service (Waiter Category)</strong></td></tr>
+            <tr><td class="label">Validity Period</td><td><strong>Twelve (12) Months / Full Term</strong></td></tr>
         </table>
 
-        <h2>1. Employee (Client) Particulars</h2>
+        <h2>I. CANDIDATE IDENTIFICATION</h2>
         <table class="info-table">
-            <tr><td class="label">Full Legal Name</td><td id="v-name" style="font-weight:bold;">[Name]</td></tr>
+            <tr><td class="label">Full Legal Name</td><td id="v-name" style="font-weight:bold; color: var(--primary-emerald);">[Name]</td></tr>
             <tr><td class="label">Passport Number</td><td id="v-pass">[Passport No]</td></tr>
-            <tr><td class="label">Nationality</td><td id="v-country">[Country]</td></tr>
-            <tr><td class="label">Current Visa No</td><td id="v-visa">[Visa No]</td></tr>
+            <tr><td class="label">Origin Country</td><td id="v-country">[Country]</td></tr>
+            <tr><td class="label">Entry Visa ID</td><td id="v-visa">[Visa No]</td></tr>
         </table>
 
-        <h2>2. Employer (Sponsor) Particulars</h2>
+        <h2>II. REGISTERED EMPLOYER</h2>
         <table class="info-table">
-            <tr><td class="label">Registered Company</td><td id="v-comp" style="font-weight:bold;">[Company Name]</td></tr>
-            <tr><td class="label">Business Address</td><td id="v-addr">[Company Address]</td></tr>
+            <tr><td class="label">Entity Name</td><td id="v-comp" style="font-weight:bold;">[Company Name]</td></tr>
+            <tr><td class="label">Physical Address</td><td id="v-addr">[Company Address]</td></tr>
         </table>
 
-        <div class="qr-wrap">
-            <img id="qr-img" src="" style="width:100px; height:100px;">
-            <div style="font-size: 9px; font-weight: bold; color: #006064; margin-top: 5px;">VALIDATE DIGITAL SCAN</div>
+        <div class="qr-section">
+            <div class="qr-box">
+                <img id="qr-img" src="" style="width:110px; height:110px; display:block;">
+            </div>
+            <p style="font-size: 8px; font-weight: bold; color: var(--primary-emerald); margin-top: 5px;">OFFICIAL SYSTEM SCAN</p>
         </div>
 
-        <div class="footer">Dövlət Miqrasiya Xidməti | Official Reference Document | Page 1 of 3</div>
+        <div class="footer">Dövlət Miqrasiya Xidməti (SMS) | Employment Authorization | Page 1 of 3</div>
     </div>
 
     <div class="page">
-        <h2 style="margin-top: 0;">3. Full Sponsorship Commitment (TRC Track)</h2>
-        <p>The Employer guarantees that the Employee will be integrated into the Azerbaijan Social Security system and all expenses for the **Temporary Residence Card (TRC)** will be fully covered by the Company.</p>
+        <h2 style="margin-top: 0;">III. MANDATORY SPONSORSHIP COVERAGE</h2>
+        <p>This section certifies that the Employer (The Restaurant) provides a <strong>Total-Cost-Covered</strong> model for the employee for 1 Year. No deductions shall be made for the following legal requirements:</p>
 
-        <div class="sponsor-box">
-            <div class="sponsor-header">COMPANY COVERAGE CERTIFICATION (1-YEAR TERM)</div>
-            <div class="grid">
-                <div class="grid-item">
-                    <strong>TRC LEGAL PROCESS</strong>
-                    All state duties, application fees, and legal processing costs for the 1-year residency card are 100% covered.
-                </div>
-                <div class="grid-item">
-                    <strong>MEDICAL COVERAGE</strong>
-                    Full medical clearance via the designated Medical Company for Azerbaijan labor laws is provided by the employer.
-                </div>
-                <div class="grid-item">
-                    <strong>INSURANCE POLICIES</strong>
-                    State labor insurance and private accident insurance provided for the duration of the employment.
-                </div>
-                <div class="grid-item">
-                    <strong>ACCOMMODATION</strong>
-                    Standardized housing via the Accommodation Company is provided. Employee pays 0.00 AZN for rent.
-                </div>
-                <div class="grid-item" style="grid-column: span 2; border-top: 2px solid #006064; text-align: center;">
-                    <strong>FOOD & BOARDING</strong>
-                    Daily nutrition (3 meals per day) provided at the restaurant premises or accommodation site.
-                </div>
+        <div class="benefit-container">
+            <div class="benefit-card">
+                <span class="status-badge">PAID</span>
+                <strong>TRC (Residency Card)</strong>
+                The Company handles all state duties and legal filing for the Temporary Residence Card issuance.
+            </div>
+            <div class="benefit-card">
+                <span class="status-badge">PAID</span>
+                <strong>MEDICAL & HEALTH</strong>
+                Mandatory health screenings and medical certificates via the Medical Company are fully funded.
+            </div>
+            <div class="benefit-card">
+                <span class="status-badge">PAID</span>
+                <strong>LABOR INSURANCE</strong>
+                Social and medical insurance policies are activated upon the registration of the labor contract.
+            </div>
+            <div class="benefit-card">
+                <span class="status-badge">PROVIDED</span>
+                <strong>ACCOMMODATION</strong>
+                Comfortable housing via the partner Accommodation Company is provided at zero cost to the employee.
+            </div>
+            <div class="benefit-card" style="grid-column: span 2; border: 2px solid var(--accent-gold);">
+                <span class="status-badge">PROVIDED</span>
+                <strong>DAILY NUTRITION (FOOD)</strong>
+                Three (3) meals per day are provided by the restaurant facility as part of the waiter category agreement.
             </div>
         </div>
 
-        <h2>4. Term and Termination</h2>
-        <p>This agreement is valid for 12 months. Upon completion, the Employer may offer a renewal subject to mutual agreement and SMS approval. Termination by either party must follow the Azerbaijan Labor Code protocols.</p>
+        <h2>IV. OBLIGATIONS</h2>
+        <p style="font-size: 14px; line-height: 1.8;">
+            - The Employee shall perform duties as a waiter for 40 hours per week.<br>
+            - The Employer will renew the TRC annually subject to performance.<br>
+            - The Company provides all necessary uniforms and local transport.
+        </p>
 
-        <div class="footer">Dövlət Miqrasiya Xidməti | Full Sponsorship Terms | Page 2 of 3</div>
+        <div class="footer">Dövlət Miqrasiya Xidməti (SMS) | Coverage & Benefits | Page 2 of 3</div>
     </div>
 
     <div class="page">
-        <h2 style="margin-top: 0;">5. Final Authorization</h2>
-        <p>This document is ready for submission to the **E-Gov.az** portal. All scans and biometric data must match the particulars listed on Page 1.</p>
+        <h2 style="margin-top: 0;">V. LEGAL VALIDATION</h2>
+        <p>This agreement serves as the foundational document for the **E-Gov.az** Work Permit application. Both parties affirm that the information is true and accurate.</p>
 
-        <div style="margin-top: 50px; height: 180px; border: 2px dashed #006064; display: flex; align-items: center; justify-content: center; background: #f0fdfa;">
-            <span style="color: #006064; font-weight: bold; opacity: 0.5;">[ PLACE OFFICIAL COMPANY ROUND STAMP HERE ]</span>
-        </div>
-
-        <div style="margin-top: 80px; display: flex; justify-content: space-between;">
-            <div style="width: 45%; border-top: 2px solid #006064; text-align: center; padding-top: 10px;">
-                <strong>FOR THE EMPLOYER</strong><br>
-                <span id="v-comp-sign" style="font-size: 12px;">[Company]</span><br>
-                <small>(Authorized Signature)</small>
-            </div>
-            <div style="width: 45%; border-top: 2px solid #006064; text-align: center; padding-top: 10px;">
-                <strong>FOR THE EMPLOYEE</strong><br>
-                <span id="v-name-sign" style="font-size: 12px;">[Client Name]</span><br>
-                <small>(Authorized Signature)</small>
+        <div style="margin-top: 50px; height: 200px; border: 1px solid var(--accent-gold); position: relative; background: #fafafa; display: flex; align-items: center; justify-content: center;">
+            <div style="text-align: center; opacity: 0.2; transform: rotate(-15deg);">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Emblem_of_the_State_Migration_Service_of_Azerbaijan.svg/512px-Emblem_of_the_State_Migration_Service_of_Azerbaijan.svg.png" style="width: 150px;">
+                <p>OFFICIAL SEAL SPACE</p>
             </div>
         </div>
 
-        <div style="margin-top: 60px; padding: 20px; background: #fff9c4; border-radius: 5px; font-size: 12px; color: #5d4037;">
-            <strong>LEGAL COMPLIANCE:</strong> This contract is a legal obligation of the sponsoring company to provide all mentioned services (Housing, Food, TRC). Any failure to provide these services constitutes a violation of the Migration Code of the Republic of Azerbaijan.
+        <div style="margin-top: 100px; display: flex; justify-content: space-between;">
+            <div style="width: 45%; border-top: 2px solid var(--primary-emerald); text-align: center; padding-top: 10px;">
+                <strong style="color: var(--primary-emerald);">EMPLOYER SIGNATORY</strong><br>
+                <span id="v-comp-sign" style="font-size: 13px;">[Company]</span>
+            </div>
+            <div style="width: 45%; border-top: 2px solid var(--primary-emerald); text-align: center; padding-top: 10px;">
+                <strong style="color: var(--primary-emerald);">EMPLOYEE (CLIENT)</strong><br>
+                <span id="v-name-sign" style="font-size: 13px;">[Client Name]</span>
+            </div>
         </div>
 
-        <div class="footer">Dövlət Miqrasiya Xidməti | Verification & Signatures | Page 3 of 3</div>
+        <div style="margin-top: 60px; background: #fffde7; border: 1px solid var(--accent-gold); padding: 15px; font-size: 12px; border-radius: 5px;">
+            <strong>LEGAL NOTICE:</strong> Under the Migration Code of the Republic of Azerbaijan, the TRC remains the property of the State and is tied to the employer listed. This document is a binding contract for 12 months.
+        </div>
+
+        <div class="footer">Dövlət Miqrasiya Xidməti (SMS) | Final Validation | Page 3 of 3</div>
     </div>
 
     <script>
         function sync() {
             const fields = ['ref', 'name', 'comp', 'addr', 'pass', 'country', 'visa', 'date'];
-            let qrPayload = "VERIFIED-AZ-2026-REF:";
+            let qrText = "SMS-VALIDATED-2026: ";
             
             fields.forEach(f => {
-                const val = document.getElementById('in-' + f).value || "[---]";
+                const val = document.getElementById('in-' + f).value || "[PENDING]";
                 const targets = document.querySelectorAll('#v-' + f);
                 targets.forEach(t => t.innerText = val);
                 
                 if(f === 'name') document.getElementById('v-name-sign').innerText = val;
                 if(f === 'comp') document.getElementById('v-comp-sign').innerText = val;
 
-                qrPayload += `${f}:${val}|`;
+                qrText += `${f.toUpperCase()}:${val} | `;
             });
 
-            qrPayload += "TRC:COMPANY_PAID|FOOD:PROVIDED|HOUSING:PROVIDED";
-            document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrPayload)}`;
+            qrText += "TRC:COVERED|MEDICAL:PAID|FOOD:YES|HOUSING:YES";
+            document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrText)}&color=004d40`;
         }
         sync();
     </script>
 </body>
-</html>
+            </html>
