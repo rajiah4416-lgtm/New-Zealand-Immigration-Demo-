@@ -1,194 +1,230 @@
 <!DOCTYPE html>
-<html lang="ga">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Irish-Style Hourly & Monthly Employment Agreement</title>
+    <title>Sponsorship & Employment Agreement - Azerbaijan 2026</title>
     <style>
         @page { size: A4; margin: 0; }
         :root {
-            --clover-green: #00703c; 
-            --celtic-gold: #d4af37;
-            --linen-white: #f9f9f7;
+            --primary-emerald: #004d40;
+            --accent-gold: #c5a059;
+            --light-bg: #f4f7f6;
+            --text-dark: #1a237e;
         }
-        body { font-family: 'Garamond', serif; background-color: #e8ecef; margin: 0; padding: 0; }
+        body { font-family: 'Times New Roman', serif; background-color: #d1d9e0; margin: 0; padding: 0; }
         
-        /* Interactive Input Panel */
-        #form-header { background: var(--clover-green); color: white; padding: 15px; text-align: center; border-bottom: 5px solid var(--celtic-gold); }
-        .input-box { width: 950px; margin: 15px auto; background: white; padding: 20px; border-radius: 8px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; border: 2px solid var(--celtic-gold); }
-        label { font-size: 10px; font-weight: bold; color: var(--clover-green); text-transform: uppercase; }
-        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        /* Control Panel */
+        #form-header { background: var(--primary-emerald); color: white; padding: 15px; text-align: center; border-bottom: 4px solid var(--accent-gold); }
+        .input-box { width: 950px; margin: 15px auto; background: white; padding: 20px; border-radius: 8px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; border: 1px solid var(--accent-gold); }
+        .input-box div { display: flex; flex-direction: column; }
+        label { font-size: 10px; font-weight: bold; color: var(--primary-emerald); text-transform: uppercase; margin-bottom: 4px; }
+        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; outline-color: var(--accent-gold); }
 
         /* Document Styling */
         .page { 
-            width: 210mm; height: 297mm; padding: 25mm; margin: 15mm auto; 
+            width: 210mm; height: 297mm; padding: 20mm; margin: 15mm auto; 
             background: white; position: relative; box-sizing: border-box; 
-            page-break-after: always; color: #1a1a1a;
-            border: 10px double var(--clover-green);
+            page-break-after: always; color: #333;
+            border: 1px solid #ddd;
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
         }
         
-        .irish-header { text-align: center; border-bottom: 2px solid var(--celtic-gold); padding-bottom: 20px; margin-bottom: 30px; }
-        .harp-logo { width: 70px; margin-bottom: 10px; }
-        .republic-text { font-size: 26px; font-weight: bold; color: var(--clover-green); letter-spacing: 3px; font-variant: small-caps; }
+        /* Watermark Background */
+        .page::before {
+            content: "OFFICIAL DOCUMENT";
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 80px; color: rgba(0, 77, 64, 0.03);
+            white-space: nowrap; pointer-events: none; z-index: 0;
+        }
+
+        /* Header Section */
+        .gov-header { text-align: center; border-bottom: 2px solid var(--accent-gold); padding-bottom: 15px; margin-bottom: 20px; z-index: 1; position: relative; }
+        .emblem { width: 95px; height: auto; filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2)); }
+        .republic-text { font-size: 24px; font-weight: bold; color: var(--primary-emerald); margin: 5px 0 0 0; letter-spacing: 2px; }
         
-        .ref-badge { 
-            background: var(--clover-green); color: var(--celtic-gold); 
-            padding: 6px 25px; font-weight: bold; font-size: 14px; 
-            border: 1px solid var(--celtic-gold); border-radius: 4px; display: inline-block; margin-top: 10px;
+        /* Ref Number Styled */
+        .ref-banner { 
+            background: var(--primary-emerald); color: var(--accent-gold); 
+            display: inline-block; padding: 5px 20px; font-weight: bold; 
+            border-radius: 50px; font-size: 14px; margin-top: 10px;
+            border: 1px solid var(--accent-gold);
         }
 
-        h2 { border-bottom: 1px solid var(--celtic-gold); color: var(--clover-green); font-size: 18px; margin-top: 25px; font-style: italic; }
-        h2 span { font-size: 11px; color: #666; font-style: normal; text-transform: uppercase; margin-left: 10px; }
+        h2 { border-left: 5px solid var(--accent-gold); background: var(--light-bg); padding: 8px 15px; font-size: 16px; color: var(--primary-emerald); text-transform: uppercase; margin-top: 25px; }
+        
+        .info-table { width: 100%; border-collapse: collapse; margin-top: 10px; z-index: 1; position: relative; }
+        .info-table td { padding: 12px; border: 1px solid #eee; font-size: 14px; }
+        .label { font-weight: bold; background: #fafafa; width: 30%; color: var(--primary-emerald); }
 
-        .info-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .info-table td { padding: 10px; border-bottom: 1px solid #eee; font-size: 14px; }
-        .label { font-weight: bold; color: var(--clover-green); width: 35%; }
+        /* Benefit Cards */
+        .benefit-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .benefit-card { border: 1px solid #e0e0e0; padding: 15px; border-radius: 5px; position: relative; background: #fff; }
+        .benefit-card strong { color: var(--accent-gold); display: block; margin-bottom: 5px; border-bottom: 1px solid #f0f0f0; }
+        .status-badge { position: absolute; top: 10px; right: 10px; font-size: 9px; background: var(--primary-emerald); color: white; padding: 2px 6px; border-radius: 3px; }
 
-        /* Financial Highlight Box */
-        .financial-box { 
-            background: var(--linen-white); 
-            border: 2px solid var(--clover-green); 
-            margin-top: 15px; 
-            padding: 15px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-        }
-        .fin-item h3 { margin: 0; color: var(--clover-green); font-size: 20px; }
-        .fin-item p { margin: 2px 0 0 0; font-size: 10px; font-weight: bold; text-transform: uppercase; color: #555; }
-
-        .qr-wrap { position: absolute; bottom: 80px; right: 80px; text-align: center; }
-        .footer { position: absolute; bottom: 40px; width: 80%; left: 10%; text-align: center; font-size: 12px; color: #444; font-style: italic; border-top: 1px solid var(--celtic-gold); padding-top: 10px; }
+        .qr-section { position: absolute; bottom: 60px; right: 60px; text-align: center; }
+        .qr-box { border: 2px solid var(--primary-emerald); padding: 5px; border-radius: 8px; background: white; }
+        .footer { position: absolute; bottom: 30px; width: 80%; left: 10%; text-align: center; font-size: 11px; color: #888; border-top: 1px solid var(--accent-gold); padding-top: 10px; font-style: italic; }
 
         @media print {
             #form-header, .input-box { display: none; }
             body { background: none; }
-            .page { margin: 0; box-shadow: none; border: 8px double var(--clover-green); }
+            .page { margin: 0; border: none; box-shadow: none; }
         }
     </style>
 </head>
 <body>
 
     <div id="form-header">
-        <strong>AN CONDRADH FOSTAÍOCHTA: HOURLY & MONTHLY RATE GENERATOR</strong>
+        <strong>PREMIUM AZERBAIJAN WORK PERMIT & TRC SPONSORSHIP SYSTEM</strong>
     </div>
 
     <div class="input-box">
-        <div><label>Ref Number</label><input type="text" id="in-ref" value="IRE-AZ-2026-PAY" oninput="sync()"></div>
-        <div><label>Date</label><input type="date" id="in-date" oninput="sync()"></div>
-        <div><label>Employer</label><input type="text" id="in-comp" oninput="sync()"></div>
+        <div><label>Ref Code</label><input type="text" id="in-ref" value="SMS/AZ/2026/7782" oninput="sync()"></div>
+        <div><label>Current Date</label><input type="date" id="in-date" oninput="sync()"></div>
+        <div><label>Employer Name</label><input type="text" id="in-comp" placeholder="e.g. Sultan Palace Restaurant" oninput="sync()"></div>
+        <div><label>Monthly Salary (AZN)</label><input type="text" id="in-salary" placeholder="e.g. 800 AZN" oninput="sync()"></div>
         <div><label>Client Name</label><input type="text" id="in-name" oninput="sync()"></div>
-        <div><label>Hourly Rate</label><input type="text" id="in-hrate" placeholder="e.g. 15.00" oninput="sync()"></div>
-        <div><label>Monthly Salary</label><input type="text" id="in-mrate" placeholder="e.g. 2,400" oninput="sync()"></div>
         <div><label>Passport No</label><input type="text" id="in-pass" oninput="sync()"></div>
+        <div><label>Client Country</label><input type="text" id="in-country" oninput="sync()"></div>
         <div><label>Visa Number</label><input type="text" id="in-visa" oninput="sync()"></div>
-        <button onclick="window.print()" style="grid-column: span 4; background: var(--clover-green); color: white; border: none; padding: 12px; cursor: pointer; font-weight: bold; border-radius: 4px; margin-top: 10px;">PRINT THE OFFICIAL CONTRACT</button>
+        <div style="grid-column: span 4;"><label>Company Address</label><input type="text" id="in-addr" style="width: 100%;" oninput="sync()"></div>
+        <button onclick="window.print()" style="grid-column: span 4; background: var(--accent-gold); color: #fff; border: none; padding: 12px; cursor: pointer; font-weight: bold; border-radius: 4px; text-shadow: 1px 1px 1px #000; margin-top: 10px;">DOWNLOAD PREMIUM 3-PAGE AGREEMENT</button>
     </div>
 
     <div class="page">
-        <div class="irish-header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Harp_of_Ireland.svg/1200px-Harp_of_Ireland.svg.png" class="harp-logo">
-            <div class="republic-text">Éire | Ireland</div>
-            <div style="font-size: 14px; color: #555;">Residency (TRC) & Financial Sponsorship Record</div>
-            <div class="ref-badge" id="v-ref">IRE-AZ-2026-PAY</div>
+        <div class="gov-header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Emblem_of_the_State_Migration_Service_of_Azerbaijan.svg/512px-Emblem_of_the_State_Migration_Service_of_Azerbaijan.svg.png" class="emblem">
+            <div class="republic-text">AZERBAIJAN REPUBLIC</div>
+            <div class="ref-banner">REF NO: <span id="v-ref">SMS/AZ/2026/7782</span></div>
         </div>
 
-        <h1 style="text-align: center; color: var(--clover-green);">Financial Employment Agreement</h1>
+        <h1 style="text-align: center; color: var(--primary-emerald); letter-spacing: 1px;">LABOR & RESIDENCY SPONSORSHIP</h1>
 
-        <h2>Téarmaí Airgeadais <span>Financial Terms</span></h2>
-        <div class="financial-box">
-            <div class="fin-item">
-                <h3 id="v-mrate">0.00</h3>
-                <p>Monthly Gross Salary</p>
-            </div>
-            <div class="fin-item" style="border-left: 1px solid var(--celtic-gold); border-right: 1px solid var(--celtic-gold); padding: 0 20px;">
-                <h3 id="v-hrate">0.00</h3>
-                <p>Hourly Base Rate</p>
-            </div>
-            <div class="fin-item">
-                <h3>40</h3>
-                <p>Guaranteed Hours/Week</p>
-            </div>
-        </div>
-
-        <h2>Sonraí an Fhostaithe <span>Employee Details</span></h2>
         <table class="info-table">
-            <tr><td class="label">Full Legal Name</td><td id="v-name" style="font-weight:bold;">[Name]</td></tr>
-            <tr><td class="label">Passport Number</td><td id="v-pass">[Passport]</td></tr>
-            <tr><td class="label">Visa Reference</td><td id="v-visa">[Visa]</td></tr>
+            <tr><td class="label">Date of Issuance</td><td id="v-date">[Date]</td></tr>
+            <tr><td class="label">Job Classification</td><td><strong>Hospitality Service (Waiter Category)</strong></td></tr>
+            <tr><td class="label">Contract Duration</td><td><strong>Twelve (12) Months / Renewable</strong></td></tr>
         </table>
 
-        <h2>Sonraí an Fhostóra <span>Employer Details</span></h2>
+        <h2>I. CANDIDATE IDENTIFICATION</h2>
         <table class="info-table">
-            <tr><td class="label">Sponsoring Company</td><td id="v-comp" style="font-weight:bold;">[Company]</td></tr>
-            <tr><td class="label">Job Classification</td><td>Professional Waiter/Waitress</td></tr>
+            <tr><td class="label">Full Legal Name</td><td id="v-name" style="font-weight:bold; color: var(--primary-emerald);">[Name]</td></tr>
+            <tr><td class="label">Passport Number</td><td id="v-pass">[Passport No]</td></tr>
+            <tr><td class="label">Origin Country</td><td id="v-country">[Country]</td></tr>
+            <tr><td class="label">Entry Visa ID</td><td id="v-visa">[Visa No]</td></tr>
         </table>
 
-        <div class="qr-wrap">
-            <img id="qr-img" src="" style="width: 100px; border: 2px solid var(--clover-green); padding: 3px;">
-            <div style="font-size: 9px; font-weight: bold; color: var(--clover-green); margin-top: 5px;">FINANCIAL RECORD VERIFIED</div>
+        <h2>II. REGISTERED EMPLOYER & COMPENSATION</h2>
+        <table class="info-table">
+            <tr><td class="label">Entity Name</td><td id="v-comp" style="font-weight:bold;">[Company Name]</td></tr>
+            <tr><td class="label">Monthly Base Salary</td><td style="color: #d32f2f; font-weight: bold;"><span id="v-salary">[Salary]</span> (Net Payable)</td></tr>
+            <tr><td class="label">Physical Address</td><td id="v-addr">[Company Address]</td></tr>
+        </table>
+
+        <div class="qr-section">
+            <div class="qr-box">
+                <img id="qr-img" src="" style="width:110px; height:110px; display:block;">
+            </div>
+            <p style="font-size: 8px; font-weight: bold; color: var(--primary-emerald); margin-top: 5px;">OFFICIAL SYSTEM SCAN</p>
         </div>
 
-        <div class="footer">Sláinte agus Táinte | Irish Labor Standards | Page 1 of 3</div>
+        <div class="footer">Dövlət Miqrasiya Xidməti (SMS) | Employment Authorization | Page 1 of 3</div>
     </div>
 
     <div class="page">
-        <h2 style="margin-top: 0;">Sponsorship Coverage <span>An Coimircíocht</span></h2>
-        <p>In addition to the monthly salary, the Employer guarantees full coverage for:</p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
-            <div style="border-left: 4px solid var(--clover-green); padding-left: 10px;">
-                <strong>TRC & Legal</strong><br><small>All migration duties and card fees.</small>
+        <h2 style="margin-top: 0;">III. MANDATORY SPONSORSHIP COVERAGE</h2>
+        <p>This section certifies that the Employer provides a <strong>Total-Cost-Covered</strong> model. The following benefits are provided in addition to the monthly salary of <span id="v-salary-alt" style="font-weight: bold;">[Salary]</span>:</p>
+
+        <div class="benefit-container">
+            <div class="benefit-card">
+                <span class="status-badge">PAID</span>
+                <strong>TRC (Residency Card)</strong>
+                The Company handles all state duties and legal filing for the Temporary Residence Card issuance.
             </div>
-            <div style="border-left: 4px solid var(--clover-green); padding-left: 10px;">
-                <strong>Medical Checkups</strong><br><small>All state-mandated health tests.</small>
+            <div class="benefit-card">
+                <span class="status-badge">PAID</span>
+                <strong>MEDICAL & HEALTH</strong>
+                Mandatory health screenings and medical certificates via the Medical Company are fully funded.
             </div>
-            <div style="border-left: 4px solid var(--clover-green); padding-left: 10px;">
-                <strong>Accommodation</strong><br><small>Provided via partner housing company.</small>
+            <div class="benefit-card">
+                <span class="status-badge">PAID</span>
+                <strong>LABOR INSURANCE</strong>
+                Social and medical insurance policies are activated upon the registration of the labor contract.
             </div>
-            <div style="border-left: 4px solid var(--clover-green); padding-left: 10px;">
-                <strong>Nutrition</strong><br><small>3 meals daily provided on-site.</small>
+            <div class="benefit-card">
+                <span class="status-badge">PROVIDED</span>
+                <strong>ACCOMMODATION</strong>
+                Comfortable housing via the partner Accommodation Company is provided at zero cost to the employee.
+            </div>
+            <div class="benefit-card" style="grid-column: span 2; border: 2px solid var(--accent-gold);">
+                <span class="status-badge">PROVIDED</span>
+                <strong>DAILY NUTRITION (FOOD)</strong>
+                Three (3) meals per day are provided by the restaurant facility as part of the waiter category agreement.
             </div>
         </div>
 
-        <h2>Overtime Policy</h2>
-        <p>Hours worked in excess of 40 hours per week will be compensated at 150% of the hourly base rate. Monthly salary is guaranteed regardless of restaurant business volume, provided the employee is available for scheduled shifts.</p>
-        <div class="footer">Page 2 of 3 - Compensation Guarantee</div>
+        <h2>IV. OBLIGATIONS & TERMS</h2>
+        <p style="font-size: 14px; line-height: 1.8;">
+            - <strong>Working Hours:</strong> The Employee shall perform duties for 40-48 hours per week.<br>
+            - <strong>Payment Schedule:</strong> Salary is disbursed between the 1st and 5th of each month.<br>
+            - <strong>TRC Renewal:</strong> The Employer will renew the TRC annually subject to performance.<br>
+            - <strong>Logistics:</strong> The Company provides all necessary uniforms and local duty transport.
+        </p>
+
+        <div class="footer">Dövlət Miqrasiya Xidməti (SMS) | Coverage & Benefits | Page 2 of 3</div>
     </div>
 
     <div class="page">
-        <h2 style="margin-top: 0;">Authorization <span>Údarú</span></h2>
-        <div style="margin-top: 40px; height: 180px; border: 4px double var(--clover-green); display: flex; align-items: center; justify-content: center; background: var(--linen-white);">
-            <div style="text-align: center; color: var(--clover-green); font-weight: bold; opacity: 0.3;">OFFICIAL IRISH SEAL</div>
+        <h2 style="margin-top: 0;">V. LEGAL VALIDATION</h2>
+        <p>This agreement serves as the foundational document for the **E-Gov.az** Work Permit application. Both parties affirm that the information is true and accurate.</p>
+
+        <div style="margin-top: 50px; height: 200px; border: 1px solid var(--accent-gold); position: relative; background: #fafafa; display: flex; align-items: center; justify-content: center;">
+            <div style="text-align: center; opacity: 0.2; transform: rotate(-15deg);">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Emblem_of_the_State_Migration_Service_of_Azerbaijan.svg/512px-Emblem_of_the_State_Migration_Service_of_Azerbaijan.svg.png" style="width: 150px;">
+                <p>OFFICIAL SEAL SPACE</p>
+            </div>
         </div>
 
         <div style="margin-top: 100px; display: flex; justify-content: space-between;">
-            <div style="width: 45%; border-top: 2px solid var(--clover-green); text-align: center; padding-top: 10px;">
-                <strong>Employer</strong><br><span id="v-comp-sign">[Company]</span>
+            <div style="width: 45%; border-top: 2px solid var(--primary-emerald); text-align: center; padding-top: 10px;">
+                <strong style="color: var(--primary-emerald);">EMPLOYER SIGNATORY</strong><br>
+                <span id="v-comp-sign" style="font-size: 13px;">[Company]</span>
             </div>
-            <div style="width: 45%; border-top: 2px solid var(--clover-green); text-align: center; padding-top: 10px;">
-                <strong>Employee</strong><br><span id="v-name-sign">[Client]</span>
+            <div style="width: 45%; border-top: 2px solid var(--primary-emerald); text-align: center; padding-top: 10px;">
+                <strong style="color: var(--primary-emerald);">EMPLOYEE (CLIENT)</strong><br>
+                <span id="v-name-sign" style="font-size: 13px;">[Client Name]</span>
             </div>
         </div>
-        <div class="footer">Éirinn go Brách | Final Validation | Page 3 of 3</div>
+
+        <div style="margin-top: 60px; background: #fffde7; border: 1px solid var(--accent-gold); padding: 15px; font-size: 12px; border-radius: 5px;">
+            <strong>LEGAL NOTICE:</strong> Under the Migration Code of the Republic of Azerbaijan, the TRC remains the property of the State and is tied to the employer listed. This document is a binding contract for 12 months.
+        </div>
+
+        <div class="footer">Dövlət Miqrasiya Xidməti (SMS) | Final Validation | Page 3 of 3</div>
     </div>
 
     <script>
         function sync() {
-            const fields = ['ref', 'name', 'comp', 'pass', 'visa', 'hrate', 'mrate'];
-            let qrText = "IRISH-AZ-2026: ";
+            const fields = ['ref', 'name', 'comp', 'addr', 'pass', 'country', 'visa', 'date', 'salary'];
+            let qrText = "SMS-VALIDATED-2026: ";
             
             fields.forEach(f => {
-                const val = document.getElementById('in-' + f).value || "[---]";
+                const val = document.getElementById('in-' + f).value || "[PENDING]";
                 const targets = document.querySelectorAll('#v-' + f);
                 targets.forEach(t => t.innerText = val);
                 
+                // Special handles for repeated IDs
                 if(f === 'name') document.getElementById('v-name-sign').innerText = val;
                 if(f === 'comp') document.getElementById('v-comp-sign').innerText = val;
+                if(f === 'salary') document.getElementById('v-salary-alt').innerText = val;
 
                 qrText += `${f.toUpperCase()}:${val} | `;
             });
 
-            document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrText)}&color=00703c`;
+            qrText += "TRC:COVERED|MEDICAL:PAID|FOOD:YES|HOUSING:YES";
+            document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrText)}&color=004d40`;
         }
         sync();
     </script>
