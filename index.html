@@ -2,153 +2,138 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Employment Agreement - Azerbaijan</title>
+    <title>Azerbaijan Work Permit Agreement</title>
     <style>
-        @page {
-            size: A4;
-            margin: 2cm;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .page {
-            page-break-after: always;
-            min-height: 25cm; /* Ensures content stretches */
-            position: relative;
-        }
-        .content {
-            padding: 20px;
-        }
-        h1 { text-align: center; color: #1a3a5f; text-transform: uppercase; }
-        h2 { border-bottom: 2px solid #1a3a5f; color: #1a3a5f; padding-bottom: 5px; }
-        .section { margin-bottom: 25px; }
-        .info-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        .info-table th, .info-table td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-        .info-table th { background-color: #f2f2f2; width: 30%; }
-        .footer-note { font-size: 0.8em; color: #777; text-align: center; margin-top: 50px; }
+        @page { size: A4; margin: 0; }
+        body { font-family: 'Arial', sans-serif; background-color: #eef2f7; margin: 0; padding: 0; }
         
-        /* QR Section Styling */
-        .qr-container {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            border: 2px dashed #1a3a5f;
-        }
-        .qr-code {
-            width: 150px;
-            height: 150px;
-            margin-bottom: 10px;
+        /* Input Panel - Hidden on Print */
+        #form-header { background: #1a3a5f; color: white; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .input-box { width: 850px; margin: 20px auto; background: white; padding: 25px; border-radius: 8px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+        .input-box div { display: flex; flex-direction: column; }
+        label { font-size: 12px; font-weight: bold; margin-bottom: 5px; color: #555; }
+        input, select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+
+        /* Document Styling */
+        .page { width: 210mm; height: 297mm; padding: 20mm; margin: 20mm auto; background: white; box-shadow: 0 0 20px rgba(0,0,0,0.2); position: relative; box-sizing: border-box; page-break-after: always; }
+        
+        /* Government Header */
+        .gov-header { text-align: center; border-bottom: 3px solid #0097a7; padding-bottom: 15px; margin-bottom: 20px; }
+        .gov-logo { width: 80px; height: 80px; margin-bottom: 10px; }
+        .gov-name { font-weight: bold; font-size: 18px; color: #1a3a5f; text-transform: uppercase; margin: 0; }
+        .gov-sub { font-size: 14px; color: #555; margin: 5px 0 0 0; }
+
+        h1 { text-align: center; font-size: 22px; margin: 20px 0; color: #333; text-decoration: underline; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .data-row { border-bottom: 1px solid #eee; padding: 8px 0; display: flex; justify-content: space-between; }
+        .label { font-weight: bold; color: #1a3a5f; width: 180px; }
+        .value { color: #333; flex: 1; text-align: right; }
+
+        .qr-section { position: absolute; bottom: 80px; right: 50px; text-align: center; border: 1px solid #ddd; padding: 10px; background: #fafafa; }
+        .footer { position: absolute; bottom: 30px; width: 80%; left: 10%; text-align: center; font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 10px; }
+
+        @media print {
+            #form-header, .input-box { display: none; }
+            body { background: none; }
+            .page { margin: 0; border: none; box-shadow: none; }
         }
     </style>
 </head>
 <body>
 
-    <div class="page">
-        <div class="content">
-            <h1>Employment Agreement</h1>
-            <p style="text-align: center;"><strong>Reference:</strong> AZ-RE/2026/001</p>
-            <hr>
-            
-            <div class="section">
-                <h2>1. The Parties</h2>
-                <p>This agreement is entered into on this day, <strong>April 1, 2026</strong>, by and between:</p>
-                <table class="info-table">
-                    <tr><th>Employer (Company)</th><td>[Insert Restaurant Name]</td></tr>
-                    <tr><th>VÖEN</th><td>[Insert Tax ID]</td></tr>
-                    <tr><th>Employee Name</th><td>[Insert Employee Full Name]</td></tr>
-                    <tr><th>ID / FIN Code</th><td>[Insert FIN]</td></tr>
-                </table>
-            </div>
+    <div id="form-header">
+        <h2>AZERBAIJAN WORK PERMIT GENERATOR</h2>
+        <p>Fill the details below and click "Print" to generate the 3-page document.</p>
+    </div>
 
-            <div class="section">
-                <h2>2. Position and Scope</h2>
-                <p>The Employee is appointed to the position of <strong>Waiter/Waitress</strong>. The employee shall perform duties in accordance with the standards of the hospitality industry in the Republic of Azerbaijan, ensuring guest satisfaction and adherence to safety protocols.</p>
-            </div>
-            
-            <div class="section">
-                <h2>3. Terms of Employment</h2>
-                <p>The term of this agreement shall be <strong>Fixed-Term</strong> for a period of 12 months, subject to a probationary period of 3 months from the date of commencement.</p>
-            </div>
-        </div>
+    <div class="input-box">
+        <div><label>Issue Date</label><input type="date" id="in-date" oninput="sync()"></div>
+        <div><label>Company Name</label><input type="text" id="in-comp" placeholder="Restaurant Group LLC" oninput="sync()"></div>
+        <div><label>Company Address</label><input type="text" id="in-addr" placeholder="Baku, Neftchilar Ave 15" oninput="sync()"></div>
+        <div><label>Client Full Name</label><input type="text" id="in-name" placeholder="Full Name" oninput="sync()"></div>
+        <div><label>Passport Number</label><input type="text" id="in-pass" placeholder="A1234567" oninput="sync()"></div>
+        <div><label>Date of Birth</label><input type="date" id="in-dob" oninput="sync()"></div>
+        <div><label>Client Country</label><input type="text" id="in-country" placeholder="Country" oninput="sync()"></div>
+        <div><label>Visa Number</label><input type="text" id="in-visa" placeholder="V987654321" oninput="sync()"></div>
+        <div><label>Category</label><input type="text" id="in-cat" value="Restaurant (Waiter)" oninput="sync()"></div>
+        <button onclick="window.print()" style="grid-column: span 3; margin-top: 10px; background: #0097a7; color: white; border: none; padding: 12px; cursor: pointer; font-weight: bold; border-radius: 5px;">PRINT / SAVE AS PDF</button>
     </div>
 
     <div class="page">
-        <div class="content">
-            <h2>4. Working Hours and Compensation</h2>
-            <p>The standard work week consists of 40 hours. Overtime shall be calculated and paid as per the Labour Code of the Republic of Azerbaijan.</p>
-            <ul>
-                <li><strong>Base Salary:</strong> [Amount] AZN per month.</li>
-                <li><strong>Payment Date:</strong> 5th of every month.</li>
-                <li><strong>Benefits:</strong> Health insurance and staff meals provided.</li>
-            </ul>
-
-            <h2>5. Confidentiality and Conduct</h2>
-            <p>The Employee agrees to maintain strict confidentiality regarding the Employer’s trade secrets, recipes, and financial data. Any breach of conduct, including unexcused absences or violation of hygiene standards (Sanitary Rules), may result in immediate termination following the legal procedures of the Republic of Azerbaijan.</p>
-            
-            <h2>6. Vacation Rights</h2>
-            <p>The employee is entitled to 21 days of paid annual leave. Leave must be requested at least two weeks in advance and approved by management.</p>
+        <div class="gov-header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Emblem_of_the_State_Migration_Service_of_Azerbaijan.svg/1200px-Emblem_of_the_State_Migration_Service_of_Azerbaijan.svg.png" class="gov-logo" alt="SMS Logo">
+            <p class="gov-name">Azerbaijan Republic</p>
+            <p class="gov-sub">State Migration Service (Dövlət Miqrasiya Xidməti)</p>
         </div>
+
+        <h1>Employment Authorization Certificate</h1>
+
+        <div class="info-grid">
+            <div class="data-row"><span class="label">Issue Date:</span><span class="value" id="v-date">05/04/2026</span></div>
+            <div class="data-row"><span class="label">Permit ID:</span><span class="value">WP/AZ-2026/0882</span></div>
+        </div>
+
+        <h2 style="font-size: 16px; margin-top: 30px; color: #0097a7;">EMPLOYEE DETAILS</h2>
+        <div class="data-row"><span class="label">Full Name:</span><span class="value" id="v-name">[Full Name]</span></div>
+        <div class="data-row"><span class="label">Date of Birth:</span><span class="value" id="v-dob">[DOB]</span></div>
+        <div class="data-row"><span class="label">Passport No:</span><span class="value" id="v-pass">[Passport No]</span></div>
+        <div class="data-row"><span class="label">Country of Origin:</span><span class="value" id="v-country">[Country]</span></div>
+        <div class="data-row"><span class="label">Entry Visa No:</span><span class="value" id="v-visa">[Visa No]</span></div>
+
+        <h2 style="font-size: 16px; margin-top: 30px; color: #0097a7;">EMPLOYER DETAILS</h2>
+        <div class="data-row"><span class="label">Company Name:</span><span class="value" id="v-comp">[Company]</span></div>
+        <div class="data-row"><span class="label">Address:</span><span class="value" id="v-addr">[Address]</span></div>
+        <div class="data-row"><span class="label">Job Category:</span><span class="value" id="v-cat">Restaurant (Waiter)</span></div>
+
+        <div class="qr-section">
+            <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=Verify2026" class="qr-code">
+            <p style="font-size: 9px; margin-top: 5px;">SCAN TO SCAN DOCUMENT<br>VALIDATE ON E-GOV.AZ</p>
+        </div>
+
+        <div class="footer">State Migration Service of the Republic of Azerbaijan - 202 Binagadi Highway, Baku.</div>
     </div>
 
     <div class="page">
-        <div class="content">
-            <h2>7. Final Summary & Verification</h2>
-            <p>By signing this document, both parties acknowledge the terms and conditions outlined in the previous pages.</p>
-            
-            <table class="info-table">
-                <tr>
-                    <th colspan="2" style="text-align: center; background: #1a3a5f; color: white;">Digital Record Verification</th>
-                </tr>
-                <tr>
-                    <th>Company Name</th>
-                    <td>[Insert Restaurant Name]</td>
-                </tr>
-                <tr>
-                    <th>Employee Name</th>
-                    <td>[Insert Employee Full Name]</td>
-                </tr>
-                <tr>
-                    <th>Contract Status</th>
-                    <td>Active / Verified</td>
-                </tr>
-            </table>
-
-            <div class="qr-container">
-                <h3>Contract Digital Signature</h3>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=ContractID-2026-AZ-Waiter" alt="QR Code" class="qr-code">
-                <p><small>Scan to verify the authenticity of this document via the official E-Gov portal.</small></p>
-            </div>
-
-            <div class="section" style="margin-top: 50px;">
-                <table style="width: 100%; border: none;">
-                    <tr>
-                        <td style="border: none; width: 50%;">
-                            __________________________<br>
-                            <strong>Employer Signature</strong>
-                        </td>
-                        <td style="border: none; width: 50%;">
-                            __________________________<br>
-                            <strong>Employee Signature</strong>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <p class="footer-note">This document consists of 3 pages. Page 3 of 3.</p>
-        </div>
+        <h2 style="text-align: center;">TERMS OF EMPLOYMENT</h2>
+        <p>1. <strong>Scope of Work:</strong> The individual is authorized to work exclusively within the <strong>Restaurant</strong> category for the sponsoring employer.</p>
+        <p>2. <strong>Work Permit Validity:</strong> This permit is valid for a period of 1 year from the date of issuance, subject to renewal 30 days prior to expiry.</p>
+        <p>3. <strong>Health & Safety:</strong> Compliance with the Sanitary-Hygienic regulations of Azerbaijan is mandatory for all restaurant staff.</p>
+        <p>4. <strong>Salary:</strong> The employer is obligated to provide the net salary registered in the EMAS portal.</p>
+        <div class="footer">Page 2 of 3 - State Migration Service</div>
     </div>
 
+    <div class="page">
+        <h2 style="text-align: center;">LEGAL DISCLOSURES</h2>
+        <p>In accordance with Article 64 of the Migration Code of Azerbaijan, the employee must reside at the registered address provided to the SMS. Any change of employment without prior approval from the State Migration Service is a violation of law and may result in deportation.</p>
+        
+        <div style="margin-top: 100px; display: flex; justify-content: space-around; text-align: center;">
+            <div style="width: 200px; border-top: 1px solid #000; padding-top: 10px;">
+                <strong>Sponsoring Employer</strong><br>(Signature & Stamp)
+            </div>
+            <div style="width: 200px; border-top: 1px solid #000; padding-top: 10px;">
+                <strong>Official Approval</strong><br>SMS Department
+            </div>
+        </div>
+        <div class="footer">Page 3 of 3 - State Migration Service</div>
+    </div>
+
+    <script>
+        function sync() {
+            // Fields to update
+            const fields = ['name', 'comp', 'addr', 'pass', 'dob', 'country', 'visa', 'cat', 'date'];
+            let qrText = "SMS-AZ-2026 Verification:";
+            
+            fields.forEach(f => {
+                const inputVal = document.getElementById('in-' + f).value || "[Pending]";
+                document.getElementById('v-' + f).innerText = inputVal;
+                qrText += ` | ${f.toUpperCase()}: ${inputVal}`;
+            });
+
+            // Update QR Code
+            document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrText)}`;
+        }
+        // Run once on load
+        sync();
+    </script>
 </body>
-</html
+</html>
