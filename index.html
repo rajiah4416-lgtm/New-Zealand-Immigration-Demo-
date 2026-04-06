@@ -3,38 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pack Fresh - Letter of Hand Generator</title>
+    <title>HD Letter of Hand - PACK FRESH LIMITED</title>
     <style>
         :root {
             --pack-green: #82ca4c;
-            --pack-gray: #7a7a7a;
-            --bg-dark: #2c3e50;
+            --pack-dark: #2c3e50;
+            --premium-gray: #4a4a4a;
         }
 
-        /* Layout UI */
+        /* UI Interface */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-dark);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             display: flex;
             height: 100vh;
+            background-color: #1a1a1a;
+            color: #fff;
         }
 
-        /* Left Side: Input Panel */
-        .input-panel {
-            width: 400px;
-            background: #f8f9fa;
-            padding: 25px;
+        /* Sidebar Entry Panel */
+        .sidebar {
+            width: 420px;
+            background: #ffffff;
+            color: #333;
+            padding: 30px;
             overflow-y: auto;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
             z-index: 10;
         }
 
-        .input-panel h2 {
+        .sidebar h2 {
             color: var(--pack-green);
-            margin-top: 0;
-            border-bottom: 2px solid var(--pack-green);
+            font-size: 1.4rem;
+            border-bottom: 3px solid var(--pack-green);
             padding-bottom: 10px;
+            margin-bottom: 25px;
         }
 
         .input-group {
@@ -43,293 +46,314 @@
 
         .input-group label {
             display: block;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
-            color: #555;
+            color: #777;
             margin-bottom: 5px;
             text-transform: uppercase;
         }
 
         .input-group input, .input-group select, .input-group textarea {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
         }
 
-        button.print-btn {
+        .print-btn {
             width: 100%;
-            padding: 15px;
+            padding: 18px;
             background: var(--pack-green);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
+            transition: transform 0.2s;
             margin-top: 20px;
         }
 
-        /* Right Side: Letter Preview */
-        .preview-area {
+        .print-btn:hover { transform: scale(1.02); }
+
+        /* Preview Display Area */
+        .preview-container {
             flex-grow: 1;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding: 40px;
+            align-items: center;
+            padding: 50px;
             overflow-y: auto;
-            background: #444;
         }
 
-        /* The A4 Letter */
-        .page {
+        /* The HD A4 Letter */
+        .a4-page {
             width: 210mm;
             height: 297mm;
-            padding: 20mm;
             background: white;
+            padding: 20mm;
             box-sizing: border-box;
             position: relative;
-            overflow: hidden;
+            color: #000;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
         }
 
-        /* Watermark */
-        .watermark {
+        /* HD Center Watermark */
+        .hd-watermark {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) rotate(-25deg);
-            width: 80%;
-            opacity: 0.06;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            width: 90%;
+            opacity: 0.05;
             pointer-events: none;
             z-index: 0;
         }
 
-        .header-top {
+        /* High-Definition Header */
+        .hd-header {
             text-align: center;
-            border-bottom: 4px solid var(--pack-green);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
+            border-bottom: 6px double var(--pack-green);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
             z-index: 1;
         }
 
-        .header-top h1 {
-            color: var(--pack-green);
-            font-size: 32pt;
+        .hd-header h1 {
+            font-size: 38pt;
             margin: 0;
+            color: var(--pack-green);
+            letter-spacing: 4px;
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
-        .header-top p {
-            margin: 2px 0;
-            color: var(--pack-gray);
-            font-size: 11pt;
+        .hd-header p {
+            margin: 4px 0;
             font-weight: bold;
+            color: var(--premium-gray);
+            font-size: 10pt;
         }
 
-        .subject-line {
+        .document-title {
             text-align: center;
-            font-size: 18pt;
-            font-weight: bold;
-            color: #333;
+            font-size: 22pt;
+            font-weight: 900;
             text-decoration: underline;
-            margin-bottom: 25px;
+            color: #111;
+            margin-bottom: 30px;
             text-transform: uppercase;
             z-index: 1;
         }
 
-        .letter-body {
-            font-family: 'Times New Roman', serif;
+        /* Absolute Guarantee Clause */
+        .guarantee-statement {
+            background: rgba(130, 202, 76, 0.08);
+            border: 2px solid var(--pack-green);
+            padding: 15px;
             font-size: 12pt;
-            line-height: 1.6;
-            text-align: justify;
-            margin-bottom: 20px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-align: center;
             z-index: 1;
         }
 
-        .client-grid {
+        /* Client Info Table Style */
+        .client-info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 20px;
+            margin-bottom: 30px;
             z-index: 1;
         }
 
-        .field {
-            border-bottom: 1px solid #ddd;
-            padding: 5px;
+        .data-field {
+            border-bottom: 2px solid #eee;
+            padding: 8px 0;
         }
 
-        .field label {
+        .data-field label {
             display: block;
-            font-size: 8pt;
+            font-size: 9pt;
             color: var(--pack-green);
-            font-weight: bold;
+            font-weight: 800;
             text-transform: uppercase;
         }
 
-        .field span {
-            font-size: 12pt;
+        .data-field span {
+            font-size: 13pt;
             font-weight: bold;
+            color: #000;
             display: block;
             min-height: 1.2em;
         }
 
-        .signature-row {
-            display: flex;
-            justify-content: space-between;
-            margin-top: auto;
-            padding-bottom: 30px;
+        .legal-text {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 13pt;
+            line-height: 1.7;
+            text-align: justify;
+            margin-bottom: 30px;
             z-index: 1;
         }
 
-        .sig-block {
-            width: 30%;
-            text-align: center;
-            border-top: 1px solid #333;
-            padding-top: 10px;
-            font-size: 10pt;
+        /* Triple Signature Authority */
+        .auth-signatures {
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-bottom: 40px;
+            z-index: 1;
         }
 
-        .sig-block strong {
+        .sig-container {
+            width: 30%;
+            text-align: center;
+            border-top: 2px solid #000;
+            padding-top: 10px;
+        }
+
+        .sig-container strong {
             display: block;
             color: var(--pack-green);
             font-size: 11pt;
+            text-transform: uppercase;
         }
 
-        .footer-address {
+        /* Modernized Footer */
+        .hd-footer {
             text-align: center;
-            border-top: 1px solid var(--pack-green);
+            border-top: 2px solid var(--pack-green);
             padding-top: 15px;
             font-size: 10pt;
-            color: var(--pack-gray);
-            font-style: italic;
+            color: var(--premium-gray);
+            font-weight: bold;
             z-index: 1;
         }
 
         @media print {
-            .input-panel { display: none; }
-            .preview-area { padding: 0; background: white; }
+            .sidebar { display: none; }
+            .preview-container { padding: 0; background: white; }
             body { background: white; }
-            .page { box-shadow: none; width: 210mm; height: 297mm; }
+            .a4-page { box-shadow: none; width: 210mm; height: 297mm; }
         }
     </style>
 </head>
 <body>
 
-    <div class="input-panel">
-        <h2>Letter Setup</h2>
+    <div class="sidebar">
+        <h2>HD Letter Control</h2>
         
         <div class="input-group">
             <label>Registration Number</label>
-            <input type="text" id="in-reg" value="7130837" oninput="update()">
+            <input type="text" id="i-reg" value="7130837" oninput="liveUpdate()">
         </div>
         <div class="input-group">
-            <label>Phone Numbers</label>
-            <input type="text" id="in-phone" value="+64 [000 000 000]" oninput="update()">
+            <label>Phone / WhatsApp</label>
+            <input type="text" id="i-phone" value="+64 [Enter Phone]" oninput="liveUpdate()">
         </div>
         <div class="input-group">
             <label>Email & Website</label>
-            <input type="text" id="in-web" value="info@packfresh.co.nz | www.packfresh.co.nz" oninput="update()">
+            <input type="text" id="i-web" value="info@packfresh.co.nz | www.packfresh.co.nz" oninput="liveUpdate()">
         </div>
 
         <hr>
-        <h2>Client Info</h2>
         <div class="input-group">
-            <label>Client Name</label>
-            <input type="text" id="in-name" placeholder="John Doe" oninput="update()">
+            <label>Client Full Name</label>
+            <input type="text" id="i-name" placeholder="Full Legal Name" oninput="liveUpdate()">
+        </div>
+        <div class="input-group">
+            <label>Passport Number</label>
+            <input type="text" id="i-passport" placeholder="Enter Number" oninput="liveUpdate()">
+        </div>
+        <div class="input-group">
+            <label>Date of Birth</label>
+            <input type="text" id="i-dob" placeholder="DD/MM/YYYY" oninput="liveUpdate()">
+        </div>
+        <div class="input-group">
+            <label>Country</label>
+            <input type="text" id="i-country" placeholder="Enter Country" oninput="liveUpdate()">
         </div>
         <div class="input-group">
             <label>Gender</label>
-            <select id="in-gender" onchange="update()">
+            <select id="i-gender" onchange="liveUpdate()">
                 <option>Male</option>
                 <option>Female</option>
             </select>
         </div>
         <div class="input-group">
-            <label>Passport Number</label>
-            <input type="text" id="in-passport" oninput="update()">
-        </div>
-        <div class="input-group">
-            <label>Date of Birth</label>
-            <input type="text" id="in-dob" placeholder="DD/MM/YYYY" oninput="update()">
-        </div>
-        <div class="input-group">
-            <label>Country</label>
-            <input type="text" id="in-country" oninput="update()">
-        </div>
-        <div class="input-group">
-            <label>Visa Number</label>
-            <input type="text" id="in-visa" oninput="update()">
+            <label>Visa & Job Category</label>
+            <input type="text" id="i-cat" value="Packing Specialist" oninput="liveUpdate()">
         </div>
 
-        <hr>
         <div class="input-group">
-            <label>Registered Office Address</label>
-            <textarea id="in-addr" rows="2" oninput="update()">123 Business Lane, Auckland, New Zealand</textarea>
+            <label>Company Address</label>
+            <textarea id="i-addr" rows="2" oninput="liveUpdate()">123 Auckland Business Precinct, New Zealand</textarea>
         </div>
 
-        <button class="print-btn" onclick="window.print()">PRINT FINAL LETTER</button>
+        <button class="print-btn" onclick="window.print()">GENERATE HD PDF</button>
     </div>
 
-    <div class="preview-area">
-        <div class="page" id="letter">
-            <img src="image_0.png" class="watermark">
+    <div class="preview-container">
+        <div class="a4-page">
+            <img src="image_0.png" class="hd-watermark">
 
-            <div class="header-top">
+            <div class="hd-header">
                 <h1>PACK FRESH LIMITED</h1>
-                <p id="out-reg">Registration No: 7130837</p>
-                <p id="out-phone">Phone: +64 [000 000 000]</p>
-                <p id="out-web">info@packfresh.co.nz | www.packfresh.co.nz</p>
+                <p id="o-reg">Registration No: 7130837</p>
+                <p id="o-phone">Phone: +64 [Enter Phone]</p>
+                <p id="o-web">info@packfresh.co.nz | www.packfresh.co.nz</p>
             </div>
 
-            <div class="subject-line">Letter of Hand & Irrevocable Guarantee</div>
+            <div class="document-title">Visa & Job Guarantee Certificate</div>
 
-            <div class="letter-body">
-                Following the formal approval of the three-year visa and the successful completion of the employment agreement, <strong>PACK FRESH LIMITED</strong> hereby issues this binding guarantee. We accept full legal, professional, and financial responsibility for the individual mentioned below for the duration of their tenure in New Zealand.
+            <div class="guarantee-statement">
+                UNCONDITIONAL GUARANTEE: WE, PACK FRESH LIMITED, ACCEPT TOTAL LEGAL AND FINANCIAL RESPONSIBILITY TO PROVIDE ALL NECESSARY RESOURCES FOR THE FULL DURATION OF THE JOB AND VISA TERM.
             </div>
 
-            <div class="client-grid">
-                <div class="field"><label>Client Name</label><span id="out-name"></span></div>
-                <div class="field"><label>Gender</label><span id="out-gender">Male</span></div>
-                <div class="field"><label>Passport Number</label><span id="out-passport"></span></div>
-                <div class="field"><label>Date of Birth</label><span id="out-dob"></span></div>
-                <div class="field"><label>Country</label><span id="out-country"></span></div>
-                <div class="field"><label>Visa Approval No.</label><span id="out-visa"></span></div>
+            <div class="legal-text">
+                This **Letter of Hand** serves as an irrevocable bond between the company and the client. We guarantee that the client’s employment is secured, the visa agreement is finalized, and the company stands as the primary guarantor for all aspects of the client’s professional stay in New Zealand.
             </div>
 
-            <div class="letter-body">
-                This letter confirms that the client has a secured position and that we, the undersigned, stand as his/her personal and corporate guarantors under the <strong>Employment Relations Act 2000</strong>.
+            <div class="client-info-grid">
+                <div class="data-field"><label>Full Name</label><span id="o-name"></span></div>
+                <div class="data-field"><label>Gender</label><span id="o-gender">Male</span></div>
+                <div class="data-field"><label>Passport Number</label><span id="o-passport"></span></div>
+                <div class="data-field"><label>Date of Birth</label><span id="o-dob"></span></div>
+                <div class="data-field"><label>Country of Origin</label><span id="o-country"></span></div>
+                <div class="data-field"><label>Job Category</label><span id="o-cat">Packing Specialist</span></div>
             </div>
 
-            <div class="signature-row">
-                <div class="sig-block"><strong>Company Manager</strong>Authorized Signatory</div>
-                <div class="sig-block"><strong>Human Resources</strong>HR Department</div>
-                <div class="sig-block"><strong>Director</strong>Board of Directors</div>
+            <div class="legal-text">
+                This document is a formal undertaking under the **New Zealand Employment Relations Act 2000**. The company guarantees that all job-related requirements, financial stability, and legal protections are provided directly by the company to the client without exception for a period of three (3) years.
             </div>
 
-            <div class="footer-address">
-                Registered Office: <span id="out-addr">123 Business Lane, Auckland, New Zealand</span>
+            <div class="auth-signatures">
+                <div class="sig-container"><strong>Company Manager</strong>Authorized Sig.</div>
+                <div class="sig-container"><strong>Human Resources</strong>Official Seal</div>
+                <div class="sig-container"><strong>Director</strong>Board of Directors</div>
+            </div>
+
+            <div class="hd-footer">
+                Registered Office: <span id="o-addr">123 Auckland Business Precinct, New Zealand</span>
             </div>
         </div>
     </div>
 
     <script>
-        function update() {
-            document.getElementById('out-reg').innerText = "Registration No: " + document.getElementById('in-reg').value;
-            document.getElementById('out-phone').innerText = "Phone: " + document.getElementById('in-phone').value;
-            document.getElementById('out-web').innerText = document.getElementById('in-web').value;
-            document.getElementById('out-name').innerText = document.getElementById('in-name').value;
-            document.getElementById('out-gender').innerText = document.getElementById('in-gender').value;
-            document.getElementById('out-passport').innerText = document.getElementById('in-passport').value;
-            document.getElementById('out-dob').innerText = document.getElementById('in-dob').value;
-            document.getElementById('out-country').innerText = document.getElementById('in-country').value;
-            document.getElementById('out-visa').innerText = document.getElementById('in-visa').value;
-            document.getElementById('out-addr').innerText = document.getElementById('in-addr').value;
+        function liveUpdate() {
+            document.getElementById('o-reg').innerText = "Registration No: " + document.getElementById('i-reg').value;
+            document.getElementById('o-phone').innerText = "Phone: " + document.getElementById('i-phone').value;
+            document.getElementById('o-web').innerText = document.getElementById('i-web').value;
+            document.getElementById('o-name').innerText = document.getElementById('i-name').value;
+            document.getElementById('o-gender').innerText = document.getElementById('i-gender').value;
+            document.getElementById('o-passport').innerText = document.getElementById('i-passport').value;
+            document.getElementById('o-dob').innerText = document.getElementById('i-dob').value;
+            document.getElementById('o-country').innerText = document.getElementById('i-country').value;
+            document.getElementById('o-cat').innerText = document.getElementById('i-cat').value;
+            document.getElementById('o-addr').innerText = document.getElementById('i-addr').value;
         }
     </script>
 </body>
