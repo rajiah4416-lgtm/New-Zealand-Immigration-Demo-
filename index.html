@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Letter of Hand - PACK FRESH LIMITED</title>
+    <title>Official Letter of Hand - PACK FRESH LIMITED</title>
     <style>
         :root {
             --pack-green: #82ca4c;
             --pack-gray: #7a7a7a;
-            --watermark-opacity: 0.08;
+            --watermark-opacity: 0.07;
         }
         body {
             font-family: 'Times New Roman', serif;
-            background-color: #555;
+            background-color: #444;
             margin: 0;
-            padding: 40px;
+            padding: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -23,145 +23,150 @@
         .page {
             width: 210mm;
             height: 297mm;
-            padding: 20mm;
+            padding: 15mm 20mm;
             background: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
             box-sizing: border-box;
             position: relative;
-            overflow: hidden; /* Keeps the watermark inside */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
-        /* The Light Watermark in the Middle */
+        /* Watermark (Back side style) */
         .watermark {
             position: absolute;
-            top: 50%;
+            top: 55%;
             left: 50%;
-            transform: translate(-50%, -50%) rotate(-30deg);
-            width: 80%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            width: 85%;
             opacity: var(--watermark-opacity);
             pointer-events: none;
             z-index: 0;
         }
-        /* Top Logo Visibility */
-        .top-logo {
+        /* Header Section */
+        .header-top {
             text-align: center;
-            margin-bottom: 20px;
+            border-bottom: 4px solid var(--pack-green);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
             position: relative;
             z-index: 1;
         }
-        .top-logo img {
-            width: 250px;
+        .header-top h1 {
+            color: var(--pack-green);
+            font-size: 32pt;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-        .company-header {
-            text-align: center;
-            border-bottom: 3px solid var(--pack-green);
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 1;
-        }
-        .company-header input {
+        .header-top input {
             width: 100%;
             text-align: center;
             border: none;
             color: var(--pack-gray);
             font-size: 11pt;
-            background: transparent;
             font-weight: bold;
+            background: transparent;
+            margin-top: 3px;
         }
-        .subject-title {
+
+        .subject-line {
             text-align: center;
-            color: var(--pack-green);
             font-size: 18pt;
             font-weight: bold;
+            color: #333;
             text-decoration: underline;
             margin-bottom: 30px;
             text-transform: uppercase;
         }
-        /* Form Section */
-        .info-container {
+
+        /* Form Grid */
+        .client-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 40px;
+            gap: 15px;
+            margin-bottom: 30px;
             position: relative;
             z-index: 1;
         }
         .field {
-            border-bottom: 1px solid var(--pack-green);
+            border-bottom: 1px solid #ddd;
             padding: 5px;
         }
         .field label {
             display: block;
-            font-size: 9pt;
+            font-size: 8pt;
             color: var(--pack-green);
             font-weight: bold;
+            text-transform: uppercase;
         }
         .field input, .field select {
             width: 100%;
             border: none;
             font-size: 12pt;
-            background: transparent;
             font-weight: bold;
+            background: transparent;
             outline: none;
         }
-        /* Professional Body Text */
-        .letter-content {
+
+        .letter-body {
             font-size: 12pt;
-            line-height: 1.8;
+            line-height: 1.6;
             text-align: justify;
+            margin-bottom: 30px;
             position: relative;
             z-index: 1;
         }
-        .guarantee-box {
-            margin-top: 20px;
-            padding: 15px;
-            border-left: 5px solid var(--pack-green);
-            background: rgba(130, 202, 76, 0.05);
-        }
-        /* Signatures */
-        .footer-area {
-            margin-top: 60px;
+
+        /* Signature Section - 3 People */
+        .signature-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            margin-top: auto; /* Pushes to bottom of content area */
+            padding-bottom: 40px;
             position: relative;
             z-index: 1;
         }
-        .signature-line {
-            width: 250px;
+        .sig-block {
+            width: 30%;
             text-align: center;
-            border-top: 2px solid #333;
+            border-top: 1px solid #333;
             padding-top: 10px;
-            font-weight: bold;
+            font-size: 10pt;
         }
-        .company-seal {
-            width: 130px;
-            height: 130px;
-            border: 2px dashed var(--pack-gray);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 9pt;
-            color: var(--pack-gray);
+        .sig-block strong {
+            display: block;
+            color: var(--pack-green);
+            font-size: 11pt;
+        }
+
+        /* Beautiful Footer Address */
+        .footer-address {
             text-align: center;
+            border-top: 1px solid var(--pack-green);
+            padding-top: 15px;
+            font-size: 10pt;
+            color: var(--pack-gray);
+            font-style: italic;
+            position: relative;
+            z-index: 1;
         }
-        /* Print Control */
+
         .no-print {
             margin-bottom: 20px;
-            z-index: 100;
         }
         button {
-            padding: 12px 30px;
+            padding: 12px 25px;
             background: var(--pack-green);
             color: white;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 14pt;
-            border-radius: 50px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-size: 12pt;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
+
         @media print {
             .no-print { display: none; }
             body { background: white; padding: 0; }
@@ -173,80 +178,58 @@
 <body>
 
 <div class="no-print">
-    <button onclick="window.print()">GENERATE OFFICIAL LETTER</button>
+    <button onclick="window.print()">PRINT OFFICIAL GUARANTEE</button>
 </div>
 
 <div class="page">
-    <img src="image_0.png" class="watermark" alt="Watermark">
+    <img src="image_0.png" class="watermark" alt="Logo Watermark">
 
-    <div class="top-logo">
-        <img src="image_0.png" alt="Pack Fresh Limited Header">
+    <div class="header-top">
+        <h1>PACK FRESH LIMITED</h1>
+        <input type="text" value="Registration No: 7130837">
+        <input type="text" value="Phone: +64 [000 000 000] | Mobile: +64 [000 000 000]">
+        <input type="text" value="Email: info@packfresh.co.nz | Website: www.packfresh.co.nz">
     </div>
 
-    <div class="company-header">
-        <input type="text" value="PACK FRESH LIMITED | Registration No: 7130837">
-        <input type="text" placeholder="Address: Enter New Zealand Office Details">
-        <input type="text" placeholder="Contact: Email / Phone Number">
+    <div class="subject-line">Letter of Hand & Irrevocable Guarantee</div>
+
+    <div class="letter-body">
+        <p>Following the formal approval of the three-year visa and the successful completion of the employment agreement, **PACK FRESH LIMITED** hereby issues this binding guarantee. We accept full legal, professional, and financial responsibility for the individual mentioned below for the duration of their tenure in New Zealand.</p>
     </div>
 
-    <div class="subject-title">Letter of Hand & Total Guarantee</div>
-
-    <div class="letter-content">
-        <p>This is a formal <strong>Irrevocable Undertaking</strong> issued by the Board of Directors. We hereby accept total responsibility for the individual named below under the strict jurisdiction of New Zealand Law.</p>
+    <div class="client-grid">
+        <div class="field"><label>Client Name</label><input type="text" placeholder="Full Name"></div>
+        <div class="field"><label>Gender</label><select><option>Male</option><option>Female</option></select></div>
+        <div class="field"><label>Passport Number</label><input type="text" placeholder="Passport No."></div>
+        <div class="field"><label>Date of Birth</label><input type="text" placeholder="DD/MM/YYYY"></div>
+        <div class="field"><label>Country</label><input type="text" placeholder="Country Name"></div>
+        <div class="field"><label>Position Category</label><input type="text" value="Packing Specialist"></div>
+        <div class="field"><label>Visa Approval No.</label><input type="text" placeholder="Visa Number"></div>
+        <div class="field"><label>Visa Duration</label><input type="text" value="Three (3) Years"></div>
     </div>
 
-    <div class="info-container">
-        <div class="field">
-            <label>Client Full Name</label>
-            <input type="text" placeholder="Enter Full Name">
+    <div class="letter-body">
+        <p>This letter confirms that the client has a secured position and that we, the undersigned, stand as his personal and corporate guarantors under the **Employment Relations Act 2000**.</p>
+    </div>
+
+    <div class="signature-row">
+        <div class="sig-block">
+            <strong>Company Manager</strong>
+            Authorized Signatory
         </div>
-        <div class="field">
-            <label>Gender</label>
-            <select>
-                <option>Male</option>
-                <option>Female</option>
-            </select>
+        <div class="sig-block">
+            <strong>Human Resources</strong>
+            HR Department
         </div>
-        <div class="field">
-            <label>Passport Number</label>
-            <input type="text" placeholder="Enter Passport No.">
-        </div>
-        <div class="field">
-            <label>Date of Birth</label>
-            <input type="text" placeholder="DD / MM / YYYY">
-        </div>
-        <div class="field">
-            <label>Country</label>
-            <input type="text" placeholder="Enter Country">
-        </div>
-        <div class="field">
-            <label>Visa Approval Number</label>
-            <input type="text" placeholder="Enter Visa No.">
-        </div>
-        <div class="field">
-            <label>Employment Category</label>
-            <input type="text" value="Packing Specialist">
-        </div>
-        <div class="field">
-            <label>Validity Period</label>
-            <input type="text" value="Three (3) Years">
+        <div class="sig-block">
+            <strong>Director</strong>
+            Board of Directors
         </div>
     </div>
 
-    <div class="guarantee-box">
-        <strong>Binding Agreement:</strong> 
-        The company confirms that the client’s agreement is signed and his visa is approved. 
-        We stand as the absolute guarantor for his job, his welfare, and his conduct for the full 3-year term.
-    </div>
-
-    <div class="footer-area">
-        <div class="signature-line">
-            Managing Director<br>
-            <span style="font-size: 9pt; color: var(--pack-gray);">PACK FRESH LIMITED</span>
-        </div>
-        <div class="company-seal">
-            AFFIX<br>COMPANY CHOP /<br>SEAL HERE
-        </div>
+    <div class="footer-address">
+        <input type="text" style="width: 100%; border: none; text-align: center; background: transparent; font-size: 10pt; color: #7a7a7a;" 
+        value="Registered Office: [Building Name], [Street Address], [City], [Postcode], New Zealand">
     </div>
 </div>
 
