@@ -2,231 +2,178 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sponsorship & Employment Agreement - Azerbaijan 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter of Guarantee - PACK FRESH LIMITED</title>
     <style>
-        @page { size: A4; margin: 0; }
-        :root {
-            --primary-emerald: #004d40;
-            --accent-gold: #c5a059;
-            --light-bg: #f4f7f6;
-            --text-dark: #1a237e;
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
         }
-        body { font-family: 'Times New Roman', serif; background-color: #d1d9e0; margin: 0; padding: 0; }
-        
-        /* Control Panel */
-        #form-header { background: var(--primary-emerald); color: white; padding: 15px; text-align: center; border-bottom: 4px solid var(--accent-gold); }
-        .input-box { width: 950px; margin: 15px auto; background: white; padding: 20px; border-radius: 8px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; border: 1px solid var(--accent-gold); }
-        .input-box div { display: flex; flex-direction: column; }
-        label { font-size: 10px; font-weight: bold; color: var(--primary-emerald); text-transform: uppercase; margin-bottom: 4px; }
-        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; outline-color: var(--accent-gold); }
-
-        /* Document Styling */
-        .page { 
-            width: 210mm; height: 297mm; padding: 20mm; margin: 15mm auto; 
-            background: white; position: relative; box-sizing: border-box; 
-            page-break-after: always; color: #333;
+        .letter-container {
+            width: 210mm; /* A4 Width */
+            min-height: 297mm; /* A4 Height */
+            padding: 25mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            position: relative;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24pt;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .company-info {
+            font-size: 10pt;
+            margin-top: 5px;
+        }
+        .date-section {
+            text-align: right;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .subject {
+            text-align: center;
+            text-decoration: underline;
+            font-weight: bold;
+            font-size: 14pt;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        .client-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .client-table td {
+            padding: 8px;
             border: 1px solid #ddd;
-            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
         }
-        
-        /* Watermark Background */
-        .page::before {
-            content: "OFFICIAL DOCUMENT";
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            font-size: 80px; color: rgba(0, 77, 64, 0.03);
-            white-space: nowrap; pointer-events: none; z-index: 0;
+        .client-table td:first-child {
+            width: 35%;
+            font-weight: bold;
+            background-color: #f9f9f9;
         }
-
-        /* Header Section */
-        .gov-header { text-align: center; border-bottom: 2px solid var(--accent-gold); padding-bottom: 15px; margin-bottom: 20px; z-index: 1; position: relative; }
-        .emblem { width: 95px; height: auto; filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2)); }
-        .republic-text { font-size: 24px; font-weight: bold; color: var(--primary-emerald); margin: 5px 0 0 0; letter-spacing: 2px; }
-        
-        /* Ref Number Styled */
-        .ref-banner { 
-            background: var(--primary-emerald); color: var(--accent-gold); 
-            display: inline-block; padding: 5px 20px; font-weight: bold; 
-            border-radius: 50px; font-size: 14px; margin-top: 10px;
-            border: 1px solid var(--accent-gold);
+        .content {
+            line-height: 1.6;
+            font-size: 12pt;
+            text-align: justify;
         }
-
-        h2 { border-left: 5px solid var(--accent-gold); background: var(--light-bg); padding: 8px 15px; font-size: 16px; color: var(--primary-emerald); text-transform: uppercase; margin-top: 25px; }
-        
-        .info-table { width: 100%; border-collapse: collapse; margin-top: 10px; z-index: 1; position: relative; }
-        .info-table td { padding: 12px; border: 1px solid #eee; font-size: 14px; }
-        .label { font-weight: bold; background: #fafafa; width: 30%; color: var(--primary-emerald); }
-
-        /* Benefit Cards */
-        .benefit-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .benefit-card { border: 1px solid #e0e0e0; padding: 15px; border-radius: 5px; position: relative; background: #fff; }
-        .benefit-card strong { color: var(--accent-gold); display: block; margin-bottom: 5px; border-bottom: 1px solid #f0f0f0; }
-        .status-badge { position: absolute; top: 10px; right: 10px; font-size: 9px; background: var(--primary-emerald); color: white; padding: 2px 6px; border-radius: 3px; }
-
-        .qr-section { position: absolute; bottom: 60px; right: 60px; text-align: center; }
-        .qr-box { border: 2px solid var(--primary-emerald); padding: 5px; border-radius: 8px; background: white; }
-        .footer { position: absolute; bottom: 30px; width: 80%; left: 10%; text-align: center; font-size: 11px; color: #888; border-top: 1px solid var(--accent-gold); padding-top: 10px; font-style: italic; }
-
+        .clause {
+            margin-bottom: 15px;
+        }
+        .signature-section {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .signature-box {
+            width: 250px;
+            border-top: 1px solid #000;
+            text-align: center;
+            padding-top: 5px;
+        }
+        .stamp-box {
+            width: 120px;
+            height: 120px;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            font-size: 10pt;
+            text-align: center;
+        }
+        .no-print {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
         @media print {
-            #form-header, .input-box { display: none; }
-            body { background: none; }
-            .page { margin: 0; border: none; box-shadow: none; }
+            .no-print { display: none; }
+            body { background: white; padding: 0; }
+            .letter-container { box-shadow: none; border: none; }
         }
     </style>
 </head>
 <body>
 
-    <div id="form-header">
-        <strong>PREMIUM AZERBAIJAN WORK PERMIT & TRC SPONSORSHIP SYSTEM</strong>
-    </div>
+<div class="no-print">
+    <button onclick="window.print()">Print to PDF / Paper</button>
+</div>
 
-    <div class="input-box">
-        <div><label>Ref Code</label><input type="text" id="in-ref" value="SMS/AZ/2026/7782" oninput="sync()"></div>
-        <div><label>Current Date</label><input type="date" id="in-date" oninput="sync()"></div>
-        <div><label>Employer Name</label><input type="text" id="in-comp" placeholder="e.g. Sultan Palace Restaurant" oninput="sync()"></div>
-        <div><label>Monthly Salary (AZN)</label><input type="text" id="in-salary" placeholder="e.g. 800 AZN" oninput="sync()"></div>
-        <div><label>Client Name</label><input type="text" id="in-name" oninput="sync()"></div>
-        <div><label>Passport No</label><input type="text" id="in-pass" oninput="sync()"></div>
-        <div><label>Client Country</label><input type="text" id="in-country" oninput="sync()"></div>
-        <div><label>Visa Number</label><input type="text" id="in-visa" oninput="sync()"></div>
-        <div style="grid-column: span 4;"><label>Company Address</label><input type="text" id="in-addr" style="width: 100%;" oninput="sync()"></div>
-        <button onclick="window.print()" style="grid-column: span 4; background: var(--accent-gold); color: #fff; border: none; padding: 12px; cursor: pointer; font-weight: bold; border-radius: 4px; text-shadow: 1px 1px 1px #000; margin-top: 10px;">DOWNLOAD PREMIUM 3-PAGE AGREEMENT</button>
-    </div>
-
-    <div class="page">
-        <div class="gov-header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Emblem_of_the_State_Migration_Service_of_Azerbaijan.svg/512px-Emblem_of_the_State_Migration_Service_of_Azerbaijan.svg.png" class="emblem">
-            <div class="republic-text">AZERBAIJAN REPUBLIC</div>
-            <div class="ref-banner">REF NO: <span id="v-ref">SMS/AZ/2026/7782</span></div>
+<div class="letter-container">
+    <div class="header">
+        <h1>PACK FRESH LIMITED</h1>
+        <div class="company-info">
+            Company Number: 7130837 | New Zealand Registered Enterprise<br>
+            [Insert Full Office Address Here] | [Contact Number]
         </div>
+    </div>
 
-        <h1 style="text-align: center; color: var(--primary-emerald); letter-spacing: 1px;">LABOR & RESIDENCY SPONSORSHIP</h1>
+    <div class="date-section">
+        Date: April 7, 2026
+    </div>
 
-        <table class="info-table">
-            <tr><td class="label">Date of Issuance</td><td id="v-date">[Date]</td></tr>
-            <tr><td class="label">Job Classification</td><td><strong>Hospitality Service (Waiter Category)</strong></td></tr>
-            <tr><td class="label">Contract Duration</td><td><strong>Twelve (12) Months / Renewable</strong></td></tr>
+    <div class="subject">
+        Irrevocable Letter of Guarantee & Undertaking
+    </div>
+
+    <div class="content">
+        <p><strong>TO WHOM IT MAY CONCERN,</strong></p>
+        
+        <p>This formal <strong>Letter of Hand</strong> is issued by <strong>PACK FRESH LIMITED</strong>. Following the approval of a three-year visa and the finalization of the employment agreement, our company hereby accepts <strong>total and unconditional responsibility</strong> for the individual identified below under the laws of New Zealand.</p>
+
+        <table class="client-table">
+            <tr><td>Full Name</td><td>[Client Name]</td></tr>
+            <tr><td>Passport Number</td><td>[Passport Number]</td></tr>
+            <tr><td>Date of Birth</td><td>[DD/MM/YYYY]</td></tr>
+            <tr><td>Country</td><td>[Country Name]</td></tr>
         </table>
 
-        <h2>I. CANDIDATE IDENTIFICATION</h2>
-        <table class="info-table">
-            <tr><td class="label">Full Legal Name</td><td id="v-name" style="font-weight:bold; color: var(--primary-emerald);">[Name]</td></tr>
-            <tr><td class="label">Passport Number</td><td id="v-pass">[Passport No]</td></tr>
-            <tr><td class="label">Origin Country</td><td id="v-country">[Country]</td></tr>
-            <tr><td class="label">Entry Visa ID</td><td id="v-visa">[Visa No]</td></tr>
-        </table>
-
-        <h2>II. REGISTERED EMPLOYER & COMPENSATION</h2>
-        <table class="info-table">
-            <tr><td class="label">Entity Name</td><td id="v-comp" style="font-weight:bold;">[Company Name]</td></tr>
-            <tr><td class="label">Monthly Base Salary</td><td style="color: #d32f2f; font-weight: bold;"><span id="v-salary">[Salary]</span> (Net Payable)</td></tr>
-            <tr><td class="label">Physical Address</td><td id="v-addr">[Company Address]</td></tr>
-        </table>
-
-        <div class="qr-section">
-            <div class="qr-box">
-                <img id="qr-img" src="" style="width:110px; height:110px; display:block;">
-            </div>
-            <p style="font-size: 8px; font-weight: bold; color: var(--primary-emerald); margin-top: 5px;">OFFICIAL SYSTEM SCAN</p>
+        <div class="clause">
+            <strong>1. Absolute Employment Guarantee:</strong> We guarantee full-time placement in the <strong>Packing Category</strong> for the full 3-year term. We accept all liability for wages and entitlements as per the <em>Employment Relations Act 2000</em>.
         </div>
 
-        <div class="footer">Dövlət Miqrasiya Xidməti (SMS) | Employment Authorization | Page 1 of 3</div>
+        <div class="clause">
+            <strong>2. Total Indemnity:</strong> PACK FRESH LIMITED accepts full responsibility for the client’s welfare and legal standing. We guarantee he will not become a financial liability to the state; the company assumes all costs associated with his stay and maintenance.
+        </div>
+
+        <div class="clause">
+            <strong>3. Legal Bound:</strong> This document serves as our binding word and "hand" that we stand as the primary guarantor for the client's conduct and professional adherence to New Zealand’s regulatory framework.
+        </div>
     </div>
 
-    <div class="page">
-        <h2 style="margin-top: 0;">III. MANDATORY SPONSORSHIP COVERAGE</h2>
-        <p>This section certifies that the Employer provides a <strong>Total-Cost-Covered</strong> model. The following benefits are provided in addition to the monthly salary of <span id="v-salary-alt" style="font-weight: bold;">[Salary]</span>:</p>
-
-        <div class="benefit-container">
-            <div class="benefit-card">
-                <span class="status-badge">PAID</span>
-                <strong>TRC (Residency Card)</strong>
-                The Company handles all state duties and legal filing for the Temporary Residence Card issuance.
-            </div>
-            <div class="benefit-card">
-                <span class="status-badge">PAID</span>
-                <strong>MEDICAL & HEALTH</strong>
-                Mandatory health screenings and medical certificates via the Medical Company are fully funded.
-            </div>
-            <div class="benefit-card">
-                <span class="status-badge">PAID</span>
-                <strong>LABOR INSURANCE</strong>
-                Social and medical insurance policies are activated upon the registration of the labor contract.
-            </div>
-            <div class="benefit-card">
-                <span class="status-badge">PROVIDED</span>
-                <strong>ACCOMMODATION</strong>
-                Comfortable housing via the partner Accommodation Company is provided at zero cost to the employee.
-            </div>
-            <div class="benefit-card" style="grid-column: span 2; border: 2px solid var(--accent-gold);">
-                <span class="status-badge">PROVIDED</span>
-                <strong>DAILY NUTRITION (FOOD)</strong>
-                Three (3) meals per day are provided by the restaurant facility as part of the waiter category agreement.
-            </div>
+    <div class="signature-section">
+        <div class="signature-box">
+            <strong>Authorized Signatory</strong><br>
+            PACK FRESH LIMITED (7130837)
         </div>
-
-        <h2>IV. OBLIGATIONS & TERMS</h2>
-        <p style="font-size: 14px; line-height: 1.8;">
-            - <strong>Working Hours:</strong> The Employee shall perform duties for 40-48 hours per week.<br>
-            - <strong>Payment Schedule:</strong> Salary is disbursed between the 1st and 5th of each month.<br>
-            - <strong>TRC Renewal:</strong> The Employer will renew the TRC annually subject to performance.<br>
-            - <strong>Logistics:</strong> The Company provides all necessary uniforms and local duty transport.
-        </p>
-
-        <div class="footer">Dövlət Miqrasiya Xidməti (SMS) | Coverage & Benefits | Page 2 of 3</div>
+        <div class="stamp-box">
+            Affix Company<br>Seal / Stamp
+        </div>
     </div>
+</div>
 
-    <div class="page">
-        <h2 style="margin-top: 0;">V. LEGAL VALIDATION</h2>
-        <p>This agreement serves as the foundational document for the **E-Gov.az** Work Permit application. Both parties affirm that the information is true and accurate.</p>
-
-        <div style="margin-top: 50px; height: 200px; border: 1px solid var(--accent-gold); position: relative; background: #fafafa; display: flex; align-items: center; justify-content: center;">
-            <div style="text-align: center; opacity: 0.2; transform: rotate(-15deg);">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Emblem_of_the_State_Migration_Service_of_Azerbaijan.svg/512px-Emblem_of_the_State_Migration_Service_of_Azerbaijan.svg.png" style="width: 150px;">
-                <p>OFFICIAL SEAL SPACE</p>
-            </div>
-        </div>
-
-        <div style="margin-top: 100px; display: flex; justify-content: space-between;">
-            <div style="width: 45%; border-top: 2px solid var(--primary-emerald); text-align: center; padding-top: 10px;">
-                <strong style="color: var(--primary-emerald);">EMPLOYER SIGNATORY</strong><br>
-                <span id="v-comp-sign" style="font-size: 13px;">[Company]</span>
-            </div>
-            <div style="width: 45%; border-top: 2px solid var(--primary-emerald); text-align: center; padding-top: 10px;">
-                <strong style="color: var(--primary-emerald);">EMPLOYEE (CLIENT)</strong><br>
-                <span id="v-name-sign" style="font-size: 13px;">[Client Name]</span>
-            </div>
-        </div>
-
-        <div style="margin-top: 60px; background: #fffde7; border: 1px solid var(--accent-gold); padding: 15px; font-size: 12px; border-radius: 5px;">
-            <strong>LEGAL NOTICE:</strong> Under the Migration Code of the Republic of Azerbaijan, the TRC remains the property of the State and is tied to the employer listed. This document is a binding contract for 12 months.
-        </div>
-
-        <div class="footer">Dövlət Miqrasiya Xidməti (SMS) | Final Validation | Page 3 of 3</div>
-    </div>
-
-    <script>
-        function sync() {
-            const fields = ['ref', 'name', 'comp', 'addr', 'pass', 'country', 'visa', 'date', 'salary'];
-            let qrText = "SMS-VALIDATED-2026: ";
-            
-            fields.forEach(f => {
-                const val = document.getElementById('in-' + f).value || "[PENDING]";
-                const targets = document.querySelectorAll('#v-' + f);
-                targets.forEach(t => t.innerText = val);
-                
-                // Special handles for repeated IDs
-                if(f === 'name') document.getElementById('v-name-sign').innerText = val;
-                if(f === 'comp') document.getElementById('v-comp-sign').innerText = val;
-                if(f === 'salary') document.getElementById('v-salary-alt').innerText = val;
-
-                qrText += `${f.toUpperCase()}:${val} | `;
-            });
-
-            qrText += "TRC:COVERED|MEDICAL:PAID|FOOD:YES|HOUSING:YES";
-            document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrText)}&color=004d40`;
-        }
-        sync();
-    </script>
 </body>
 </html>
