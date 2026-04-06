@@ -9,7 +9,8 @@
             font-family: 'Times New Roman', Times, serif;
             background-color: #f4f4f4;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             padding: 20px;
             margin: 0;
         }
@@ -21,6 +22,7 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             box-sizing: border-box;
             position: relative;
+            margin-bottom: 20px;
         }
         .header {
             text-align: center;
@@ -96,10 +98,29 @@
             font-size: 10pt;
             text-align: center;
         }
+        /* Style for the Back Side Page */
+        .back-side {
+            width: 210mm; /* A4 Width */
+            min-height: 297mm; /* A4 Height */
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            position: relative;
+            page-break-before: always; /* Crucial: Force to the next page for PDF/Print */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25mm;
+        }
+        .back-side img {
+            max-width: 80%; /* Adjust as needed */
+            height: auto;
+        }
         .no-print {
             position: fixed;
             top: 20px;
             left: 20px;
+            z-index: 100;
         }
         button {
             padding: 10px 20px;
@@ -111,8 +132,9 @@
         }
         @media print {
             .no-print { display: none; }
-            body { background: white; padding: 0; }
-            .letter-container { box-shadow: none; border: none; }
+            body { background: white; padding: 0; display: block; }
+            .letter-container { box-shadow: none; border: none; margin-bottom: 0; }
+            .back-side { box-shadow: none; border: none; }
         }
     </style>
 </head>
@@ -173,6 +195,10 @@
             Affix Company<br>Seal / Stamp
         </div>
     </div>
+</div>
+
+<div class="back-side">
+    <img src="image_0.png" alt="Pack Fresh Limited Logo">
 </div>
 
 </body>
