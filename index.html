@@ -5,166 +5,221 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Official Letter of Hand - PACK FRESH LIMITED</title>
     <style>
+        /* Modern Premium Palette derived from your logo */
         :root {
             --pack-green: #82ca4c;
-            --pack-gray: #7a7a7a;
-            --watermark-opacity: 0.07;
+            --charcoal-gray: #4d4d4d;
+            --text-black: #2b2b2b;
+            --watermark-opacity: 0.05;
         }
+        
         body {
-            font-family: 'Times New Roman', serif;
-            background-color: #444;
+            font-family: 'Georgia', serif; /* A more elegant serif for 'Letter of Hand' */
+            background-color: #f1f1f1;
             margin: 0;
             padding: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+        
         /* A4 Page Styling */
         .page {
             width: 210mm;
-            height: 297mm;
-            padding: 15mm 20mm;
+            min-height: 297mm;
+            padding: 18mm 25mm;
             background: white;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             box-sizing: border-box;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
-        /* Watermark (Back side style) */
+        
+        /* Background Watermark (Background Back Side Look) */
         .watermark {
             position: absolute;
-            top: 55%;
+            top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) rotate(-25deg);
+            transform: translate(-50%, -50%) rotate(-30deg);
             width: 85%;
             opacity: var(--watermark-opacity);
             pointer-events: none;
             z-index: 0;
         }
-        /* Header Section */
+        
+        /* Premium Header Section */
         .header-top {
             text-align: center;
-            border-bottom: 4px solid var(--pack-green);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
+            border-bottom: 5px solid var(--pack-green);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
             position: relative;
             z-index: 1;
         }
+        
         .header-top h1 {
             color: var(--pack-green);
-            font-size: 32pt;
+            font-size: 38pt;
             margin: 0;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            font-weight: bold;
         }
+        
         .header-top input {
             width: 100%;
             text-align: center;
             border: none;
-            color: var(--pack-gray);
+            color: var(--charcoal-gray);
             font-size: 11pt;
             font-weight: bold;
             background: transparent;
-            margin-top: 3px;
+            margin-top: 5px;
+            font-family: 'Helvetica', sans-serif;
         }
 
         .subject-line {
             text-align: center;
-            font-size: 18pt;
+            font-size: 20pt;
             font-weight: bold;
-            color: #333;
+            color: var(--text-black);
             text-decoration: underline;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             text-transform: uppercase;
+            font-family: 'Helvetica', sans-serif;
         }
 
-        /* Form Grid */
-        .client-grid {
+        /* Modern Client Form Layout */
+        .client-form {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 20px;
+            margin-bottom: 40px;
             position: relative;
             z-index: 1;
         }
-        .field {
-            border-bottom: 1px solid #ddd;
-            padding: 5px;
+        
+        .field-box {
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid var(--pack-green);
+            padding: 10px 15px;
+            background-color: rgba(130, 202, 76, 0.03);
         }
-        .field label {
+        
+        .field-box label {
             display: block;
-            font-size: 8pt;
+            font-size: 9pt;
             color: var(--pack-green);
             font-weight: bold;
             text-transform: uppercase;
+            font-family: 'Helvetica', sans-serif;
         }
-        .field input, .field select {
+        
+        .field-box input, .field-box select {
             width: 100%;
             border: none;
-            font-size: 12pt;
+            font-size: 13pt;
             font-weight: bold;
+            color: var(--text-black);
             background: transparent;
             outline: none;
+            font-family: 'Georgia', serif;
         }
 
-        .letter-body {
-            font-size: 12pt;
-            line-height: 1.6;
+        /* Letter Content with Better Flow */
+        .letter-content {
+            font-size: 12.5pt;
+            line-height: 1.8;
             text-align: justify;
-            margin-bottom: 30px;
+            color: #3d3d3d;
+            margin-bottom: 40px;
             position: relative;
             z-index: 1;
         }
+        
+        .guarantee-box {
+            margin-top: 25px;
+            padding: 15px 20px;
+            border-left: 6px solid var(--pack-green);
+            background: rgba(130, 202, 76, 0.05);
+            font-weight: bold;
+        }
 
-        /* Signature Section - 3 People */
-        .signature-row {
+        /* Specialized Triple Signature Area */
+        .signature-group {
             display: flex;
             justify-content: space-between;
-            margin-top: auto; /* Pushes to bottom of content area */
-            padding-bottom: 40px;
+            margin-top: auto; /* Push to bottom of content area */
+            padding-bottom: 50px;
             position: relative;
             z-index: 1;
         }
+        
         .sig-block {
             width: 30%;
             text-align: center;
-            border-top: 1px solid #333;
-            padding-top: 10px;
+            border-top: 2px solid #555;
+            padding-top: 12px;
             font-size: 10pt;
+            color: var(--charcoal-gray);
         }
+        
         .sig-block strong {
             display: block;
             color: var(--pack-green);
-            font-size: 11pt;
+            font-size: 12pt;
+            margin-bottom: 5px;
+        }
+        
+        .sig-block input {
+            width: 100%;
+            border: none;
+            text-align: center;
+            background: transparent;
+            font-size: 10pt;
+            color: #333;
+            font-weight: bold;
         }
 
         /* Beautiful Footer Address */
-        .footer-address {
+        .footer-ribbon {
             text-align: center;
-            border-top: 1px solid var(--pack-green);
-            padding-top: 15px;
-            font-size: 10pt;
-            color: var(--pack-gray);
-            font-style: italic;
+            background-color: var(--pack-green);
+            padding: 15px;
+            color: white;
+            font-size: 10.5pt;
+            margin: 0 -25mm -15mm -25mm; /* Expand to full width of A4 */
             position: relative;
             z-index: 1;
+        }
+        
+        .footer-ribbon input {
+            width: 100%;
+            border: none;
+            text-align: center;
+            color: white;
+            font-size: 10.5pt;
+            background: transparent;
+            font-weight: bold;
         }
 
         .no-print {
             margin-bottom: 20px;
         }
+        
         button {
             padding: 12px 25px;
             background: var(--pack-green);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
             font-size: 12pt;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            font-family: 'Helvetica', sans-serif;
         }
 
         @media print {
@@ -186,50 +241,53 @@
 
     <div class="header-top">
         <h1>PACK FRESH LIMITED</h1>
-        <input type="text" value="Registration No: 7130837">
-        <input type="text" value="Phone: +64 [000 000 000] | Mobile: +64 [000 000 000]">
+        <input type="text" value="Registration No: 7130837 | A Registered New Zealand Enterprise">
+        <input type="text" value="Phone: +64 [00 000 0000] | Mobile: +64 [00 000 0000]">
         <input type="text" value="Email: info@packfresh.co.nz | Website: www.packfresh.co.nz">
     </div>
 
     <div class="subject-line">Letter of Hand & Irrevocable Guarantee</div>
 
-    <div class="letter-body">
-        <p>Following the formal approval of the three-year visa and the successful completion of the employment agreement, **PACK FRESH LIMITED** hereby issues this binding guarantee. We accept full legal, professional, and financial responsibility for the individual mentioned below for the duration of their tenure in New Zealand.</p>
+    <div class="letter-content">
+        <p>Following the formal approval of the three-year visa and the successful completion of the employment agreement, **PACK FRESH LIMITED** hereby issues this binding guarantee. We accept total legal, professional, and financial responsibility for the individual mentioned below for the duration of their tenure in New Zealand.</p>
     </div>
 
-    <div class="client-grid">
-        <div class="field"><label>Client Name</label><input type="text" placeholder="Full Name"></div>
-        <div class="field"><label>Gender</label><select><option>Male</option><option>Female</option></select></div>
-        <div class="field"><label>Passport Number</label><input type="text" placeholder="Passport No."></div>
-        <div class="field"><label>Date of Birth</label><input type="text" placeholder="DD/MM/YYYY"></div>
-        <div class="field"><label>Country</label><input type="text" placeholder="Country Name"></div>
-        <div class="field"><label>Position Category</label><input type="text" value="Packing Specialist"></div>
-        <div class="field"><label>Visa Approval No.</label><input type="text" placeholder="Visa Number"></div>
-        <div class="field"><label>Visa Duration</label><input type="text" value="Three (3) Years"></div>
+    <div class="client-form">
+        <div class="field-box"><label>Client Full Name</label><input type="text" placeholder="Full Legal Name"></div>
+        <div class="field-box"><label>Gender</label><select><option>Male</option><option>Female</option></select></div>
+        <div class="field-box"><label>Passport Number</label><input type="text" placeholder="Passport No."></div>
+        <div class="field-box"><label>Date of Birth</label><input type="text" placeholder="DD/MM/YYYY"></div>
+        <div class="field-box"><label>Country</label><input type="text" placeholder="Country Name"></div>
+        <div class="field-box"><label>Visa Approval Number</label><input type="text" placeholder="Visa Number"></div>
+        <div class="field-box"><label>Position Category</label><input type="text" value="Packing Specialist"></div>
+        <div class="field-box"><label>Validity Duration</label><input type="text" value="Three (3) Years"></div>
     </div>
 
-    <div class="letter-body">
-        <p>This letter confirms that the client has a secured position and that we, the undersigned, stand as his personal and corporate guarantors under the **Employment Relations Act 2000**.</p>
+    <div class="guarantee-box">
+        <strong>Binding Agreement:</strong> 
+        We stand as the absolute guarantor for the client’s secured position, welfare, and conduct. We take full responsibility to ensure compliance under the Employment Relations Act 2000.
     </div>
 
-    <div class="signature-row">
+    <div class="signature-group">
         <div class="sig-block">
             <strong>Company Manager</strong>
-            Authorized Signatory
+            <input type="text" placeholder="Manager Full Name">
+            <span style="font-size: 8pt; color: #999;">Date / Signature</span>
         </div>
         <div class="sig-block">
             <strong>Human Resources</strong>
-            HR Department
+            <input type="text" value="HR Department">
+            <span style="font-size: 8pt; color: #999;">Date / Signature</span>
         </div>
         <div class="sig-block">
             <strong>Director</strong>
-            Board of Directors
+            <input type="text" placeholder="Director Full Name">
+            <span style="font-size: 8pt; color: #999;">Date / Signature</span>
         </div>
     </div>
 
-    <div class="footer-address">
-        <input type="text" style="width: 100%; border: none; text-align: center; background: transparent; font-size: 10pt; color: #7a7a7a;" 
-        value="Registered Office: [Building Name], [Street Address], [City], [Postcode], New Zealand">
+    <div class="footer-ribbon">
+        <input type="text" value="[Registered Office Address: Building Name, Street, City, Postcode], New Zealand">
     </div>
 </div>
 
