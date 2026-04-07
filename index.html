@@ -3,358 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HD Letter of Hand - PACK FRESH LIMITED</title>
+    <title>Ireland Employment Agreement - Restaurant Waiter</title>
     <style>
         :root {
-            --pack-green: #82ca4c;
-            --pack-dark: #2c3e50;
-            --premium-gray: #4a4a4a;
+            --ireland-green: #009A44;
+            --ireland-orange: #FF8200;
+            --text-dark: #333;
         }
 
-        /* UI Interface */
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            display: flex;
-            height: 100vh;
-            background-color: #1a1a1a;
-            color: #fff;
+            padding: 20px;
+            color: var(--text-dark);
         }
 
-        /* Sidebar Entry Panel */
-        .sidebar {
-            width: 420px;
-            background: #ffffff;
-            color: #333;
-            padding: 30px;
-            overflow-y: auto;
-            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
-            z-index: 10;
-        }
-
-        .sidebar h2 {
-            color: var(--pack-green);
-            font-size: 1.4rem;
-            border-bottom: 3px solid var(--pack-green);
-            padding-bottom: 10px;
-            margin-bottom: 25px;
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 11px;
-            font-weight: bold;
-            color: #777;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-
-        .input-group input, .input-group select, .input-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        .print-btn {
-            width: 100%;
-            padding: 18px;
-            background: var(--pack-green);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 18px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            margin-top: 20px;
-        }
-
-        .print-btn:hover { transform: scale(1.02); }
-
-        /* Preview Display Area */
-        .preview-container {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 50px;
-            overflow-y: auto;
-        }
-
-        /* The HD A4 Letter */
-        .a4-page {
-            width: 210mm;
-            height: 297mm;
+        /* Control Panel for Editing */
+        #controls {
+            max-width: 800px;
+            margin: 0 auto 20px auto;
             background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .edit-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Page Layout */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
             padding: 20mm;
-            box-sizing: border-box;
+            margin: 10mm auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
             position: relative;
-            color: #000;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 40px rgba(0,0,0,0.8);
-        }
-
-        /* HD Center Watermark */
-        .hd-watermark {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-30deg);
-            width: 90%;
-            opacity: 0.05;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* High-Definition Header */
-        .hd-header {
-            text-align: center;
-            border-bottom: 6px double var(--pack-green);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-            z-index: 1;
-        }
-
-        .hd-header h1 {
-            font-size: 38pt;
-            margin: 0;
-            color: var(--pack-green);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-        }
-
-        .hd-header p {
-            margin: 4px 0;
-            font-weight: bold;
-            color: var(--premium-gray);
-            font-size: 10pt;
-        }
-
-        .document-title {
-            text-align: center;
-            font-size: 22pt;
-            font-weight: 900;
-            text-decoration: underline;
-            color: #111;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            z-index: 1;
-        }
-
-        /* Absolute Guarantee Clause */
-        .guarantee-statement {
-            background: rgba(130, 202, 76, 0.08);
-            border: 2px solid var(--pack-green);
-            padding: 15px;
-            font-size: 12pt;
-            font-weight: bold;
-            margin-bottom: 25px;
-            text-align: center;
-            z-index: 1;
-        }
-
-        /* Client Info Table Style */
-        .client-info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
-            z-index: 1;
-        }
-
-        .data-field {
-            border-bottom: 2px solid #eee;
-            padding: 8px 0;
-        }
-
-        .data-field label {
-            display: block;
-            font-size: 9pt;
-            color: var(--pack-green);
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-
-        .data-field span {
-            font-size: 13pt;
-            font-weight: bold;
-            color: #000;
-            display: block;
-            min-height: 1.2em;
-        }
-
-        .legal-text {
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 13pt;
-            line-height: 1.7;
-            text-align: justify;
-            margin-bottom: 30px;
-            z-index: 1;
-        }
-
-        /* Triple Signature Authority */
-        .auth-signatures {
-            display: flex;
-            justify-content: space-between;
-            margin-top: auto;
-            padding-bottom: 40px;
-            z-index: 1;
-        }
-
-        .sig-container {
-            width: 30%;
-            text-align: center;
-            border-top: 2px solid #000;
-            padding-top: 10px;
-        }
-
-        .sig-container strong {
-            display: block;
-            color: var(--pack-green);
-            font-size: 11pt;
-            text-transform: uppercase;
-        }
-
-        /* Modernized Footer */
-        .hd-footer {
-            text-align: center;
-            border-top: 2px solid var(--pack-green);
-            padding-top: 15px;
-            font-size: 10pt;
-            color: var(--premium-gray);
-            font-weight: bold;
-            z-index: 1;
         }
 
         @media print {
-            .sidebar { display: none; }
-            .preview-container { padding: 0; background: white; }
-            body { background: white; }
-            .a4-page { box-shadow: none; width: 210mm; height: 297mm; }
+            body { background: none; padding: 0; }
+            #controls { display: none; }
+            .page { margin: 0; box-shadow: none; page-break-after: always; }
+        }
+
+        /* Branding Elements */
+        .header {
+            border-bottom: 4px solid var(--ireland-green);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: var(--ireland-green);
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .flag-accent {
+            height: 10px;
+            width: 100px;
+            background: linear-gradient(to right, #009A44, #FFF, #FF8200);
+        }
+
+        h2 { border-left: 5px solid var(--ireland-orange); padding-left: 10px; font-size: 18px; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        table td, table th {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .qr-section {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+
+        .qr-box {
+            width: 120px;
+            height: 120px;
+            border: 2px solid var(--ireland-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .signature-line {
+            border-top: 1px solid #000;
+            margin-top: 40px;
+            width: 200px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        [contenteditable="true"]:hover {
+            background-color: #fff9c4;
+            outline: 1px dashed var(--ireland-green);
         }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <h2>HD Letter Control</h2>
-        
-        <div class="input-group">
-            <label>Registration Number</label>
-            <input type="text" id="i-reg" value="7130837" oninput="liveUpdate()">
-        </div>
-        <div class="input-group">
-            <label>Phone / WhatsApp</label>
-            <input type="text" id="i-phone" value="+64 [Enter Phone]" oninput="liveUpdate()">
-        </div>
-        <div class="input-group">
-            <label>Email & Website</label>
-            <input type="text" id="i-web" value="info@packfresh.co.nz | www.packfresh.co.nz" oninput="liveUpdate()">
-        </div>
+<div id="controls">
+    <h3>Document Control Panel</h3>
+    <p>Update the fields below, then press <strong>Ctrl + P</strong> to save as PDF.</p>
+    <div class="edit-row">
+        <button onclick="window.print()" style="background: var(--ireland-green); color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px;">Print / Download PDF</button>
+    </div>
+</div>
 
-        <hr>
-        <div class="input-group">
-            <label>Client Full Name</label>
-            <input type="text" id="i-name" placeholder="Full Legal Name" oninput="liveUpdate()">
+<div class="page" id="page1">
+    <div class="header">
+        <div>
+            <h1>OFFER OF EMPLOYMENT</h1>
+            <small>REPUBLIC OF IRELAND</small>
         </div>
-        <div class="input-group">
-            <label>Passport Number</label>
-            <input type="text" id="i-passport" placeholder="Enter Number" oninput="liveUpdate()">
-        </div>
-        <div class="input-group">
-            <label>Date of Birth</label>
-            <input type="text" id="i-dob" placeholder="DD/MM/YYYY" oninput="liveUpdate()">
-        </div>
-        <div class="input-group">
-            <label>Country</label>
-            <input type="text" id="i-country" placeholder="Enter Country" oninput="liveUpdate()">
-        </div>
-        <div class="input-group">
-            <label>Gender</label>
-            <select id="i-gender" onchange="liveUpdate()">
-                <option>Male</option>
-                <option>Female</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label>Visa & Job Category</label>
-            <input type="text" id="i-cat" value="Packing Specialist" oninput="liveUpdate()">
-        </div>
-
-        <div class="input-group">
-            <label>Company Address</label>
-            <textarea id="i-addr" rows="2" oninput="liveUpdate()">123 Auckland Business Precinct, New Zealand</textarea>
-        </div>
-
-        <button class="print-btn" onclick="window.print()">GENERATE HD PDF</button>
+        <div class="flag-accent"></div>
     </div>
 
-    <div class="preview-container">
-        <div class="a4-page">
-            <img src="image_0.png" class="hd-watermark">
+    <div style="text-align: right;">
+        <strong>Ref No:</strong> <span contenteditable="true">IRE-WP-2026-8842</span><br>
+        <strong>Date:</strong> <span contenteditable="true">April 08, 2026</span>
+    </div>
 
-            <div class="hd-header">
-                <h1>PACK FRESH LIMITED</h1>
-                <p id="o-reg">Registration No: 7130837</p>
-                <p id="o-phone">Phone: +64 [Enter Phone]</p>
-                <p id="o-web">info@packfresh.co.nz | www.packfresh.co.nz</p>
-            </div>
+    <h2>1. The Parties</h2>
+    <p>This Contract of Employment is entered into between:</p>
+    <table>
+        <tr>
+            <th width="30%">Company Name</th>
+            <td contenteditable="true">Emerald Hospitality Group Ltd.</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td contenteditable="true">12 O'Connell Street Lower, North City, Dublin 1, Ireland</td>
+        </tr>
+        <tr>
+            <th>Company Reg No.</th>
+            <td contenteditable="true">IE 9982341L</td>
+        </tr>
+    </table>
 
-            <div class="document-title">Visa & Job Guarantee Certificate</div>
+    <h2>2. Candidate Information</h2>
+    <table>
+        <tr>
+            <th>Full Name</th>
+            <td contenteditable="true">Ali Rahat</td>
+            <th>Gender</th>
+            <td contenteditable="true">Male</td>
+        </tr>
+        <tr>
+            <th>Passport No.</th>
+            <td contenteditable="true">A123456789</td>
+            <th>D.O.B</th>
+            <td contenteditable="true">01/01/1995</td>
+        </tr>
+        <tr>
+            <th>Nationality</th>
+            <td contenteditable="true">Pakistan</td>
+            <th>Country</th>
+            <td contenteditable="true">Ireland (Work Site)</td>
+        </tr>
+    </table>
 
-            <div class="guarantee-statement">
-                UNCONDITIONAL GUARANTEE: WE, PACK FRESH LIMITED, ACCEPT TOTAL LEGAL AND FINANCIAL RESPONSIBILITY TO PROVIDE ALL NECESSARY RESOURCES FOR THE FULL DURATION OF THE JOB AND VISA TERM.
-            </div>
+    <h2>3. Position & Terms</h2>
+    <ul>
+        <li><strong>Category:</strong> Restaurant Waiter</li>
+        <li><strong>Contract Duration:</strong> Two (2) Years Fixed Term</li>
+        <li><strong>Probation:</strong> Six (6) Months Statutory</li>
+    </ul>
+    
+    <div class="qr-section">
+        <div>
+            <p style="font-size: 12px;">Authorized by Ireland Department of Enterprise, Trade and Employment.</p>
+        </div>
+        <div class="qr-box">
+            [JOB LETTER QR]<br>VERIFIED INFO
+        </div>
+    </div>
+</div>
 
-            <div class="legal-text">
-                This **Letter of Hand** serves as an irrevocable bond between the company and the client. We guarantee that the client’s employment is secured, the visa agreement is finalized, and the company stands as the primary guarantor for all aspects of the client’s professional stay in New Zealand.
-            </div>
+<div class="page" id="page2">
+    <div class="header">
+        <h1>EMPLOYMENT TERMS & BENEFITS</h1>
+        <div class="flag-accent"></div>
+    </div>
 
-            <div class="client-info-grid">
-                <div class="data-field"><label>Full Name</label><span id="o-name"></span></div>
-                <div class="data-field"><label>Gender</label><span id="o-gender">Male</span></div>
-                <div class="data-field"><label>Passport Number</label><span id="o-passport"></span></div>
-                <div class="data-field"><label>Date of Birth</label><span id="o-dob"></span></div>
-                <div class="data-field"><label>Country of Origin</label><span id="o-country"></span></div>
-                <div class="data-field"><label>Job Category</label><span id="o-cat">Packing Specialist</span></div>
-            </div>
+    <h2>4. Remuneration (Salary)</h2>
+    <p>In accordance with Irish Law, the salary is set as follows:</p>
+    <div style="background: #f9f9f9; padding: 15px; border: 1px solid #ddd;">
+        <strong>Gross Annual Salary:</strong> €<span contenteditable="true">28,500.00</span><br>
+        <strong>Payment Frequency:</strong> Monthly via Irish Bank Transfer
+    </div>
 
-            <div class="legal-text">
-                This document is a formal undertaking under the **New Zealand Employment Relations Act 2000**. The company guarantees that all job-related requirements, financial stability, and legal protections are provided directly by the company to the client without exception for a period of three (3) years.
-            </div>
+    <h2>5. Mandatory Benefits Package</h2>
+    <table>
+        <tr>
+            <td><strong>Ticket</strong></td>
+            <td>Annual Return Air Ticket provided to home country.</td>
+        </tr>
+        <tr>
+            <td><strong>Insurance</strong></td>
+            <td>Full Medical and Public Liability Insurance under Irish Law.</td>
+        </tr>
+        <tr>
+            <td><strong>Food</strong></td>
+            <td>Two (2) standard meals provided during duty hours.</td>
+        </tr>
+        <tr>
+            <td><strong>Accommodation</strong></td>
+            <td>Company-sponsored shared housing in proximity to work site.</td>
+        </tr>
+        <tr>
+            <td><strong>Transport</strong></td>
+            <td>Company shuttle provided for daily commute to restaurant.</td>
+        </tr>
+    </table>
 
-            <div class="auth-signatures">
-                <div class="sig-container"><strong>Company Manager</strong>Authorized Sig.</div>
-                <div class="sig-container"><strong>Human Resources</strong>Official Seal</div>
-                <div class="sig-container"><strong>Director</strong>Board of Directors</div>
-            </div>
+    <h2>6. Work Permit Agency</h2>
+    <p>This application is being processed through the following authorized channel:</p>
+    <div style="border-left: 3px solid var(--ireland-green); padding-left: 15px;">
+        <p><strong>Agency Name:</strong> <span contenteditable="true">Global Irish Visas & Permits Ltd.</span><br>
+        <strong>License No:</strong> <span contenteditable="true">WP-IRE-2026</span></p>
+    </div>
+</div>
 
-            <div class="hd-footer">
-                Registered Office: <span id="o-addr">123 Auckland Business Precinct, New Zealand</span>
-            </div>
+<div class="page" id="page3">
+    <div class="header">
+        <h1>LEGAL EXECUTION</h1>
+        <div class="flag-accent"></div>
+    </div>
+
+    <h2>7. Legal Compliance</h2>
+    <p>This agreement is drafted under the <strong>Terms of Employment (Information) Act 1994-2014</strong>. Both parties agree to abide by the Workplace Relations Commission (WRC) standards of the Republic of Ireland.</p>
+
+    <h2>8. Working Hours</h2>
+    <p>The standard work week shall be 39 hours. Any overtime shall be compensated at the rate of 1.5x as per sector regulations for the hospitality industry.</p>
+
+    <div style="margin-top: 50px;">
+        <h2>9. Acceptance of Offer</h2>
+        <p>By signing below, both parties agree to the two-year term of service and the conditions outlined in this 3-page document.</p>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-top: 100px;">
+        <div>
+            <div class="signature-line">Company Authorized Sign</div>
+            <p style="text-align:center;"><small>(Stamp & Signature)</small></p>
+        </div>
+        <div>
+            <div class="signature-line">Client / Employee Sign</div>
+            <p style="text-align:center;"><small>(Full Name: <span contenteditable="true">Ali Rahat</span>)</small></p>
         </div>
     </div>
 
-    <script>
-        function liveUpdate() {
-            document.getElementById('o-reg').innerText = "Registration No: " + document.getElementById('i-reg').value;
-            document.getElementById('o-phone').innerText = "Phone: " + document.getElementById('i-phone').value;
-            document.getElementById('o-web').innerText = document.getElementById('i-web').value;
-            document.getElementById('o-name').innerText = document.getElementById('i-name').value;
-            document.getElementById('o-gender').innerText = document.getElementById('i-gender').value;
-            document.getElementById('o-passport').innerText = document.getElementById('i-passport').value;
-            document.getElementById('o-dob').innerText = document.getElementById('i-dob').value;
-            document.getElementById('o-country').innerText = document.getElementById('i-country').value;
-            document.getElementById('o-cat').innerText = document.getElementById('i-cat').value;
-            document.getElementById('o-addr').innerText = document.getElementById('i-addr').value;
-        }
-    </script>
+    <div class="qr-section">
+        <div style="font-size: 11px; color: #777;">
+            Validation ID: <span contenteditable="true">IRE-REF-99-B</span><br>
+            Official Document - Republic of Ireland
+        </div>
+        <div class="qr-box" style="width: 80px; height: 80px; font-size: 10px;">
+            AGENCY<br>VERIFIED
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
