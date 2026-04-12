@@ -2,203 +2,126 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ireland Employment Agreement - Official Three-Page Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power of Attorney Generator</title>
     <style>
-        :root { --ireland-green: #009A44; --ireland-orange: #FF8200; --sidebar-bg: #1e272e; }
-        body { background: #f4f4f9; margin: 0; display: flex; font-family: 'Times New Roman', serif; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; padding: 20px; }
+        .container { max-width: 850px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         
-        /* FORM PANEL */
-        #input-panel { width: 380px; height: 100vh; background: var(--sidebar-bg); color: white; padding: 20px; overflow-y: auto; position: fixed; z-index: 1000; box-shadow: 2px 0 10px rgba(0,0,0,0.5); font-family: Arial, sans-serif; }
-        #input-panel h2 { color: var(--ireland-green); border-bottom: 1px solid #444; padding-bottom: 10px; }
-        .form-group { margin-bottom: 12px; }
-        label { display: block; font-size: 11px; color: #999; text-transform: uppercase; margin-bottom: 4px; }
-        input, select { width: 100%; padding: 8px; border-radius: 3px; border: 1px solid #333; background: #2f3640; color: white; }
-        button { width: 100%; padding: 15px; background: var(--ireland-green); color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 20px; font-size: 16px; border-radius: 5px; }
-        button:hover { background: #007a36; }
+        /* Form Styling */
+        .form-section { background: #e9ecef; padding: 20px; border-radius: 8px; margin-bottom: 40px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        label { font-weight: bold; font-size: 0.9em; display: block; margin-bottom: 5px; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .full-width { grid-column: span 2; }
 
-        /* DOCUMENT AREA */
-        #document-area { margin-left: 380px; flex-grow: 1; padding: 40px; display: flex; flex-direction: column; align-items: center; }
-        .page { width: 210mm; min-height: 297mm; padding: 25mm 20mm; margin-bottom: 30px; background: white; box-shadow: 0 0 20px rgba(0,0,0,0.1); position: relative; color: #1a1a1a; line-height: 1.5; font-size: 14px; text-align: justify; }
+        /* Document Styling */
+        #poa-document { border: 2px solid #333; padding: 50px; min-height: 800px; line-height: 1.6; position: relative; }
+        .doc-header { text-align: center; text-decoration: underline; margin-bottom: 30px; }
+        .section-title { font-weight: bold; margin-top: 20px; text-decoration: underline; }
+        .signature-grid { display: grid; grid-template-columns: 1fr 1fr; margin-top: 50px; gap: 50px; }
+        .sig-box { border-top: 1px solid #000; margin-top: 40px; padding-top: 5px; }
+        .stamp-box { border: 1px dashed #999; width: 100px; height: 100px; display: flex; align-items: center; text-align: center; font-size: 0.8em; color: #999; margin-top: 20px; }
         
-        .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid var(--ireland-green); padding-bottom: 10px; margin-bottom: 25px; }
-        .ireland-stamp { border: 2px solid var(--ireland-orange); padding: 5px 10px; color: var(--ireland-orange); font-weight: bold; transform: rotate(-5deg); text-transform: uppercase; font-size: 12px; }
-        
-        h2 { font-size: 18px; color: var(--ireland-green); text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 20px; }
-        h3 { font-size: 15px; margin-top: 15px; text-decoration: underline; }
-        
-        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-        td, th { border: 1px solid #ccc; padding: 8px; font-size: 13px; }
-        th { background: #f8f9fa; width: 35%; text-align: left; }
-
-        .footer { position: absolute; bottom: 20mm; left: 20mm; right: 20mm; border-top: 1px solid #ddd; padding-top: 10px; display: flex; justify-content: space-between; font-size: 10px; color: #666; }
-
         @media print {
-            #input-panel { display: none; }
-            #document-area { margin-left: 0; padding: 0; }
-            .page { margin: 0; box-shadow: none; page-break-after: always; }
+            .form-section, button { display: none; }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; max-width: 100%; }
+            #poa-document { border: none; }
         }
     </style>
 </head>
 <body>
 
-<div id="input-panel">
-    <h2>Ireland Work Permit Form</h2>
-    <div class="form-group"><label>Ref Number</label><input type="text" id="in-ref" value="IRE-REF-2026-99" oninput="update()"></div>
-    <div class="form-group"><label>Client Full Name</label><input type="text" id="in-name" value="Ali Rahat" oninput="update()"></div>
-    <div class="form-group"><label>Passport No</label><input type="text" id="in-passport" value="PK8833441" oninput="update()"></div>
-    <div class="form-group"><label>Date of Birth</label><input type="date" id="in-dob" value="1995-10-12" oninput="update()"></div>
-    <div class="form-group"><label>Gender</label><select id="in-gender" onchange="update()"><option>Male</option><option>Female</option></select></div>
-    <div class="form-group"><label>Country</label><input type="text" id="in-country" value="Pakistan" oninput="update()"></div>
-    <hr style="border: 0.5px solid #444; margin: 20px 0;">
-    <div class="form-group"><label>Company Name</label><input type="text" id="in-company" value="The Dublin Grand Hospitality Ltd" oninput="update()"></div>
-    <div class="form-group"><label>Company Address</label><input type="text" id="in-address" value="44 Grafton Street, Dublin 2, Ireland" oninput="update()"></div>
-    <div class="form-group"><label>Processing Agency</label><input type="text" id="in-agency" value="Ireland Strategic Migration Agency" oninput="update()"></div>
-    <div class="form-group"><label>Monthly Salary (€)</label><input type="number" id="in-salary" value="2400" oninput="update()"></div>
-    <button onclick="window.print()">GENERATE 3-PAGE PDF</button>
-</div>
+<div class="container">
+    <div class="form-section">
+        <h2 style="margin-top:0;">1. Enter Information</h2>
+        <div class="form-grid">
+            <div><label>Ref Number</label><input type="text" id="inRef" placeholder="e.g. RA/2026/01"></div>
+            <div><label>Date</label><input type="date" id="inDate"></div>
+            
+            <h4 class="full-width">Principal (Your Details)</h4>
+            <div><label>Full Name</label><input type="text" id="inNameH" value="Rahat Ali"></div>
+            <div><label>Age</label><input type="number" id="inAgeH" value="23"></div>
+            <div class="full-width"><label>Occupation</label><input type="text" id="inOccH" value="Technical Supervisor"></div>
+            <div class="full-width"><label>Address</label><input type="text" id="inAddH" placeholder="Current Address"></div>
 
-<div id="document-area">
+            <h4 class="full-width">Attorney (The Person You Appoint)</h4>
+            <div><label>Attorney Name</label><input type="text" id="inNameA"></div>
+            <div><label>Age</label><input type="number" id="inAgeA"></div>
+            <div class="full-width"><label>Occupation</label><input type="text" id="inOccA"></div>
+            <div class="full-width"><label>Address</label><input type="text" id="inAddA"></div>
 
-    <div class="page">
-        <div class="header">
-            <div>
-                <strong style="font-size: 20px; color: var(--ireland-green);">CONTRACT OF EMPLOYMENT</strong><br>
-                <span>Republic of Ireland - Fixed Term Agreement</span>
-            </div>
-            <div class="ireland-stamp">Official Permit Copy</div>
+            <h4 class="full-width">Claim Details</h4>
+            <div class="full-width"><label>Insurance Policy Name/No.</label><input type="text" id="inPolicy"></div>
+            <div><label>Deceased Name</label><input type="text" id="inDeceased"></div>
+            <div><label>Location of Passing</label><input type="text" id="inLoc"></div>
         </div>
-
-        <div style="text-align: right; font-size: 12px; margin-bottom: 20px;">
-            <strong>Reference ID:</strong> <span id="out-ref"></span><br>
-            <strong>Issue Date:</strong> 08 April 2026
-        </div>
-
-        <h2>1. THE PARTIES</h2>
-        <p>This agreement is made between <strong><span id="out-company"></span></strong>, located at <span id="out-address"></span> (hereinafter "the Employer") and <strong><span id="out-name"></span></strong> (hereinafter "the Employee").</p>
-
-        <h2>2. PERSONAL PARTICULARS</h2>
-        <table>
-            <tr><th>Passport Number</th><td id="out-passport"></td></tr>
-            <tr><th>Date of Birth</th><td id="out-dob"></td></tr>
-            <tr><th>Gender</th><td id="out-gender"></td></tr>
-            <tr><th>Country of Origin</th><td id="out-country"></td></tr>
-        </table>
-
-        <h2>3. POSITION & PROBATION</h2>
-        <p>The Employee is appointed to the category of <strong>Restaurant Waiter</strong>. The employment is for a fixed term of <strong>two (2) years</strong>. A probationary period of six months applies, during which performance will be evaluated under the Industrial Relations Act of Ireland.</p>
-
-        <h2>4. WORK PERMIT PROCESSING</h2>
-        <p>This contract is contingent upon the issuance of a valid Employment Permit. The authorized agency handling the Irish work permit application is: <br><strong><span id="out-agency"></span></strong>.</p>
-
-        <div style="margin-top: 50px; display: flex; justify-content: space-between; align-items: center;">
-            <div id="qrcode"></div>
-            <div style="font-size: 11px; width: 60%; border-left: 2px solid var(--ireland-green); padding-left: 15px;">
-                <em>Notice: This document contains a secure scannable QR code linked to the Department of Enterprise, Trade and Employment database. Unauthorized alteration is a criminal offense under Irish Law.</em>
-            </div>
-        </div>
-
-        <div class="footer">
-            <span>Page 1 of 3</span>
-            <span>Ref: <span id="out-ref2"></span></span>
-        </div>
+        <button onclick="window.print()" style="margin-top: 20px; padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Print to PDF</button>
     </div>
 
-    <div class="page">
-        <div class="header"><strong style="font-size: 20px; color: var(--ireland-green);">MANDATORY PROVISIONS & BENEFITS</strong></div>
-
-        <h2>5. REMUNERATION & HOURS</h2>
-        <p>The Employee shall receive a monthly gross salary of <strong>€<span id="out-salary"></span></strong>. This rate is strictly compliant with the Irish National Minimum Wage (2026). Standard working hours are 39 hours per week.</p>
-
-        <h2>6. COMPANY PROVIDED AMENITIES</h2>
-        <p>As part of this international recruitment agreement, the Employer guarantees the following provisions at no cost to the Employee:</p>
+    <div id="poa-document">
+        <div class="doc-header"><h2>POWER OF ATTORNEY</h2></div>
         
-        <h3>A. Accommodation</h3>
-        <p>The Employer shall provide suitable, safe, and furnished accommodation within a reasonable distance from the workplace. This includes utility costs (electricity, water, heating) as per standard Irish residential norms.</p>
+        <p><strong>Number:</strong> <span id="outRef">_______</span></p>
+        <p><strong>Date:</strong> <span id="outDate">_______</span></p>
 
-        <h3>B. Transportation</h3>
-        <p>Free transportation will be provided by the company for the daily commute between the residence and the place of work. Furthermore, the Employer will provide the initial flight ticket to Ireland and a return ticket upon completion of the contract.</p>
+        <p class="section-title">I, THE UNDERSIGNED (THE PRINCIPAL):</p>
+        <p>
+            <strong>Name:</strong> <span id="outNameH">Rahat Ali</span><br>
+            <strong>Age:</strong> <span id="outAgeH">23</span><br>
+            <strong>Occupation:</strong> <span id="outOccH">Technical Supervisor</span><br>
+            <strong>Address:</strong> <span id="outAddH">________________</span>
+        </p>
 
-        <h3>C. Medical Insurance</h3>
-        <p>Full comprehensive medical insurance shall be maintained by the Company. The Employee will be registered with a local GP and covered for emergency hospital services under the Irish Health Service Executive (HSE) standards.</p>
+        <p class="section-title">HEREBY APPOINT (THE ATTORNEY):</p>
+        <p>
+            <strong>Name:</strong> <span id="outNameA">________________</span><br>
+            <strong>Age:</strong> <span id="outAgeA">____</span><br>
+            <strong>Occupation:</strong> <span id="outOccA">________________</span><br>
+            <strong>Address:</strong> <span id="outAddA">________________</span>
+        </p>
 
-        <h3>D. Food & Nutrition</h3>
-        <p>The Employer will provide duty meals during working shifts. Outside of shifts, a food allowance or grocery provisions will be organized to ensure the Employee's well-being is maintained throughout the contract period.</p>
+        <p>To handle the insurance claim of <strong><span id="outPolicy">________________</span></strong> belonging to <strong><span id="outDeceased">________________</span></strong> who passed away in <strong><span id="outLoc">________________</span></strong>.</p>
 
-        <h2>7. ANNUAL LEAVE & PUBLIC HOLIDAYS</h2>
-        <p>The Employee is entitled to 20 working days of paid annual leave per year, plus 10 statutory Public Holidays in Ireland (e.g., St. Patrick's Day, Easter Monday, Christmas Day).</p>
+        <p class="section-title">THIS POWER OF ATTORNEY IS GRANTED FOR:</p>
+        <ol>
+            <li>Processing the insurance claim</li>
+            <li>Collecting required documents</li>
+            <li>Receiving insurance claim payment</li>
+            <li>Handling all related matters</li>
+        </ol>
 
-        <div class="footer">
-            <span>Page 2 of 3</span>
-            <span>Ref: <span id="out-ref3"></span></span>
+        <p>This power of attorney is effective from the date of signing.</p>
+
+        <div class="signature-grid">
+            <div class="sig-box">Signature of Principal<br><span id="sigNameH">Rahat Ali</span></div>
+            <div class="sig-box">Signature of Attorney<br><span id="sigNameA">________________</span></div>
         </div>
+
+        <div class="stamp-box">Affix Notary Stamp</div>
     </div>
-
-    <div class="page">
-        <div class="header"><strong style="font-size: 20px; color: var(--ireland-green);">LEGAL COMPLIANCE & EXECUTION</strong></div>
-
-        <h2>8. GOVERNING LAW</h2>
-        <p>This contract is governed by the laws of the **Republic of Ireland**. Both parties submit to the jurisdiction of the Workplace Relations Commission (WRC). The Employer adheres to the Protection of Employees (Fixed-Term Work) Act 2003.</p>
-
-        <h2>9. SICK PAY & HEALTH AND SAFETY</h2>
-        <p>The Employee is entitled to Statutory Sick Pay (SSP) as per the Sick Leave Act 2022. The Employer maintains a high-standard Health and Safety policy in accordance with the Safety, Health and Welfare at Work Act 2005 to ensure a safe working environment for all hospitality staff.</p>
-
-        <h2>10. DATA PROTECTION (GDPR)</h2>
-        <p>The Employee's personal data, including Passport Number and DOB, will be processed solely for work permit and payroll purposes in strict accordance with the General Data Protection Regulation (GDPR).</p>
-
-        <h2>11. TERMINATION</h2>
-        <p>Either party may terminate this agreement by providing four weeks' written notice. In cases of gross misconduct, the Employer reserves the right to terminate employment without notice, following the procedures outlined in the Irish Disciplinary Code.</p>
-
-        <div style="margin-top: 40px; background: #f9f9f9; padding: 20px; border: 1px solid #ddd;">
-            <strong>DECLARATION:</strong> I, the Employee, confirm I have read and understood the terms of this 2-year agreement.
-        </div>
-
-        <div style="display: flex; justify-content: space-between; margin-top: 60px;">
-            <div style="width: 45%; text-align: center;">
-                <div style="border-top: 1px solid #000; padding-top: 5px;"><strong>Authorized Signature</strong></div>
-                <p style="font-size: 11px;">For: <span id="out-company-sign"></span><br>(Company Stamp Required)</p>
-            </div>
-            <div style="width: 45%; text-align: center;">
-                <div style="border-top: 1px solid #000; padding-top: 5px;"><strong>Employee Signature</strong></div>
-                <p style="font-size: 11px;">Full Name: <span id="out-name-sign"></span><br>Date: 08 April 2026</p>
-            </div>
-        </div>
-
-        <div class="footer">
-            <span>Page 3 of 3</span>
-            <span>Ref: <span id="out-ref4"></span></span>
-        </div>
-    </div>
-
 </div>
 
 <script>
-    var qrcode = new QRCode(document.getElementById("qrcode"), { width: 130, height: 130 });
+    // Map input IDs to output IDs
+    const inputs = [
+        'inRef', 'inDate', 'inNameH', 'inAgeH', 'inOccH', 'inAddH',
+        'inNameA', 'inAgeA', 'inOccA', 'inAddA', 'inPolicy', 'inDeceased', 'inLoc'
+    ];
 
-    function update() {
-        const mapping = {
-            'ref': ['out-ref', 'out-ref2', 'out-ref3', 'out-ref4'],
-            'name': ['out-name', 'out-name-sign'],
-            'passport': ['out-passport'],
-            'dob': ['out-dob'],
-            'gender': ['out-gender'],
-            'country': ['out-country'],
-            'company': ['out-company', 'out-company-sign'],
-            'address': ['out-address'],
-            'agency': ['out-agency'],
-            'salary': ['out-salary']
-        };
-
-        for (let key in mapping) {
-            let val = document.getElementById('in-' + key).value;
-            mapping[key].forEach(id => { document.getElementById(id).innerText = val; });
-        }
-
-        const qrText = `IRE-WP-VERIFIED\nREF: ${document.getElementById('in-ref').value}\nCLIENT: ${document.getElementById('in-name').value}\nPASS: ${document.getElementById('in-passport').value}\nCOMP: ${document.getElementById('in-company').value}`;
-        qrcode.makeCode(qrText);
-    }
-    update();
+    inputs.forEach(id => {
+        document.getElementById(id).addEventListener('input', function() {
+            let outId = id.replace('in', 'out');
+            let val = this.value || "________________";
+            document.getElementById(outId).innerText = val;
+            
+            // Special cases for signature names
+            if(id === 'inNameH') document.getElementById('sigNameH').innerText = val;
+            if(id === 'inNameA') document.getElementById('sigNameA').innerText = val;
+        });
+    });
 </script>
 
 </body>
-                </html>
+</html>
