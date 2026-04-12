@@ -3,122 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Power of Attorney Generator</title>
+    <title>PoA Generator - 2 Page Layout</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; padding: 20px; }
-        .container { max-width: 850px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        body { font-family: 'Times New Roman', Times, serif; background-color: #f0f2f5; margin: 0; padding: 0; }
         
-        /* Form Styling */
-        .form-section { background: #e9ecef; padding: 20px; border-radius: 8px; margin-bottom: 40px; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        label { font-weight: bold; font-size: 0.9em; display: block; margin-bottom: 5px; }
-        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .full-width { grid-column: span 2; }
+        /* Layout Controls */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 10mm auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            page-break-after: always;
+        }
 
-        /* Document Styling */
-        #poa-document { border: 2px solid #333; padding: 50px; min-height: 800px; line-height: 1.6; position: relative; }
-        .doc-header { text-align: center; text-decoration: underline; margin-bottom: 30px; }
-        .section-title { font-weight: bold; margin-top: 20px; text-decoration: underline; }
-        .signature-grid { display: grid; grid-template-columns: 1fr 1fr; margin-top: 50px; gap: 50px; }
-        .sig-box { border-top: 1px solid #000; margin-top: 40px; padding-top: 5px; }
-        .stamp-box { border: 1px dashed #999; width: 100px; height: 100px; display: flex; align-items: center; text-align: center; font-size: 0.8em; color: #999; margin-top: 20px; }
-        
+        /* Form Styling (Page 1) */
+        .form-container { font-family: Arial, sans-serif; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #ddd; }
+        label { font-size: 12px; font-weight: bold; color: #555; display: block; margin-bottom: 2px; }
+        input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .span-2 { grid-column: span 2; }
+        h2 { border-bottom: 2px solid #333; padding-bottom: 10px; }
+        .print-btn { background: #007bff; color: white; padding: 15px 30px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 20px; width: 100%; }
+
+        /* Document Styling (Page 2) */
+        .official-doc { line-height: 1.8; font-size: 12pt; color: #000; }
+        .doc-title { text-align: center; font-size: 18pt; font-weight: bold; text-decoration: underline; margin-bottom: 40px; }
+        .sig-section { margin-top: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .sig-line { border-top: 1px solid #000; margin-top: 50px; text-align: center; }
+        .stamp-area { border: 1px dashed #ccc; width: 120px; height: 120px; display: flex; align-items: center; text-align: center; font-size: 10px; color: #999; margin-top: 30px; }
+        .req-docs { background: #f4f4f4; padding: 15px; margin-top: 30px; border-radius: 5px; font-size: 11pt; }
+
+        /* PRINT RULES */
         @media print {
-            .form-section, button { display: none; }
-            body { background: white; padding: 0; }
-            .container { box-shadow: none; max-width: 100%; }
-            #poa-document { border: none; }
+            body { background: none; }
+            .page { margin: 0; box-shadow: none; border: none; }
+            .no-print { display: none; } /* Hides the form and instructions on the PDF */
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="form-section">
-        <h2 style="margin-top:0;">1. Enter Information</h2>
+<div class="page no-print">
+    <div class="form-container">
+        <h2>Document Control Panel</h2>
+        <p>Fill in the details below. Page 2 will update automatically.</p>
+        
         <div class="form-grid">
-            <div><label>Ref Number</label><input type="text" id="inRef" placeholder="e.g. RA/2026/01"></div>
-            <div><label>Date</label><input type="date" id="inDate"></div>
+            <div><label>Ref Number</label><input type="text" id="inRef" placeholder="e.g. RA-2026-001"></div>
+            <div><label>Date of Document</label><input type="date" id="inDate"></div>
             
-            <h4 class="full-width">Principal (Your Details)</h4>
+            <h3 class="span-2">Principal Details (Heir)</h3>
             <div><label>Full Name</label><input type="text" id="inNameH" value="Rahat Ali"></div>
             <div><label>Age</label><input type="number" id="inAgeH" value="23"></div>
-            <div class="full-width"><label>Occupation</label><input type="text" id="inOccH" value="Technical Supervisor"></div>
-            <div class="full-width"><label>Address</label><input type="text" id="inAddH" placeholder="Current Address"></div>
+            <div class="span-2"><label>Occupation</label><input type="text" id="inOccH" value="Technical Supervisor"></div>
+            <div class="span-2"><label>Current Address</label><input type="text" id="inAddH"></div>
 
-            <h4 class="full-width">Attorney (The Person You Appoint)</h4>
-            <div><label>Attorney Name</label><input type="text" id="inNameA"></div>
+            <h3 class="span-2">Attorney Details</h3>
+            <div><label>Full Name</label><input type="text" id="inNameA"></div>
             <div><label>Age</label><input type="number" id="inAgeA"></div>
-            <div class="full-width"><label>Occupation</label><input type="text" id="inOccA"></div>
-            <div class="full-width"><label>Address</label><input type="text" id="inAddA"></div>
+            <div class="span-2"><label>Occupation</label><input type="text" id="inOccA"></div>
+            <div class="span-2"><label>Address</label><input type="text" id="inAddA"></div>
 
-            <h4 class="full-width">Claim Details</h4>
-            <div class="full-width"><label>Insurance Policy Name/No.</label><input type="text" id="inPolicy"></div>
-            <div><label>Deceased Name</label><input type="text" id="inDeceased"></div>
+            <h3 class="span-2">Claim Information</h3>
+            <div class="span-2"><label>Insurance Policy Name</label><input type="text" id="inPolicy"></div>
+            <div><label>Name of Deceased</label><input type="text" id="inDeceased"></div>
             <div><label>Location of Passing</label><input type="text" id="inLoc"></div>
         </div>
-        <button onclick="window.print()" style="margin-top: 20px; padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Print to PDF</button>
+
+        <button class="print-btn" onclick="window.print()">Download / Print PDF</button>
+        <p style="color: #666; font-size: 12px; margin-top: 10px;">Note: Set "Margins" to "None" or "Default" in the print settings for best results.</p>
     </div>
+</div>
 
-    <div id="poa-document">
-        <div class="doc-header"><h2>POWER OF ATTORNEY</h2></div>
-        
-        <p><strong>Number:</strong> <span id="outRef">_______</span></p>
-        <p><strong>Date:</strong> <span id="outDate">_______</span></p>
+<div class="page">
+    <div class="official-doc">
+        <div class="doc-title">POWER OF ATTORNEY</div>
 
-        <p class="section-title">I, THE UNDERSIGNED (THE PRINCIPAL):</p>
-        <p>
-            <strong>Name:</strong> <span id="outNameH">Rahat Ali</span><br>
-            <strong>Age:</strong> <span id="outAgeH">23</span><br>
-            <strong>Occupation:</strong> <span id="outOccH">Technical Supervisor</span><br>
-            <strong>Address:</strong> <span id="outAddH">________________</span>
+        <p><strong>Reference Number:</strong> <span id="outRef">__________</span></p>
+        <p><strong>Date:</strong> <span id="outDate">__________</span></p>
+
+        <p><strong>I, the undersigned (The Principal):</strong></p>
+        <p style="margin-left: 20px;">
+            Name: <span id="outNameH">Rahat Ali</span><br>
+            Age: <span id="outAgeH">23</span><br>
+            Occupation: <span id="outOccH">Technical Supervisor</span><br>
+            Address: <span id="outAddH">________________________________________</span>
         </p>
 
-        <p class="section-title">HEREBY APPOINT (THE ATTORNEY):</p>
-        <p>
-            <strong>Name:</strong> <span id="outNameA">________________</span><br>
-            <strong>Age:</strong> <span id="outAgeA">____</span><br>
-            <strong>Occupation:</strong> <span id="outOccA">________________</span><br>
-            <strong>Address:</strong> <span id="outAddA">________________</span>
+        <p><strong>Hereby appoint (The Attorney):</strong></p>
+        <p style="margin-left: 20px;">
+            Name: <span id="outNameA">____________________</span><br>
+            Age: <span id="outAgeA">____</span><br>
+            Occupation: <span id="outOccA">____________________</span><br>
+            Address: <span id="outAddA">________________________________________</span>
         </p>
 
-        <p>To handle the insurance claim of <strong><span id="outPolicy">________________</span></strong> belonging to <strong><span id="outDeceased">________________</span></strong> who passed away in <strong><span id="outLoc">________________</span></strong>.</p>
+        <p>To handle the insurance claim of <strong><span id="outPolicy">____________________</span></strong> belonging to <strong><span id="outDeceased">____________________</span></strong> who passed away in <strong><span id="outLoc">____________________</span></strong>.</p>
 
-        <p class="section-title">THIS POWER OF ATTORNEY IS GRANTED FOR:</p>
+        <p><strong>This power of attorney is granted for:</strong></p>
         <ol>
-            <li>Processing the insurance claim</li>
-            <li>Collecting required documents</li>
-            <li>Receiving insurance claim payment</li>
-            <li>Handling all related matters</li>
+            <li>Processing the insurance claim.</li>
+            <li>Collecting and submitting required legal documents.</li>
+            <li>Receiving insurance claim payments on my behalf.</li>
+            <li>Handling all related administrative and legal matters.</li>
         </ol>
 
-        <p>This power of attorney is effective from the date of signing.</p>
+        <p>This power of attorney is effective immediately from the date of signing.</p>
 
-        <div class="signature-grid">
-            <div class="sig-box">Signature of Principal<br><span id="sigNameH">Rahat Ali</span></div>
-            <div class="sig-box">Signature of Attorney<br><span id="sigNameA">________________</span></div>
+        <div class="sig-section">
+            <div>
+                <div class="sig-line">Signature of Principal</div>
+                <div style="text-align: center;"><strong id="sigNameH">Rahat Ali</strong></div>
+            </div>
+            <div>
+                <div class="sig-line">Signature of Attorney</div>
+                <div style="text-align: center;"><strong id="sigNameA">____________________</strong></div>
+            </div>
         </div>
 
-        <div class="stamp-box">Affix Notary Stamp</div>
+        <div class="stamp-area">Affix Official / Notary Stamp here</div>
+
+        <div class="req-docs">
+            <strong>Required documents for submission:</strong>
+            <ul>
+                <li>Death Certificate (Attested/Original)</li>
+                <li>Original Insurance Policy Document</li>
+                <li>Heir’s Identity Documents (Passport/ID)</li>
+                <li>Other documents requested by the insurance company</li>
+            </ul>
+        </div>
     </div>
 </div>
 
 <script>
-    // Map input IDs to output IDs
-    const inputs = [
-        'inRef', 'inDate', 'inNameH', 'inAgeH', 'inOccH', 'inAddH',
-        'inNameA', 'inAgeA', 'inOccA', 'inAddA', 'inPolicy', 'inDeceased', 'inLoc'
+    const fields = [
+        'Ref', 'Date', 'NameH', 'AgeH', 'OccH', 'AddH', 
+        'NameA', 'AgeA', 'OccA', 'AddA', 'Policy', 'Deceased', 'Loc'
     ];
 
-    inputs.forEach(id => {
-        document.getElementById(id).addEventListener('input', function() {
-            let outId = id.replace('in', 'out');
-            let val = this.value || "________________";
-            document.getElementById(outId).innerText = val;
+    fields.forEach(field => {
+        const input = document.getElementById('in' + field);
+        const output = document.getElementById('out' + field);
+        
+        input.addEventListener('input', () => {
+            output.innerText = input.value || "____________________";
             
-            // Special cases for signature names
-            if(id === 'inNameH') document.getElementById('sigNameH').innerText = val;
-            if(id === 'inNameA') document.getElementById('sigNameA').innerText = val;
+            // Sync Signature names
+            if (field === 'NameH') document.getElementById('sigNameH').innerText = input.value;
+            if (field === 'NameA') document.getElementById('sigNameA').innerText = input.value;
         });
     });
 </script>
