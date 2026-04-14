@@ -3,159 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Power of Attorney Generator</title>
+    <title>Professional Logistics | Food Delivery Solutions</title>
     <style>
         :root {
-            --hd-blue: #004a99;
-            --hd-gold: #b38b00;
+            --primary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --bg-light: #f4f7f6;
+            --text-dark: #333;
         }
 
-        body { font-family: 'Arial', sans-serif; background: #f4f4f9; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
 
-        /* Page Setup */
-        .page {
-            width: 210mm;
-            min-height: 297mm;
-            padding: 25mm;
-            margin: 20px auto;
+        header {
+            background: #fff;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .hero {
+            padding: 100px 5%;
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), 
+                        url('https://images.unsplash.com/photo-1526367790999-0150786486a2?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .services {
+            padding: 60px 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
             background: white;
-            box-sizing: border-box;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            page-break-after: always;
-            position: relative;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        /* Form Styling (Page 1) */
-        .no-print { font-family: 'Segoe UI', sans-serif; }
-        .form-header { color: var(--hd-blue); border-bottom: 3px solid var(--hd-gold); padding-bottom: 10px; margin-bottom: 20px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .span-2 { grid-column: span 2; }
-        label { font-size: 11px; font-weight: bold; color: #444; text-transform: uppercase; }
-        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-top: 5px; box-sizing: border-box; }
-        .btn { background: var(--hd-blue); color: white; padding: 20px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 30px; }
+        .card h3 {
+            color: var(--primary-color);
+        }
 
-        /* Document Styling (Page 2) */
-        .poa-content { color: #000; line-height: 1.5; font-size: 12pt; }
-        .doc-header { text-align: center; color: var(--hd-blue); font-size: 22pt; font-weight: bold; margin-bottom: 40px; }
-        .colored-bar { height: 5px; background: var(--hd-blue); margin-bottom: 30px; }
-        .sub-header { font-weight: bold; text-decoration: underline; margin-top: 20px; }
-        
-        .sig-container { display: flex; justify-content: space-between; margin-top: 50px; }
-        .sig-block { width: 45%; }
-        .sig-line { border-top: 1px solid #000; margin-top: 60px; padding-top: 5px; }
-        
-        .stamp-box { border: 2px dashed var(--hd-blue); width: 120px; height: 120px; margin-top: 30px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 10px; color: var(--hd-blue); font-weight: bold; }
-
-        @media print {
-            .no-print { display: none !important; }
-            .page { margin: 0; box-shadow: none; padding: 20mm; }
-            body { background: white; }
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 40px 5%;
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
 
-<div class="page no-print">
-    <h1 class="form-header">Document Data Entry</h1>
-    <div class="grid">
-        <div><label>Reference Number</label><input type="text" id="inRef"></div>
-        <div><label>Date</label><input type="date" id="inDate"></div>
-        
-        <h3 class="span-2">Heir Details</h3>
-        <div><label>Name of Heir</label><input type="text" id="inNameH" value="Rahat Ali"></div>
-        <div><label>Age</label><input type="number" id="inAgeH" value="23"></div>
-        <div class="span-2"><label>Occupation</label><input type="text" id="inOccH" value="Technical Supervisor"></div>
-        <div class="span-2"><label>Address</label><input type="text" id="inAddH"></div>
+    <header>
+        <div class="logo">LOGI-ROMANIA</div>
+        <nav>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+            <a href="#" class="btn" style="padding: 8px 15px;">Partner With Us</a>
+        </nav>
+    </header>
 
-        <h3 class="span-2">Attorney Details</h3>
-        <div><label>Name of Attorney</label><input type="text" id="inNameA"></div>
-        <div><label>Age</label><input type="number" id="inAgeA"></div>
-        <div class="span-2"><label>Occupation</label><input type="text" id="inOccA"></div>
-        <div class="span-2"><label>Address</label><input type="text" id="inAddA"></div>
+    <section class="hero">
+        <h1>Reliable Food Delivery Logistics</h1>
+        <p>Providing professional, legally compliant delivery solutions across Romania.</p>
+        <a href="#services" class="btn">Explore Our Services</a>
+    </section>
 
-        <h3 class="span-2">Insurance Details</h3>
-        <div class="span-2"><label>Insurance Policy Name</label><input type="text" id="inPolicy"></div>
-        <div><label>Name of Deceased</label><input type="text" id="inDeceased"></div>
-        <div><label>Country/Location</label><input type="text" id="inLoc"></div>
-    </div>
-    <button class="btn" onclick="window.print()">DOWNLOAD HD PDF</button>
-</div>
-
-<div class="page">
-    <div class="poa-content">
-        <div class="colored-bar"></div>
-        <div class="doc-header">POWER OF ATTORNEY</div>
-
-        <p><strong>Number:</strong> <span id="outRef">__________</span></p>
-        <p><strong>Date:</strong> <span id="outDate">__________</span></p>
-
-        <p><strong>I, the undersigned:</strong><br>
-        Name: <span id="outNameH">Rahat Ali</span><br>
-        Age: <span id="outAgeH">23</span><br>
-        Occupation: <span id="outOccH">Technical Supervisor</span><br>
-        Address: <span id="outAddH">________________________________________</span></p>
-
-        <p><strong>Hereby appoint:</strong><br>
-        Name: <span id="outNameA">____________________</span><br>
-        Age: <span id="outAgeA">____</span><br>
-        Occupation: <span id="outOccA">____________________</span><br>
-        Address: <span id="outAddA">________________________________________</span></p>
-
-        <p>To handle the insurance claim of <strong id="outPolicy">[Insurance Policy Name]</strong> belonging to <strong id="outDeceased">[Name of Deceased]</strong> who passed away in <strong id="outLoc">[Country/Location]</strong>.</p>
-
-        <p><strong>This power of attorney is granted for:</strong></p>
-        <ol>
-            <li>Processing the insurance claim</li>
-            <li>Collecting required documents</li>
-            <li>Receiving insurance claim payment</li>
-            <li>Handling all related matters</li>
-        </ol>
-
-        <p>This power of attorney is effective from the date of signing.</p>
-
-        <div class="sig-container">
-            <div class="sig-block">
-                <div class="sig-line">Signature,</div>
-                <div id="sigNameH" style="font-weight:bold;">Rahat Ali</div>
-                <div id="sigDateH">__________</div>
-            </div>
-            <div class="sig-block">
-                <div class="sig-line">Attorney,</div>
-                <div id="sigNameA" style="font-weight:bold;">____________________</div>
-                <div id="sigDateA">__________</div>
-            </div>
+    <section id="services" class="services">
+        <div class="card">
+            <h3>Temperature Controlled</h3>
+            <p>Specialized thermal equipment ensuring food safety and quality from kitchen to doorstep.</p>
         </div>
+        <div class="card">
+            <h3>Legally Compliant</h3>
+            <p>Full adherence to Romanian ANSVSA regulations and local labor laws.</p>
+        </div>
+        <div class="card">
+            <h3>Real-time Tracking</h3>
+            <p>Integrated GPS solutions for both vendors and customers to track every mile.</p>
+        </div>
+    </section>
 
-        <div class="stamp-box">Stamp<br>[Affix stamp]</div>
-
-        <p class="sub-header">Required documents:</p>
-        <ul style="margin-top: 5px;">
-            <li>Death certificate</li>
-            <li>Original insurance policy</li>
-            <li>Heir's identity documents</li>
-            <li>Other documents requested by the insurance company</li>
-        </ul>
-    </div>
-</div>
-
-<script>
-    const inputs = ['Ref', 'Date', 'NameH', 'AgeH', 'OccH', 'AddH', 'NameA', 'AgeA', 'OccA', 'AddA', 'Policy', 'Deceased', 'Loc'];
-    
-    inputs.forEach(id => {
-        document.getElementById('in' + id).addEventListener('input', function() {
-            let val = this.value || "__________";
-            document.getElementById('out' + id).innerText = val;
-            
-            // Mirroring specifically for signature section
-            if(id === 'NameH') document.getElementById('sigNameH').innerText = val;
-            if(id === 'NameA') document.getElementById('sigNameA').innerText = val;
-            if(id === 'Date') {
-                document.getElementById('sigDateH').innerText = val;
-                document.getElementById('sigDateA').innerText = val;
-            }
-        });
-    });
-</script>
+    <footer>
+        <p>&copy; 2026 Logi-Romania. All Rights Reserved.</p>
+        <p>Bucharest | Cluj-Napoca | Timișoara</p>
+    </footer>
 
 </body>
 </html>
