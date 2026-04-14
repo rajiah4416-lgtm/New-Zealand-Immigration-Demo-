@@ -3,262 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Immigration Document Portal | Job Check Romania</title>
+    <title>Official Immigration Portal | Job Check Romania</title>
     <style>
         :root {
             --romania-blue: #002B7F;
             --romania-yellow: #FCD116;
             --romania-red: #CE1126;
-            --sidebar-width: 380px;
+            --sidebar-width: 360px;
         }
 
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; display: flex; background: #cbd5e1; height: 100vh; overflow: hidden; }
+        body { font-family: 'Times New Roman', serif; margin: 0; display: flex; background: #f1f5f9; height: 100vh; overflow: hidden; }
 
-        /* Left Side: Information Entry */
+        /* Left Sidebar for Data Entry */
         .sidebar {
             width: var(--sidebar-width);
             background: #ffffff;
-            padding: 25px;
-            box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
             overflow-y: auto;
-            z-index: 10;
+            z-index: 100;
         }
 
-        .sidebar h2 { color: var(--romania-blue); border-bottom: 3px solid var(--romania-yellow); padding-bottom: 10px; margin-bottom: 20px; font-size: 1.2rem; }
-        .input-section { margin-bottom: 25px; padding: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; }
-        .input-section h3 { font-size: 0.9rem; margin-top: 0; color: #475569; text-transform: uppercase; letter-spacing: 1px; }
-        
+        .sidebar h2 { font-family: sans-serif; color: var(--romania-blue); font-size: 1.2rem; border-bottom: 3px solid var(--romania-yellow); padding-bottom: 8px; }
         .input-group { margin-bottom: 12px; }
-        label { display: block; font-size: 0.75rem; font-weight: bold; color: #64748b; margin-bottom: 4px; }
-        input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; box-sizing: border-box; font-size: 0.9rem; }
-        
-        .btn-sync { background: var(--romania-blue); color: white; border: none; width: 100%; padding: 14px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1rem; }
-        .btn-sync:hover { background: #001f5c; }
+        label { display: block; font-family: sans-serif; font-size: 0.75rem; font-weight: bold; color: #475569; margin-bottom: 4px; }
+        input, select { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.85rem; }
+        .btn-update { background: var(--romania-blue); color: white; border: none; width: 100%; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 15px; }
 
-        /* Right Side: Document Preview */
-        .preview-area { flex-grow: 1; padding: 40px; overflow-y: auto; display: flex; flex-direction: column; align-items: center; gap: 40px; }
+        /* Right Preview Area */
+        .preview-area { flex-grow: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; align-items: center; gap: 30px; }
 
         .page {
             width: 210mm;
             min-height: 297mm;
             background: white;
-            padding: 15mm 15mm;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 20mm;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             position: relative;
             box-sizing: border-box;
-            color: #1a1a1a;
+            color: #000;
             line-height: 1.4;
-            font-family: 'Times New Roman', serif;
-            font-size: 10pt;
+            font-size: 10.5pt;
+            text-align: justify;
         }
 
-        .immigration-pattern {
+        /* Immigration Background Pattern */
+        .watermark {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%) rotate(-45deg);
-            font-size: 100pt;
-            color: rgba(0, 43, 127, 0.04);
+            font-size: 90pt;
+            color: rgba(0, 43, 127, 0.03);
             font-weight: bold;
             z-index: 0;
             white-space: nowrap;
             pointer-events: none;
         }
 
-        .header { border-bottom: 2px solid var(--romania-blue); padding-bottom: 5px; margin-bottom: 10px; overflow: hidden; position: relative; z-index: 1; }
-        .flag-container { float: left; width: 70px; height: 45px; display: flex; border: 1px solid #ddd; }
-        .f-b { background: var(--romania-blue); width: 33.33%; }
-        .f-y { background: var(--romania-yellow); width: 33.33%; }
-        .f-r { background: var(--romania-red); width: 33.34%; }
-        .header-text { float: right; text-align: right; font-size: 8pt; color: var(--romania-blue); font-weight: bold; }
+        .header { position: relative; z-index: 1; border-bottom: 2px solid var(--romania-blue); padding-bottom: 10px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .flag { width: 60px; height: 35px; display: flex; border: 0.5px solid #ccc; }
+        .f-b { background: var(--romania-blue); width: 33.3%; }
+        .f-y { background: var(--romania-yellow); width: 33.3%; }
+        .f-r { background: var(--romania-red); width: 33.4%; }
+        .header-info { text-align: right; font-size: 8pt; color: var(--romania-blue); font-weight: bold; }
 
-        h1 { text-align: center; font-size: 15pt; color: var(--romania-blue); margin: 10px 0; text-transform: uppercase; }
-        h2.doc-sec { font-size: 11pt; background-color: #f2f5f9; padding: 4px 8px; color: var(--romania-blue); border-left: 4px solid var(--romania-blue); margin: 10px 0 5px 0; }
+        h1 { text-align: center; color: var(--romania-blue); text-transform: uppercase; font-size: 14pt; margin: 10px 0; }
+        h2 { font-size: 11pt; border-bottom: 1px solid #002B7F; margin-top: 15px; color: #002B7F; text-transform: uppercase; }
         
-        .info-table { width: 100%; border-collapse: collapse; margin: 5px 0; }
-        .info-table td { border: 1px solid #ccc; padding: 6px; }
-        .label-cell { background-color: #f9f9f9; font-weight: bold; width: 25%; }
+        .info-grid { display: table; width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+        .info-row { display: table-row; }
+        .info-cell { display: table-cell; border: 1px solid #ddd; padding: 5px; font-size: 9pt; }
+        .bold-label { font-weight: bold; background: #f8fafc; width: 25%; }
 
-        .qr-placeholder {
-            position: absolute; bottom: 20mm; right: 15mm;
-            width: 95px; height: 95px; border: 2px solid #000;
-            background: #fff; padding: 5px; text-align: center; font-size: 6pt;
+        /* QR Code positioned ONLY under client signature */
+        .qr-signature-box {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: fit-content;
         }
-        .footer { position: absolute; bottom: 8mm; left: 15mm; right: 15mm; font-size: 7pt; text-align: center; border-top: 1px solid #ccc; padding-top: 5px; color: #666; }
-        
-        .highlight { font-weight: bold; color: #000; }
+        .qr-code {
+            width: 80px;
+            height: 80px;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6pt;
+            text-align: center;
+            background: #fff;
+        }
+
+        .footer { position: absolute; bottom: 10mm; left: 0; right: 0; text-align: center; font-size: 8pt; color: #666; }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
-        <h2>Document Options</h2>
+        <h2>Job Check Portal</h2>
         
-        <div class="input-section">
-            <h3>Reference & Date</h3>
-            <div class="input-group">
-                <label>Issue Date</label>
-                <input type="date" id="in_date" value="2026-04-15">
-            </div>
-            <div class="input-group">
-                <label>Reference Number</label>
-                <input type="text" id="in_ref" value="WP/ROM/FD/2026-0415">
-            </div>
-        </div>
-
-        <div class="input-section">
-            <h3>Company Information</h3>
-            <div class="input-group">
-                <label>Company Name</label>
-                <input type="text" id="in_comp" placeholder="e.g. LogiFood Romania SRL">
-            </div>
-            <div class="input-group">
-                <label>Registry (J) No.</label>
-                <input type="text" id="in_reg" placeholder="J40/1234/2026">
-            </div>
-            <div class="input-group">
-                <label>VAT (CUI) No.</label>
-                <input type="text" id="in_vat" placeholder="RO 12345678">
-            </div>
-        </div>
-
-        <div class="input-section">
-            <h3>Client Information</h3>
-            <div class="input-group">
-                <label>Full Name</label>
-                <input type="text" id="in_client" placeholder="Full name as per Passport">
-            </div>
-            <div class="input-group">
-                <label>Passport Number</label>
-                <input type="text" id="in_pass" placeholder="Enter Passport No.">
-            </div>
-            <div class="input-group">
-                <label>Salary (RON)</label>
-                <input type="number" id="in_sal" value="3700">
-            </div>
-        </div>
-
-        <button class="btn-sync" onclick="syncDocument()">Generate All 3 Pages</button>
+        <div class="input-group"><label>Reference No.</label><input type="text" id="in_ref" value="WP/ROM/FD/2026-0415"></div>
+        <div class="input-group"><label>Issue Date</label><input type="date" id="in_date" value="2026-04-15"></div>
+        <hr>
+        <div class="input-group"><label>Company Name</label><input type="text" id="in_comp" placeholder="e.g. LogiFood Romania SRL"></div>
+        <div class="input-group"><label>Registry Number</label><input type="text" id="in_reg" placeholder="J40/1234/2026"></div>
+        <div class="input-group"><label>Headquarters</label><input type="text" id="in_addr" placeholder="Street, City, Romania"></div>
+        <hr>
+        <div class="input-group"><label>Client Full Name</label><input type="text" id="in_client" placeholder="As per Passport"></div>
+        <div class="input-group"><label>Passport No.</label><input type="text" id="in_pass" placeholder="Enter number"></div>
+        <div class="input-group"><label>Salary (RON)</label><input type="number" id="in_sal" value="3700"></div>
+        
+        <button class="btn-update" onclick="updateDocument()">Sync All Pages</button>
     </div>
 
     <div class="preview-area">
         
         <div class="page">
-            <div class="immigration-pattern">IGI ROMANIA</div>
+            <div class="watermark">IGI ROMANIA</div>
             <div class="header">
-                <div class="flag-container"><div class="f-b"></div><div class="f-y"></div><div class="f-r"></div></div>
-                <div class="header-text">MINISTERUL AFACERILOR INTERNE<br>Inspectoratul General pentru Imigrări (IGI)<br>Direcția Migrație - Work Permit Dept.</div>
+                <div class="flag"><div class="f-b"></div><div class="f-y"></div><div class="f-r"></div></div>
+                <div class="header-info">MINISTERUL AFACERILOR INTERNE<br>Inspectoratul General pentru Imigrări (IGI)<br>Job Check - Direcția Migrație</div>
             </div>
-            <h1>OFFER AGREEMENT / SCRISOARE DE OFERTĂ</h1>
-            <table class="info-table">
-                <tr><td class="label-cell">Issue Date:</td><td id="out_date">April 15, 2026</td><td class="label-cell">Reference No:</td><td id="out_ref">WP/ROM/FD/2026-0415</td></tr>
-            </table>
-
-            <h2 class="doc-sec">1. COMPANY INFORMATION / DATELE ANGAJATORULUI</h2>
-            <table class="info-table">
-                <tr><td class="label-cell">Company Name:</td><td id="out_comp" class="highlight">[Enter Company]</td></tr>
-                <tr><td class="label-cell">Registry Number:</td><td id="out_reg">J[XX]/[XXXX]/[YEAR]</td></tr>
-                <tr><td class="label-cell">VAT Number:</td><td id="out_vat">RO [XXXXXXXX]</td></tr>
-            </table>
-
-            <h2 class="doc-sec">2. CLIENT INFORMATION / DATELE CANDIDATULUI</h2>
-            <table class="info-table">
-                <tr><td class="label-cell">Full Name:</td><td id="out_client" class="highlight">[Enter Client Name]</td></tr>
-                <tr><td class="label-cell">Passport Number:</td><td id="out_pass">[XXXXXXX]</td></tr>
-            </table>
-
-            <h2 class="doc-sec">3. SUBJECT & SALARY / OBIECTUL ȘI SALARIUL</h2>
-            <p>The Employer offers a full-time position as <strong>Food Delivery Courier (COR 832201)</strong>. Gross Salary is <span id="out_sal" class="highlight">3700</span> RON. This offer is valid for a one-year (12 months) duration.</p>
-
-            <h2 class="doc-sec">4. JOB CHECK & COMPLIANCE / VERIFICARE ȘI CONFORMITATE</h2>
-            <p>The <strong>Job Check</strong> department within the Romanian immigration authority ensures that the vacancy has been legally advertised. This document confirms the labor market test is satisfied under Ordinance 25/2014.</p>
-
-            <div class="qr-placeholder">
-                <strong>QR VERIFIED</strong><br>
-                <span id="qr_client_1" style="font-weight:bold; color:var(--romania-blue);">...</span><br>
-                <span id="qr_comp_1" style="font-size:5pt;">...</span><br>
-                IGI APPROVED
+            <h1>Offer Agreement / Scrisoare de Ofertă</h1>
+            <div class="info-grid">
+                <div class="info-row"><div class="info-cell bold-label">Issue Date:</div><div class="info-cell" id="out_date">2026-04-15</div><div class="info-cell bold-label">Ref No:</div><div class="info-cell" id="out_ref">WP/ROM/FD/2026-0415</div></div>
             </div>
-            <div class="footer">Document regulated under Ordinance no. 25/2014. | Page 1 of 3</div>
+
+            <h2>I. Angajator (Employer)</h2>
+            <p><strong>Company:</strong> <span id="out_comp">[Company Name]</span>, organized under Romanian Law, Registry No: <span id="out_reg">[J-Number]</span>. The Employer represents a valid entity authorized by the **Job Check** department to recruit international labor.</p>
+            <p><strong>Address:</strong> <span id="out_addr">[Romania Headquarters]</span>. The company ensures that all legal taxes and contributions are paid in accordance with the Fiscal Code of Romania.</p>
+
+            <h2>II. Candidat (Client)</h2>
+            <p><strong>Full Name:</strong> <span id="out_client">[Client Name]</span>. <strong>Passport:</strong> <span id="out_pass">[Passport No]</span>. The Candidate is hereby offered the position following the approval of the labor market test performed by the **Job Check** unit.</p>
+
+            <h2>III. Subject of Agreement</h2>
+            <p>This agreement confirms the firm offer for the position of <strong>Food Delivery Courier (COR 832201)</strong>. The duties include the transport and delivery of food products using mobile applications and specialized logistics equipment. The work radius is established within the municipality of the headquarters and adjacent metropolitan areas.</p>
+            <p>This offer is valid for a period of 12 months (1 year) and is the primary document required for the Work Permit (Aviz de Angajare) application at the Inspectoratul General pentru Imigrări.</p>
+
+            <h2>IV. Salary and Compensation</h2>
+            <p>The gross monthly salary is set at <span id="out_sal">3700</span> RON. This amount is calculated to meet or exceed the minimum threshold for foreign citizens employed in Romania. Salary is paid monthly via bank transfer. The Employer provides social security and health insurance coverage throughout the duration of the contract.</p>
+
+            <div class="footer">Document regulated under Ordinance no. 25/2014 | Page 1 of 3</div>
         </div>
 
         <div class="page">
-            <div class="immigration-pattern">IGI ROMANIA</div>
-            <h2 class="doc-sec">5. WORKING CONDITIONS</h2>
-            <p>The standard work schedule is 40 hours per week. Given the nature of Food Delivery, flexible hours apply, subject to the Romanian Labor Code (Law 53/2003).</p>
-            <h2 class="doc-sec">6. OBLIGATIONS</h2>
-            <p>The Employer manages the work authorization with the <strong>Job Check</strong> and IGI departments. The Candidate must provide authentic documents for the D/AM visa application.</p>
-            
-            <div class="qr-placeholder">
-                <strong>QR VERIFIED</strong><br>
-                <span id="qr_client_2" style="font-weight:bold; color:var(--romania-blue);">...</span><br>
-                <span id="qr_comp_2" style="font-size:5pt;">...</span><br>
-                IGI APPROVED
-            </div>
+            <div class="watermark">IGI ROMANIA</div>
+            <h2>V. Working Hours and Conditions</h2>
+            <p>The employee will work a full-time schedule of 40 hours per week, 8 hours per day. Due to the specific nature of the food delivery sector, shifts may include weekends and evening hours, which will be compensated according to the Romanian Labor Code (Law 53/2003). Overtime work is only performed with the employee's consent and is paid at 175% or compensated with paid time off.</p>
+            <p>The Employer provides all necessary gear: thermal delivery bags, mobile dispatch access, and high-visibility branded safety clothing. The employee is responsible for maintaining the integrity of the equipment provided.</p>
+
+            <h2>VI. Employer Obligations</h2>
+            <p>1. To submit the complete file to the **Job Check** department and IGI for the work authorization.<br>
+            2. To facilitate the issuance of the D/AM visa by providing the Work Permit.<br>
+            3. To register the labor contract in the REVISAL national system.<br>
+            4. To ensure a safe working environment according to Occupational Health and Safety Law 319/2006.</p>
+
+            <h2>VII. Candidate Obligations</h2>
+            <p>1. To provide authentic, apostilled, and translated documents as required by the Ministry of Internal Affairs.<br>
+            2. To undergo the mandatory medical exam upon arrival in Romania.<br>
+            3. To fulfill delivery quotas and maintain the professional standards of the delivery network.<br>
+            4. To respect the traffic laws of Romania while performing delivery duties.</p>
+
+            <h2>VIII. Housing and Transit</h2>
+            <p>The Employer assists in providing or facilitating safe accommodation in accordance with EU standards for foreign workers. International transport to Romania is the responsibility of the party designated in the final hiring annex.</p>
+
             <div class="footer">Reference: <span id="out_ref_p2">...</span> | Page 2 of 3</div>
         </div>
 
         <div class="page">
-            <div class="immigration-pattern">IGI ROMANIA</div>
-            <h2 class="doc-sec">9. DATA PROTECTION (GDPR)</h2>
-            <p>Personal data for <span id="out_client_p3" class="highlight">...</span> is processed strictly for the purpose of the work permit and visa application with the Ministry of Internal Affairs.</p>
+            <div class="watermark">IGI ROMANIA</div>
+            <h2>IX. Termination and Compliance</h2>
+            <p>This offer is subject to the issuance of the Work Permit. If the application is rejected by the IGI for reasons related to the candidate's background, this offer becomes void. Termination of employment after arrival follows a 20-day notice period for non-management roles as per Law 53/2003.</p>
 
-            <div style="margin-top: 50px; display: table; width: 100%;">
-                <div style="display: table-cell; width: 45%; border: 1px dashed #ccc; padding: 15px;">
-                    <strong>EMPLOYER / ANGAJATOR</strong><br><br><br>
+            <h2>X. GDPR and Data Protection</h2>
+            <p>Both parties agree to the processing of personal data for the purpose of the work permit application. Data is transmitted securely to the <strong>Ministerul Afacerilor Interne</strong> and the <strong>Job Check</strong> verification department.</p>
+
+            <div style="margin-top: 40px; border: 1.5px solid var(--romania-blue); padding: 10px; text-align: center; color: var(--romania-blue); font-weight: bold;">
+                FOR OFFICIAL USE: JOB CHECK DEPARTMENT - IGI ROMANIA<br>
+                CERTIFIED FOR FOOD DELIVERY WORK PERMIT 2026
+            </div>
+
+            <div style="margin-top: 40px; display: flex; justify-content: space-between;">
+                <div style="width: 45%; border-top: 1px solid #000; padding-top: 10px;">
+                    <strong>Employer Signature & Stamp</strong><br>
                     <span id="out_comp_p3">...</span>
                 </div>
-                <div style="display: table-cell; width: 10%;"></div>
-                <div style="display: table-cell; width: 45%; border: 1px dashed #ccc; padding: 15px;">
-                    <strong>CANDIDATE / CANDIDATUL</strong><br><br><br>
-                    <span id="out_client_p3_sign">...</span>
+                <div style="width: 45%;">
+                    <div style="border-top: 1px solid #000; padding-top: 10px;">
+                        <strong>Candidate Signature</strong><br>
+                        <span id="out_client_p3">...</span>
+                    </div>
+
+                    <div class="qr-signature-box">
+                        <div class="qr-code">
+                            <div style="padding: 2px;">
+                                <strong>VALIDATE</strong><hr style="margin:2px">
+                                CLIENT: <span id="qr_c">...</span><br>
+                                CO: <span id="qr_co">...</span>
+                            </div>
+                        </div>
+                        <div style="font-size: 7pt; font-weight: bold; color: var(--romania-blue);">
+                            IGI VERIFIED<br>OFFICIAL SCAN<br>2026
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div style="margin-top: 40px; text-align: center; border: 2px solid var(--romania-blue); color: var(--romania-blue); padding: 10px; font-weight: bold;">
-                VERIFICATION DEPT: JOB CHECK - DIRECȚIA MIGRAȚIE<br>
-                VALID FOR WORK PERMIT APPLICATIONS 2026
-            </div>
-
-            <div class="qr-placeholder">
-                <strong>QR VERIFIED</strong><br>
-                <span id="qr_client_3" style="font-weight:bold; color:var(--romania-blue);">...</span><br>
-                <span id="qr_comp_3" style="font-size:5pt;">...</span><br>
-                IGI APPROVED
-            </div>
-            <div class="footer">Final Page - Official Employment Offer 2026. | Page 3 of 3</div>
+            <div class="footer">Final Document - Issued by Job Check Unit | Page 3 of 3</div>
         </div>
     </div>
 
     <script>
-        function syncDocument() {
+        function updateDocument() {
             const client = document.getElementById('in_client').value || "[Client Name]";
-            const company = document.getElementById('in_comp').value || "[Company Name]";
-            const date = document.getElementById('in_date').value;
+            const comp = document.getElementById('in_comp').value || "[Company Name]";
             const ref = document.getElementById('in_ref').value;
+            const date = document.getElementById('in_date').value;
 
-            // Sync Main Data
+            // Sync all fields
             document.getElementById('out_client').innerText = client;
             document.getElementById('out_client_p3').innerText = client;
-            document.getElementById('out_client_p3_sign').innerText = client;
-            document.getElementById('out_comp').innerText = company;
-            document.getElementById('out_comp_p3').innerText = company;
-            
-            document.getElementById('out_date').innerText = date;
+            document.getElementById('qr_c').innerText = client;
+
+            document.getElementById('out_comp').innerText = comp;
+            document.getElementById('out_comp_p3').innerText = comp;
+            document.getElementById('qr_co').innerText = comp;
+
             document.getElementById('out_ref').innerText = ref;
             document.getElementById('out_ref_p2').innerText = ref;
-            
-            document.getElementById('out_reg').innerText = document.getElementById('in_reg').value || "J[XX]/[XXXX]/[YEAR]";
-            document.getElementById('out_vat').innerText = document.getElementById('in_vat').value || "RO [XXXXXXXX]";
-            document.getElementById('out_pass').innerText = document.getElementById('in_pass').value || "[XXXXXXX]";
+            document.getElementById('out_date').innerText = date;
+
+            document.getElementById('out_reg').innerText = document.getElementById('in_reg').value;
+            document.getElementById('out_addr').innerText = document.getElementById('in_addr').value;
+            document.getElementById('out_pass').innerText = document.getElementById('in_pass').value;
             document.getElementById('out_sal').innerText = document.getElementById('in_sal').value;
 
-            // Sync QR Areas
-            for(let i=1; i<=3; i++) {
-                document.getElementById(`qr_client_${i}`).innerText = client;
-                document.getElementById(`qr_comp_${i}`).innerText = company;
-            }
-
-            alert("Document content synchronized successfully!");
+            alert("All 3 pages updated with full Job Check data.");
         }
     </script>
 </body>
