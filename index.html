@@ -19,14 +19,19 @@
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .input-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem; }
-        input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
-        .btn-submit { background: var(--romania-blue); color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 20px; transition: 0.3s; }
-        .btn-submit:hover { background: #001f5c; }
-        .qr-section { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
+        input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--romania-blue); box-shadow: 0 0 0 3px rgba(0, 43, 127, 0.1); }
+        .btn-submit { background: var(--romania-blue); color: white; border: none; padding: 15px 25px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 20px; transition: 0.3s; font-size: 1rem; }
+        .btn-submit:hover { background: #001f5c; transform: translateY(-2px); }
+        .qr-section { text-align: center; margin-top: 30px; padding: 20px; border-top: 1px solid #eee; display: none; }
         .flag-strip { height: 5px; display: flex; }
         .f-blue { background: var(--romania-blue); width: 33.3%; }
         .f-yellow { background: var(--romania-yellow); width: 33.3%; }
         .f-red { background: var(--romania-red); width: 33.4%; }
+        
+        /* Animation for the "success" state */
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -43,43 +48,70 @@
             <p>Enter the details for the Food Delivery Work Permit application.</p>
         </div>
 
-        <form>
+        <form id="offerForm">
             <div class="grid">
                 <div class="input-group">
                     <label>Company Name (Angajator)</label>
-                    <input type="text" placeholder="e.g. LogiFood Romania SRL">
+                    <input type="text" id="companyName" placeholder="e.g. LogiFood Romania SRL" required>
                 </div>
                 <div class="input-group">
                     <label>Registry No (CUI/J)</label>
-                    <input type="text" placeholder="J40/1234/2026">
+                    <input type="text" id="registryNo" placeholder="J40/1234/2026" required>
                 </div>
                 <div class="input-group">
                     <label>Client Full Name</label>
-                    <input type="text" placeholder="As per Passport">
+                    <input type="text" id="clientName" placeholder="As per Passport" required>
                 </div>
                 <div class="input-group">
                     <label>Passport Number</label>
-                    <input type="text" placeholder="Enter number">
+                    <input type="text" id="passport" placeholder="Enter number" required>
                 </div>
                 <div class="input-group">
                     <label>Issue Date</label>
-                    <input type="date">
+                    <input type="date" id="issueDate" required>
                 </div>
                 <div class="input-group">
                     <label>Reference Number</label>
-                    <input type="text" placeholder="REF-FD-2026-XXXX">
+                    <input type="text" id="refNo" placeholder="REF-FD-2026-XXXX" required>
                 </div>
             </div>
 
-            <button type="button" class="btn-submit">GENERATE OFFICIAL OFFER LETTER</button>
+            <button type="submit" class="btn-submit">GENERATE OFFICIAL OFFER LETTER</button>
         </form>
 
-        <div class="qr-section">
-            <p style="font-size: 0.8rem; color: #64748b;">Verification QR will be auto-generated upon submission.</p>
-            <div style="background: #f1f5f9; height: 100px; width: 100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; border: 2px dashed #cbd5e1;">
-                <span style="font-size: 0.7rem;">QR PREVIEW</span>
+        <div id="resultSection" class="qr-section fade-in">
+            <h3 style="color: var(--romania-blue);">Document Successfully Generated!</h3>
+            <p id="summaryText" style="font-size: 0.9rem; color: #64748b;"></p>
+            <div id="qrPreview" style="background: #000; height: 120px; width: 120px; margin: 20px auto; display: flex; align-items: center; justify-content: center; border: 4px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+                <span style="font-size: 0.7rem; color: #fff; text-align: center; padding: 5px;">QR VERIFIED<br>IGI ROMANIA<br>2026</span>
             </div>
+            <p style="font-size: 0.75rem;">Download the PDF for official submission to the Immigration Office.</p>
         </div>
     </div>
+
+    <script>
+        document.getElementById('offerForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevents page reload
+
+            const client = document.getElementById('clientName').value;
+            const company = document.getElementById('companyName').value;
+            const ref = document.getElementById('refNo').value;
+
+            // Update summary text
+            document.getElementById('summaryText').innerText = 
+                `Offer issued for ${client} by ${company}. Reference: ${ref}`;
+
+            // Show the result section
+            document.getElementById('resultSection').style.display = 'block';
+
+            // Smooth scroll to the QR code
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+
+            console.log("Offer document data captured for:", client);
+        });
+    </script>
 </body>
 </html>
