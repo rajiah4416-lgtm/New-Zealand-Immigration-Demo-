@@ -3,143 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Logistics | Food Delivery Solutions</title>
+    <title>Immigration Portal | Work Permit Romania</title>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --accent-color: #e67e22;
-            --bg-light: #f4f7f6;
-            --text-dark: #333;
+            --romania-blue: #002B7F;
+            --romania-yellow: #FCD116;
+            --romania-red: #CE1126;
+            --bg-light: #f8fafc;
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background-color: var(--bg-light);
-        }
-
-        header {
-            background: #fff;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        nav a {
-            margin-left: 20px;
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-        }
-
-        .hero {
-            padding: 100px 5%;
-            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), 
-                        url('https://images.unsplash.com/photo-1526367790999-0150786486a2?auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 12px 30px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: transform 0.3s ease;
-            display: inline-block;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-        }
-
-        .services {
-            padding: 60px 5%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        .card h3 {
-            color: var(--primary-color);
-        }
-
-        footer {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 40px 5%;
-            margin-top: 50px;
-        }
+        body { font-family: 'Inter', sans-serif; margin: 0; background-color: var(--bg-light); color: #1e293b; }
+        nav { background: var(--romania-blue); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; color: white; }
+        .container { max-width: 1000px; margin: 40px auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .header-banner { border-left: 10px solid var(--romania-yellow); padding-left: 20px; margin-bottom: 30px; }
+        .status-badge { background: #e2e8f0; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; color: var(--romania-blue); }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem; }
+        input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
+        .btn-submit { background: var(--romania-blue); color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 20px; transition: 0.3s; }
+        .btn-submit:hover { background: #001f5c; }
+        .qr-section { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
+        .flag-strip { height: 5px; display: flex; }
+        .f-blue { background: var(--romania-blue); width: 33.3%; }
+        .f-yellow { background: var(--romania-yellow); width: 33.3%; }
+        .f-red { background: var(--romania-red); width: 33.4%; }
     </style>
 </head>
 <body>
+    <div class="flag-strip"><div class="f-blue"></div><div class="f-yellow"></div><div class="f-red"></div></div>
+    <nav>
+        <div style="font-weight: bold; letter-spacing: 1px;">IGI COMPLIANCE PORTAL</div>
+        <div>Work Permit Dept.</div>
+    </nav>
 
-    <header>
-        <div class="logo">LOGI-ROMANIA</div>
-        <nav>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
-            <a href="#" class="btn" style="padding: 8px 15px;">Partner With Us</a>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <h1>Reliable Food Delivery Logistics</h1>
-        <p>Providing professional, legally compliant delivery solutions across Romania.</p>
-        <a href="#services" class="btn">Explore Our Services</a>
-    </section>
-
-    <section id="services" class="services">
-        <div class="card">
-            <h3>Temperature Controlled</h3>
-            <p>Specialized thermal equipment ensuring food safety and quality from kitchen to doorstep.</p>
+    <div class="container">
+        <div class="header-banner">
+            <span class="status-badge">DOCUMENT GENERATOR 2026</span>
+            <h1>Offer Agreement Data Entry</h1>
+            <p>Enter the details for the Food Delivery Work Permit application.</p>
         </div>
-        <div class="card">
-            <h3>Legally Compliant</h3>
-            <p>Full adherence to Romanian ANSVSA regulations and local labor laws.</p>
-        </div>
-        <div class="card">
-            <h3>Real-time Tracking</h3>
-            <p>Integrated GPS solutions for both vendors and customers to track every mile.</p>
-        </div>
-    </section>
 
-    <footer>
-        <p>&copy; 2026 Logi-Romania. All Rights Reserved.</p>
-        <p>Bucharest | Cluj-Napoca | Timișoara</p>
-    </footer>
+        <form>
+            <div class="grid">
+                <div class="input-group">
+                    <label>Company Name (Angajator)</label>
+                    <input type="text" placeholder="e.g. LogiFood Romania SRL">
+                </div>
+                <div class="input-group">
+                    <label>Registry No (CUI/J)</label>
+                    <input type="text" placeholder="J40/1234/2026">
+                </div>
+                <div class="input-group">
+                    <label>Client Full Name</label>
+                    <input type="text" placeholder="As per Passport">
+                </div>
+                <div class="input-group">
+                    <label>Passport Number</label>
+                    <input type="text" placeholder="Enter number">
+                </div>
+                <div class="input-group">
+                    <label>Issue Date</label>
+                    <input type="date">
+                </div>
+                <div class="input-group">
+                    <label>Reference Number</label>
+                    <input type="text" placeholder="REF-FD-2026-XXXX">
+                </div>
+            </div>
 
+            <button type="button" class="btn-submit">GENERATE OFFICIAL OFFER LETTER</button>
+        </form>
+
+        <div class="qr-section">
+            <p style="font-size: 0.8rem; color: #64748b;">Verification QR will be auto-generated upon submission.</p>
+            <div style="background: #f1f5f9; height: 100px; width: 100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; border: 2px dashed #cbd5e1;">
+                <span style="font-size: 0.7rem;">QR PREVIEW</span>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
