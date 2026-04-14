@@ -47,6 +47,7 @@
             text-align: justify;
         }
 
+        /* Immigration Background Pattern */
         .watermark {
             position: absolute;
             top: 50%; left: 50%;
@@ -83,11 +84,7 @@
             align-items: center;
             gap: 15px;
             width: fit-content;
-            cursor: pointer;
-            transition: transform 0.2s;
         }
-        .qr-signature-box:hover { transform: scale(1.05); background: #f0f9ff; }
-        
         .qr-code {
             width: 80px;
             height: 80px;
@@ -101,53 +98,6 @@
         }
 
         .footer { position: absolute; bottom: 10mm; left: 0; right: 0; text-align: center; font-size: 8pt; color: #666; }
-
-        /* --- VERIFICATION MODAL STYLES --- */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .verification-form {
-            background: white;
-            width: 500px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        .form-header {
-            background: var(--romania-blue);
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .form-body { padding: 30px; font-family: sans-serif; }
-        .status-badge {
-            background: #dcfce7;
-            color: #166534;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.8rem;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-        .form-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
-        .form-label { color: #64748b; font-size: 0.85rem; }
-        .form-value { font-weight: bold; color: #1e293b; font-size: 0.9rem; text-align: right; }
-        .btn-close {
-            background: #f1f5f9;
-            border: none;
-            width: 100%;
-            padding: 15px;
-            cursor: pointer;
-            font-weight: bold;
-            color: #475569;
-        }
     </style>
 </head>
 <body>
@@ -183,33 +133,62 @@
             </div>
 
             <h2>I. Angajator (Employer)</h2>
-            <p><strong>Company:</strong> <span id="out_comp">[Company Name]</span>, organized under Romanian Law, Registry No: <span id="out_reg">[J-Number]</span>.</p>
-            <p><strong>Address:</strong> <span id="out_addr">[Romania Headquarters]</span>.</p>
+            <p><strong>Company:</strong> <span id="out_comp">[Company Name]</span>, organized under Romanian Law, Registry No: <span id="out_reg">[J-Number]</span>. The Employer represents a valid entity authorized by the **Job Check** department to recruit international labor.</p>
+            <p><strong>Address:</strong> <span id="out_addr">[Romania Headquarters]</span>. The company ensures that all legal taxes and contributions are paid in accordance with the Fiscal Code of Romania.</p>
 
             <h2>II. Candidat (Client)</h2>
-            <p><strong>Full Name:</strong> <span id="out_client">[Client Name]</span>. <strong>Passport:</strong> <span id="out_pass">[Passport No]</span>.</p>
+            <p><strong>Full Name:</strong> <span id="out_client">[Client Name]</span>. <strong>Passport:</strong> <span id="out_pass">[Passport No]</span>. The Candidate is hereby offered the position following the approval of the labor market test performed by the **Job Check** unit.</p>
 
             <h2>III. Subject of Agreement</h2>
-            <p>Position: <strong>Food Delivery Courier (COR 832201)</strong>. 12-month validity.</p>
+            <p>This agreement confirms the firm offer for the position of <strong>Food Delivery Courier (COR 832201)</strong>. The duties include the transport and delivery of food products using mobile applications and specialized logistics equipment. The work radius is established within the municipality of the headquarters and adjacent metropolitan areas.</p>
+            <p>This offer is valid for a period of 12 months (1 year) and is the primary document required for the Work Permit (Aviz de Angajare) application at the Inspectoratul General pentru Imigrări.</p>
 
             <h2>IV. Salary and Compensation</h2>
-            <p>Gross monthly salary: <span id="out_sal">3700</span> RON. Paid via bank transfer.</p>
+            <p>The gross monthly salary is set at <span id="out_sal">3700</span> RON. This amount is calculated to meet or exceed the minimum threshold for foreign citizens employed in Romania. Salary is paid monthly via bank transfer. The Employer provides social security and health insurance coverage throughout the duration of the contract.</p>
 
             <div class="footer">Document regulated under Ordinance no. 25/2014 | Page 1 of 3</div>
         </div>
 
         <div class="page">
             <div class="watermark">IGI ROMANIA</div>
+            <h2>V. Working Hours and Conditions</h2>
+            <p>The employee will work a full-time schedule of 40 hours per week, 8 hours per day. Due to the specific nature of the food delivery sector, shifts may include weekends and evening hours, which will be compensated according to the Romanian Labor Code (Law 53/2003). Overtime work is only performed with the employee's consent and is paid at 175% or compensated with paid time off.</p>
+            <p>The Employer provides all necessary gear: thermal delivery bags, mobile dispatch access, and high-visibility branded safety clothing. The employee is responsible for maintaining the integrity of the equipment provided.</p>
+
+            <h2>VI. Employer Obligations</h2>
+            <p>1. To submit the complete file to the **Job Check** department and IGI for the work authorization.<br>
+            2. To facilitate the issuance of the D/AM visa by providing the Work Permit.<br>
+            3. To register the labor contract in the REVISAL national system.<br>
+            4. To ensure a safe working environment according to Occupational Health and Safety Law 319/2006.</p>
+
+            <h2>VII. Candidate Obligations</h2>
+            <p>1. To provide authentic, apostilled, and translated documents as required by the Ministry of Internal Affairs.<br>
+            2. To undergo the mandatory medical exam upon arrival in Romania.<br>
+            3. To fulfill delivery quotas and maintain the professional standards of the delivery network.<br>
+            4. To respect the traffic laws of Romania while performing delivery duties.</p>
+
+            <h2>VIII. Housing and Transit</h2>
+            <p>The Employer assists in providing or facilitating safe accommodation in accordance with EU standards for foreign workers. International transport to Romania is the responsibility of the party designated in the final hiring annex.</p>
+
+            <div class="footer">Reference: <span id="out_ref_p2">...</span> | Page 2 of 3</div>
+        </div>
+
+        <div class="page">
+            <div class="watermark">IGI ROMANIA</div>
+            <h2>IX. Termination and Compliance</h2>
+            <p>This offer is subject to the issuance of the Work Permit. If the application is rejected by the IGI for reasons related to the candidate's background, this offer becomes void. Termination of employment after arrival follows a 20-day notice period for non-management roles as per Law 53/2003.</p>
+
             <h2>X. GDPR and Data Protection</h2>
-            <p>Processing of personal data for the purpose of the work permit application.</p>
+            <p>Both parties agree to the processing of personal data for the purpose of the work permit application. Data is transmitted securely to the <strong>Ministerul Afacerilor Interne</strong> and the <strong>Job Check</strong> verification department.</p>
 
             <div style="margin-top: 40px; border: 1.5px solid var(--romania-blue); padding: 10px; text-align: center; color: var(--romania-blue); font-weight: bold;">
-                FOR OFFICIAL USE: JOB CHECK DEPARTMENT - IGI ROMANIA
+                FOR OFFICIAL USE: JOB CHECK DEPARTMENT - IGI ROMANIA<br>
+                CERTIFIED FOR FOOD DELIVERY WORK PERMIT 2026
             </div>
 
             <div style="margin-top: 40px; display: flex; justify-content: space-between;">
                 <div style="width: 45%; border-top: 1px solid #000; padding-top: 10px;">
-                    <strong>Employer Signature</strong><br>
+                    <strong>Employer Signature & Stamp</strong><br>
                     <span id="out_comp_p3">...</span>
                 </div>
                 <div style="width: 45%;">
@@ -218,41 +197,22 @@
                         <span id="out_client_p3">...</span>
                     </div>
 
-                    <div class="qr-signature-box" onclick="showVerification()">
+                    <div class="qr-signature-box">
                         <div class="qr-code">
                             <div style="padding: 2px;">
-                                <strong>SCAN TO</strong><br><strong>VERIFY</strong><hr style="margin:2px">
-                                IGI<br>PORTAL
+                                <strong>VALIDATE</strong><hr style="margin:2px">
+                                CLIENT: <span id="qr_c">...</span><br>
+                                CO: <span id="qr_co">...</span>
                             </div>
                         </div>
                         <div style="font-size: 7pt; font-weight: bold; color: var(--romania-blue);">
-                            IGI VERIFIED<br>CLICK TO VIEW<br>DATA FORM
+                            IGI VERIFIED<br>OFFICIAL SCAN<br>2026
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="footer">Final Document - Issued by Job Check Unit | Page 3 of 3</div>
-        </div>
-    </div>
 
-    <div class="modal-overlay" id="modal">
-        <div class="verification-form">
-            <div class="form-header">
-                <div style="font-size: 0.8rem; margin-bottom: 5px;">INSPECTORATUL GENERAL PENTRU IMIGRĂRI</div>
-                <div style="font-size: 1.2rem; font-weight: bold; letter-spacing: 1px;">VERIFICATION RESULT</div>
-            </div>
-            <div class="form-body">
-                <div style="text-align: center;"><div class="status-badge">✓ DOCUMENT VALIDATED</div></div>
-                
-                <div class="form-row"><div class="form-label">Client Name:</div><div class="form-value" id="f_client">...</div></div>
-                <div class="form-row"><div class="form-label">Passport Number:</div><div class="form-value" id="f_pass">...</div></div>
-                <div class="form-row"><div class="form-label">Company Name:</div><div class="form-value" id="f_comp">...</div></div>
-                <div class="form-row"><div class="form-label">Registry Number:</div><div class="form-value" id="f_reg">...</div></div>
-                <div class="form-row"><div class="form-label">Ref Number:</div><div class="form-value" id="f_ref">...</div></div>
-                <div class="form-row"><div class="form-label">Salary Level:</div><div class="form-value"><span id="f_sal">...</span> RON</div></div>
-                <div class="form-row"><div class="form-label">Verification Date:</div><div class="form-value">April 15, 2026</div></div>
-            </div>
-            <button class="btn-close" onclick="hideVerification()">CLOSE PORTAL</button>
+            <div class="footer">Final Document - Issued by Job Check Unit | Page 3 of 3</div>
         </div>
     </div>
 
@@ -261,33 +221,28 @@
             const client = document.getElementById('in_client').value || "[Client Name]";
             const comp = document.getElementById('in_comp').value || "[Company Name]";
             const ref = document.getElementById('in_ref').value;
-            const pass = document.getElementById('in_pass').value;
-            const reg = document.getElementById('in_reg').value;
-            const sal = document.getElementById('in_sal').value;
+            const date = document.getElementById('in_date').value;
 
-            // Update main document
+            // Sync all fields
             document.getElementById('out_client').innerText = client;
             document.getElementById('out_client_p3').innerText = client;
+            document.getElementById('qr_c').innerText = client;
+
             document.getElementById('out_comp').innerText = comp;
             document.getElementById('out_comp_p3').innerText = comp;
+            document.getElementById('qr_co').innerText = comp;
+
             document.getElementById('out_ref').innerText = ref;
-            document.getElementById('out_pass').innerText = pass;
-            document.getElementById('out_reg').innerText = reg;
-            document.getElementById('out_sal').innerText = sal;
+            document.getElementById('out_ref_p2').innerText = ref;
+            document.getElementById('out_date').innerText = date;
 
-            // Pre-fill the hidden verification form
-            document.getElementById('f_client').innerText = client;
-            document.getElementById('f_comp').innerText = comp;
-            document.getElementById('f_pass').innerText = pass;
-            document.getElementById('f_reg').innerText = reg;
-            document.getElementById('f_ref').innerText = ref;
-            document.getElementById('f_sal').innerText = sal;
+            document.getElementById('out_reg').innerText = document.getElementById('in_reg').value;
+            document.getElementById('out_addr').innerText = document.getElementById('in_addr').value;
+            document.getElementById('out_pass').innerText = document.getElementById('in_pass').value;
+            document.getElementById('out_sal').innerText = document.getElementById('in_sal').value;
 
-            alert("Data synchronized. Click the QR code area on Page 3 to see the data form.");
+            alert("All 3 pages updated with full Job Check data.");
         }
-
-        function showVerification() { document.getElementById('modal').style.display = 'flex'; }
-        function hideVerification() { document.getElementById('modal').style.display = 'none'; }
     </script>
 </body>
 </html>
