@@ -1,248 +1,248 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official Immigration Portal | Job Check Romania</title>
+    <title>OFFICIAL_NZ_EMPLOYMENT_AGREEMENT_2026</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root {
-            --romania-blue: #002B7F;
-            --romania-yellow: #FCD116;
-            --romania-red: #CE1126;
-            --sidebar-width: 360px;
+            --nz-blue: #00247d;
+            --nz-red: #cc142b;
+            --nz-silver: #e1e4e8;
+            --gold-accent: #b39b6d;
+            --sidebar-bg: #1a1c23;
         }
 
-        body { font-family: 'Times New Roman', serif; margin: 0; display: flex; background: #f1f5f9; height: 100vh; overflow: hidden; }
+        body { background: #333; margin: 0; display: flex; font-family: 'Times New Roman', serif; }
 
-        /* Left Sidebar for Data Entry */
+        /* --- SIDEBAR EDITOR --- */
         .sidebar {
-            width: var(--sidebar-width);
-            background: #ffffff;
-            padding: 20px;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            overflow-y: auto;
-            z-index: 100;
+            width: 420px; height: 100vh; background: var(--sidebar-bg); color: #fff;
+            padding: 25px; box-sizing: border-box; position: fixed; overflow-y: auto;
+            border-right: 5px solid var(--nz-blue); z-index: 1000;
         }
-
-        .sidebar h2 { font-family: sans-serif; color: var(--romania-blue); font-size: 1.2rem; border-bottom: 3px solid var(--romania-yellow); padding-bottom: 8px; }
+        .sidebar h2 { color: var(--gold-accent); font-size: 14px; border-bottom: 1px solid #444; padding-bottom: 8px; margin: 20px 0 12px 0; text-transform: uppercase; letter-spacing: 1px;}
         .input-group { margin-bottom: 12px; }
-        label { display: block; font-family: sans-serif; font-size: 0.75rem; font-weight: bold; color: #475569; margin-bottom: 4px; }
-        input, select { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.85rem; }
-        .btn-update { background: var(--romania-blue); color: white; border: none; width: 100%; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 15px; }
-
-        /* Right Preview Area */
-        .preview-area { flex-grow: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; align-items: center; gap: 30px; }
-
-        .page {
-            width: 210mm;
-            min-height: 297mm;
-            background: white;
-            padding: 20mm;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            position: relative;
-            box-sizing: border-box;
-            color: #000;
-            line-height: 1.4;
-            font-size: 10.5pt;
-            text-align: justify;
+        .input-group label { display: block; font-size: 10px; color: #aaa; text-transform: uppercase; margin-bottom: 4px; font-weight: bold; }
+        .input-group input, .input-group select { 
+            width: 100%; padding: 10px; background: #2d303a; border: 1px solid #555; color: #fff; border-radius: 4px; font-size: 13px;
         }
 
-        /* Immigration Background Pattern */
-        .watermark {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            font-size: 90pt;
-            color: rgba(0, 43, 127, 0.03);
-            font-weight: bold;
-            z-index: 0;
-            white-space: nowrap;
-            pointer-events: none;
-        }
-
-        .header { position: relative; z-index: 1; border-bottom: 2px solid var(--romania-blue); padding-bottom: 10px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .flag { width: 60px; height: 35px; display: flex; border: 0.5px solid #ccc; }
-        .f-b { background: var(--romania-blue); width: 33.3%; }
-        .f-y { background: var(--romania-yellow); width: 33.3%; }
-        .f-r { background: var(--romania-red); width: 33.4%; }
-        .header-info { text-align: right; font-size: 8pt; color: var(--romania-blue); font-weight: bold; }
-
-        h1 { text-align: center; color: var(--romania-blue); text-transform: uppercase; font-size: 14pt; margin: 10px 0; }
-        h2 { font-size: 11pt; border-bottom: 1px solid #002B7F; margin-top: 15px; color: #002B7F; text-transform: uppercase; }
+        /* --- DOCUMENT VIEWER --- */
+        .main-viewer { margin-left: 420px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding: 40px 0; }
         
-        .info-grid { display: table; width: 100%; border-collapse: collapse; margin-bottom: 10px; }
-        .info-row { display: table-row; }
-        .info-cell { display: table-cell; border: 1px solid #ddd; padding: 5px; font-size: 9pt; }
-        .bold-label { font-weight: bold; background: #f8fafc; width: 25%; }
-
-        /* QR Code positioned ONLY under client signature */
-        .qr-signature-box {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #000;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            width: fit-content;
-        }
-        .qr-code {
-            width: 80px;
-            height: 80px;
-            border: 1px solid #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 6pt;
-            text-align: center;
-            background: #fff;
+        .page {
+            width: 210mm; min-height: 297mm; background: #fff; margin-bottom: 40px;
+            box-sizing: border-box; position: relative; box-shadow: 0 0 40px rgba(0,0,0,0.6);
+            padding: 20mm 25mm; overflow: hidden; page-break-after: always;
         }
 
-        .footer { position: absolute; bottom: 10mm; left: 0; right: 0; text-align: center; font-size: 8pt; color: #666; }
+        .inz-watermark-bg {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 75px; font-weight: 900; color: rgba(0, 36, 125, 0.035);
+            white-space: nowrap; pointer-events: none; text-transform: uppercase; z-index: 0;
+        }
+
+        .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid var(--nz-blue); padding-bottom: 20px; margin-bottom: 30px; position: relative; z-index: 1;}
+        .title-block h1 { color: var(--nz-blue); margin: 0; font-size: 28px; text-transform: uppercase; font-weight: bold; }
+        
+        .section-hdr { 
+            background: linear-gradient(90deg, var(--nz-blue), #0044cc); color: white; 
+            padding: 10px 20px; font-size: 14px; font-weight: bold; margin: 25px 0 15px 0;
+            text-transform: uppercase; border-radius: 2px;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; position: relative; z-index: 1;}
+        th, td { border: 1px solid #c0c0c0; padding: 12px; font-size: 13px; }
+        th { background: #f4f6f9; text-align: left; width: 35%; color: var(--nz-blue); font-size: 10px; text-transform: uppercase; font-weight: 800; }
+        td { color: #000; }
+
+        .benefit-card { 
+            border: 1px solid var(--nz-silver); padding: 18px; margin-bottom: 15px; 
+            background: #fafbfc; border-left: 6px solid var(--nz-red);
+        }
+        .benefit-label { color: var(--nz-red); font-weight: 900; font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 8px; }
+
+        /* MBIE / INZ Footer Details */
+        .govt-authority-block {
+            margin-top: 40px; border: 1px solid #eee; padding: 15px; background: #fdfdfd; text-align: center;
+        }
+        .govt-authority-block b { font-size: 12px; color: var(--nz-blue); display: block; margin-bottom: 5px; }
+        .govt-authority-block p { font-size: 10px; color: #666; margin: 0; line-height: 1.5; }
+
+        .footer { position: absolute; bottom: 10mm; left: 25mm; width: calc(100% - 50mm); font-size: 9px; color: #888; text-align: center; border-top: 1px solid #ddd; padding-top: 10px; }
+
+        @media print {
+            .sidebar { display: none; }
+            .main-viewer { margin-left: 0; padding: 0; }
+            .page { margin: 0; box-shadow: none; border: none; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <h2>Job Check Portal</h2>
-        
-        <div class="input-group"><label>Reference No.</label><input type="text" id="in_ref" value="WP/ROM/FD/2026-0415"></div>
-        <div class="input-group"><label>Issue Date</label><input type="date" id="in_date" value="2026-04-15"></div>
-        <hr>
-        <div class="input-group"><label>Company Name</label><input type="text" id="in_comp" placeholder="e.g. LogiFood Romania SRL"></div>
-        <div class="input-group"><label>Registry Number</label><input type="text" id="in_reg" placeholder="J40/1234/2026"></div>
-        <div class="input-group"><label>Headquarters</label><input type="text" id="in_addr" placeholder="Street, City, Romania"></div>
-        <hr>
-        <div class="input-group"><label>Client Full Name</label><input type="text" id="in_client" placeholder="As per Passport"></div>
-        <div class="input-group"><label>Passport No.</label><input type="text" id="in_pass" placeholder="Enter number"></div>
-        <div class="input-group"><label>Salary (RON)</label><input type="number" id="in_sal" value="3700"></div>
-        
-        <button class="btn-update" onclick="updateDocument()">Sync All Pages</button>
-    </div>
+<div class="sidebar">
+    <h2>1. Official Reference</h2>
+    <div class="input-group"><label>Reference Number</label><input type="text" id="i_ref" value="NZ-AEWV-2026-8812" oninput="sync()"></div>
+    <div class="input-group"><label>Date of Issue</label><input type="date" id="i_issue" value="2026-03-25" oninput="sync()"></div>
+    
+    <h2>2. Accredited Employer</h2>
+    <div class="input-group"><label>Company Name</label><input type="text" id="i_cname" value="ALBANY INFRASTRUCTURE NZ LTD" oninput="sync()"></div>
+    <div class="input-group"><label>Tax ID / IRD</label><input type="text" id="i_ctax" value="102-445-992" oninput="sync()"></div>
+    <div class="input-group"><label>Address</label><input type="text" id="i_caddr" value="Level 4, 15 Victoria St, Auckland CBD" oninput="sync()"></div>
 
-    <div class="preview-area">
-        
-        <div class="page">
-            <div class="watermark">IGI ROMANIA</div>
-            <div class="header">
-                <div class="flag"><div class="f-b"></div><div class="f-y"></div><div class="f-r"></div></div>
-                <div class="header-info">MINISTERUL AFACERILOR INTERNE<br>Inspectoratul General pentru Imigrări (IGI)<br>Job Check - Direcția Migrație</div>
-            </div>
-            <h1>Offer Agreement / Scrisoare de Ofertă</h1>
-            <div class="info-grid">
-                <div class="info-row"><div class="info-cell bold-label">Issue Date:</div><div class="info-cell" id="out_date">2026-04-15</div><div class="info-cell bold-label">Ref No:</div><div class="info-cell" id="out_ref">WP/ROM/FD/2026-0415</div></div>
-            </div>
+    <h2>3. Candidate Profile</h2>
+    <div class="input-group"><label>Full Name</label><input type="text" id="i_name" value="LUQMAN ALI" oninput="sync()"></div>
+    <div class="input-group"><label>Gender</label><select id="i_gender" onchange="sync()"><option>Male</option><option>Female</option></select></div>
+    <div class="input-group"><label>Passport Number</label><input type="text" id="i_pass" value="BU1835591" oninput="sync()"></div>
+    <div class="input-group"><label>Nationality</label><input type="text" id="i_country" value="Pakistan" oninput="sync()"></div>
+    <div class="input-group"><label>Date of Birth</label><input type="date" id="i_dob" value="2001-08-08" oninput="sync()"></div>
+    
+    <h2>4. Employment Data</h2>
+    <div class="input-group"><label>Designated Role</label><select id="i_job" onchange="sync()"><option>Security Operations Specialist</option><option>Retail Mart Supervisor</option></select></div>
+    <div class="input-group"><label>Hourly Rate (NZD)</label><input type="number" id="i_sal" value="35.00" oninput="sync()"></div>
 
-            <h2>I. Angajator (Employer)</h2>
-            <p><strong>Company:</strong> <span id="out_comp">[Company Name]</span>, organized under Romanian Law, Registry No: <span id="out_reg">[J-Number]</span>. The Employer represents a valid entity authorized by the **Job Check** department to recruit international labor.</p>
-            <p><strong>Address:</strong> <span id="out_addr">[Romania Headquarters]</span>. The company ensures that all legal taxes and contributions are paid in accordance with the Fiscal Code of Romania.</p>
+    <button style="width:100%; padding:20px; background:linear-gradient(to right, var(--nz-blue), #0055ff); color:white; border:none; cursor:pointer; font-weight:bold; border-radius:6px; margin-top:20px; text-transform:uppercase; letter-spacing:1px;" onclick="window.print()">Print Official Agreement</button>
+</div>
 
-            <h2>II. Candidat (Client)</h2>
-            <p><strong>Full Name:</strong> <span id="out_client">[Client Name]</span>. <strong>Passport:</strong> <span id="out_pass">[Passport No]</span>. The Candidate is hereby offered the position following the approval of the labor market test performed by the **Job Check** unit.</p>
-
-            <h2>III. Subject of Agreement</h2>
-            <p>This agreement confirms the firm offer for the position of <strong>Food Delivery Courier (COR 832201)</strong>. The duties include the transport and delivery of food products using mobile applications and specialized logistics equipment. The work radius is established within the municipality of the headquarters and adjacent metropolitan areas.</p>
-            <p>This offer is valid for a period of 12 months (1 year) and is the primary document required for the Work Permit (Aviz de Angajare) application at the Inspectoratul General pentru Imigrări.</p>
-
-            <h2>IV. Salary and Compensation</h2>
-            <p>The gross monthly salary is set at <span id="out_sal">3700</span> RON. This amount is calculated to meet or exceed the minimum threshold for foreign citizens employed in Romania. Salary is paid monthly via bank transfer. The Employer provides social security and health insurance coverage throughout the duration of the contract.</p>
-
-            <div class="footer">Document regulated under Ordinance no. 25/2014 | Page 1 of 3</div>
-        </div>
-
-        <div class="page">
-            <div class="watermark">IGI ROMANIA</div>
-            <h2>V. Working Hours and Conditions</h2>
-            <p>The employee will work a full-time schedule of 40 hours per week, 8 hours per day. Due to the specific nature of the food delivery sector, shifts may include weekends and evening hours, which will be compensated according to the Romanian Labor Code (Law 53/2003). Overtime work is only performed with the employee's consent and is paid at 175% or compensated with paid time off.</p>
-            <p>The Employer provides all necessary gear: thermal delivery bags, mobile dispatch access, and high-visibility branded safety clothing. The employee is responsible for maintaining the integrity of the equipment provided.</p>
-
-            <h2>VI. Employer Obligations</h2>
-            <p>1. To submit the complete file to the **Job Check** department and IGI for the work authorization.<br>
-            2. To facilitate the issuance of the D/AM visa by providing the Work Permit.<br>
-            3. To register the labor contract in the REVISAL national system.<br>
-            4. To ensure a safe working environment according to Occupational Health and Safety Law 319/2006.</p>
-
-            <h2>VII. Candidate Obligations</h2>
-            <p>1. To provide authentic, apostilled, and translated documents as required by the Ministry of Internal Affairs.<br>
-            2. To undergo the mandatory medical exam upon arrival in Romania.<br>
-            3. To fulfill delivery quotas and maintain the professional standards of the delivery network.<br>
-            4. To respect the traffic laws of Romania while performing delivery duties.</p>
-
-            <h2>VIII. Housing and Transit</h2>
-            <p>The Employer assists in providing or facilitating safe accommodation in accordance with EU standards for foreign workers. International transport to Romania is the responsibility of the party designated in the final hiring annex.</p>
-
-            <div class="footer">Reference: <span id="out_ref_p2">...</span> | Page 2 of 3</div>
-        </div>
-
-        <div class="page">
-            <div class="watermark">IGI ROMANIA</div>
-            <h2>IX. Termination and Compliance</h2>
-            <p>This offer is subject to the issuance of the Work Permit. If the application is rejected by the IGI for reasons related to the candidate's background, this offer becomes void. Termination of employment after arrival follows a 20-day notice period for non-management roles as per Law 53/2003.</p>
-
-            <h2>X. GDPR and Data Protection</h2>
-            <p>Both parties agree to the processing of personal data for the purpose of the work permit application. Data is transmitted securely to the <strong>Ministerul Afacerilor Interne</strong> and the <strong>Job Check</strong> verification department.</p>
-
-            <div style="margin-top: 40px; border: 1.5px solid var(--romania-blue); padding: 10px; text-align: center; color: var(--romania-blue); font-weight: bold;">
-                FOR OFFICIAL USE: JOB CHECK DEPARTMENT - IGI ROMANIA<br>
-                CERTIFIED FOR FOOD DELIVERY WORK PERMIT 2026
-            </div>
-
-            <div style="margin-top: 40px; display: flex; justify-content: space-between;">
-                <div style="width: 45%; border-top: 1px solid #000; padding-top: 10px;">
-                    <strong>Employer Signature & Stamp</strong><br>
-                    <span id="out_comp_p3">...</span>
-                </div>
-                <div style="width: 45%;">
-                    <div style="border-top: 1px solid #000; padding-top: 10px;">
-                        <strong>Candidate Signature</strong><br>
-                        <span id="out_client_p3">...</span>
-                    </div>
-
-                    <div class="qr-signature-box">
-                        <div class="qr-code">
-                            <div style="padding: 2px;">
-                                <strong>VALIDATE</strong><hr style="margin:2px">
-                                CLIENT: <span id="qr_c">...</span><br>
-                                CO: <span id="qr_co">...</span>
-                            </div>
-                        </div>
-                        <div style="font-size: 7pt; font-weight: bold; color: var(--romania-blue);">
-                            IGI VERIFIED<br>OFFICIAL SCAN<br>2026
-                        </div>
-                    </div>
+<div class="main-viewer">
+    <div class="page">
+        <div class="inz-watermark-bg">IMMIGRATION NEW ZEALAND</div>
+        <div class="header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" style="width: 100px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <div style="text-align: right;">
+                <h1>Employment Agreement</h1>
+                <p style="color:var(--nz-red); font-size:12px; font-weight:900; letter-spacing:1px;">ACCREDITED EMPLOYER WORK VISA (AEWV)</p>
+                <div style="font-size: 14px; margin-top:10px; font-family: 'Segoe UI', sans-serif;">
+                    <b>REFERENCE:</b> <span id="o_ref"></span><br>
+                    <b>ISSUED:</b> <span id="o_issue"></span>
                 </div>
             </div>
-
-            <div class="footer">Final Document - Issued by Job Check Unit | Page 3 of 3</div>
         </div>
+
+        <div class="section-hdr">I. THE PARTIES TO THIS AGREEMENT</div>
+        <table>
+            <tr><th>Employer Entity</th><td><b id="o_cname"></b></td></tr>
+            <tr><th>NZ Tax ID / IRD</th><td><span id="o_ctax"></span></td></tr>
+            <tr><th>Registered Address</th><td><span id="o_caddr"></span></td></tr>
+            <tr><th style="background:#f4f6f9;">Employee Legal Name</th><td><b id="o_name"></b></td></tr>
+            <tr><th>Nationality / Gender</th><td><span id="o_country"></span> | <span id="o_gender"></span></td></tr>
+            <tr><th>Travel Document</th><td>Passport No: <span id="o_pass"></span></td></tr>
+            <tr><th>Birth Particulars</th><td>DOB: <span id="o_dob"></span></td></tr>
+        </table>
+
+        <div class="section-hdr">II. TERMS OF ENGAGEMENT</div>
+        <p style="font-size:13px; line-height:1.8; color: #222;">The Employer confirms the professional appointment of the Employee for the position of <b><span id="o_job"></span></b>. This agreement constitutes a binding <b>36 Month (3-Year)</b> full-time contract, subject to standard New Zealand Labor Legislation.</p>
+        
+        <table>
+            <tr><th>Remuneration Rate</th><td>NZD $ <span id="o_sal"></span> / Hour</td></tr>
+            <tr><th>Projected Annual Base</th><td><span id="o_annual"></span> (Before Tax)</td></tr>
+            <tr><th>Guaranteed Capacity</th><td>Minimum 40 Hours per Week</td></tr>
+        </table>
+
+        <div class="footer">CONFIDENTIAL | AEWV COMPLIANT 2026 | PAGE 1 OF 3</div>
     </div>
 
-    <script>
-        function updateDocument() {
-            const client = document.getElementById('in_client').value || "[Client Name]";
-            const comp = document.getElementById('in_comp').value || "[Company Name]";
-            const ref = document.getElementById('in_ref').value;
-            const date = document.getElementById('in_date').value;
+    <div class="page">
+        <div class="inz-watermark-bg">IMMIGRATION NEW ZEALAND</div>
+        <div class="section-hdr">III. EMPLOYER-FUNDED PROVISIONS</div>
+        <p style="font-size:13px; color:#444; margin-bottom:20px;">The following entitlements are fully funded by the Employer for the entire contract duration:</p>
 
-            // Sync all fields
-            document.getElementById('out_client').innerText = client;
-            document.getElementById('out_client_p3').innerText = client;
-            document.getElementById('qr_c').innerText = client;
+        <div class="benefit-card">
+            <span class="benefit-label">✈️ International Travel (Ticket Free)</span>
+            <div style="font-size:13px;">Employer covers 100% of the international flight ticket from the home country to NZ. Includes annual return leave tickets for the 3-year term.</div>
+        </div>
 
-            document.getElementById('out_comp').innerText = comp;
-            document.getElementById('out_comp_p3').innerText = comp;
-            document.getElementById('qr_co').innerText = comp;
+        <div class="benefit-card">
+            <span class="benefit-label">🏥 Comprehensive Medical (Medical Free)</span>
+            <div style="font-size:13px;">Employer provides full private health insurance coverage. Employee is also automatically covered under the NZ Accident Compensation Corporation (ACC).</div>
+        </div>
 
-            document.getElementById('out_ref').innerText = ref;
-            document.getElementById('out_ref_p2').innerText = ref;
-            document.getElementById('out_date').innerText = date;
+        <div class="benefit-card">
+            <span class="benefit-label">🚐 Corporate Transport</span>
+            <div style="font-size:13px;">Dedicated work transport is provided daily for commuting between accommodation and the work site at no cost to the employee.</div>
+        </div>
 
-            document.getElementById('out_reg').innerText = document.getElementById('in_reg').value;
-            document.getElementById('out_addr').innerText = document.getElementById('in_addr').value;
-            document.getElementById('out_pass').innerText = document.getElementById('in_pass').value;
-            document.getElementById('out_sal').innerText = document.getElementById('in_sal').value;
+        <div class="benefit-card">
+            <span class="benefit-label">🏠 Residential Living quarters</span>
+            <div style="font-size:13px;">High-standard company accommodation is provided for the duration of the 3-year agreement. All utilities (water, power, high-speed fiber internet) are paid by the employer.</div>
+        </div>
 
-            alert("All 3 pages updated with full Job Check data.");
-        }
-    </script>
+        <div class="section-hdr">IV. STATUTORY LEAVE & BENEFITS</div>
+        <ul style="font-size:13px; line-height:2.2;">
+            <li><b>Annual Leave:</b> 4 weeks (20 working days) paid holiday per annum.</li>
+            <li><b>Sick Leave:</b> 10 days paid leave per annum for health or dependent care.</li>
+            <li><b>Public Holidays:</b> 12 NZ Public Holidays fully paid.</li>
+        </ul>
+
+        <div class="footer">CONFIDENTIAL | AEWV COMPLIANT 2026 | PAGE 2 OF 3</div>
+    </div>
+
+    <div class="page">
+        <div class="inz-watermark-bg">IMMIGRATION NEW ZEALAND</div>
+        <div class="section-hdr">V. EXECUTION & ACKNOWLEDGMENT</div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 50px;">
+            <div style="border-top: 2px solid var(--nz-blue); padding-top:12px;">
+                <small style="font-weight:900; font-size:11px; color:var(--nz-blue);">ON BEHALF OF EMPLOYER</small><br><br>
+                <div id="o_cname_sig" style="font-family: 'Brush Script MT', cursive; font-size:22px; color:var(--nz-blue)"></div>
+                <div style="font-size:10px; color:#999; margin-top:10px;">Authorized Digital Acknowledgment</div>
+            </div>
+            <div style="border-top: 2px solid var(--nz-red); padding-top:12px;">
+                <small style="font-weight:900; font-size:11px; color:var(--nz-red);">CANDIDATE ACCEPTANCE</small><br><br>
+                <div id="o_name_sig" style="font-family: 'Brush Script MT', cursive; font-size:22px; color:var(--nz-red)"></div>
+                <div style="font-size:10px; color:#999; margin-top:10px;">Candidate Signature</div>
+            </div>
+        </div>
+
+        <div class="section-hdr">VI. SECURE VERIFICATION</div>
+        <div style="text-align: center; border: 1px solid #ddd; padding: 25px; border-radius: 8px; background: #fff; box-shadow: inset 0 0 10px #f9f9f9;">
+            <div id="qr-code" style="display:inline-block; padding: 12px; background: white; border: 1px solid #eee;"></div>
+            <p style="font-size:12px; font-weight:bold; color:var(--nz-blue); margin-top:15px; letter-spacing:1px;">DIGITAL VERIFICATION SYSTEM</p>
+            <p style="font-size:10px; color:#777; max-width:480px; margin: 8px auto; line-height:1.5;">Scanning this code confirms that all Bio-Data, Company IRD, and Remuneration details are synchronized with the MBIE Employer Accreditation records.</p>
+        </div>
+
+        <div class="govt-authority-block">
+            <b>GOVERNING AUTHORITY FOR WORK PERMITS:</b>
+            <p>
+                <strong>Immigration New Zealand (Ministry of Business, Innovation and Employment)</strong><br>
+                Accredited Employer Program Office | Level 4, 15 Stout Street, Wellington 6011<br>
+                Contact: 0800 20 90 20 (Within NZ) or +64 9 914 4100 (International)<br>
+                <i>All AEWV Work Permits are subject to Job Check approval and Employee Verification.</i>
+            </p>
+        </div>
+
+        <div class="footer">END OF AGREEMENT | OFFICIAL NZ GOVERNMENT STANDARDS | PAGE 3 OF 3</div>
+    </div>
+</div>
+
+<script>
+    function sync() {
+        const fields = ['ref', 'issue', 'cname', 'ctax', 'caddr', 'name', 'gender', 'pass', 'country', 'dob', 'job', 'sal'];
+        fields.forEach(id => {
+            const val = document.getElementById('i_'+id).value;
+            const out = document.getElementById('o_'+id);
+            if(out) out.innerText = val;
+        });
+
+        document.getElementById('o_cname_sig').innerText = document.getElementById('i_cname').value;
+        document.getElementById('o_name_sig').innerText = document.getElementById('i_name').value;
+
+        const hourly = parseFloat(document.getElementById('i_sal').value) || 0;
+        document.getElementById('o_annual').innerText = (hourly * 40 * 52).toLocaleString('en-NZ', { style: 'currency', currency: 'NZD' });
+
+        updateQR();
+    }
+
+    function updateQR() {
+        const qrEl = document.getElementById("qr-code");
+        qrEl.innerHTML = "";
+        const data = `OFFICIAL_NZ_VERIFY|REF:${document.getElementById('i_ref').value}|DATE:${document.getElementById('i_issue').value}|COY:${document.getElementById('i_cname').value}|TAX:${document.getElementById('i_ctax').value}|ADDR:${document.getElementById('i_caddr').value}|CLIENT:${document.getElementById('i_name').value}|PASS:${document.getElementById('i_pass').value}|DOB:${document.getElementById('i_dob').value}|GEN:${document.getElementById('i_gender').value}|JOB:${document.getElementById('i_job').value}|WAGE:$${document.getElementById('i_sal').value}`;
+        
+        new QRCode(qrEl, { text: data, width: 150, height: 150, colorDark: "#00247d", correctLevel : QRCode.CorrectLevel.H });
+    }
+    sync();
+</script>
 </body>
-</html>
+    </html>
