@@ -2,274 +2,218 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NZ Official Employment Agreement</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official NZ Immigration - Digital ID System</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root {
             --nz-blue: #00247d;
-            --nz-red: #cc142b;
-            --gold: #b39b6d;
-            --sidebar-bg: #1a1c23;
-            --paper-shadow: 0 0 25px rgba(0,0,0,0.3);
+            --nz-teal: #008477;
+            --nz-silver: #f8f9fa;
         }
 
-        body { background: #333; margin: 0; display: flex; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-
-        /* --- STYLISH SIDEBAR EDITOR --- */
-        .sidebar {
-            width: 380px; height: 100vh; background: var(--sidebar-bg); color: #fff;
-            padding: 25px; box-sizing: border-box; position: fixed; overflow-y: auto;
-            border-right: 4px solid var(--nz-blue); z-index: 1000;
-        }
-        .sidebar h2 { color: var(--gold); font-size: 18px; border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
-        .input-group { margin-bottom: 12px; }
-        .input-group label { display: block; font-size: 10px; color: #888; text-transform: uppercase; margin-bottom: 4px; font-weight: bold; }
-        .input-group input, .input-group select { 
-            width: 100%; padding: 10px; background: #2d303a; border: 1px solid #444; color: #fff; border-radius: 5px; font-size: 13px;
-        }
-        .input-group input:focus { border-color: var(--nz-blue); outline: none; }
-        .btn-download {
-            width: 100%; padding: 15px; background: linear-gradient(135deg, var(--nz-blue), #0044ff); color: white; 
-            border: none; font-weight: bold; cursor: pointer; border-radius: 6px; margin-top: 25px; font-size: 14px; transition: 0.3s;
-        }
-        .btn-download:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,68,255,0.4); }
-
-        /* --- DOCUMENT LAYOUT --- */
-        .main-viewer { margin-left: 380px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding: 40px 0; }
-        .page {
-            width: 210mm; min-height: 297mm; background: #fff; margin-bottom: 40px;
-            box-sizing: border-box; position: relative; box-shadow: var(--paper-shadow);
-            padding: 15mm; overflow: hidden; page-break-after: always;
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #b0bec5;
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
         }
 
-        /* Decorative Elements */
-        .top-stripe { position: absolute; top: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, var(--nz-blue) 50%, var(--nz-red) 50%); }
-        .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 80px; color: rgba(0, 36, 125, 0.03); font-weight: 900; pointer-events: none; white-space: nowrap; }
-
-        /* Typography */
-        .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
-        .nz-logo { width: 110px; }
-        .title-block h1 { color: var(--nz-blue); margin: 0; font-size: 26px; text-transform: uppercase; letter-spacing: 1px; }
-        .title-block p { color: var(--nz-red); margin: 0; font-weight: bold; font-size: 12px; }
-
-        .section-hdr { 
-            background: linear-gradient(90deg, var(--nz-blue), #f0f4ff); color: white; 
-            padding: 8px 15px; font-size: 14px; font-weight: bold; margin: 25px 0 15px 0;
-            border-radius: 0 20px 20px 0;
+        /* Control Panel */
+        .admin-panel {
+            background: white; padding: 20px; border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin-bottom: 30px; width: 100%; max-width: 1050px;
         }
 
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        th, td { border: 1px solid #e0e0e0; padding: 10px; font-size: 12px; }
-        th { background: #f8f9fb; text-align: left; color: #555; width: 35%; text-transform: uppercase; font-size: 10px; }
-        td { color: #000; font-weight: 500; }
+        .grid-inputs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .input-group { display: flex; flex-direction: column; }
+        label { font-size: 9px; font-weight: bold; color: var(--nz-blue); margin-bottom: 3px; text-transform: uppercase; }
+        input, select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; }
 
-        .benefit-card { border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 8px; border-left: 5px solid var(--nz-red); background: #fffafb; }
-        .benefit-card b { color: var(--nz-red); display: block; margin-bottom: 5px; text-transform: uppercase; font-size: 11px; }
+        .btn-row { margin-top: 20px; display: flex; gap: 10px; }
+        button { flex: 1; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; transition: 0.2s; }
+        .gen-btn { background: var(--nz-teal); }
+        .print-btn { background: var(--nz-blue); }
 
-        /* Signature & QR Area */
-        .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
-        .sig-box { border-top: 2px solid #333; padding-top: 10px; position: relative; }
-        .qr-wrapper { margin-top: 20px; text-align: center; background: #f9f9f9; padding: 15px; border-radius: 10px; border: 1px solid #eee; }
-        #qr-code { display: inline-block; padding: 5px; background: #fff; border: 1px solid #ddd; }
-
-        .footer { position: absolute; bottom: 10mm; left: 15mm; width: calc(100% - 30mm); font-size: 9px; color: #aaa; text-align: center; border-top: 1px solid #eee; padding-top: 10px; }
-
-        @media print {
-            .sidebar { display: none; }
-            .main-viewer { margin-left: 0; padding: 0; }
-            .page { margin: 0; box-shadow: none; border: none; }
-            body { background: white; }
+        /* CARD DESIGN */
+        #id-card {
+            width: 620px; height: 390px;
+            background: white; border-radius: 15px;
+            position: relative; overflow: hidden;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.3);
+            border: 1px solid #999;
+            background-image: linear-gradient(145deg, #ffffff, #f0f2f5);
         }
+
+        .card-header {
+            background: var(--nz-blue); height: 80px; padding: 0 25px;
+            display: flex; align-items: center; color: white;
+            border-bottom: 4px solid var(--nz-teal);
+        }
+
+        .flag-box { width: 70px; height: 35px; margin-right: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        .header-main h2 { margin: 0; font-size: 18px; letter-spacing: 2px; font-weight: 900; }
+        .header-main p { margin: 0; font-size: 8px; letter-spacing: 1px; font-weight: bold; color: #add8e6; }
+
+        .visa-banner {
+            background: #fff; border-bottom: 1px solid #ddd;
+            padding: 5px 25px; display: flex; justify-content: space-between;
+            font-weight: 800; font-size: 10px; color: var(--nz-blue);
+        }
+
+        .card-body { display: flex; padding: 15px 25px; gap: 20px; }
+        .photo-frame {
+            width: 125px; height: 155px; background: #fff;
+            border: 1px solid #ccc; border-radius: 5px;
+            overflow: hidden; position: relative;
+        }
+        #out-photo { width: 100%; height: 100%; object-fit: cover; }
+
+        /* AUCKLAND AIRPORT ENTRY STAMP */
+        .entry-stamp {
+            position: absolute; bottom: 35px; left: 160px;
+            border: 2px solid rgba(0, 36, 125, 0.4);
+            color: rgba(0, 36, 125, 0.5);
+            padding: 5px 10px; border-radius: 8px;
+            transform: rotate(-15deg); font-weight: 900;
+            font-size: 10px; text-align: center;
+            pointer-events: none; text-transform: uppercase;
+        }
+
+        .info-section { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 15px; }
+        .field { border-bottom: 1px solid #ececec; padding-bottom: 1px; }
+        .label-text { font-size: 7px; color: #888; font-weight: bold; text-transform: uppercase; }
+        .value-text { font-size: 11.5px; font-weight: 700; color: #111; }
+
+        /* MINIMAL QR */
+        .qr-area { position: absolute; bottom: 15px; right: 20px; text-align: center; }
+        #qrcode { background: white; padding: 3px; border-radius: 3px; border: 1px solid #eee; }
+        .qr-label { font-size: 5px; font-weight: bold; margin-top: 2px; color: #ccc; }
+
+        .footer-ref { position: absolute; bottom: 8px; left: 25px; font-size: 7px; color: #bbb; font-weight: bold; }
+        
+        /* Watermark */
+        .nz-watermark {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 80px; font-weight: 900; color: rgba(0,0,0,0.02);
+            pointer-events: none; white-space: nowrap; z-index: 0;
+        }
+
+        @media print { .admin-panel { display: none !important; } body { background: white; } #id-card { box-shadow: none; -webkit-print-color-adjust: exact; } }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <h2>Document Editor</h2>
-        <div class="input-group"><label>Immigration Ref #</label><input type="text" id="i_ref" value="NZ-REF-8849201" oninput="sync()"></div>
-        
-        <h2>Company Details</h2>
-        <div class="input-group"><label>Company Name</label><input type="text" id="i_cname" value="ALBANY INFRASTRUCTURE NZ" oninput="sync()"></div>
-        <div class="input-group"><label>Email Address</label><input type="text" id="i_cemail" value="hr@albanyconstruction.co.nz" oninput="sync()"></div>
-        <div class="input-group"><label>IRD Tax Number</label><input type="text" id="i_ctax" value="92-118-445" oninput="sync()"></div>
-        <div class="input-group"><label>Physical Address</label><input type="text" id="i_caddr" value="Level 4, 15 Victoria St, Auckland" oninput="sync()"></div>
+    <div class="admin-panel">
+        <div class="grid-inputs">
+            <div class="input-group"><label>Full Name</label><input type="text" id="in-name" value="Michael Richards"></div>
+            <div class="input-group"><label>Date of Birth</label><input type="date" id="in-dob" value="1985-05-12"></div>
+            <div class="input-group"><label>Country</label><input type="text" id="in-country" value="United Kingdom"></div>
+            <div class="input-group"><label>Passport No.</label><input type="text" id="in-pass" value="UK9922881"></div>
+            
+            <div class="input-group"><label>Guarantee Company</label><input type="text" id="in-co" value="Auckland Logistics Ltd"></div>
+            <div class="input-group"><label>Job Category</label><input type="text" id="in-job" value="Project Manager"></div>
+            <div class="input-group"><label>Reference No.</label><input type="text" id="in-ref" value="NZ-REF-2026-X8"></div>
+            <div class="input-group"><label>Gender</label><select id="in-gen"><option>MALE</option><option>FEMALE</option></select></div>
 
-        <h2>Client Details</h2>
-        <div class="input-group"><label>Full Name</label><input type="text" id="i_name" value="LUQMAN ALI" oninput="sync()"></div>
-        <div class="input-group"><label>Passport Number</label><input type="text" id="i_pass" value="BU1835591" oninput="sync()"></div>
-        <div class="input-group"><label>Date of Birth</label><input type="text" id="i_dob" value="08/08/2001" oninput="sync()"></div>
-        <div class="input-group"><label>Job Category</label>
-            <select id="i_job" onchange="sync()">
-                <option>Restaurant Waiter</option>
-                <option>Hotel Service Specialist</option>
-                <option>Construction Technician</option>
-                <option>General Logistics Worker</option>
-            </select>
+            <div class="input-group"><label>Issue Date</label><input type="date" id="in-issue" value="2026-02-17"></div>
+            <div class="input-group"><label>Expiry Date</label><input type="date" id="in-expiry" value="2028-02-17"></div>
+            <div class="input-group"><label>Issuing Office</label><input type="text" id="in-auth" value="Auckland Airport Branch"></div>
+            <div class="input-group"><label>Photo</label><input type="file" onchange="preview(event)"></div>
         </div>
-        <div class="input-group"><label>Salary (Hourly)</label><input type="text" id="i_sal" value="29.66" oninput="sync()"></div>
-        <div class="input-group"><label>Date of Issue</label><input type="text" id="i_issue" value="22/02/2026" oninput="sync()"></div>
-
-        <button class="btn-download" onclick="downloadPDF()">DOWNLOAD PROFESSIONAL PDF</button>
+        <div class="btn-row">
+            <button class="gen-btn" onclick="update()">Update Official Record</button>
+            <button class="print-btn" onclick="window.print()">Print Secure ID</button>
+        </div>
     </div>
 
-    <div class="main-viewer">
+    <div id="id-card">
+        <div class="nz-watermark">NEW ZEALAND</div>
         
-        <div class="page">
-            <div class="top-stripe"></div>
-            <div class="watermark">NEW ZEALAND</div>
-            <div class="header">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" class="nz-logo">
-                <div class="title-block" style="text-align: right;">
-                    <h1>Employment Agreement</h1>
-                    <p>Accredited Employer Work Visa (AEWV)</p>
-                    <small style="font-weight: bold; color: #555;">REF NO: <span id="o_ref"></span></small>
-                </div>
+        <div class="card-header">
+            <img class="flag-box" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg">
+            <div class="header-main">
+                <h2>NEW ZEALAND</h2>
+                <p>IMMIGRATION & BORDER PROTECTION • TE TARAWA KIBO</p>
             </div>
-
-            <div class="section-hdr">01. THE CONTRACTING PARTIES</div>
-            <table>
-                <tr><th>The Employer</th><td><b id="o_cname"></b><br><span id="o_caddr"></span></td></tr>
-                <tr><th>Tax Identification</th><td>IRD NZ: <span id="o_ctax"></span> | Registered Employment Entity</td></tr>
-                <tr><th>The Employee</th><td><b id="o_name"></b><br>Passport No: <span id="o_pass"></span></td></tr>
-                <tr><th>Legal Status</th><td>Citizen of <span id="o_country">Pakistan</span> | DOB: <span id="o_dob"></span></td></tr>
-            </table>
-
-            <div class="section-hdr">02. POSITION SPECIFICATIONS</div>
-            <p style="font-size: 12px; line-height: 1.6; color: #333;">The employer hereby confirms a professional engagement under New Zealand labor regulations for the role of <b><span id="o_job"></span></b>. This agreement constitutes a binding contract for a period of <b>36 Months (3 Years)</b> from the date of commencement.</p>
-            
-            <table>
-                <tr><th>Employment Type</th><td>Fixed-Term (3 Year Contract)</td></tr>
-                <tr><th>Basic Salary</th><td>NZD $ <span id="o_sal"></span> / Hour (Plus Holiday Pay)</td></tr>
-                <tr><th>Standard Hours</th><td>Guaranteed 40 Hours per week</td></tr>
-                <tr><th>Join Date</th><td>Within 30 days of Visa issuance</td></tr>
-            </table>
-
-            <div class="footer">OFFICIAL AGREEMENT | PAGE 1 OF 3 | NEW ZEALAND EMPLOYMENT RELATIONS ACT</div>
         </div>
 
-        <div class="page">
-            <div class="top-stripe"></div>
-            <div class="section-hdr">03. WORKER ENTITLEMENTS & PROVISIONS</div>
-            <p style="font-size: 12px; margin-bottom: 20px;">The following provisions are mandatory and fully covered by the employer as per the three-year agreement:</p>
-            
-            <div class="benefit-card">
-                <b>Flight & Migration</b>
-                International Air Ticket from home country to Auckland/Christchurch and annual return leave tickets are covered 100% by the employer side.
-            </div>
-            <div class="benefit-card">
-                <b>Accommodation & Utilities</b>
-                The company provides standard living quarters including high-speed internet, electricity, and water at no cost to the employee for the duration of the 3-year term.
-            </div>
-            <div class="benefit-card">
-                <b>Healthcare & ACC</b>
-                Employee is covered under ACC (Accident Compensation Corporation). Employer provides additional private health insurance for non-work related medical needs.
-            </div>
-            <div class="benefit-card">
-                <b>Transport</b>
-                Dedicated company transport is provided daily for commuting from accommodation to the designated worksite.
-            </div>
-            <div class="benefit-card">
-                <b>Banking & Financials</b>
-                Salary is deposited into a New Zealand bank account fortnightly. The employer assists in IRD number setup and local bank account opening.
-            </div>
-
-            <div class="section-hdr">04. HOLIDAYS & LEAVE</div>
-            <ul style="font-size: 12px; line-height: 1.8; color: #444;">
-                <li><b>Annual Leave:</b> 4 weeks paid holiday per year.</li>
-                <li><b>Sick Leave:</b> 10 days per year for personal or dependent care.</li>
-                <li><b>Public Holidays:</b> Paid time off or time-and-a-half pay for worked holidays.</li>
-            </ul>
-
-            <div class="footer">OFFICIAL AGREEMENT | PAGE 2 OF 3 | CONFIDENTIAL EMPLOYEE PROVISIONS</div>
+        <div class="visa-banner">
+            <span id="out-auth">OFFICE: ---</span>
+            <span id="out-ref" style="color:#d32f2f">REF: ---</span>
         </div>
 
-        <div class="page">
-            <div class="top-stripe"></div>
-            <div class="section-hdr">05. POLICY, PRIVACY & LEGAL CODE</div>
-            <p style="font-size: 12px; line-height: 1.6;"><b>Privacy Policy:</b> As per the NZ Privacy Act 2020, all data provided is used solely for Immigration and payroll. <b>Company Policy:</b> All staff must adhere to the Health and Safety at Work Act 2015. <b>Duration:</b> This visa-linked agreement is valid for 3 years, renewable upon mutual consent and INZ approval.</p>
-
-            <div class="section-hdr">06. BINDING EXECUTION & SIGNATURES</div>
-            
-            <div class="signature-grid">
-                <div class="sig-box">
-                    <b style="font-size: 12px;">For the Employer</b><br>
-                    <small id="o_cname_sig" style="color:var(--nz-blue)"></small><br>
-                    <div style="margin-top:20px; font-style: italic; color: #999;">Authorized Digital Signature</div>
-                </div>
-                <div class="sig-box">
-                    <b style="font-size: 12px;">For the Employee</b><br>
-                    <small id="o_name_sig" style="color:var(--nz-red)"></small><br>
-                    <div style="margin-top:20px; font-style: italic; color: #999;">Candidate Acknowledgment</div>
-                </div>
+        <div class="card-body">
+            <div class="photo-side">
+                <div class="photo-frame"><img id="out-photo" src=""></div>
+                <div style="margin-top:10px; font-weight:900; color:var(--nz-blue); font-size:9px; text-align:center;">STATUS: GRANTED</div>
             </div>
 
-            <div class="qr-wrapper">
-                <div id="qr-code"></div>
-                <div style="font-size: 10px; font-weight: bold; margin-top: 10px; color: var(--nz-blue);">SECURE VERIFICATION CODE</div>
-                <p style="font-size: 9px; color: #777;">Scanning this code reveals full Employee, Employer, and Immigration Reference data for verification by New Zealand Authorities.</p>
+            <div class="info-section">
+                <div class="field"><div class="label-text">Name</div><div class="value-text" id="out-name">---</div></div>
+                <div class="field"><div class="label-text">Date of Birth</div><div class="value-text" id="out-dob">---</div></div>
+                <div class="field"><div class="label-text">Country</div><div class="value-text" id="out-country">---</div></div>
+                <div class="field"><div class="label-text">Passport</div><div class="value-text" id="out-pass">---</div></div>
+                <div class="field" style="grid-column: span 2;"><div class="label-text">Guarantee Company</div><div class="value-text" id="out-co">---</div></div>
+                <div class="field"><div class="label-text">Job Category</div><div class="value-text" id="out-job">---</div></div>
+                <div class="field"><div class="label-text">Gender</div><div class="value-text" id="out-gen">---</div></div>
+                <div class="field"><div class="label-text">Issue Date</div><div class="value-text" id="out-issue">---</div></div>
+                <div class="field"><div class="label-text">Expiry Date</div><div class="value-text" id="out-expiry" style="color:#d32f2f">---</div></div>
             </div>
-
-            <div style="margin-top: 50px; border: 2px dashed #ccc; padding: 25px; text-align: center; border-radius: 10px;">
-                <div style="color: var(--nz-blue); font-weight: 900; letter-spacing: 2px; font-size: 14px;">OFFICIAL STAMP & VISA APPROVAL AREA</div>
-                <div style="height: 50px;"></div>
-            </div>
-
-            <div class="footer">OFFICIAL AGREEMENT | PAGE 3 OF 3 | END OF DOCUMENT</div>
         </div>
 
+        <div class="entry-stamp">
+            AUCKLAND AIRPORT<br>
+            ENTRY AUTHORIZED<br>
+            <span id="stamp-date">---</span>
+        </div>
+
+        <div class="qr-area">
+            <div id="qrcode"></div>
+            <div class="qr-label">NZ-GOV DIGITAL</div>
+        </div>
+        <div class="footer-ref">NEW ZEALAND IMMIGRATION AUTHORITY • VERIFY AT IMMIGRATION.GOVT.NZ</div>
     </div>
 
     <script>
-        function sync() {
-            // Company Mapping
-            document.getElementById('o_cname').innerText = document.getElementById('i_cname').value;
-            document.getElementById('o_cname_sig').innerText = document.getElementById('i_cname').value;
-            document.getElementById('o_caddr').innerText = document.getElementById('i_caddr').value;
-            document.getElementById('o_ctax').innerText = document.getElementById('i_ctax').value;
-            
-            // Client Mapping
-            const name = document.getElementById('i_name').value;
-            const pass = document.getElementById('i_pass').value;
-            const ref = document.getElementById('i_ref').value;
-            
-            document.getElementById('o_name').innerText = name;
-            document.getElementById('o_name_sig').innerText = name;
-            document.getElementById('o_pass').innerText = pass;
-            document.getElementById('o_dob').innerText = document.getElementById('i_dob').value;
-            document.getElementById('o_ref').innerText = ref;
-            document.getElementById('o_job').innerText = document.getElementById('i_job').value;
-            document.getElementById('o_sal').innerText = document.getElementById('i_sal').value;
+        let qr = new QRCode(document.getElementById("qrcode"), { 
+            width: 60, 
+            height: 60, 
+            colorDark : "#00247d",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.L
+        });
 
-            generateQR(name, pass, ref);
+        function preview(e) {
+            const r = new FileReader();
+            r.onload = () => { document.getElementById('out-photo').src = r.result; };
+            r.readAsDataURL(e.target.files[0]);
         }
 
-        function generateQR(name, pass, ref) {
-            const qrEl = document.getElementById("qr-code");
-            qrEl.innerHTML = "";
-            const company = document.getElementById('i_cname').value;
-            const tax = document.getElementById('i_ctax').value;
+        function update() {
+            const get = id => document.getElementById(id).value;
             
-            // Comprehensive Data String for QR
-            const qrData = `NZ-OFFICIAL-VERIFY\n---\nREF: ${ref}\nCLIENT: ${name}\nPASSPORT: ${pass}\nCOMPANY: ${company}\nTAX ID: ${tax}\nTERM: 36 MONTHS\nACC: APPROVED`;
-            
-            new QRCode(qrEl, {
-                text: qrData,
-                width: 110,
-                height: 110,
-                colorDark : "#00247d",
-                colorLight : "#ffffff"
-            });
-        }
+            // Text Mapping
+            document.getElementById('out-name').innerText = get('in-name').toUpperCase();
+            document.getElementById('out-dob').innerText = get('in-dob');
+            document.getElementById('out-country').innerText = get('in-country');
+            document.getElementById('out-ref').innerText = "REF: " + get('in-ref');
+            document.getElementById('out-pass').innerText = get('in-pass');
+            document.getElementById('out-co').innerText = get('in-co');
+            document.getElementById('out-job').innerText = get('in-job');
+            document.getElementById('out-auth').innerText = "OFFICE: " + get('in-auth').toUpperCase();
+            document.getElementById('out-gen').innerText = get('in-gen');
+            document.getElementById('out-issue').innerText = get('in-issue');
+            document.getElementById('out-expiry').innerText = get('in-expiry');
+            document.getElementById('stamp-date').innerText = get('in-issue');
 
-        function downloadPDF() {
-            const name = document.getElementById('i_name').value.replace(/\s+/g, '_');
-            const pass = document.getElementById('i_pass').value;
-            document.title = `${name}_${pass}_NewZealand_Agreement`;
-            window.print();
+            // QR Code Data (Shortened for scanning excellence)
+            const secureString = `PASS:${get('in-pass')}|DOB:${get('in-dob')}|EXP:${get('in-expiry')}`;
+            qr.clear();
+            qr.makeCode(secureString);
         }
-
-        // Initialize on load
-        sync();
+        update();
     </script>
 </body>
 </html>
