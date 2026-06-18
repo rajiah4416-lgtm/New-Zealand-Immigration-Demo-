@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>New Zealand Employment Offer & Agreement Builder</title>
+    <title>Official New Zealand Employment Offer & Agreement</title>
     <style>
         *, *::before, *::after {
             box-sizing: border-box;
@@ -151,25 +151,25 @@
             color: #d4af37;
         }
         
-        /* Premium Agreement Header Styling */
+        /* Premium Cover / Header Block Styling */
         .header-banner {
             background: linear-gradient(135deg, #004b49 0%, #003332 100%);
             color: #ffffff;
             margin: -25mm -20mm 20px -20mm;
-            padding: 35px 20mm 25px 20px;
+            padding: 40px 20mm 30px 20mm;
             border-bottom: 5px solid #d4af37;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .header-banner h1 {
             margin: 0;
-            font-size: 20pt;
+            font-size: 22pt;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             font-weight: 700;
         }
         .header-banner p {
             margin: 8px 0 0 0;
-            font-size: 10pt;
+            font-size: 10.5pt;
             color: #a3cbc9;
             font-style: italic;
         }
@@ -239,7 +239,7 @@
             margin-bottom: 5px;
         }
         
-        /* Table Layout Core Rules */
+        /* Grid Table Core Formatting */
         .form-grid {
             display: table;
             width: 100%;
@@ -271,7 +271,7 @@
             color: #2c3e50;
         }
         
-        /* Decorative Colorful QR Panel */
+        /* High Contrast Chromatic QR Section */
         .qr-section {
             display: table;
             width: 100%;
@@ -328,11 +328,23 @@
 </head>
 <body>
 
-    <!-- CONTROL DASHBOARD PANEL -->
+    <!-- INTERACTIVE CONTROL DASHBOARD PANEL -->
     <div id="control-dashboard">
         <h2 style="background: none; border: none; padding: 0; margin-bottom: 15px; font-size: 14pt;">Employment Framework Dashboard</h2>
         
-        <h3>1. Company Legal Entity Profile</h3>
+        <h3>1. Agreement Meta Configurations</h3>
+        <div class="dashboard-grid">
+            <div class="dashboard-field">
+                <label>Agreement Issue Date</label>
+                <input type="date" id="in-issue-date" class="dashboard-input" value="2026-06-18">
+            </div>
+            <div class="dashboard-field">
+                <label>Work Permit Handling Authority (New Zealand Department)</label>
+                <input type="text" id="in-permit-dept" class="dashboard-input" value="Immigration New Zealand (Ministry of Business, Innovation and Employment)">
+            </div>
+        </div>
+
+        <h3>2. Company Legal Entity Profile</h3>
         <div class="dashboard-grid">
             <div class="dashboard-field">
                 <label>Company Legal Name</label>
@@ -352,7 +364,7 @@
             </div>
         </div>
 
-        <h3>2. Employee Demographic & Identity Mapping</h3>
+        <h3>3. Employee Demographic & Identity Mapping</h3>
         <div class="dashboard-grid">
             <div class="dashboard-field">
                 <label>Employee Full Legal Name</label>
@@ -376,7 +388,7 @@
             </div>
         </div>
 
-        <h3>3. Operational Track & Reference Variables</h3>
+        <h3>4. Operational Track & Reference Variables</h3>
         <div class="dashboard-grid">
             <div class="dashboard-field">
                 <label>Department Designation</label>
@@ -422,26 +434,26 @@
     </div>
 
 
-    <!-- ================= 6-PAGE PRINT ENGINE BINDING LAYOUT ================= -->
+    <!-- ================= 6-PAGE PRINT ENGINE LAYOUT ================= -->
 
-    <!-- PAGE 1: PREAMBLE, ENTIRE CORPORATE & CLIENT MAPPING -->
+    <!-- PAGE 1: COVER TITLE DESIGN & PARTIES IDENTIFICATION -->
     <div class="page">
         <div class="header-banner">
             <h1>Individual Employment Agreement</h1>
             <p>Accredited Employer Work Visa Framework • Employment Relations Act 2000 Baseline</p>
         </div>
 
-        <h2>PARTIES TO THE INDIVIDUAL EMPLOYMENT AGREEMENT</h2>
-        <p>This Individual Employment Agreement ("Agreement") sets out the terms, boundaries, and working conditions foundational to the appointment of the Employee named below. This contract is drafted carefully to balance corporate regulatory protection with clean workplace transparency under active New Zealand employment laws.</p>
+        <h2>INDIVIDUAL EMPLOYMENT CONTRACTUAL PREAMBLE</h2>
+        <p>This document constitutes a binding Individual Employment Agreement executed under the governing laws of New Zealand, including the Employment Relations Act 2000, the Holidays Act 2003, and the Health and Safety at Work Act 2015. The terms established herein dictate the legal relationship, operational performance parameters, and mutual obligations held between the Employer and the Employee.</p>
         
-        <h3 class="section-sub">1. Employer Corporate Details</h3>
+        <h3 class="section-sub">1. Employer Entity Corporate Identification</h3>
         <div class="form-grid">
             <div class="form-row">
                 <div class="form-cell-label">Company Legal Name</div>
                 <div class="form-cell-input" id="lbl-comp-name"></div>
             </div>
             <div class="form-row">
-                <div class="form-cell-label">Registered Address</div>
+                <div class="form-cell-label">Registered Office Address</div>
                 <div class="form-cell-input" id="lbl-comp-addr"></div>
             </div>
             <div class="form-row">
@@ -454,7 +466,7 @@
             </div>
         </div>
 
-        <h3 class="section-sub">2. Employee Personal Demographics & Identity Profile</h3>
+        <h3 class="section-sub">2. Employee Demographic Profile & Identity Verification</h3>
         <div class="form-grid">
             <div class="form-row">
                 <div class="form-cell-label">Employee Full Legal Name</div>
@@ -465,28 +477,16 @@
                 <div class="form-cell-input" id="lbl-client-dob"></div>
             </div>
             <div class="form-row">
-                <div class="form-cell-label">Passport Number</div>
+                <div class="form-cell-label">International Passport Number</div>
                 <div class="form-cell-input" id="lbl-client-pass"></div>
             </div>
             <div class="form-row">
-                <div class="form-cell-label">Country of Origin</div>
+                <div class="form-cell-label">Country of Origin / Citizenship</div>
                 <div class="form-cell-input" id="lbl-client-country"></div>
             </div>
             <div class="form-row">
-                <div class="form-cell-label">Current Address Registry</div>
+                <div class="form-cell-label">Residential Address Registry</div>
                 <div class="form-cell-input" id="lbl-client-addr"></div>
-            </div>
-        </div>
-
-        <h3 class="section-sub">3. Positional Architecture</h3>
-        <div class="form-grid">
-            <div class="form-row">
-                <div class="form-cell-label">Assigned Department</div>
-                <div class="form-cell-input" id="lbl-client-dept"></div>
-            </div>
-            <div class="form-row">
-                <div class="form-cell-label">ANZSCO Occupation Classification</div>
-                <div class="form-cell-input" id="lbl-job-code"></div>
             </div>
         </div>
 
@@ -496,37 +496,30 @@
         </div>
     </div>
 
-    <!-- PAGE 2: TERM STRUCTURES & IMMIGRATION METADATA -->
+    <!-- PAGE 2: CONTRACTUAL TERMS, OFFICIAL DEPARTMENTS & TIMELINES -->
     <div class="page">
         <div class="page-header-standard">
-            <span>Section 2: Term Specifications and Legal Boundaries</span>
+            <span>Section 2: Term Specifications and Regulatory Oversight</span>
             <span class="ref-num">Ref: <span class="lbl-inz-ref"></span></span>
         </div>
 
-        <h2>3. AGREEMENT NATURE & DURATION</h2>
-        <p>The parties acknowledge and declare that this deployment runs as a 5-Year Maximum Fixed Term Agreement, satisfying international immigration checks and operational pipeline requirements at the enterprise level.</p>
+        <h2>3. AGREEMENT EXECUTION & CHRONOLOGY</h2>
+        <p>This agreement records an assignment intended to run precisely for a five-year fixed duration, satisfying international immigration checks and operational scheduling pipelines. The specific temporal definitions governing this arrangement are codified below:</p>
         
-        <h3 class="section-sub">Contractual Timelines</h3>
         <div class="form-grid">
+            <div class="form-row">
+                <div class="form-cell-label">Agreement Issue Date</div>
+                <div class="form-cell-input" id="lbl-issue-date"></div>
+            </div>
             <div class="form-row">
                 <div class="form-cell-label">Contract Classification</div>
                 <div class="form-cell-input">5-Year Fixed-Term Accredited Allocation</div>
             </div>
             <div class="form-row">
-                <div class="form-cell-label">Agreement Compilation Date</div>
-                <div class="form-cell-input">17 June 2026</div>
-            </div>
-            <div class="form-row">
-                <div class="form-cell-label">Official Duties Commencement Date</div>
+                <div class="form-cell-label">Duties Commencement Date</div>
                 <div class="form-cell-input">01 September 2026</div>
             </div>
         </div>
 
-        <h2>4. IMMIGRATION CONTROL & COMPLIANCE RULES</h2>
-        <p>This employment contract is explicitly contingent upon the Employee obtaining and maintaining lawful visa permissions issued via Immigration New Zealand to execute duties for the Company.</p>
-        <div class="form-grid">
-            <div class="form-row">
-                <div class="form-cell-label">Oversight Bureau Authority</div>
-                <div class="form-cell-input">Immigration New Zealand (MBIE Bureau)</div>
-            </div>
-    
+        <h2>4. WORK PERMIT JURISDICTION & IMMIGRATION OBLIGATIONS</h2>
+        <p>This individual employment framework is directly dependent on the Employee obtaining and maintaining continuous lawful visa authorization allowing full-time employment execution withi
