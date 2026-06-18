@@ -2,112 +2,225 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>New Zealand Employment Agreement</title>
+    <title>New Zealand Employment Offer & Agreement</title>
     <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
         @page {
             size: A4;
             margin: 0;
         }
         body {
-            font-family: 'Arial', sans-serif;
-            color: #222;
-            line-height: 1.5;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #2c3e50;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            background-color: #eef2f5;
         }
+        /* Strict 6-Page Layout Control */
         .page {
             width: 210mm;
             height: 297mm;
             box-sizing: border-box;
-            padding: 25mm;
+            padding: 25mm 20mm;
             position: relative;
             background: #ffffff;
             page-break-after: always;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden;
             margin: 10mm auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
-        /* NZ Immigration Compliant Background/Border Element */
+        /* Elegant Colored Legal Borders (New Zealand Deep Teal & Accent Gold) */
         .page::before {
-            content: "IMMIGRATION NEW ZEALAND • TE RATONGA KAHUI MANENE";
+            content: "";
             position: absolute;
-            top: 10mm;
-            left: 10mm;
-            right: 10mm;
-            bottom: 10mm;
-            border: 2px dashed #002341;
-            opacity: 0.15;
+            top: 12mm;
+            left: 12mm;
+            right: 12mm;
+            bottom: 12mm;
+            border: 2px solid #004b49; /* Deep Teal */
+            border-radius: 4px;
+            opacity: 0.9;
             pointer-events: none;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
+        }
+        .page::after {
+            content: "IMMIGRATION NEW ZEALAND COMPLIANT • TE RATONGA KAHUI MANENE";
+            position: absolute;
+            top: 6mm;
+            left: 0;
+            right: 0;
+            text-align: center;
             font-size: 8pt;
             letter-spacing: 2px;
             font-weight: bold;
+            color: #d4af37; /* Gold Accent */
         }
-        .header {
-            border-bottom: 2px solid #002341;
+        .header-banner {
+            background-color: #004b49;
+            color: #ffffff;
+            margin: -25mm -20mm 20px -20mm;
+            padding: 25px 20mm 20px 20px;
+            border-bottom: 5px solid #d4af37;
+        }
+        .header-banner h1 {
+            margin: 0;
+            font-size: 18pt;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .header-banner p {
+            margin: 5px 0 0 0;
+            font-size: 10pt;
+            color: #a3cbc9;
+        }
+        .page-header-standard {
+            border-bottom: 2px solid #004b49;
             padding-bottom: 5px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
+            margin-bottom: 20px;
             font-size: 9pt;
+            font-weight: bold;
+            color: #004b49;
+            text-transform: uppercase;
         }
-        .footer {
+        .page-header-standard .ref-num {
+            float: right;
+            color: #7f8c8d;
+        }
+        .footer-banner {
             position: absolute;
             bottom: 15mm;
-            left: 25mm;
-            right: 25mm;
-            border-top: 1px solid #ccc;
-            padding-top: 5px;
-            font-size: 8pt;
-            display: flex;
-            justify-content: space-between;
+            left: 20mm;
+            right: 20mm;
+            border-top: 1px solid #bdc3c7;
+            padding-top: 8px;
+            font-size: 8.5pt;
+            color: #7f8c8d;
         }
-        h1 { font-size: 20pt; color: #002341; margin-top: 0; }
-        h2 { font-size: 14pt; color: #002341; margin-top: 20px; border-left: 4px solid #002341; padding-left: 10px; }
-        p, li { font-size: 10.5pt; text-align: justify; }
-        .meta-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        .meta-table td {
-            padding: 6px;
-            border: 1px solid #ddd;
-            font-size: 9.5pt;
-        }
-        .meta-table td.label {
-            background-color: #f9f9f9;
+        .footer-banner .page-num {
+            float: right;
             font-weight: bold;
-            width: 30%;
+            color: #004b49;
         }
-        .qr-container {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: #f9f9f9;
+        h2 {
+            font-size: 13pt;
+            color: #004b49;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            border-left: 5px solid #d4af37;
+            padding-left: 10px;
+            background: #f4f8f8;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+        p, li {
+            font-size: 10.5pt;
+            text-align: justify;
+            color: #34495e;
+        }
+        /* Interactive Inputs & Options Matrix */
+        .form-grid {
+            display: table;
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        .form-row {
+            display: table-row;
+        }
+        .form-cell-label {
+            display: table-cell;
+            width: 35%;
+            padding: 10px;
+            background-color: #f8fafb;
+            border: 1px solid #dcdde1;
+            font-size: 9.5pt;
+            font-weight: bold;
+            color: #004b49;
+            vertical-align: middle;
+        }
+        .form-cell-input {
+            display: table-cell;
+            width: 65%;
+            padding: 8px 10px;
+            border: 1px solid #dcdde1;
+            vertical-align: middle;
+        }
+        .form-control {
+            width: 100%;
+            padding: 6px 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 10pt;
+            background-color: #fff;
+            color: #2c3e50;
+            outline: none;
+        }
+        .form-control:focus {
+            border-color: #004b49;
+            background-color: #fff;
+        }
+        .info-callout {
+            background-color: #eaf2f2;
+            border-left: 4px solid #004b49;
             padding: 15px;
-            border: 1px solid #ddd;
-            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 4px 4px 0;
         }
-        .qr-box {
-            width: 100px;
-            height: 100px;
-            background: url('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Company:%20NZ%20Enterprise%20Ltd,%20TaxID:%20123-456-789,%20Email:%20hr@nzenterprise.co.nz;%20Client/Employee:%20John%20Doe') no-repeat center;
-            background-size: contain;
-            border: 1px solid #000;
+        .info-callout p {
+            margin: 0;
+            font-size: 9.5pt;
+            color: #004b49;
         }
-        .sig-block {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
+        /* Dynamic QR Code Components */
+        .qr-section {
+            display: table;
+            width: 100%;
+            background-color: #f9fbfb;
+            border: 1px solid #004b49;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 4px;
+        }
+        .qr-cell-code {
+            display: table-cell;
+            width: 120px;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .qr-cell-desc {
+            display: table-cell;
+            vertical-align: middle;
+            padding-left: 20px;
+        }
+        .qr-image {
+            width: 110px;
+            height: 110px;
+            border: 2px solid #004b49;
+            background: #ffffff url('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=COMPANY:%20NZ%20Enterprise%20Ltd%20|%20TAX_ID:%20123-456-789%20|%20EMAIL:%20hr@nzenterprise.co.nz%20|%20CLIENT:%20John%20Doe%20|%20TERM:%205-YEARS%20|%20REF:%20INZ-AEWV-998231X') no-repeat center;
+            background-size: cover;
+        }
+        .signature-container {
+            display: table;
+            width: 100%;
+            margin-top: 50px;
+        }
+        .signature-box {
+            display: table-cell;
+            width: 48%;
+            padding-right: 4%;
+            vertical-align: top;
+        }
+        .signature-box:last-child {
+            padding-right: 0;
+            padding-left: 4%;
         }
         .sig-line {
-            width: 45%;
-            border-top: 1px solid #000;
-            padding-top: 5px;
-            margin-top: 50px;
+            border-top: 2px solid #004b49;
+            margin-top: 45px;
+            padding-top: 8px;
             font-size: 10pt;
         }
     </style>
@@ -116,120 +229,273 @@
 
     <!-- PAGE 1: OFFER & DETAILS -->
     <div class="page">
-        <div class="header"><span>IMMIGRATION NZ COMPLIANT AGREEMENT</span><span>REF: INZ-AEWV-998231X</span></div>
-        <h1>EMPLOYMENT OFFER & AGREEMENT</h1>
-        <p>This document constitutes an enforceable Individual Employment Agreement prescribed under the Employment Relations Act 2000.</p>
+        <div class="header-banner">
+            <h1>Individual Employment Agreement</h1>
+            <p>5-Year Term Employment Offer & Framework • Under Employment Relations Act 2000</p>
+        </div>
         
-        <h2>1. COMPANY & CLIENT (EMPLOYEE) INFORMATION</h2>
-        <table class="meta-table">
-            <tr><td class="label">Company Name</td><td>NZ Enterprise Limited</td></tr>
-            <tr><td class="label">Company Address</td><td>101 Lambton Quay, Wellington 6011, New Zealand</td></tr>
-            <tr><td class="label">Company Tax Number (IRD)</td><td>123-456-789</td></tr>
-            <tr><td class="label">Company Contact Email</td><td>hr@nzenterprise.co.nz</td></tr>
-            <tr><td class="label">Client / Employee Name</td><td>John Doe</td></tr>
-            <tr><td class="label">Department</td><td>Operations & Technology</td></tr>
-            <tr><td class="label">Job Code</td><td>ANZSCO-261312</td></tr>
-        </table>
+        <div class="info-callout">
+            <p><strong>Operational Notice:</strong> Adjust the interactive dropdown menus and form fields below to input specific configuration parameters for verification processes.</p>
+        </div>
 
-        <h2>2. KEY DATES & TIMEFRAME</h2>
-        <table class="meta-table">
-            <tr><td class="label">Issue Date</td><td>17 June 2026</td></tr>
-            <tr><td class="label">Job Join Date</td><td>01 September 2026</td></tr>
-            <tr><td class="label">Agreement Term</td><td>Five (5) Years Fixed-Term (Subject to Visa Validity)</td></tr>
-            <tr><td class="label">Handling Department</td><td>Immigration New Zealand (MBIE)</td></tr>
-            <tr><td class="label">INZ Job Check Ref Number</td><td>INZ-AEWV-998231X</td></tr>
-        </table>
-        <div class="footer"><span>Page 1 of 6</span><span>Initial: _________</span></div>
+        <h2>1. COMPANY & CORPORATE INFORMATION</h2>
+        <div class="form-grid">
+            <div class="form-row">
+                <div class="form-cell-label">Company Legal Name</div>
+                <div class="form-cell-input"><input type="text" class="form-control" value="NZ Enterprise Limited"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Registered Address</div>
+                <div class="form-cell-input"><input type="text" class="form-control" value="101 Lambton Quay, Wellington 6011, New Zealand"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Tax Number (IRD)</div>
+                <div class="form-cell-input"><input type="text" class="form-control" value="123-456-789"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Contact Email</div>
+                <div class="form-cell-input"><input type="email" class="form-control" value="hr@nzenterprise.co.nz"></div>
+            </div>
+        </div>
+
+        <h2>2. CLIENT (EMPLOYEE) DEMOGRAPHICS</h2>
+        <div class="form-grid">
+            <div class="form-row">
+                <div class="form-cell-label">Client Full Legal Name</div>
+                <div class="form-cell-input"><input type="text" class="form-control" value="John Doe"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Department Option</div>
+                <div class="form-cell-input">
+                    <select class="form-control">
+                        <option selected>Operations & Technology Division</option>
+                        <option>Executive Strategy & Finance</option>
+                        <option>Global Supply Chain Management</option>
+                        <option>Engineering Infrastructure</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">ANZSCO Job Code</div>
+                <div class="form-cell-input"><input type="text" class="form-control" value="ANZSCO-261312 (Developer Programmer)"></div>
+            </div>
+        </div>
+
+        <div class="footer-banner">
+            <span>STRICTLY CONFIDENTIAL</span>
+            <span class="page-num">Page 1 of 6</span>
+        </div>
     </div>
 
-    <!-- PAGE 2: POSITION & WORKING HOURS -->
+    <!-- PAGE 2: TIMEFRAMES & VALIDATION -->
     <div class="page">
-        <div class="header"><span>IMMIGRATION NZ COMPLIANT AGREEMENT</span><span>REF: INZ-AEWV-998231X</span></div>
-        <h2>3. POSITION DESCRIPTION & RESPONSIBILITIES</h2>
-        <p>The Employee is appointed to the position indicated by Job Code ANZSCO-261312. The specific duties, benchmarks, and expectations are outlined under Company Policy and are subject to reasonable alignment as operational objectives progress during the 5-year duration.</p>
+        <div class="page-header-standard">
+            <span>Section 2: Term and Legal Boundaries</span>
+            <span class="ref-num">Ref: INZ-AEWV-998231X</span>
+        </div>
 
-        <h2>4. WORKING HOURS & SCHEDULING</h2>
-        <p>In accordance with Immigration New Zealand accreditation rules requirements for full-time standard employment packages, the framework governs operational periods as follows:</p>
+        <h2>3. AGREEMENT TIMEFRAME OPTIONS</h2>
+        <p>This document records an option-based assignment intended to run precisely for a five-year fixed duration, matching requirements detailed inside federal employment checks.</p>
+
+        <div class="form-grid">
+            <div class="form-row">
+                <div class="form-cell-label">Contract Term Classification</div>
+                <div class="form-cell-input">
+                    <select class="form-control">
+                        <option selected>5-Year Maximum Fixed Term Agreement</option>
+                        <option>Standard 5-Year Renewable Project Term</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Agreement Issue Date</div>
+                <div class="form-cell-input"><input type="date" class="form-control" value="2026-06-17"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Official Job Join Date</div>
+                <div class="form-cell-input"><input type="date" class="form-control" value="2026-09-01"></div>
+            </div>
+        </div>
+
+        <h2>4. IMMIGRATION AUTHORITY METADATA</h2>
+        <div class="form-grid">
+            <div class="form-row">
+                <div class="form-cell-label">Handling Permit Bureau</div>
+                <div class="form-cell-input"><input type="text" class="form-control" value="Immigration New Zealand (MBIE)" readonly></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Job Check Reference ID</div>
+                <div class="form-cell-input"><input type="text" class="form-control" value="INZ-AEWV-998231X" readonly></div>
+            </div>
+        </div>
+        <p style="font-size: 9.5pt; color: #7f8c8d;">* Verification ensures that the accredited business status remains compliant over the full five-year operational window.</p>
+
+        <div class="footer-banner">
+            <span>STRICTLY CONFIDENTIAL</span>
+            <span class="page-num">Page 2 of 6</span>
+        </div>
+    </div>
+
+    <!-- PAGE 3: WORKING HOURS -->
+    <div class="page">
+        <div class="page-header-standard">
+            <span>Section 3: Hours of Work & Scheduling Allocation</span>
+            <span class="ref-num">Ref: INZ-AEWV-998231X</span>
+        </div>
+
+        <h2>5. WORKING HOURS SPECIFICATION OPTIONS</h2>
+        <p>The operational framework details minimum thresholds required to guarantee full-time alignment with work visa standard requirements.</p>
+
+        <div class="form-grid">
+            <div class="form-row">
+                <div class="form-cell-label">Guaranteed Hours Base</div>
+                <div class="form-cell-input">
+                    <select class="form-control">
+                        <option selected>40 Hours Per Week (Statutory Full-Time)</option>
+                        <option>45 Hours Per Week (Extended Roster Option)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Roster Configuration</div>
+                <div class="form-cell-input"><input type="text" class="form-control" value="Monday to Friday, 08:30 AM – 05:00 PM"></div>
+            </div>
+        </div>
+
+        <h2>6. BREAK PROVISIONS & REST SCHEDULES</h2>
+        <p>Rest allocations comply with standard provisions under the Employment Relations Act 2000:</p>
         <ul>
-            <li><strong>Guaranteed Hours:</strong> The Employer guarantees a minimum of forty (40) hours of work per calendar week.</li>
-            <li><strong>Standard Roster:</strong> Operational shifts occur Monday through Friday between the core hours of 8:30 AM and 5:00 PM.</li>
-            <li><strong>Overtime Provisions:</strong> Any additional hours over the standard baseline must be mutually agreed upon in writing. Compensation for extended coverage will align directly with regular base ratios unless specific high-tier rates apply.</li>
-            <li><strong>Rest and Meal Breaks:</strong> Breaks will be provided in complete compliance with the Employment Relations Act 2000, ensuring paid 10-minute rest intervals and unpaid 30-minute meal periods are distributed evenly during the shifts.</li>
+            <li><strong>Rest Breaks:</strong> Double 10-minute fully compensated rest periods scheduled during active operational blocks.</li>
+            <li><strong>Meal Interval:</strong> A 30-minute uncompensated meal period arranged to protect workplace ergonomic standards.</li>
         </ul>
-        <div class="footer"><span>Page 2 of 6</span><span>Initial: _________</span></div>
+
+        <div class="footer-banner">
+            <span>STRICTLY CONFIDENTIAL</span>
+            <span class="page-num">Page 3 of 6</span>
+        </div>
     </div>
 
-    <!-- PAGE 3: SALARIES & REMUNERATION -->
+    <!-- PAGE 4: SALARIES -->
     <div class="page">
-        <div class="header"><span>IMMIGRATION NZ COMPLIANT AGREEMENT</span><span>REF: INZ-AEWV-998231X</span></div>
-        <h2>5. SALARIES, REMUNERATION & TAXATION</h2>
-        <p>Remuneration conditions must meet both the market median threshold standards and regional operational compliance guidelines throughout the five-year assignment framework:</p>
+        <div class="page-header-standard">
+            <span>Section 4: Salaries, Remuneration & Compensation</span>
+            <span class="ref-num">Ref: INZ-AEWV-998231X</span>
+        </div>
+
+        <h2>7. BASE SALARY & REMUNERATION OPTIONS</h2>
+        <p>Select or define the base salary values below, ensuring compliance with the updated New Zealand median wage benchmarks.</p>
+
+        <div class="form-grid">
+            <div class="form-row">
+                <div class="form-cell-label">Hourly Remuneration Tier</div>
+                <div class="form-cell-input">
+                    <select class="form-control">
+                        <option selected>$35.00 NZD per Hour (Standard Rate)</option>
+                        <option>$42.50 NZD per Hour (Senior Specialist Tier)</option>
+                        <option>$50.00 NZD per Hour (Executive Tier)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Annualized Gross Equivalent</div>
+                <div class="form-cell-input"><input type="text" class="form-control" value="$72,800 NZD (Calculated on 40-hr baseline)"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Remuneration Frequency</div>
+                <div class="form-cell-input">
+                    <select class="form-control">
+                        <option selected>Fortnightly Bank Remittance</option>
+                        <option>Monthly Closed Bank Remittance</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <h2>8. FISCAL SOURCE DEDUCTIONS</h2>
+        <p>All payroll balances undergo statutory source management processing via the corporate IRD configuration profile:</p>
         <ul>
-            <li><strong>Base Salary / Wage Rate:</strong> The Employee shall receive a base pay rate of $35.00 NZD per hour, totaling an annualized gross structure of $72,800 NZD based on the standard 40-hour work week.</li>
-            <li><strong>Payment Frequency:</strong> Remuneration distributions occur on a fortnightly schedule directly deposited into the employee's verified New Zealand financial institution account.</li>
-            <li><strong>Tax Deductions:</strong> All calculations are processed on a gross value level. Deductions for Pay As You Earn (PAYE) taxes, ACC levies, and matching student loan contributions occur directly at source based on the listed Tax Number profiles.</li>
-            <li><strong>KiwiSaver Provisions:</strong> The Employer provides statutory KiwiSaver contributions equal to 3% of gross earnings, provided the Employee meets all legal requirements and chooses to participate.</li>
+            <li><strong>PAYE Calculations:</strong> Reduced directly based on personal tax profile registrations.</li>
+            <li><strong>ACC Levies:</strong> Retained at matching regulatory calculation percentages.</li>
         </ul>
-        <div class="footer"><span>Page 3 of 6</span><span>Initial: _________</span></div>
+
+        <div class="footer-banner">
+            <span>STRICTLY CONFIDENTIAL</span>
+            <span class="page-num">Page 4 of 6</span>
+        </div>
     </div>
 
-    <!-- PAGE 4: HOLIDAYS & COMPANY LEAVE LEGISLATION -->
+    <!-- PAGE 5: HOLIDAYS & LEAVE LEGISLATION -->
     <div class="page">
-        <div class="header"><span>IMMIGRATION NZ COMPLIANT AGREEMENT</span><span>REF: INZ-AEWV-998231X</span></div>
-        <h2>6. STATUTORY HOLIDAYS & LEAVE ENTITLEMENTS</h2>
-        <p>Leave and recreational periods accumulate systematically under the explicit frameworks outlined in the Holidays Act 2003:</p>
+        <div class="page-header-standard">
+            <span>Section 5: Leave Architecture & Holiday Governance</span>
+            <span class="ref-num">Ref: INZ-AEWV-998231X</span>
+        </div>
+
+        <h2>9. RECREATIONAL LEAVE LEGISLATION</h2>
+        <p>Leave and rest periods accrue dynamically under parameters outlined inside the Holidays Act 2003:</p>
         <ul>
-            <li><strong>Annual Holidays:</strong> Upon completing twelve consecutive months of continuous service, the employee gains entitlement to four (4) weeks of paid annual leave.</li>
-            <li><strong>Public Holidays:</strong> Compliance frameworks ensure complete protection for the 12 recognized New Zealand public holidays. If a holiday falls on an otherwise working day, full payment applies. If worked, standard alternative day balances accumulate.</li>
-            <li><strong>Sick & Bereavement Provisions:</strong> After six continuous months of active employment, the individual receives 10 days of paid sick leave per 12-month sequence, alongside statutory bereavement parameters.</li>
+            <li><strong>Annual Holidays:</strong> Access to four (4) full working weeks of paid annual holidays upon completing twelve months of continuous operational work.</li>
+            <li><strong>Public Holidays:</strong> Complete protection for the 12 recognized New Zealand public holidays. Work required on standard public holiday dates guarantees a premium rate of time-and-a-half plus an alternate day off.</li>
+            <li><strong>Sick Leave:</strong> Ten (10) days of paid sick leave allocated after six months of active service.</li>
         </ul>
-        <div class="footer"><span>Page 4 of 6</span><span>Initial: _________</span></div>
+
+        <h2>10. COMPANY POLICY ALIGNMENT</h2>
+        <p>The Client confirms strict adherence to all workplace behaviors, health protections, and performance standards detailed inside the current Company Policy manual.</p>
+
+        <div class="footer-banner">
+            <span>STRICTLY CONFIDENTIAL</span>
+            <span class="page-num">Page 5 of 6</span>
+        </div>
     </div>
 
-    <!-- PAGE 5: COMPANY POLICIES & IMMIGRATION OBLIGATIONS -->
+    <!-- PAGE 6: QR CODE & EXECUTION -->
     <div class="page">
-        <div class="header"><span>IMMIGRATION NZ COMPLIANT AGREEMENT</span><span>REF: INZ-AEWV-998231X</span></div>
-        <h2>7. COMPANY POLICY & PERFORMANCE REVIEWS</h2>
-        <p>The Employee explicitly agrees to comply with all established rules, safety frameworks, and performance metrics governed under the official Company Policy Manual. Formal evaluations take place annually to track performance and alignment with operational targets throughout the 5-year duration.</p>
+        <div class="page-header-standard">
+            <span>Section 6: Code Authentication & Mutual Signatures</span>
+            <span class="ref-num">Ref: INZ-AEWV-998231X</span>
+        </div>
 
-        <h2>8. VISA COMPLIANCE & TERMINATION PROVISIONS</h2>
-        <p>This 5-year fixed-term contract relies directly on the maintenance of valid visa permissions issued by Immigration New Zealand. If the required work visa is revoked, restricted, or expires without legal extension, this contractual bond will automatically dissolve due to frustration of contract, exempt from standard severance penalties.</p>
-        <div class="footer"><span>Page 5 of 6</span><span>Initial: _________</span></div>
-    </div>
+        <h2>11. QR CODE IDENTIFICATION LAYER</h2>
+        <p>Scanning the generated code below automatically presents the company's verified email, address, tax configuration credentials, and the client's validation matrix for confirmation checks.</p>
 
-    <!-- PAGE 6: VERIFICATION QR & SIGNATURES -->
-    <div class="page">
-        <div class="header"><span>IMMIGRATION NZ COMPLIANT AGREEMENT</span><span>REF: INZ-AEWV-998231X</span></div>
-        <h2>9. SECURITY CODE & OFFICIAL DATA EXTRACTION</h2>
-        <p>The system profile integrated below houses dynamic encryption linking directly back to administrative operational pipelines. Scanning this token instantly verifies real-time identity data matching Company Records and Client Registration parameters:</p>
-        
-        <div class="qr-container">
-            <div class="qr-box"></div>
-            <div>
-                <strong>INZ COMPLIANT VERIFICATION CODE</strong><br>
+        <div class="qr-section">
+            <div class="qr-cell-code">
+                <div class="qr-image"></div>
+            </div>
+            <div class="qr-cell-desc">
+                <strong>DIGITAL VERIFICATION INTEGRITY TOKEN</strong><br>
                 <span style="font-size: 8.5pt; color: #555;">
-                    Contains: Sponsoring Employer Details, IRD Tax Profiles, <br>
-                    Client Passports, and Reference Validation ID: INZ-AEWV-998231X.
+                    Firm: NZ Enterprise Limited<br>
+                    Tax ID: 123-456-789 | Email: hr@nzenterprise.co.nz<br>
+                    Client Tracking Reference: INZ-AEWV-998231X
                 </span>
             </div>
         </div>
 
-        <h2>10. MUTUAL ACCEPTANCE & EXECUTION</h2>
+        <h2>12. FORMAL EXECUTION & MUTUAL ACCEPTANCE</h2>
         <p>By signing below, both parties confirm they have read, understood, and agreed to the employment terms, and acknowledge that this agreement complies with New Zealand law.</p>
 
-        <div class="sig-block">
-            <div class="sig-line">
-                <strong>Authorised Company Owner Signature</strong><br>
-                Name: _____________________________<br>
-                Date: ____ / ____ / ________
+        <div class="signature-container">
+            <div class="signature-box">
+                <strong>For the Employer (Company Owner):</strong>
+                <div class="sig-line">
+                    Managing Director / Company Owner Signature<br>
+                    Date: ____ / ____ / ________
+                </div>
             </div>
-            <div class="sig-line">
-                <strong>Client / Employee Signature</strong><br>
-                Name: John Doe<br>
-                Date: ____ / ____ / ________
+            <div class="signature-box">
+                <strong>For the Client (Employee):</strong>
+                <div class="sig-line">
+                    Client Full Legal Signature<br>
+                    Date: ____ / ____ / ________
+                </div>
             </div>
         </div>
-        <div class="footer"><span>Page 6 of 6</span><span>End of Agreement</span></div>
+
+        <div class="footer-banner">
+            <span>STRICTLY CONFIDENTIAL</span>
+            <span class="page-num">Page 6 of 6</span>
+        </div>
     </div>
 
 </body>
