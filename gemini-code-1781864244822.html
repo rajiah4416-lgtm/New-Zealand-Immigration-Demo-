@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Official New Zealand Employment Offer & Agreement</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        /* INTERACTIVE DASHBOARD SYSTEM PANEL */
+        #control-dashboard {
+            max-width: 1000px;
+            margin: 25px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            border-top: 6px solid #004b49;
+        }
+        #control-dashboard h2 {
+            background: none !important;
+            border: none !important;
+            padding: 0 !important;
+            margin-bottom: 5px;
+            font-size: 15pt;
+            color: #004b49;
+        }
+        #control-dashboard h3 {
+            margin-top: 25px;
+            margin-bottom: 15px;
+            color: #004b49;
+            border-bottom: 2px solid #eef2f5;
+            padding-bottom: 6px;
+            text-transform: uppercase;
+            font-size: 10pt;
+            letter-spacing: 0.75px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .dashboard-field {
+            display: flex;
+            flex-direction: column;
+        }
+        .dashboard-field label {
+            font-size: 8.5pt;
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 5px;
+        }
+        .dashboard-input {
+            padding: 10px 12px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 9.5pt;
+            color: #2c3e50;
+            background-color: #fff;
+            transition: border-color 0.2s;
+        }
+        .dashboard-input:focus {
+            outline: none;
+            border-color: #004b49;
+        }
+        .action-container {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 2px solid #eef2f5;
+            margin-top: 30px;
+        }
+        .download-btn {
+            background-color: #004b49;
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            font-size: 11pt;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(0,75,73,0.2);
+            transition: background 0.2s;
+        }
+        .download-btn:hover {
+            background-color: #003332;
+        }
+
+        /* PRINT INTERPRETATION ENGINE RULES */
+        @media print {
+            #control-dashboard {
+                display: none !important;
+            }
+            body {
+                background-color: #ffffff !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .page {
+                margin: 0 !important;
+                box-shadow: none !important;
+                page-break-after: always !important;
+                page-break-inside: avoid !important;
+            }
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #2c3e50;
+            line-height: 1.45;
+            margin: 0;
+            padding: 0;
+            background-color: #eef2f5;
+        }
+        
+        /* SYSTEMIC 6-PAGE ARCHITECTURE */
+        .page {
+            width: 210mm;
+            height: 297mm;
+            box-sizing: border-box;
+            padding: 22mm 20mm;
+            position: relative;
+            background: #ffffff;
+            page-break-after: always;
+            overflow: hidden;
+            margin: 15mm auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .page::before {
+            content: "";
+            position: absolute;
+            top: 10mm;
+            left: 10mm;
+            right: 10mm;
+            bottom: 10mm;
+            border: 2px solid #004b49;
+            border-radius: 2px;
+            opacity: 0.9;
+            pointer-events: none;
+        }
+        .page::after {
+            content: "IMMIGRATION NEW ZEALAND LEGAL COMPLIANCE BASELINE • INDIVIDUAL EMPLOYMENT RECORD";
+            position: absolute;
+            top: 5mm;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 7.5pt;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            color: #d4af37;
+        }
+        
+        /* PREMIUM DOCUMENT GRAPHICS */
+        .header-banner {
+            background: linear-gradient(135deg, #004b49 0%, #002625 100%);
+            color: #ffffff;
+            margin: -22mm -20mm 20px -20mm;
+            padding: 35px 20mm 25px 20mm;
+            border-bottom: 5px solid #d4af37;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .header-banner h1 {
+            margin: 0;
+            font-size: 20pt;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .header-banner p {
+            margin: 6px 0 0 0;
+            font-size: 9.5pt;
+            color: #a3cbc9;
+            letter-spacing: 0.5px;
+        }
+        .page-header-standard {
+            border-bottom: 2px solid #004b49;
+            padding-bottom: 4px;
+            margin-bottom: 15px;
+            font-size: 8.5pt;
+            font-weight: bold;
+            color: #004b49;
+            text-transform: uppercase;
+        }
+        .page-header-standard .ref-num {
+            float: right;
+            color: #7f8c8d;
+        }
+        .footer-banner {
+            position: absolute;
+            bottom: 12mm;
+            left: 20mm;
+            right: 20mm;
+            border-top: 1px solid #dcdde1;
+            padding-top: 6px;
+            font-size: 8pt;
+            color: #7f8c8d;
+        }
+        .footer-banner .page-num {
+            float: right;
+            font-weight: bold;
+            color: #004b49;
+        }
+        
+        h2 {
+            font-size: 10.5pt;
+            color: #004b49;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            border-left: 4px solid #d4af37;
+            padding-left: 10px;
+            background: #f4f8f8;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+        h3.section-sub {
+            font-size: 9.5pt;
+            color: #2c3e50;
+            margin: 12px 0 6px 0;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        p, li {
+            font-size: 9pt;
+            text-align: justify;
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        ul {
+            margin-top: 0;
+            margin-bottom: 10px;
+            padding-left: 18px;
+        }
+        li {
+            margin-bottom: 4px;
+        }
+        
+        /* DATA PRESENTATION MATRIX LAYOUT */
+        .form-grid {
+            display: table;
+            width: 100%;
+            margin-bottom: 14px;
+            border-collapse: collapse;
+        }
+        .form-row {
+            display: table-row;
+        }
+        .form-cell-label {
+            display: table-cell;
+            width: 35%;
+            padding: 8px 10px;
+            background-color: #f8fafb;
+            border: 1px solid #dcdde1;
+            font-size: 8.5pt;
+            font-weight: bold;
+            color: #004b49;
+            vertical-align: middle;
+        }
+        .form-cell-input {
+            display: table-cell;
+            width: 65%;
+            padding: 8px 10px;
+            border: 1px solid #dcdde1;
+            vertical-align: middle;
+            font-size: 9pt;
+            background-color: #ffffff;
+            color: #2c3e50;
+        }
+        
+        /* HARD-COPY SCAN REPLICATIONS */
+        .scan-container {
+            display: flex;
+            gap: 15px;
+            margin: 12px 0;
+            background: #fafbfc;
+            border: 1px dashed #004b49;
+            padding: 12px;
+            border-radius: 4px;
+        }
+        .scan-box {
+            flex: 1;
+            border: 1px solid #bdc3c7;
+            background: #ffffff;
+            padding: 10px;
+            font-size: 8.5pt;
+            border-radius: 2px;
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.01);
+            line-height: 1.4;
+        }
+        .scan-title {
+            font-weight: bold;
+            color: #004b49;
+            border-bottom: 2px solid #eef2f5;
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            font-size: 7.5pt;
+            letter-spacing: 0.5px;
+        }
+
+        /* HIGH-CONTRAST TOKEN SECURITY LAYER */
+        .qr-section {
+            display: table;
+            width: 100%;
+            background-color: #f4f8f8;
+            border: 2px solid #004b49;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 6px;
+        }
+        .qr-cell-code {
+            display: table-cell;
+            width: 125px;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .qr-cell-desc {
+            display: table-cell;
+            vertical-align: middle;
+            padding-left: 20px;
+        }
+        .qr-image {
+            width: 120px;
+            height: 120px;
+            border: 3px solid #d4af37;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: #ffffff;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .signature-container {
+            display: table;
+            width: 100%;
+            margin-top: 30px;
+        }
+        .signature-box {
+            display: table-cell;
+            width: 48%;
+            padding-right: 4%;
+            vertical-align: top;
+        }
+        .signature-box:last-child {
+            padding-right: 0;
+            padding-left: 4%;
+        }
+        .sig-line {
+            border-top: 2px solid #004b49;
+            margin-top: 40px;
+            padding-top: 6px;
+            font-size: 9pt;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="control-dashboard">
+        <h2>Employment Framework Administration Console</h2>
+        <p style="margin: 0 0 15px 0; font-size: 9.5pt; color: #7f8c8d;">Input active contract variables below. The underlying 6-page legal blueprint will realign in real-time.</p>
+        
+        <h3>1. Chronological Parameters & Reference Master Keys</h3>
+        <div class="dashboard-grid">
+            <div class="dashboard-field">
+                <label>Agreement Issue Date</label>
+                <input type="date" id="in-issue-date" class="dashboard-input" value="2026-06-19">
+            </div>
+            <div class="dashboard-field">
+                <label>Duties Join Date</label>
+                <input type="date" id="in-join-date" class="dashboard-input" value="2026-09-01">
+            </div>
+            <div class="dashboard-field">
+                <label>Document Reference Number</label>
+                <input type="text" id="in-doc-ref" class="dashboard-input" value="AGR-2026-X992">
+            </div>
+            <div class="dashboard-field">
+                <label>Department Reference Number</label>
+                <input type="text" id="in-dept-ref" class="dashboard-input" value="NZD-SEC-9981">
+            </div>
+            <div class="dashboard-field">
+                <label>Job Reference Number</label>
+                <input type="text" id="in-job-ref" class="dashboard-input" value="JOB-GUARD-404">
+            </div>
+            <div class="dashboard-field">
+                <label>Immigration Reference Number</label>
+                <input type="text" id="in-imm-ref" class="dashboard-input" value="IMMR-NZ-883711">
+            </div>
+            <div class="dashboard-field">
+                <label>INZ Job Check Number</label>
+                <input type="text" id="in-job-check" class="dashboard-input" value="CHK-AEWV-77621A">
+            </div>
+            <div class="dashboard-field">
+                <label>Work Permit Handling Authority</label>
+                <input type="text" id="in-permit-dept" class="dashboard-input" value="Immigration New Zealand (Ministry of Business, Innovation and Employment)">
+            </div>
+        </div>
+
+        <h3>2. Employer Entity Legal Profile</h3>
+        <div class="dashboard-grid">
+            <div class="dashboard-field">
+                <label>Company Corporate Name</label>
+                <input type="text" id="in-comp-name" class="dashboard-input" value="Aotearoa Asset Protection Limited">
+            </div>
+            <div class="dashboard-field">
+                <label>Registered Office Address</label>
+                <input type="text" id="in-comp-addr" class="dashboard-input" value="Level 14, 48 Shortland Street, Auckland CBD 1010, New Zealand">
+            </div>
+            <div class="dashboard-field">
+                <label>Corporate IRD Taxation Number</label>
+                <input type="text" id="in-comp-tax" class="dashboard-input" value="105-884-321">
+            </div>
+            <div class="dashboard-field">
+                <label>Corporate Communications Email</label>
+                <input type="email" id="in-comp-email" class="dashboard-input" value="legal@aotearoaprotection.co.nz">
+            </div>
+        </div>
+
+        <h3>3. Employee Identity Mapping & Demographics</h3>
+        <div class="dashboard-grid">
+            <div class="dashboard-field">
+                <label>Employee Full Legal Name</label>
+                <input type="text" id="in-client-name" class="dashboard-input" value="John Doe">
+            </div>
+            <div class="dashboard-field">
+                <label>Date of Birth</label>
+                <input type="date" id="in-client-dob" class="dashboard-input" value="1995-11-14">
+            </div>
+            <div class="dashboard-field">
+                <label>International Passport Number</label>
+                <input type="text" id="in-client-pass" class="dashboard-input" value="PP-UK-009871A">
+            </div>
+            <div class="dashboard-field">
+                <label>Country of Citizenship / Origin</label>
+                <input type="text" id="in-client-country" class="dashboard-input" value="United Kingdom">
+            </div>
+            <div class="dashboard-field" style="grid-column: span 2;">
+                <label>Full Residential Address Registry</label>
+                <input type="text" id="in-client-addr" class="dashboard-input" value="74 Richmond Green, Richmond, Surrey, TW9 1NQ, UK">
+            </div>
+        </div>
+
+        <h3>4. Operational Placement Allocations</h3>
+        <div class="dashboard-grid">
+            <div class="dashboard-field">
+                <label>Salary Category Tier</label>
+                <input type="text" id="in-salary-cat" class="dashboard-input" value="Accredited Security Tier 1A (Median-Compliant Baseline)">
+            </div>
+            <div class="dashboard-field">
+                <label>Assigned Security Guard Location / Primary Site</label>
+                <input type="text" id="in-guard-loc" class="dashboard-input" value="Wellington Marine Infrastructure Precinct, Sector D Outer Pier">
+            </div>
+        </div>
+
+        <div class="action-container">
+            <button class="download-btn" onclick="window.print()">Compile & Save Agreement PDF</button>
+        </div>
+    </div>
+
+
+    <div class="page">
+        <div class="header-banner">
+            <h1>Individual Employment Agreement</h1>
+            <p>Accredited Employer Work Visa Execution Framework • Baseline Terms of Engagement</p>
+        </div>
+
+        <h2>INDIVIDUAL EMPLOYMENT CONTRACTUAL PREAMBLE</h2>
+        <p>This Individual Employment Agreement is drafted, finalized, and executed pursuant to the sovereign statutes of New Zealand, establishing a rigorous legal framework, explicit parameter definitions, and mutual operational obligations. Both participating parties declare total commitment to the clauses, conditions, and compliance terms systematically set out across this comprehensive 6-page instrument. This agreement governs the provision of high-level asset protection services, infrastructure monitoring, and perimeter safety compliance under standard national operational guidelines.</p>
+        
+        <h3 class="section-sub">1. Employer Entity Structural Registry</h3>
+        <div class="form-grid">
+            <div class="form-row">
+                <div class="form-cell-label">Company Legal Name</div>
+                <div class="form-cell-input" id="lbl-comp-name"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Registered Office Address</div>
+                <div class="form-cell-input" id="lbl-comp-addr"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Tax Profile Identifier (IRD)</div>
+                <div class="form-cell-input" id="lbl-comp-tax"></div>
+            </div>
+        </div>
+
+        <h3 class="section-sub">2. Employee Demographic Profile & Identity Ledger</h3>
+        <div class="form-grid">
+            <div class="form-row">
+                <div class="form-cell-label">Employee Full Legal Name</div>
+                <div class="form-cell-input" id="lbl-client-name"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Date of Birth</div>
+                <div class="form-cell-input" id="lbl-client-dob"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">International Passport Number</div>
+                <div class="form-cell-input" id="lbl-client-pass"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Country of Origin / Citizenship</div>
+                <div class="form-cell-input" id="lbl-client-country"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Residential Address Record</div>
+                <div class="form-cell-input" id="lbl-client-addr"></div>
+            </div>
+        </div>
+
+        <h3 class="section-sub">3. Document Scan Integrity Replications</h3>
+        <p>In accordance with national security licensing provisions and global compliance verification benchmarks, the primary identity elements have been run through image data parsers. The corresponding metadata registries are recorded below to establish historical entry baselines:</p>
+        
+        <div class="scan-container">
+            <div class="scan-box">
+                <div class="scan-title" style="color: #c0392b; border-bottom-color: #fadbd8;">Primary Passport Scan Registry</div>
+                <strong>Passport System Ref:</strong> <span class="lbl-scan-pass"></span><br>
+                <strong>Issuing State Auth:</strong> <span class="lbl-scan-country"></span><br>
+                <strong>Verified Identity DOB:</strong> <span class="lbl-scan-dob"></span><br>
+                <strong>Status:</strong> Active Validation
+            </div>
+            <div class="scan-box">
+                <div class="scan-title" style="color: #2980b9; border-bottom-color: #d6eaf8;">Corporate Master Scan Registry</div>
+                <strong>Corporate Registry:</strong> <span class="lbl-scan-comp"></span><br>
+                <strong>IRD Database Map:</strong> <span class="lbl-scan-tax"></span><br>
+                <strong>Jurisdiction:</strong> Sovereign New Zealand<br>
+                <strong>Status:</strong> Clear Compliance
+            </div>
+        </div>
+
+        <div class="footer-banner">
+            <span>REGULATORY COMPLIANCE SYSTEM DOCUMENT • STRICTLY CONFIDENTIAL</span>
+            <span class="page-num">Page 1 of 6</span>
+        </div>
+    </div>
+
+
+    <div class="page">
+        <div class="page-header-standard">
+            <span>Section 2: System Chronology and Processing Infrastructure Keys</span>
+            <span class="ref-num">Ref: <span class="lbl-running-doc-ref"></span></span>
+        </div>
+
+        <h2>4. REGULATORY RECORD INDEX & APPOINTMENT KEYS</h2>
+        <p>The processing, management, and ongoing state verification audits for this structural placement are linked directly through the official reference keys recorded below. Every operational activity, compliance review, and verification check remains tracked via these tracking IDs across government systems:</p>
+        
+        <div class="form-grid">
+            <div class="form-row">
+                <div class="form-cell-label">Agreement Issue Date</div>
+                <div class="form-cell-input" id="lbl-issue-date"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Duties Join Date</div>
+                <div class="form-cell-input" id="lbl-join-date"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Document Reference Number</div>
+                <div class="form-cell-input" id="lbl-doc-ref"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Department Reference Number</div>
+                <div class="form-cell-input" id="lbl-dept-ref"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Job Reference Number</div>
+                <div class="form-cell-input" id="lbl-job-ref"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Immigration Reference Number</div>
+                <div class="form-cell-input" id="lbl-imm-ref"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">INZ Job Check Number</div>
+                <div class="form-cell-input" id="lbl-job-check"></div>
+            </div>
+        </div>
+
+        <h2>5. MANDATORY FIVE-YEAR DURATIONAL STIPULATION</h2>
+        <p>It is mutually declared and signed that this individual agreement governs an assignment structured strictly for a **five-year fixed-term contractual duration**, starting exactly on the recorded Duties Join Date. This five-year structure supports long-term infrastructure protective operations, safeguards regional workforce continuity, and strictly satisfies processing quotas for long-term specialized visa allocations. Both parties agree that no expectation of automatic renewal exists outside formal structural assessments conducted prior to termination.</p>
+
+        <h2>6. PERMIT PROCESSING BUREAU & GOVERNMENT JURISDICTION</h2>
+        <p>This employment infrastructure relies entirely on the processing, issuance, and ongoing validity of authorized visa clearances. The explicit administrative department overseeing this legality is detailed below:</p>
+        <div class="form-grid">
+            <div class="form-row">
+                <div class="form-cell-label">Handling Permit Authority</div>
+                <div class="form-cell-input" id="lbl-permit-dept"></div>
+            </div>
+        </div>
+        <p>The Employee acknowledges that a failure to maintain continuous lawful work clearance through this designated state handling authority will result in the immediate and automatic cancellation of this contract, without terminal penalty to the Employer. The Employee remains responsible for declaring any changes in residency status to human resources within forty-eight (48) hours of occurrence.</p>
+
+        <div class="footer-banner">
+            <span>REGULATORY COMPLIANCE SYSTEM DOCUMENT • STRICTLY CONFIDENTIAL</span>
+            <span class="page-num">Page 2 of 6</span>
+        </div>
+    </div>
+
+
+    <div class="page">
+        <div class="page-header-standard">
+            <span>Section 3: Professional Scope of Service and Static Site Deployment</span>
+            <span class="ref-num">Ref: <span class="lbl-running-doc-ref"></span></span>
+        </div>
+
+        <h2>7. POSITION SCOPE & CORE SECURITY MISSION</h2>
+        <p>The Employee is engaged to execute the explicit duties of a professional Security Guard. Core responsibilities require maintaining high-vigilance asset watch sweeps, managing entry checkpoints, enforcing protective access protocols, checking identity credentials, and writing precise shift reports to minimize risk profiles across corporate and industrial zones. The Employee shall ensure that all security events are thoroughly logged and communicated during handovers.</p>
+        
+        <h2>8. ASSIGNED SECURITY GUARD LOCATION BALANCING</h2>
+        <p>Field deployment requires continuous operational focus at a designated station. The fixed deployment parameters under this 5-year framework are detailed below:</p>
+        <div class="form-grid">
+            <div class="form-row">
+                <div class="form-cell-label">Security Guard Location</div>
+                <div class="form-cell-input" id="lbl-guard-loc"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Station Domain Classification</div>
+                <div class="form-cell-input">High-Value Infrastructure Asset Perimeter Control</div>
+            </div>
+        </div>
+
+        <h3 class="section-sub">8.1 Location Operational Adjustments & Emergency Deployments</h3>
+        <p>While the primary assignment remains anchored to the Security Guard Location recorded above, the Employer retains the operational discretion to balance personnel requirements across nearby sectors within a 25-kilometer radius during emergencies, high-alert security statuses, or shifts in client deployment rosters. Formal instructions detailing temporary site changes will be issued electronically. The Employee must maintain active transport arrangements to facilitate reporting to adjusted operational environments if required.</p>
+        <p>The Employee is required to report for active shifts at the designated security guard location fully fitted in uniform components that meet the regulatory compliance standards of the Private Security Personnel Licensing Authority (PSPLA). Failure to maintain a valid security certificate or license will result in suspension from active duties.</p>
+
+        <h2>9. OPERATIONAL BEHAVIOR STANDARDS</h2>
+        <p>As a critical frontline asset protector, the Employee must demonstrate constant punctuality, exceptional visual attention, and total situational awareness. Unexcused abandonment of an active post before a formal shift handover is performed constitutes a severe operational breach and will trigger immediate disciplinary review under corporate guidelines.</p>
+
+        <div class="footer-banner">
+            <span>REGULATORY COMPLIANCE SYSTEM DOCUMENT • STRICTLY CONFIDENTIAL</span>
+            <span class="page-num">Page 3 of 6</span>
+        </div>
+    </div>
+
+
+    <div class="page">
+        <div class="page-header-standard">
+            <span>Section 4: Financial Remuneration Framework and Salary Tracking Category</span>
+            <span class="ref-num">Ref: <span class="lbl-running-doc-ref"></span></span>
+        </div>
+
+        <h2>10. FINANCIAL COMPENSATION POLICY</h2>
+        <p>The structural wage metrics applied to this placement match accredited employer compliance criteria. The specific remuneration model is tracked via the profile recorded below:</p>
+        
+        <div class="form-grid">
+            <div class="form-row">
+                <div class="form-cell-label">Salary Category</div>
+                <div class="form-cell-input" id="lbl-salary-cat"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-cell-label">Remuneration Delivery Standard</div>
+                <div class="form-cell-input">Direct Fortnightly Electronic Ledger Clearance into Nominative Account</div>
+            </div>
+        </div>
+
+        <h3 class="section-sub">10.1 Statutory Deductions and Revenue Compliance</h3>
+        <p>Gross remuneration metrics are subject to standard automated deductions at the corporate payroll source, ensuring complete compliance with New Zealand Inland Revenue (IRD) legal guidelines and processing transparency:</p>
+        <ul>
+            <li><strong>Pay As You Earn (PAYE) Levies:</strong> Deducted systematically based on the Employee’s active tax code declaration sheet as processed by the payroll division.</li>
+            <li><strong>Accident Compensation Corporation (ACC) Premiums:</strong> Deducted at source to fund state injury insurance programs under local law to maintain active workplace coverage.</li>
+            <li><strong>KiwiSaver Superannuation Scheme:</strong> Automated matching contributions are applied unless formal statutory opting-out certifications are recorded directly with human resources.</li>
+        </ul>
+
+        <h2>11. SHIFT EXTENSIONS & OVERTIME AUTHORIZATION SYSTEM</h2>
+        <p>If critical asset alarms or operational incidents demand roster extensions past standard shift blocks, any additional hours must clear formal supervisor tracking systems. Compensation for verified extra hours follows clear institutional tiers, ensuring full compliance with national security sector employment baseline guidelines and ensuring standard shift intervals are protected for rest and fatigue management.</p>
+        <p>The Employee agrees that all overtime requests must be validated through the electronic logging terminal at the main entrance gate before additional hours can be calculated into the fortnightly processing ledger. Retrospective manual modifications will not be accepted without written supervisor verification.</p>
+
+        <div class="footer-banner">
+            <span>REGULATORY COMPLIANCE SYSTEM DOCUMENT • STRICTLY CONFIDENTIAL</span>
+            <span class="page-num">Page 4 of 6</span>
+        </div>
+    </div>
+
+
+    <div class="page">
+        <div class="page-header-standard">
+            <span>Section 5: Leave Entitlements and Health Protection Safeguards</span>
+            <span class="ref-num">Ref: <span class="lbl-running-doc-ref"></span></span>
+        </div>
+
+        <h2>12. LEAVE ENTITLEMENT LEDGER</h2>
+        <p>The Employee receives full statutory leave protection structured in accordance with the Holidays Act 2003, preserving recovery cycles alongside rostered duties:</p>
+        <ul>
+            <li><strong>Annual Paid Holidays:</strong> Four (4) complete working weeks of paid rest accrued over each consecutive 12-month period of continuous deployment. Requests must be filed twenty-one days in advance.</li>
+            <li><strong>Public Holiday Roster Rules:</strong> Full financial protection for recognized state public holidays. Shifts executed on these days are paid at time-and-a-half rates, supplemented by an alternative paid alternative day off.</li>
+            <li><strong>Sick Leave Allocations:</strong> Provision of ten (10) fully paid sick leave days following six months of active service to handle unexpected physical ailments or injury rehabilitation.</li>
+            <li><strong>Bereavement Leave:</strong> Structured compassionate leave allowances to manage unexpected personal family losses according to statutory provisions.</li>
+        </ul>
+
+        <h2>13. HEALTH & SAFETY PROTOCOLS IN ACTIVE ZONE ENVIROMENTS</h2>
+        <p>Under the Health and Safety at Work Act 2015, the Employer and Employee share a joint responsibility to eliminate workplace hazards. The Employee must follow all onsite risk assessments, report physical infrastructure vulnerabilities immediately, and wear mandated protective gear at all times including steel-toe safety boots and high-visibility jackets.</p>
+        <p>The company maintains structured logs for near-miss events and unexpected accidents to maximize safety for field personnel, evaluate site patterns, and comply fully with WorkSafe New Zealand inspection policies. The Employee must actively participate in regular safety hazard drills organized by management.</p>
+        <p>Any breach of onsite safety guidelines or failure to utilize required protective equipment represents a major risk to team safety and will result in formal warnings, up to and including separation from the assignment framework.</p>
+
+        <div class="footer-banner">
+            <span>REGULATORY COMPLIANCE SYSTEM DOCUMENT • STRICTLY CONFIDENTIAL</span>
+            <span class="page-num">Page 5 of 6</span>
+        </div>
+    </div>
+
+
+    <div class="page">
+        <div class="page-header-standard">
+            <span>Section 6: Secure Compliance Token and Formal Execution Layout</span>
+            <span class="ref-num">Ref: <span class="lbl-running-doc-ref"></span></span>
+        </div>
+
+        <h2>14. SECURE AUDIT TOKENIZATION (CHROMATIC QR SYSTEM)</h2>
+        <p>The high-contrast dynamic QR barcode generated below connects directly to the digital enterprise registry. It enables immigration officers, border control, and compliance auditors to verify all reference numbers, personal profiles, identity parameters, and site tracking allocations instantly during operational audits:</p>
+
+        <div class="qr-section">
+            <div class="qr-cell-code">
+                <div id="qr-target-box" class="qr-image"></div>
+            </div>
+            <div class="qr-cell-desc">
+                <strong style="color: #004b49; font-size: 9.5pt;">SECURE COMPLIANCE VALIDATION TOKEN</strong><br>
+                <span style="font-size: 8pt; color: #444; line-height: 1.45;">
+                    <strong>Employer:</strong> <span id="lbl-qr-comp"></span> | <strong>IRD Ref:</strong> <span id="lbl-qr-tax"></span><br>
+                    <strong>Employee:</strong> <span id="lbl-qr-client"></span> | <strong>Passport ID:</strong> <span id="lbl-qr-pass"></span><br>
+                    <strong>Date of Birth:</strong> <span id="lbl-qr-dob"></span> | <strong>Country:</strong> <span id="lbl-qr-country"></span><br>
+                    <strong>Address Track:</strong> <span id="lbl-qr-addr"></span><br>
+                    <strong>Job Check Ref ID:</strong> <span id="lbl-qr-check" style="font-weight:700; color:#004b49;"></span>
+                </span>
+            </div>
+        </div>
+
+        <h2>15. FORMAL CONCURRENCE & SIGN-OFF LEAP</h2>
+        <p>By signing below, both executing parties formally declare complete understanding, full operational acceptance, and legal commitment to the terms, locations, categories, and reference indices defined across this 6-page Individual Employment Agreement under the laws of New Zealand. This instrument constitutes the entire agreement between the parties.</p>
+
+        <div class="signature-container">
+            <div class="signature-box">
+                <strong>For the Accredited Corporate Employer:</strong>
+                <div class="sig-line">
+                    Managing Director / Authorized Executing Officer<br>
+                    Date Validation: ____ / ____ / ________
+                </div>
+            </div>
+            <div class="signature-box">
+                <strong>For the Contracted Employee Individual:</strong>
+                <div class="sig-line">
+                    Client Full Legal Signature Confirmation<br>
+                    Date Validation: ____ / ____ / ________
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-banner">
+            <span>REGULATORY COMPLIANCE SYSTEM DOCUMENT • STRICTLY CONFIDENTIAL</span>
+            <span class="page-num">Page 6 of 6</span>
+        </div>
+    </div>
+
+    <script>
+        function runSyncEngine() {
+            // Extraction of Input Nodes
+            const issueDateRaw = document.getElementById('in-issue-date').value;
+            const joinDateRaw = document.getElementById('in-join-date').value;
+            const docRef = document.getElementById('in-doc-ref').value;
+            const deptRef = document.getElementById('in-dept-ref').value;
+            const jobRef = document.getElementById('in-job-ref').value;
+            const immRef = document.getElementById('in-imm-ref').value;
+            const jobCheck = document.getElementById('in-job-check').value;
+            const permitDept = document.getElementById('in-permit-dept').value;
+            
+            const compName = document.getElementById('in-comp-name').value;
+            const compAddr = document.getElementById('in-comp-addr').value;
+            const compTax = document.getElementById('in-comp-tax').value;
+            const compEmail = document.getElementById('in-comp-email').value;
+            
+            const clientName = document.getElementById('in-client-name').value;
+            const clientDobRaw = document.getElementById('in-client-dob').value;
+            const clientPass = document.getElementById('in-client-pass').value;
+            const clientCountry = document.getElementById('in-client-country').value;
+            const clientAddr = document.getElementById('in-client-addr').value;
+            
+            const salaryCat = document.getElementById('in-salary-cat').value;
+            const guardLoc = document.getElementById('in-guard-loc').value;
+
+            // Date Localization Logic (New Zealand Standard Formats)
+            const parseAndLocalizeDate = (rawStr) => {
+                if(!rawStr) return "N/A";
+                const dateObj = new Date(rawStr);
+                if(isNaN(dateObj)) return rawStr;
+                return dateObj.toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' });
+            };
+
+            const issueFormatted = parseAndLocalizeDate(issueDateRaw);
+            const joinFormatted = parseAndLocalizeDate(joinDateRaw);
+            const dobFormatted = parseAndLocalizeDate(clientDobRaw);
+
+            // Synchronizing Core Grid Placements
+            document.getElementById('lbl-comp-name').innerText = compName;
+            document.getElementById('lbl-comp-addr').innerText = compAddr;
+            document.getElementById('lbl-comp-tax').innerText = compTax;
+            
+            document.getElementById('lbl-client-name').innerText = clientName;
+            document.getElementById('lbl-client-dob').innerText = dobFormatted;
+            document.getElementById('lbl-client-pass').innerText = clientPass;
+            document.getElementById('lbl-client-country').innerText = clientCountry;
+            document.getElementById('lbl-client-addr').innerText = clientAddr;
+            
+            document.getElementById('lbl-issue-date').innerText = issueFormatted;
+            document.getElementById('lbl-join-date').innerText = joinFormatted;
+            document.getElementById('lbl-doc-ref').innerText = docRef;
+            document.getElementById('lbl-dept-ref').innerText = deptRef;
+            document.getElementById('lbl-job-ref').innerText = jobRef;
+            document.getElementById('lbl-imm-ref').innerText = immRef;
+            document.getElementById('lbl-job-check').innerText = jobCheck;
+            document.getElementById('lbl-permit-dept').innerText = permitDept;
+            
+            document.getElementById('lbl-guard-loc').innerText = guardLoc;
+            document.getElementById('lbl-salary-cat').innerText = salaryCat;
+
+            // Synchronizing Digital Image Parser Scans
+            document.querySelectorAll('.lbl-scan-pass').forEach(node => node.innerText = clientPass);
+            document.querySelectorAll('.lbl-scan-country').forEach(node => node.innerText = clientCountry);
+            document.querySelectorAll('.lbl-scan-dob').forEach(node => node.innerText = dobFormatted);
+            document.querySelectorAll('.lbl-scan-comp').forEach(node => node.innerText = compName);
+            document.querySelectorAll('.lbl-scan-tax').forEach(node => node.innerText = compTax);
+
+            // Updating Segment Reference Headers
+            document.querySelectorAll('.lbl-running-doc-ref').forEach(node => node.innerText = docRef);
+
+            // Updating Interactive QR Matrix Strings
+            document.getElementById('lbl-qr-comp').innerText = compName;
+            document.getElementById('lbl-qr-tax').innerText = compTax;
+            document.getElementById('lbl-qr-client').innerText = clientName;
+            document.getElementById('lbl-qr-pass').innerText = clientPass;
+            document.getElementById('lbl-qr-dob').innerText = dobFormatted;
+            document.getElementById('lbl-qr-country').innerText = clientCountry;
+            document.getElementById('lbl-qr-addr').innerText = clientAddr;
+            document.getElementById('lbl-qr-check').innerText = jobCheck;
+
+            // FIX: Structured Text Format for absolute precision when reading via any mobile camera scanner application
+            const cleanVerificationText = 
+                `--- EXECUTED CONTRACT VALIDATION LOG ---\n` +
+                `DOCUMENT REF: ${docRef}\n` +
+                `JOB CHECK ID: ${jobCheck}\n\n` +
+                `[EMPLOYER PROFILE]\n` +
+                `COMPANY: ${compName}\n` +
+                `IRD NUMBER: ${compTax}\n\n` +
+                `[EMPLOYEE IDENTITY PROFILE]\n` +
+                `FULL NAME: ${clientName}\n` +
+                `PASSPORT NO: ${clientPass}\n` +
+                `DATE OF BIRTH: ${dobFormatted}\n` +
+                `CITIZENSHIP: ${clientCountry}\n` +
+                `ADDRESS: ${clientAddr}\n\n` +
+                `[OPERATIONAL TRACKING]\n` +
+                `SITE LOCATION: ${guardLoc}\n` +
+                `SALARY PROFILE: ${salaryCat}\n` +
+                `JOIN DATE: ${joinFormatted}`;
+            
+            const apiBase = "https://api.qrserver.com/v1/create-qr-code/";
+            const urlParams = new URLSearchParams({
+                size: "200x200",
+                color: "004b49", // Corporate Colored Scan Matrix
+                bgcolor: "ffffff",
+                data: cleanVerificationText
+            });
+
+            document.getElementById('qr-target-box').style.backgroundImage = `url('${apiBase}?${urlParams.toString()}')`;
+        }
+
+        // Event Registration
+        const inputNodes = document.querySelectorAll('.dashboard-input');
+        inputNodes.forEach(inputNode => {
+            inputNode.addEventListener('input', runSyncEngine);
+            inputNode.addEventListener('change', runSyncEngine);
+        });
+
+        // Initialize Engine
+        window.onload = runSyncEngine;
+    </script>
+</body>
+</html>
