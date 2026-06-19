@@ -115,7 +115,7 @@
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             color: #2c3e50;
-            line-height: 1.5;
+            line-height: 1.45;
             margin: 0;
             padding: 0;
             background-color: #eef2f5;
@@ -126,7 +126,7 @@
             width: 210mm;
             height: 297mm;
             box-sizing: border-box;
-            padding: 25mm 22mm;
+            padding: 22mm 20mm;
             position: relative;
             background: #ffffff;
             page-break-after: always;
@@ -137,19 +137,19 @@
         .page::before {
             content: "";
             position: absolute;
-            top: 12mm;
-            left: 12mm;
-            right: 12mm;
-            bottom: 12mm;
+            top: 10mm;
+            left: 10mm;
+            right: 10mm;
+            bottom: 10mm;
             border: 2px solid #004b49;
             border-radius: 2px;
             opacity: 0.9;
             pointer-events: none;
         }
         .page::after {
-            content: "IMMIGRATION NEW ZEALAND LEGAL COMPLIANCE BASELINE • SYSTEM FRAMEWORK";
+            content: "IMMIGRATION NEW ZEALAND LEGAL COMPLIANCE BASELINE • INDIVIDUAL EMPLOYMENT RECORD";
             position: absolute;
-            top: 6mm;
+            top: 5mm;
             left: 0;
             right: 0;
             text-align: center;
@@ -163,26 +163,29 @@
         .header-banner {
             background: linear-gradient(135deg, #004b49 0%, #002625 100%);
             color: #ffffff;
-            margin: -25mm -22mm 25px -22mm;
-            padding: 40px 22mm 30px 22mm;
+            margin: -22mm -20mm 20px -20mm;
+            padding: 35px 20mm 25px 20mm;
             border-bottom: 5px solid #d4af37;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
         .header-banner h1 {
             margin: 0;
-            font-size: 21pt;
+            font-size: 20pt;
             letter-spacing: 1px;
             text-transform: uppercase;
             font-weight: 700;
         }
         .header-banner p {
             margin: 6px 0 0 0;
-            font-size: 10pt;
+            font-size: 9.5pt;
             color: #a3cbc9;
+            letter-spacing: 0.5px;
         }
         .page-header-standard {
             border-bottom: 2px solid #004b49;
             padding-bottom: 4px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-size: 8.5pt;
             font-weight: bold;
             color: #004b49;
@@ -194,11 +197,11 @@
         }
         .footer-banner {
             position: absolute;
-            bottom: 15mm;
-            left: 22mm;
-            right: 22mm;
+            bottom: 12mm;
+            left: 20mm;
+            right: 20mm;
             border-top: 1px solid #dcdde1;
-            padding-top: 8px;
+            padding-top: 6px;
             font-size: 8pt;
             color: #7f8c8d;
         }
@@ -209,10 +212,10 @@
         }
         
         h2 {
-            font-size: 11pt;
+            font-size: 10.5pt;
             color: #004b49;
-            margin-top: 22px;
-            margin-bottom: 12px;
+            margin-top: 15px;
+            margin-bottom: 10px;
             text-transform: uppercase;
             border-left: 4px solid #d4af37;
             padding-left: 10px;
@@ -222,33 +225,34 @@
             letter-spacing: 0.5px;
         }
         h3.section-sub {
-            font-size: 10pt;
+            font-size: 9.5pt;
             color: #2c3e50;
-            margin: 16px 0 8px 0;
+            margin: 12px 0 6px 0;
             text-transform: uppercase;
             font-weight: 700;
         }
         p, li {
-            font-size: 9.5pt;
+            font-size: 9pt;
             text-align: justify;
             color: #34495e;
             margin-top: 0;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            line-height: 1.5;
         }
         ul {
             margin-top: 0;
-            margin-bottom: 12px;
-            padding-left: 20px;
+            margin-bottom: 10px;
+            padding-left: 18px;
         }
         li {
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         
         /* DATA PRESENTATION MATRIX LAYOUT */
         .form-grid {
             display: table;
             width: 100%;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
             border-collapse: collapse;
         }
         .form-row {
@@ -256,22 +260,22 @@
         }
         .form-cell-label {
             display: table-cell;
-            width: 38%;
-            padding: 9px 12px;
+            width: 35%;
+            padding: 8px 10px;
             background-color: #f8fafb;
             border: 1px solid #dcdde1;
-            font-size: 9pt;
+            font-size: 8.5pt;
             font-weight: bold;
             color: #004b49;
             vertical-align: middle;
         }
         .form-cell-input {
             display: table-cell;
-            width: 62%;
-            padding: 9px 12px;
+            width: 65%;
+            padding: 8px 10px;
             border: 1px solid #dcdde1;
             vertical-align: middle;
-            font-size: 9.5pt;
+            font-size: 9pt;
             background-color: #ffffff;
             color: #2c3e50;
         }
@@ -280,29 +284,30 @@
         .scan-container {
             display: flex;
             gap: 15px;
-            margin: 15px 0;
+            margin: 12px 0;
             background: #fafbfc;
             border: 1px dashed #004b49;
-            padding: 15px;
+            padding: 12px;
             border-radius: 4px;
         }
         .scan-box {
             flex: 1;
             border: 1px solid #bdc3c7;
             background: #ffffff;
-            padding: 12px;
+            padding: 10px;
             font-size: 8.5pt;
             border-radius: 2px;
             box-shadow: inset 0 0 6px rgba(0,0,0,0.01);
+            line-height: 1.4;
         }
         .scan-title {
             font-weight: bold;
             color: #004b49;
             border-bottom: 2px solid #eef2f5;
             padding-bottom: 4px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-transform: uppercase;
-            font-size: 8pt;
+            font-size: 7.5pt;
             letter-spacing: 0.5px;
         }
 
@@ -313,7 +318,7 @@
             background-color: #f4f8f8;
             border: 2px solid #004b49;
             padding: 15px;
-            margin-top: 20px;
+            margin-top: 15px;
             border-radius: 6px;
         }
         .qr-cell-code {
@@ -328,10 +333,12 @@
             padding-left: 20px;
         }
         .qr-image {
-            width: 110px;
-            height: 110px;
+            width: 120px;
+            height: 120px;
             border: 3px solid #d4af37;
-            background-size: cover;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
             background-color: #ffffff;
             border-radius: 4px;
             display: inline-block;
@@ -339,7 +346,7 @@
         .signature-container {
             display: table;
             width: 100%;
-            margin-top: 35px;
+            margin-top: 30px;
         }
         .signature-box {
             display: table-cell;
@@ -353,16 +360,15 @@
         }
         .sig-line {
             border-top: 2px solid #004b49;
-            margin-top: 45px;
-            padding-top: 8px;
-            font-size: 9.5pt;
+            margin-top: 40px;
+            padding-top: 6px;
+            font-size: 9pt;
             color: #2c3e50;
         }
     </style>
 </head>
 <body>
 
-    <!-- CONTROL MANAGEMENT PANEL (AUTO EXCLUDED FROM PRINTS/PDF SAVES) -->
     <div id="control-dashboard">
         <h2>Employment Framework Administration Console</h2>
         <p style="margin: 0 0 15px 0; font-size: 9.5pt; color: #7f8c8d;">Input active contract variables below. The underlying 6-page legal blueprint will realign in real-time.</p>
@@ -465,9 +471,6 @@
     </div>
 
 
-    <!-- ================= PRINT SYSTEM PAGE INDEXES ================= -->
-
-    <!-- PAGE 1: FORMAL IDENTIFICATION MASTER BLOCK & VERIFIED INTEGRITY SCANS -->
     <div class="page">
         <div class="header-banner">
             <h1>Individual Employment Agreement</h1>
@@ -475,7 +478,7 @@
         </div>
 
         <h2>INDIVIDUAL EMPLOYMENT CONTRACTUAL PREAMBLE</h2>
-        <p>This Individual Employment Agreement is drafted and executed pursuant to the sovereign statutes of New Zealand, establishing a rigorous legal framework, explicit parameter definitions, and mutual operational obligations. Both participating parties declare total commitment to the clauses, conditions, and compliance terms systematically set out across this 6-page instrument.</p>
+        <p>This Individual Employment Agreement is drafted, finalized, and executed pursuant to the sovereign statutes of New Zealand, establishing a rigorous legal framework, explicit parameter definitions, and mutual operational obligations. Both participating parties declare total commitment to the clauses, conditions, and compliance terms systematically set out across this comprehensive 6-page instrument. This agreement governs the provision of high-level asset protection services, infrastructure monitoring, and perimeter safety compliance under standard national operational guidelines.</p>
         
         <h3 class="section-sub">1. Employer Entity Structural Registry</h3>
         <div class="form-grid">
@@ -518,30 +521,17 @@
         </div>
 
         <h3 class="section-sub">3. Document Scan Integrity Replications</h3>
-        <p>In accordance with national security licensing provisions and global compliance verification benchmarks, the primary identity elements have been run through image data parsers. The corresponding metadata registries are recorded below:</p>
+        <p>In accordance with national security licensing provisions and global compliance verification benchmarks, the primary identity elements have been run through image data parsers. The corresponding metadata registries are recorded below to establish historical entry baselines:</p>
         
         <div class="scan-container">
             <div class="scan-box">
-                <div class="scan-title">Primary Passport Scan Registry</div>
+                <div class="scan-title" style="color: #c0392b; border-bottom-color: #fadbd8;">Primary Passport Scan Registry</div>
                 <strong>Passport System Ref:</strong> <span class="lbl-scan-pass"></span><br>
                 <strong>Issuing State Auth:</strong> <span class="lbl-scan-country"></span><br>
-                <strong>Verified Identity DOB:</strong> <span class="lbl-scan-dob"></span>
+                <strong>Verified Identity DOB:</strong> <span class="lbl-scan-dob"></span><br>
+                <strong>Status:</strong> Active Validation
             </div>
             <div class="scan-box">
-                <div class="scan-title">Corporate Master Scan Registry</div>
+                <div class="scan-title" style="color: #2980b9; border-bottom-color: #d6eaf8;">Corporate Master Scan Registry</div>
                 <strong>Corporate Registry:</strong> <span class="lbl-scan-comp"></span><br>
-                <strong>IRD Database Map:</strong> <span class="lbl-scan-tax"></span><br>
-                <strong>Jurisdiction:</strong> Sovereign New Zealand
-            </div>
-        </div>
-
-        <div class="footer-banner">
-            <span>REGULATORY COMPLIANCE SYSTEM DOCUMENT • STRICTLY CONFIDENTIAL</span>
-            <span class="page-num">Page 1 of 6</span>
-        </div>
-    </div>
-
-
-    <!-- PAGE 2: EXECUTION CHRONOLOGY, CONTROL KEYS & IMMIGRATION JURISDICTIONS -->
-    <div class="page">
-       
+                <strong>IRD Database Map:</str
