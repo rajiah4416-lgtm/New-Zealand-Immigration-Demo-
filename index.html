@@ -107,7 +107,7 @@
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             color: #2c3e50;
-            line-height: 1.5;
+            line-height: 1.45;
             margin: 0;
             padding: 0;
             background-color: #eef2f5;
@@ -116,7 +116,7 @@
             width: 210mm;
             height: 297mm;
             box-sizing: border-box;
-            padding: 25mm 20mm;
+            padding: 22mm 20mm;
             position: relative;
             background: #ffffff;
             page-break-after: always;
@@ -125,7 +125,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.12);
         }
         
-        /* Elegant Border Frame & Accents (NZ Deep Teal & Gold) */
+        /* Elegant Border Frame & Accents */
         .page::before {
             content: "";
             position: absolute;
@@ -139,7 +139,7 @@
             pointer-events: none;
         }
         .page::after {
-            content: "IMMIGRATION NEW ZEALAND COMPLIANT • TE RATONGA KAHUI MANENE";
+            content: "IMMIGRATION NEW ZEALAND COMPLIANCE REGISTRY FRAMEWORK • AUTORHIZED REPLICAS";
             position: absolute;
             top: 6mm;
             left: 0;
@@ -155,28 +155,28 @@
         .header-banner {
             background: linear-gradient(135deg, #004b49 0%, #003332 100%);
             color: #ffffff;
-            margin: -25mm -20mm 20px -20mm;
-            padding: 40px 20mm 30px 20mm;
+            margin: -22mm -20mm 20px -20mm;
+            padding: 35px 20mm 25px 20mm;
             border-bottom: 5px solid #d4af37;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .header-banner h1 {
             margin: 0;
-            font-size: 22pt;
+            font-size: 20pt;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             font-weight: 700;
         }
         .header-banner p {
-            margin: 8px 0 0 0;
-            font-size: 10.5pt;
+            margin: 6px 0 0 0;
+            font-size: 10pt;
             color: #a3cbc9;
             font-style: italic;
         }
         .page-header-standard {
             border-bottom: 2px solid #004b49;
             padding-bottom: 4px;
-            margin-bottom: 18px;
+            margin-bottom: 15px;
             font-size: 8.5pt;
             font-weight: bold;
             color: #004b49;
@@ -204,46 +204,46 @@
         }
         
         h2 {
-            font-size: 11pt;
+            font-size: 10.5pt;
             color: #004b49;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin-top: 18px;
+            margin-bottom: 8px;
             text-transform: uppercase;
             border-left: 4px solid #d4af37;
             padding-left: 8px;
             background: #f4f8f8;
-            padding-top: 4px;
-            padding-bottom: 4px;
+            padding-top: 3px;
+            padding-bottom: 3px;
             letter-spacing: 0.5px;
         }
         h3.section-sub {
-            font-size: 10pt;
+            font-size: 9.5pt;
             color: #2c3e50;
-            margin: 14px 0 6px 0;
-            text-transform: capitalize;
+            margin: 12px 0 6px 0;
+            text-transform: uppercase;
             font-weight: 600;
         }
         p, li {
-            font-size: 9.5pt;
+            font-size: 9pt;
             text-align: justify;
             color: #34495e;
             margin-top: 0;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         ul {
             margin-top: 0;
-            margin-bottom: 10px;
-            padding-left: 20px;
+            margin-bottom: 8px;
+            padding-left: 18px;
         }
         li {
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         
-        /* Grid Table Core Formatting */
+        /* Grid Table Formatting */
         .form-grid {
             display: table;
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             border-collapse: collapse;
         }
         .form-row {
@@ -251,51 +251,79 @@
         }
         .form-cell-label {
             display: table-cell;
-            width: 35%;
-            padding: 8px 10px;
+            width: 38%;
+            padding: 6px 8px;
             background-color: #f8fafb;
             border: 1px solid #dcdde1;
-            font-size: 9pt;
+            font-size: 8.5pt;
             font-weight: bold;
             color: #004b49;
             vertical-align: middle;
         }
         .form-cell-input {
             display: table-cell;
-            width: 65%;
-            padding: 8px 10px;
+            width: 62%;
+            padding: 6px 8px;
             border: 1px solid #dcdde1;
             vertical-align: middle;
-            font-size: 9.5pt;
+            font-size: 9pt;
             background-color: #ffffff;
             color: #2c3e50;
         }
         
-        /* High Contrast Chromatic QR Section */
+        /* Document Scan Representation Container */
+        .scan-container {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0;
+            background: #fdfdfd;
+            border: 1px dashed #004b49;
+            padding: 12px;
+            border-radius: 4px;
+        }
+        .scan-box {
+            flex: 1;
+            border: 1px solid #bdc3c7;
+            background: #fafafa;
+            padding: 8px;
+            font-size: 8pt;
+            border-radius: 2px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.02);
+        }
+        .scan-title {
+            font-weight: bold;
+            color: #004b49;
+            border-bottom: 1px solid #eef2f5;
+            padding-bottom: 3px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 7.5pt;
+        }
+
+        /* High Contrast QR Section */
         .qr-section {
             display: table;
             width: 100%;
             background-color: #f4f8f8;
             border: 2px solid #004b49;
-            padding: 15px;
-            margin-top: 20px;
+            padding: 12px;
+            margin-top: 15px;
             border-radius: 6px;
-            box-shadow: inset 0 0 8px rgba(0,75,73,0.05);
         }
         .qr-cell-code {
             display: table-cell;
-            width: 130px;
+            width: 120px;
             vertical-align: middle;
             text-align: center;
         }
         .qr-cell-desc {
             display: table-cell;
             vertical-align: middle;
-            padding-left: 20px;
+            padding-left: 15px;
         }
         .qr-image {
-            width: 115px;
-            height: 115px;
+            width: 105px;
+            height: 105px;
             border: 3px solid #d4af37;
             background-size: cover;
             background-color: #ffffff;
@@ -305,7 +333,7 @@
         .signature-container {
             display: table;
             width: 100%;
-            margin-top: 35px;
+            margin-top: 25px;
         }
         .signature-box {
             display: table-cell;
@@ -319,9 +347,9 @@
         }
         .sig-line {
             border-top: 2px solid #004b49;
-            margin-top: 40px;
-            padding-top: 6px;
-            font-size: 9.5pt;
+            margin-top: 35px;
+            padding-top: 5px;
+            font-size: 9pt;
             color: #2c3e50;
         }
     </style>
@@ -332,14 +360,38 @@
     <div id="control-dashboard">
         <h2 style="background: none; border: none; padding: 0; margin-bottom: 15px; font-size: 14pt;">Employment Framework Dashboard</h2>
         
-        <h3>1. Agreement Meta Configurations</h3>
+        <h3>1. Agreement Meta Configurations & Reference Numbers</h3>
         <div class="dashboard-grid">
             <div class="dashboard-field">
                 <label>Agreement Issue Date</label>
-                <input type="date" id="in-issue-date" class="dashboard-input" value="2026-06-18">
+                <input type="date" id="in-issue-date" class="dashboard-input" value="2026-06-19">
             </div>
             <div class="dashboard-field">
-                <label>Work Permit Handling Authority (New Zealand Department)</label>
+                <label>Duties Join Date</label>
+                <input type="date" id="in-join-date" class="dashboard-input" value="2026-09-01">
+            </div>
+            <div class="dashboard-field">
+                <label>Document Reference Number</label>
+                <input type="text" id="in-doc-ref" class="dashboard-input" value="REF-2026-99382">
+            </div>
+            <div class="dashboard-field">
+                <label>Department Reference Number</label>
+                <input type="text" id="in-dept-ref" class="dashboard-input" value="NZD-OPS-4412">
+            </div>
+            <div class="dashboard-field">
+                <label>Job Reference Number</label>
+                <input type="text" id="in-job-ref" class="dashboard-input" value="JOB-SEC-0087">
+            </div>
+            <div class="dashboard-field">
+                <label>Immigration Reference Number</label>
+                <input type="text" id="in-imm-ref" class="dashboard-input" value="IMMR-NZ-776125">
+            </div>
+            <div class="dashboard-field">
+                <label>INZ Job Check Number</label>
+                <input type="text" id="in-job-check" class="dashboard-input" value="CHK-AEWV-88291X">
+            </div>
+            <div class="dashboard-field">
+                <label>Work Permit Handling Authority</label>
                 <input type="text" id="in-permit-dept" class="dashboard-input" value="Immigration New Zealand (Ministry of Business, Innovation and Employment)">
             </div>
         </div>
@@ -348,19 +400,19 @@
         <div class="dashboard-grid">
             <div class="dashboard-field">
                 <label>Company Legal Name</label>
-                <input type="text" id="in-comp-name" class="dashboard-input" value="NZ Enterprise Limited">
+                <input type="text" id="in-comp-name" class="dashboard-input" value="Aotearoa Security Services Ltd">
             </div>
             <div class="dashboard-field">
                 <label>Registered Head Office Address</label>
-                <input type="text" id="in-comp-addr" class="dashboard-input" value="101 Lambton Quay, Wellington 6011, New Zealand">
+                <input type="text" id="in-comp-addr" class="dashboard-input" value="204 Quay Street, Auckland CBD 1010, New Zealand">
             </div>
             <div class="dashboard-field">
                 <label>Taxation Identifier Profile (IRD)</label>
-                <input type="text" id="in-comp-tax" class="dashboard-input" value="123-456-789">
+                <input type="text" id="in-comp-tax" class="dashboard-input" value="098-765-432">
             </div>
             <div class="dashboard-field">
                 <label>Corporate Support Contact Email</label>
-                <input type="email" id="in-comp-email" class="dashboard-input" value="hr@nzenterprise.co.nz">
+                <input type="email" id="in-comp-email" class="dashboard-input" value="operations@aotearoasecurity.co.nz">
             </div>
         </div>
 
@@ -372,11 +424,11 @@
             </div>
             <div class="dashboard-field">
                 <label>Date of Birth</label>
-                <input type="date" id="in-client-dob" class="dashboard-input" value="1992-05-15">
+                <input type="date" id="in-client-dob" class="dashboard-input" value="1994-08-24">
             </div>
             <div class="dashboard-field">
                 <label>International Passport Number</label>
-                <input type="text" id="in-client-pass" class="dashboard-input" value="NZ-P8837210">
+                <input type="text" id="in-client-pass" class="dashboard-input" value="PP-UK-9811235">
             </div>
             <div class="dashboard-field">
                 <label>Country of Citizenship / Origin</label>
@@ -384,47 +436,19 @@
             </div>
             <div class="dashboard-field" style="grid-column: span 2;">
                 <label>Residential Address</label>
-                <input type="text" id="in-client-addr" class="dashboard-input" value="45 Sovereign Way, London, E1 6AN">
+                <input type="text" id="in-client-addr" class="dashboard-input" value="12 Piccadilly Circus, London, W1J 9HP">
             </div>
         </div>
 
-        <h3>4. Operational Track & Reference Variables</h3>
+        <h3>4. Operational Assignment Variables</h3>
         <div class="dashboard-grid">
             <div class="dashboard-field">
-                <label>Department Designation</label>
-                <select id="in-client-dept" class="dashboard-input">
-                    <option value="Operations & Technology Division">Operations & Technology Division</option>
-                    <option value="Executive Strategy & Finance">Executive Strategy & Finance</option>
-                    <option value="Global Supply Chain Management">Global Supply Chain Management</option>
-                    <option value="Engineering Infrastructure">Engineering Infrastructure</option>
-                </select>
+                <label>Salary Category / Structure</label>
+                <input type="text" id="in-salary-cat" class="dashboard-input" value="Accredited Median Tier 2 (Security Guard Framework)">
             </div>
             <div class="dashboard-field">
-                <label>ANZSCO Standard Occupation Code</label>
-                <input type="text" id="in-job-code" class="dashboard-input" value="ANZSCO-261312 (Developer Programmer)">
-            </div>
-            <div class="dashboard-field">
-                <label>INZ Accreditation Job Check ID</label>
-                <input type="text" id="in-inz-ref" class="dashboard-input" value="INZ-AEWV-998231X">
-            </div>
-            <div class="dashboard-field">
-                <label>Hourly Wage Remuneration Tier</label>
-                <select id="in-salary-tier" class="dashboard-input">
-                    <option value="$35.00 NZD per Hour (Standard Median Rate)">$35.00 NZD per Hour (Standard Median Rate)</option>
-                    <option value="$42.50 NZD per Hour (Senior Specialist Tier)">$42.50 NZD per Hour (Senior Specialist Tier)</option>
-                    <option value="$50.00 NZD per Hour (Executive Tier)">$50.00 NZD per Hour (Executive Tier)</option>
-                </select>
-            </div>
-            <div class="dashboard-field">
-                <label>Annual Gross Salary Equivalent</label>
-                <input type="text" id="in-salary-annual" class="dashboard-input" value="$72,800 NZD (Calculated on 40-hr baseline)">
-            </div>
-            <div class="dashboard-field">
-                <label>Guaranteed Standard Work Hours</label>
-                <select id="in-work-hours" class="dashboard-input">
-                    <option value="40 Hours Per Week (Statutory Full-Time)">40 Hours Per Week (Statutory Full-Time)</option>
-                    <option value="45 Hours Per Week (Extended Roster Option)">45 Hours Per Week (Extended Roster Option)</option>
-                </select>
+                <label>Assigned Security Guard Location / Site</label>
+                <input type="text" id="in-guard-loc" class="dashboard-input" value="Wellington Waterfront Corporate Precinct, Gate C">
             </div>
         </div>
 
@@ -436,17 +460,17 @@
 
     <!-- ================= 6-PAGE PRINT ENGINE LAYOUT ================= -->
 
-    <!-- PAGE 1: COVER TITLE DESIGN & PARTIES IDENTIFICATION -->
+    <!-- PAGE 1: TITLE BLOCK, PARTIES IDENTIFICATION & SCAN VERIFICATION -->
     <div class="page">
         <div class="header-banner">
             <h1>Individual Employment Agreement</h1>
-            <p>Accredited Employer Work Visa Framework • Employment Relations Act 2000 Baseline</p>
+            <p>Accredited Employer Work Visa Framework • 5-Year Fixed-Term Placement</p>
         </div>
 
         <h2>INDIVIDUAL EMPLOYMENT CONTRACTUAL PREAMBLE</h2>
-        <p>This document constitutes a binding Individual Employment Agreement executed under the governing laws of New Zealand, including the Employment Relations Act 2000, the Holidays Act 2003, and the Health and Safety at Work Act 2015. The terms established herein dictate the legal relationship, operational performance parameters, and mutual obligations held between the Employer and the Employee.</p>
+        <p>This document constitutes a formal and binding Individual Employment Agreement executed under the comprehensive state laws of New Zealand. The legal relations, protective boundaries, compliance indices, and operational performance directives contained herein strictly bind the Corporate Entity and the contracted Individual for the entire duration of the specified timeline.</p>
         
-        <h3 class="section-sub">1. Employer Entity Corporate Identification</h3>
+        <h3 class="section-sub">1. Employer Corporate Identification Profile</h3>
         <div class="form-grid">
             <div class="form-row">
                 <div class="form-cell-label">Company Legal Name</div>
@@ -460,13 +484,9 @@
                 <div class="form-cell-label">Tax Profile Number (IRD)</div>
                 <div class="form-cell-input" id="lbl-comp-tax"></div>
             </div>
-            <div class="form-row">
-                <div class="form-cell-label">Contact Registry Email</div>
-                <div class="form-cell-input" id="lbl-comp-email"></div>
-            </div>
         </div>
 
-        <h3 class="section-sub">2. Employee Demographic Profile & Identity Verification</h3>
+        <h3 class="section-sub">2. Employee Demographics & Passport Scan Audit</h3>
         <div class="form-grid">
             <div class="form-row">
                 <div class="form-cell-label">Employee Full Legal Name</div>
@@ -484,42 +504,43 @@
                 <div class="form-cell-label">Country of Origin / Citizenship</div>
                 <div class="form-cell-input" id="lbl-client-country"></div>
             </div>
-            <div class="form-row">
-                <div class="form-cell-label">Residential Address Registry</div>
-                <div class="form-cell-input" id="lbl-client-addr"></div>
+        </div>
+
+        <h3 class="section-sub">3. Document & Identity Integrity Scans</h3>
+        <p>In accordance with internal company vetting policies and New Zealand security sector background screening rules, the primary identity credentials have been digitally cross-referenced. Below are the verified registry values parsed from the primary metadata scans:</p>
+        
+        <div class="scan-container">
+            <div class="scan-box">
+                <div class="scan-title">Scan A: Passport Registry</div>
+                <strong>Passport:</strong> <span class="lbl-scan-pass"></span><br>
+                <strong>Nationality:</strong> <span class="lbl-scan-country"></span><br>
+                <strong>DOB Auth:</strong> <span class="lbl-scan-dob"></span>
+            </div>
+            <div class="scan-box">
+                <div class="scan-title">Scan B: Corporate Registry</div>
+                <strong>Employer:</strong> <span class="lbl-scan-comp"></span><br>
+                <strong>IRD System:</strong> <span class="lbl-scan-tax"></span><br>
+                <strong>Domicile:</strong> New Zealand
             </div>
         </div>
 
         <div class="footer-banner">
-            <span>STRICTLY CONFIDENTIAL • COMPLIANCE FRAMEWORK</span>
+            <span>STRICTLY CONFIDENTIAL • INZ METRIC STANDARDS</span>
             <span class="page-num">Page 1 of 6</span>
         </div>
     </div>
 
-    <!-- PAGE 2: CONTRACTUAL TERMS, OFFICIAL DEPARTMENTS & TIMELINES -->
+
+    <!-- PAGE 2: CHRONOLOGY, CONTROL TIMELINES & REGULATORY JURISDICTION -->
     <div class="page">
         <div class="page-header-standard">
-            <span>Section 2: Term Specifications and Regulatory Oversight</span>
-            <span class="ref-num">Ref: <span class="lbl-inz-ref"></span></span>
+            <span>Section 2: Timeline Architecture and System Reference Indexes</span>
+            <span class="ref-num">Ref: <span class="lbl-running-doc-ref"></span></span>
         </div>
 
-        <h2>3. AGREEMENT EXECUTION & CHRONOLOGY</h2>
-        <p>This agreement records an assignment intended to run precisely for a five-year fixed duration, satisfying international immigration checks and operational scheduling pipelines. The specific temporal definitions governing this arrangement are codified below:</p>
+        <h2>4. CHRONOLOGICAL DATA MATRIX & KEY TITLES</h2>
+        <p>The processing, management, and ultimate enforcement of this agreement are mapped through multiple corporate and government verification channels. The baseline dates and reference numbers are defined under the following legal tracking IDs:</p>
         
         <div class="form-grid">
             <div class="form-row">
-                <div class="form-cell-label">Agreement Issue Date</div>
-                <div class="form-cell-input" id="lbl-issue-date"></div>
-            </div>
-            <div class="form-row">
-                <div class="form-cell-label">Contract Classification</div>
-                <div class="form-cell-input">5-Year Fixed-Term Accredited Allocation</div>
-            </div>
-            <div class="form-row">
-                <div class="form-cell-label">Duties Commencement Date</div>
-                <div class="form-cell-input">01 September 2026</div>
-            </div>
-        </div>
-
-        <h2>4. WORK PERMIT JURISDICTION & IMMIGRATION OBLIGATIONS</h2>
-        <p>This individual employment framework is directly dependent on the Employee obtaining and maintaining continuous lawful visa authorization allowing full-time employment execution withi
+ 
